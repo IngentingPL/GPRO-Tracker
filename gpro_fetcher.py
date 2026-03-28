@@ -34,6 +34,14 @@ LANG = "pl"
 # Folder na dane wyścigowe
 DATA_DIR = "data/races"
 
+# Plik kalendarza (oddzielny od danych wyścigowych)
+# Mini-lekcja: Kalendarz to dane współdzielone między wyścigami,
+# więc trzymamy go w osobnym pliku zamiast kopiować do każdego JSONa.
+CALENDAR_FILE = "data/calendar.json"
+
+# Jak często odświeżać kalendarz (w sekundach) - 7 dni
+CALENDAR_MAX_AGE = 7 * 24 * 60 * 60
+
 # Token API - pobierany ze zmiennej środowiskowej (GitHub Secret)
 # Mini-lekcja: Tokeny i hasła NIGDY nie powinny być zapisane w kodzie.
 # Zamiast tego używamy zmiennych środowiskowych (environment variables).
@@ -361,6 +369,34 @@ def save_json(data, filepath):
 # GŁÓWNA LOGIKA SKRYPTU
 # ============================================================
 
+def fetch_and_cache_calendar():
+    """
+    Pobiera kalendarz z API i zapisuje do osobnego pliku.
+    Odświeża tylko jeśli plik nie istnieje lub jest starszy niż 7 dni.
+
+    Mini-lekcja: To jest wzorzec "cache" - zamiast pobierać dane za każdym
+    razem, sprawdzamy najpierw czy mamy aktualną kopię. Dzięki temu
+    oszczędzamy limity API i przyspieszamy działanie.
+    """
+    # Sprawdzamy czy plik istnieje i czy jest wystarczająco świeży
+    if os.path.exists(CALENDAR_FILE):
+        file_age = time.time() - os.path.getmtime(CALENDAR_FILE)
+        if file_age < CALENDAR_MAX_AGE:
+            print(f"  Kalendarz aktualny (wiek: {file_age / 3600:.0f}h). Pomijam pobieranie.")
+            return
+
+    print("  Kalendarz nieaktualny lub brak pliku. Pobieram...")
+    calendar_raw = fetch_calendar()
+
+    if calendar_raw:
+        save_json({
+            "data": calendar_raw,
+            "fetched_at": datetime.utcnow().isoformat() + "Z"
+        }, CALENDAR_FILE)
+    else:
+        print("  [OSTRZEŻENIE] Nie udało się pobrać kalendarza.")
+
+
 def fetch_post_race():
     """
     Pobiera wszystkie dane po wyścigu i zapisuje je jako JSON.
@@ -374,6 +410,10 @@ def fetch_post_race():
         print("[BŁĄD] Brak tokenu API!")
         print("Ustaw zmienną środowiskową GPRO_TOKEN lub GitHub Secret.")
         sys.exit(1)
+
+    # 0. Pobieramy/odświeżamy kalendarz (osobny plik z cache)
+    fetch_and_cache_calendar()
+    pause_between_requests()
 
     # 1. Pobieramy analizę ostatniego wyścigu
     analysis_raw = fetch_race_analysis()
@@ -414,25 +454,20 @@ def fetch_post_race():
 
     # 6. Pobieramy stan bolidu
     car_raw = fetch_car()
-    pause_between_requests()
 
-    # 7. Pobieramy kalendarz
-    calendar_raw = fetch_calendar()
-
-    # Łączymy wszystko w jeden plik
+    # Łączymy wszystko w jeden plik (bez kalendarza - jest w osobnym pliku)
     combined = {
         "race_data": race_data,
         "race_summary": summary_data,
         "driver_profile": driver_raw,
         "standings": standings_raw,
-        "car_status": car_raw,
-        "calendar": calendar_raw
+        "car_status": car_raw
     }
 
-    # 8. Zapisujemy dane wyścigu
+    # 7. Zapisujemy dane wyścigu
     save_json(combined, race_file)
 
-    # 9. Zapisujemy też "latest.json" - zawsze wskazuje na ostatni wyścig
+    # 8. Zapisujemy też "latest.json" - zawsze wskazuje na ostatni wyścig
     save_json(combined, f"{DATA_DIR}/latest.json")
 
     print("\n" + "=" * 60)
