@@ -1,0 +1,63 @@
+# ==========================================================
+# GPRO Tracker - Automatyczne pobieranie danych po wyścigu
+#
+# Mini-lekcja: GitHub Actions to system automatyzacji.
+# "on: schedule" uruchamia workflow automatycznie o danej godzinie.
+# "cron" to format czasu: minuta godzina dzień miesiąc dzień_tygodnia.
+# Wyścigi GPRO: wtorek i piątek o 20:00 CET.
+# Ustawiamy 20:30 CET = 19:30 UTC (z marginesem na zakończenie).
+# ==========================================================
+
+name: Fetch GPRO Data & Deploy
+
+on:
+  # Automatycznie po wyścigach (wt i pt o 19:30 UTC = 20:30 CET)
+  schedule:
+    - cron: '30 19 * * 2'   # Wtorek 19:30 UTC
+    - cron: '30 19 * * 5'   # Piątek 19:30 UTC
+
+  # Ręczne uruchomienie (przycisk w zakładce Actions)
+  workflow_dispatch:
+
+# Uprawnienia do zapisu w repozytorium i GitHub Pages
+permissions:
+  contents: write
+  pages: write
+
+jobs:
+  fetch-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Pobierz kod repozytorium
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. Zainstaluj Pythona
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      # 3. Pobierz dane z GPRO API
+      # Mini-lekcja: secrets.GPRO_TOKEN to "GitHub Secret" -
+      # bezpieczne miejsce na tokeny i hasła.
+      # Ustawiasz go w Settings → Secrets → Actions.
+      - name: Fetch race data
+        env:
+          GPRO_TOKEN: ${{ secrets.GPRO_TOKEN }}
+        run: python gpro_fetcher.py
+
+      # 4. Wygeneruj dashboard HTML
+      - name: Generate dashboard
+        run: python generate_dashboard.py
+
+      # 5. Zapisz zmiany (commit + push)
+      - name: Commit and push
+        run: |
+          git config user.name "GPRO Tracker Bot"
+          git config user.email "gpro-tracker@github-actions"
+          git add data/ index.html
+          # --allow-empty na wypadek gdyby nie było zmian
+          git diff --staged --quiet || git commit -m "🏎️ Dane po wyścigu $(date +'%Y-%m-%d')"
+          git push
