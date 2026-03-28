@@ -17,6 +17,7 @@ from datetime import datetime
 
 
 DATA_DIR = "data/races"
+CALENDAR_FILE = "data/calendar.json"
 OUTPUT_FILE = "index.html"
 
 
@@ -50,6 +51,26 @@ def load_all_races():
     return races
 
 
+def load_calendar():
+    """
+    Wczytuje plik kalendarza (data/calendar.json).
+
+    Mini-lekcja: Kalendarz jest osobnym plikiem, bo to dane współdzielone
+    między wyścigami - nie chcemy ich kopiować do każdego pliku wyścigowego.
+    Jeśli plik nie istnieje, zwracamy pusty słownik.
+    """
+    if not os.path.exists(CALENDAR_FILE):
+        print("  Brak pliku kalendarza (data/calendar.json)")
+        return {}
+
+    try:
+        with open(CALENDAR_FILE, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except (json.JSONDecodeError, IOError) as e:
+        print(f"  Błąd odczytu kalendarza: {e}")
+        return {}
+
+
 def generate_html(races):
     """
     Generuje kompletny plik HTML z dashboardem.
@@ -59,6 +80,10 @@ def generate_html(races):
 
     # Przygotowujemy dane do osadzenia w JS
     js_data = json.dumps(races, ensure_ascii=False)
+
+    # Ładujemy i osadzamy kalendarz osobno
+    calendar = load_calendar()
+    js_calendar = json.dumps(calendar, ensure_ascii=False)
 
     html = f"""<!DOCTYPE html>
 <html lang="pl">
@@ -407,6 +432,91 @@ def generate_html(races):
         }}
 
         /* ==========================================================
+           SEKCJA REKOMENDACJI (zakładka Następny wyścig)
+           Mini-lekcja: BEM-like nazewnictwo (.rec-*) oddziela style
+           rekomendacji od reszty dashboardu - łatwiej utrzymywać.
+           ========================================================== */
+        .rec-header {{
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }}
+
+        .rec-header h2 {{
+            font-size: 1.25rem;
+            margin-bottom: 0.25rem;
+        }}
+
+        .rec-header .rec-subtitle {{
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }}
+
+        .rec-grid {{
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 1rem;
+        }}
+
+        .rec-card {{
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.25rem;
+        }}
+
+        .rec-card h3 {{
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }}
+
+        .rec-card .rec-value {{
+            font-family: var(--font-mono);
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--accent-blue);
+        }}
+
+        .rec-card .rec-note {{
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 0.75rem;
+            font-style: italic;
+        }}
+
+        .rec-card .rec-warn {{
+            font-size: 0.8rem;
+            color: var(--accent-yellow);
+            margin-top: 0.5rem;
+        }}
+
+        .rec-card .rec-row {{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.35rem 0;
+            font-size: 0.85rem;
+        }}
+
+        .rec-card .rec-row .rec-label {{
+            color: var(--text-secondary);
+        }}
+
+        .rec-disclaimer {{
+            margin-top: 1.5rem;
+            padding: 1rem 1.25rem;
+            background: rgba(234, 179, 8, 0.08);
+            border: 1px solid rgba(234, 179, 8, 0.2);
+            border-radius: 10px;
+            font-size: 0.8rem;
+            color: var(--accent-yellow);
+        }}
+
+        /* ==========================================================
            RESPONSYWNOŚĆ
            ========================================================== */
         @media (max-width: 768px) {{
@@ -437,7 +547,8 @@ def generate_html(races):
 
 <!-- Zakładki -->
 <div class="tabs" id="tabsNav">
-    <button class="tab-btn active" data-tab="results">Wyniki</button>
+    <button class="tab-btn active" data-tab="nextrace">Następny wyścig</button>
+    <button class="tab-btn" data-tab="results">Wyniki</button>
     <button class="tab-btn" data-tab="setups">Setupy</button>
     <button class="tab-btn" data-tab="fuel">Paliwo & Opony</button>
     <button class="tab-btn" data-tab="finances">Finanse</button>
@@ -445,7 +556,8 @@ def generate_html(races):
 </div>
 
 <!-- Zawartość zakładek -->
-<div class="tab-content active" id="tab-results"></div>
+<div class="tab-content active" id="tab-nextrace"></div>
+<div class="tab-content" id="tab-results"></div>
 <div class="tab-content" id="tab-setups"></div>
 <div class="tab-content" id="tab-fuel"></div>
 <div class="tab-content" id="tab-finances"></div>
@@ -459,6 +571,9 @@ def generate_html(races):
 // serwera ani dodatkowych zapytań HTTP - działa natychmiast.
 // ==========================================================
 const RACE_DATA = {js_data};
+
+// Dane kalendarza (pobrane z osobnego pliku data/calendar.json)
+const CALENDAR_DATA = {js_calendar};
 
 // ==========================================================
 // OBSŁUGA ZAKŁADEK
@@ -517,6 +632,10 @@ function statClass(name, value) {{
 // ==========================================================
 
 function render() {{
+    // Renderuj zakładkę "Następny wyścig" nawet bez danych wyścigowych
+    // (może mieć kalendarz)
+    renderNextRace();
+
     if (!RACE_DATA || RACE_DATA.length === 0) {{
         document.getElementById('summaryGrid').innerHTML = '';
         document.getElementById('tab-results').innerHTML = `
@@ -585,6 +704,296 @@ function renderSummary(latest) {{
             <div class="sub">${{c.sub}}</div>
         </div>
     `).join('');
+}}
+
+// ==========================================================
+// ZAKŁADKA: NASTĘPNY WYŚCIG (rekomendacje)
+// Mini-lekcja: Ta funkcja analizuje dane historyczne i generuje
+// sugestie na następny wyścig. To NIE są pewne prognozy -
+// każdy wyścig zależy od wielu czynników (pogoda, rywal, RNG).
+// ==========================================================
+function renderNextRace() {{
+    const container = document.getElementById('tab-nextrace');
+
+    // --- Szukamy następnego wyścigu w kalendarzu ---
+    // Kalendarz z API zwraca listę torów z numerami wyścigów
+    const calData = (CALENDAR_DATA && CALENDAR_DATA.data) || {{}};
+    const calendarRaces = calData.races || calData.calendar || [];
+
+    // Ustalamy numer następnego wyścigu na podstawie ostatniego w danych
+    let nextRaceNum = null;
+    let nextTrackName = null;
+    let nextTrackCountry = null;
+    let currentSeason = null;
+
+    if (RACE_DATA.length > 0) {{
+        const lastRd = RACE_DATA[RACE_DATA.length - 1].race_data || {{}};
+        currentSeason = lastRd.season;
+        nextRaceNum = (parseInt(lastRd.race) || 0) + 1;
+    }}
+
+    // Szukamy toru w kalendarzu po numerze wyścigu
+    if (Array.isArray(calendarRaces) && nextRaceNum) {{
+        const nextEntry = calendarRaces.find(c =>
+            parseInt(c.raceNb || c.race || c.number) === nextRaceNum
+        );
+        if (nextEntry) {{
+            nextTrackName = nextEntry.trackName || nextEntry.track || nextEntry.name || null;
+            nextTrackCountry = nextEntry.trackCountry || nextEntry.country || '';
+        }}
+    }}
+
+    // Fallback: jeśli nie znaleźliśmy w kalendarzu, pokaż ogólny komunikat
+    if (!nextTrackName && !nextRaceNum) {{
+        container.innerHTML = `
+            <div class="empty-state">
+                <h2>Brak danych</h2>
+                <p>Potrzebuję danych z co najmniej jednego wyścigu i kalendarza.</p>
+                <p style="margin-top:1rem"><code>python gpro_fetcher.py</code></p>
+            </div>`;
+        return;
+    }}
+
+    // --- Szukamy historii na tym torze ---
+    const trackHistory = [];
+    if (nextTrackName) {{
+        RACE_DATA.forEach(race => {{
+            const rd = race.race_data || {{}};
+            // Porównujemy po nazwie toru (ignorujemy wielkość liter)
+            if (rd.track && rd.track.toLowerCase() === nextTrackName.toLowerCase()) {{
+                trackHistory.push(rd);
+            }}
+        }});
+    }}
+
+    const hasHistory = trackHistory.length > 0;
+
+    // =============================================
+    // 1. INFO O TORZE
+    // =============================================
+    let html = `<div class="rec-header">`;
+    html += `<h2>${{nextTrackName || 'Wyścig #' + nextRaceNum}}</h2>`;
+    if (nextTrackCountry) {{
+        html += `<span class="rec-subtitle">${{nextTrackCountry}}</span>`;
+    }}
+    if (currentSeason) {{
+        html += `<span class="rec-subtitle"> · Sezon ${{currentSeason}}, Wyścig ${{nextRaceNum}}</span>`;
+    }}
+    if (hasHistory) {{
+        html += `<p class="rec-subtitle" style="margin-top:0.5rem">Mamy dane z ${{trackHistory.length}} wyścig${{trackHistory.length === 1 ? 'u' : 'ów'}} na tym torze</p>`;
+    }} else {{
+        html += `<p class="rec-subtitle" style="margin-top:0.5rem;color:var(--accent-yellow)">Brak historii na tym torze</p>`;
+    }}
+    html += `</div>`;
+
+    html += `<div class="rec-grid">`;
+
+    // =============================================
+    // 2. REKOMENDOWANY SETUP
+    // =============================================
+    html += `<div class="rec-card"><h3>Setup</h3>`;
+
+    if (hasHistory) {{
+        // Bierzemy ostatni wyścig na tym torze
+        const lastTrack = trackHistory[trackHistory.length - 1];
+        const raceSetup = (lastTrack.setups || []).find(s =>
+            s.session && s.session.toLowerCase().includes('race')
+        ) || (lastTrack.setups || [])[0];
+
+        if (raceSetup) {{
+            html += `<div class="setup-values">`;
+            ['fw', 'rw', 'eng', 'bra', 'gear', 'susp'].forEach(key => {{
+                html += `
+                <div class="setup-item">
+                    <div class="setup-label">${{key.toUpperCase()}}</div>
+                    <div class="setup-val">${{raceSetup[key] || '-'}}</div>
+                </div>`;
+            }});
+            html += `</div>`;
+
+            // Warunki pogodowe z tamtego wyścigu
+            const w = lastTrack.weather || {{}};
+            const q1w = w.q1 || {{}};
+            html += `<div class="setup-meta">Ostatnio użyty: S${{lastTrack.season}}R${{lastTrack.race}} · ${{q1w.temp || '?'}}°C · ${{q1w.humidity || '?'}}% wilg. · ${{q1w.condition || '?'}}</div>`;
+
+            // Jeśli mamy wiele wyścigów, pokażmy różnice
+            if (trackHistory.length > 1) {{
+                html += `<div class="rec-note">Masz ${{trackHistory.length}} wyścigów na tym torze - sprawdź zakładkę Setupy dla porównania</div>`;
+            }}
+        }} else {{
+            html += `<p>Brak danych setupu z tego toru.</p>`;
+        }}
+    }} else {{
+        html += `<p class="rec-warn">Brak historii - użyj metody binary search (start od 512)</p>`;
+        html += `<div class="rec-note">Metoda binary search: ustaw każdy parametr na 512, potem dziel zakres na pół w zależności od Q1 vs Q2.</div>`;
+    }}
+
+    html += `<div class="rec-note">Setup zależy od pogody i temperatury - sprawdź prognozę przed wyścigiem</div>`;
+    html += `</div>`;
+
+    // =============================================
+    // 3. REKOMENDACJA PALIWOWA
+    // =============================================
+    html += `<div class="rec-card"><h3>Paliwo</h3>`;
+
+    // Obliczamy średnie zużycie paliwa na okrążenie
+    let fuelPerLap = null;
+    let fuelSource = '';
+
+    // Próbujemy z historii tego toru
+    if (hasHistory) {{
+        const fuelData = [];
+        trackHistory.forEach(rd => {{
+            const startFuel = rd.start_fuel;
+            const pits = rd.pits || [];
+            if (startFuel && pits.length > 0 && pits[0].lap) {{
+                // Zużycie = paliwo startowe - paliwo na pierwszym picie / ilość okrążeń
+                const fuelAtPit = pits[0].fuel_left;
+                if (fuelAtPit != null) {{
+                    const consumption = (startFuel - fuelAtPit) / pits[0].lap;
+                    if (consumption > 0 && consumption < 20) {{ // sanity check
+                        fuelData.push(consumption);
+                    }}
+                }}
+            }}
+        }});
+        if (fuelData.length > 0) {{
+            fuelPerLap = fuelData.reduce((a, b) => a + b, 0) / fuelData.length;
+            fuelSource = `z ${{fuelData.length}} wyścig${{fuelData.length === 1 ? 'u' : 'ów'}} na tym torze`;
+        }}
+    }}
+
+    // Fallback: średnia ze WSZYSTKICH wyścigów
+    if (fuelPerLap === null) {{
+        const allFuelData = [];
+        RACE_DATA.forEach(race => {{
+            const rd = race.race_data || {{}};
+            const startFuel = rd.start_fuel;
+            const pits = rd.pits || [];
+            if (startFuel && pits.length > 0 && pits[0].lap) {{
+                const fuelAtPit = pits[0].fuel_left;
+                if (fuelAtPit != null) {{
+                    const consumption = (startFuel - fuelAtPit) / pits[0].lap;
+                    if (consumption > 0 && consumption < 20) {{
+                        allFuelData.push(consumption);
+                    }}
+                }}
+            }}
+        }});
+        if (allFuelData.length > 0) {{
+            fuelPerLap = allFuelData.reduce((a, b) => a + b, 0) / allFuelData.length;
+            fuelSource = `średnia z ${{allFuelData.length}} wyścigów (brak danych z tego toru)`;
+        }}
+    }}
+
+    if (fuelPerLap !== null) {{
+        html += `<div class="rec-row"><span class="rec-label">Szacowane zużycie</span><span class="rec-value">${{fuelPerLap.toFixed(2)}} L/lap</span></div>`;
+        html += `<div class="rec-row"><span class="rec-label">Źródło</span><span>${{fuelSource}}</span></div>`;
+
+        // Sugerowana strategia pit stopów
+        // Zakładamy zbiornik 180L i ~70 okrążeń (standardowe wartości)
+        // Obliczamy ile okrążeń na pełnym baku
+        const maxFuel = 180;
+        const lapsPerTank = Math.floor(maxFuel / fuelPerLap);
+
+        html += `<div class="rec-row" style="margin-top:0.5rem"><span class="rec-label">Okrążeń na pełnym baku</span><span class="rec-value">~${{lapsPerTank}}</span></div>`;
+
+        // Pokaż historię pit stopów z tego toru
+        if (hasHistory) {{
+            html += `<div style="margin-top:0.75rem;font-size:0.8rem;color:var(--text-muted)">Historia pit stopów na tym torze:</div>`;
+            trackHistory.forEach(rd => {{
+                const pits = rd.pits || [];
+                const pitLaps = pits.map(p => 'Lap ' + p.lap + ' (' + (p.refilled_to || '?') + 'L)').join(', ');
+                html += `<div class="rec-row"><span class="rec-label">S${{rd.season}}R${{rd.race}}</span><span>${{rd.start_fuel}}L start · ${{pitLaps || 'brak pit'}}</span></div>`;
+            }});
+        }}
+    }} else {{
+        html += `<p class="rec-warn">Za mało danych do oszacowania zużycia paliwa</p>`;
+    }}
+
+    html += `<div class="rec-note">Wartości orientacyjne - rzeczywiste zużycie zależy od setupu, pogody i stylu jazdy</div>`;
+    html += `</div>`;
+
+    // =============================================
+    // 4. REKOMENDACJA OPONOWA
+    // =============================================
+    html += `<div class="rec-card"><h3>Opony</h3>`;
+
+    // Dane dostawcy opon z ostatniego wyścigu
+    if (RACE_DATA.length > 0) {{
+        const lastRace = RACE_DATA[RACE_DATA.length - 1].race_data || {{}};
+        const ts = lastRace.tyre_supplier || {{}};
+
+        if (ts.name) {{
+            html += `<div class="rec-row"><span class="rec-label">Dostawca</span><span class="rec-value">${{ts.name}}</span></div>`;
+            html += `<div class="rec-row"><span class="rec-label">Peak temp</span><span>${{ts.peak_temp || '?'}}°C</span></div>`;
+            html += `<div class="rec-row"><span class="rec-label">Durability</span><span>${{ts.durability || '?'}}</span></div>`;
+            html += `<div class="rec-row"><span class="rec-label">Dry perf</span><span>${{ts.dry_perf || '?'}}</span></div>`;
+            html += `<div class="rec-row"><span class="rec-label">Wet perf</span><span>${{ts.wet_perf || '?'}}</span></div>`;
+        }}
+    }}
+
+    // Historia zużycia opon na tym torze
+    if (hasHistory) {{
+        html += `<div style="margin-top:0.75rem;font-size:0.8rem;color:var(--text-muted)">Zużycie opon na tym torze:</div>`;
+
+        const tyreLapEstimates = [];
+        trackHistory.forEach(rd => {{
+            const pits = rd.pits || [];
+            // Obliczamy ile okrążeń opony wytrzymały do pierwszego pitu
+            if (pits.length > 0 && pits[0].tyre_condition != null && pits[0].lap) {{
+                const tyreAtPit = pits[0].tyre_condition;
+                // Zużycie % na okrążenie: (100 - stan_przy_picie) / okrążenia
+                const wearPerLap = (100 - tyreAtPit) / pits[0].lap;
+                // Szacujemy ile okrążeń do ~10% (minimalny bezpieczny stan)
+                if (wearPerLap > 0) {{
+                    const estimatedLaps = Math.floor(90 / wearPerLap);
+                    tyreLapEstimates.push(estimatedLaps);
+                }}
+                html += `<div class="rec-row"><span class="rec-label">S${{rd.season}}R${{rd.race}}</span><span>Pit na lap ${{pits[0].lap}} · ${{tyreAtPit}}% opon</span></div>`;
+            }}
+        }});
+
+        if (tyreLapEstimates.length > 0) {{
+            const avgTyreLaps = Math.round(tyreLapEstimates.reduce((a, b) => a + b, 0) / tyreLapEstimates.length);
+            html += `<div class="rec-row" style="margin-top:0.5rem"><span class="rec-label">Szacowana wytrzymałość</span><span class="rec-value">~${{avgTyreLaps}} okrążeń</span></div>`;
+        }}
+    }} else {{
+        // Fallback: ogólna estymacja ze wszystkich wyścigów
+        const allTyreLaps = [];
+        RACE_DATA.forEach(race => {{
+            const rd = race.race_data || {{}};
+            const pits = rd.pits || [];
+            if (pits.length > 0 && pits[0].tyre_condition != null && pits[0].lap) {{
+                const wearPerLap = (100 - pits[0].tyre_condition) / pits[0].lap;
+                if (wearPerLap > 0) {{
+                    allTyreLaps.push(Math.floor(90 / wearPerLap));
+                }}
+            }}
+        }});
+        if (allTyreLaps.length > 0) {{
+            const avg = Math.round(allTyreLaps.reduce((a, b) => a + b, 0) / allTyreLaps.length);
+            html += `<div class="rec-row"><span class="rec-label">Śr. wytrzymałość (wszystkie tory)</span><span class="rec-value">~${{avg}} okrążeń</span></div>`;
+        }}
+    }}
+
+    html += `<div class="rec-note">Wytrzymałość opon zależy od toru, temperatury i peak temp dostawcy</div>`;
+    html += `</div>`;
+
+    // =============================================
+    // 5. RYZYKO
+    // =============================================
+    html += `<div class="rec-card"><h3>Ryzyko</h3>`;
+    html += `<div class="rec-row"><span class="rec-label">Zalecane ryzyko</span><span class="rec-value">0</span></div>`;
+    html += `<p style="margin-top:0.5rem;font-size:0.85rem;color:var(--text-secondary)">Rookie - nie używaj ryzyka. Ryzyko zwiększa szansę na awarię i błędy kierowcy. Na poziomie Rookie zysk jest minimalny, a straty mogą być duże.</p>`;
+    html += `</div>`;
+
+    html += `</div>`; // zamknięcie rec-grid
+
+    // Disclaimer
+    html += `<div class="rec-disclaimer">Wszystkie rekomendacje to szacunki oparte na danych historycznych. Rzeczywiste warunki wyścigu (pogoda, temperatura, zmiany w bolidzie) mogą znacząco wpłynąć na wyniki. Zawsze weryfikuj sugestie przed wyścigiem.</div>`;
+
+    container.innerHTML = html;
 }}
 
 function renderResults() {{
