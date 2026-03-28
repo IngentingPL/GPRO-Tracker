@@ -560,13 +560,21 @@ function renderSummary(latest) {{
 
     // Spróbuj znaleźć pozycję z race_summary
     const summary = latest.race_summary;
-    if (summary && summary.results) {{
-        const me = summary.results.find(r => r.position === 1 || r.gap === '0.000s' || r.gap === '+0.000s');
-        // Find my result by looking for the manager name or first entry
-        if (summary.results.length > 0) {{
-            // Szukamy naszego wyniku - powinien pasować do managera
-            cards[1].value = `P${{summary.results[0].position || '?'}}`;
-            cards[1].sub = summary.results[0].race_time || '';
+    if (summary && summary.results && summary.results.length > 0) {{
+        // Szukamy naszego wyniku - porównujemy nazwę managera z driver_profile
+        const dp = latest.driver_profile || {{}};
+        const myName = dp.manName || dp.manager || '';
+        let myResult = null;
+        if (myName) {{
+            myResult = summary.results.find(r => r.manager === myName);
+        }}
+        // Fallback: gracz z pozycją 1 lub gap 0.000s (lider nie ma luki)
+        if (!myResult) {{
+            myResult = summary.results.find(r => r.gap === '' || r.gap === '0.000s' || r.gap === '+0.000s');
+        }}
+        if (myResult) {{
+            cards[1].value = `P${{myResult.position || '?'}}`;
+            cards[1].sub = myResult.race_time || '';
         }}
     }}
 

@@ -31,7 +31,6 @@ Pobiera dane wyścigowe przez oficjalne API i generuje statyczny dashboard HTML 
 - Bazowy URL: `https://gpro.net`
 - Auth: Bearer token w nagłówku Authorization
 - Endpointy: `/{lang}/backend/api/v2/{endpoint}`
-- Specyfikacja: `gpro-public-api.yml` (OpenAPI 3.0)
 - Limit: ~100 zapytań (pole `apiRequestsRemaining` w odpowiedzi)
 
 ## Kluczowe endpointy
