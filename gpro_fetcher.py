@@ -445,14 +445,36 @@ def fetch_and_cache_calendar():
     calendar_raw = fetch_calendar()
 
     if calendar_raw:
-        # Walidacja: kalendarz powinien być listą
+        # Walidacja: kalendarz może być listą lub słownikiem
         if isinstance(calendar_raw, list):
+            # Bezpośrednia lista wyścigów
             save_json({
                 "data": calendar_raw,
                 "fetched_at": datetime.utcnow().isoformat() + "Z"
             }, CALENDAR_FILE)
+        elif isinstance(calendar_raw, dict):
+            # Słownik - spróbujmy znaleźć listę wyścigów
+            # Sprawdzamy typowe klasy używane przez GPRO API
+            race_data = None
+            for key in ["data", "races", "calendar", "events", "schedule"]:
+                if key in calendar_raw and isinstance(calendar_raw[key], list):
+                    race_data = calendar_raw[key]
+                    break
+
+            if race_data:
+                save_json({
+                    "data": race_data,
+                    "fetched_at": datetime.utcnow().isoformat() + "Z"
+                }, CALENDAR_FILE)
+            else:
+                # Jeśli nie znaleźliśmy listy, zapiszemy cały słownik
+                print(f"  [OSTRZEŻENIE] Kalendarz w formacie słownika, ale nie znaleziono listy wyścigów. Zapisuję oryginalne dane.")
+                save_json({
+                    "data": calendar_raw,
+                    "fetched_at": datetime.utcnow().isoformat() + "Z"
+                }, CALENDAR_FILE)
         else:
-            print(f"  [BŁĄD] Nieprawidłowy format kalendarza (oczekiwano listy, otrzymano: {type(calendar_raw).__name__})")
+            print(f"  [BŁĄD] Nieprawidłowy format kalendarza (oczekiwano listy lub słownika, otrzymano: {type(calendar_raw).__name__})")
     else:
         print("  [OSTRZEŻENIE] Nie udało się pobrać kalendarza.")
 

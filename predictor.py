@@ -577,15 +577,34 @@ def get_next_race_info():
             if not isinstance(calendar, dict):
                 print(f"  [OSTRZEŻENIE] Nieprawidłowy format kalendarza (oczekiwano słownika, otrzymano: {type(calendar).__name__})")
             else:
-                # Szukamy następnego wyścigu
-                for event in calendar.get("data", []):
-                    if event.get("season") == season and event.get("race") == race + 1:
-                        return {
-                            "season": event.get("season"),
-                            "race": event.get("race"),
-                            "track": event.get("trackName"),
-                            "total_laps": event.get("laps", 72)  # Default 72 laps
-                        }
+                # Pobierz dane wyścigów - mogą być jako lista lub słownik
+                calendar_data = calendar.get("data", [])
+
+                # Jeśli data to słownik, spróbujmy znaleźć listę
+                if isinstance(calendar_data, dict):
+                    print(f"  [OSTRZEŻENIE] Kalendarz.data jest słownikiem zamiast listą. Próbuję znaleźć listę wyścigów...")
+                    for key in ["races", "calendar", "events", "schedule", "items"]:
+                        if key in calendar_data and isinstance(calendar_data[key], list):
+                            calendar_data = calendar_data[key]
+                            print(f"  Znaleziono listę w kluczu '{key}'")
+                            break
+                    else:
+                        # Nie znaleziono listy - użyjemy fallback
+                        print(f"  [OSTRZEŻENIE] Nie znaleziono listy wyścigów w kalendarzu. Używam fallback.")
+                        calendar_data = []
+
+                if isinstance(calendar_data, list):
+                    # Szukamy następnego wyścigu
+                    for event in calendar_data:
+                        if event.get("season") == season and event.get("race") == race + 1:
+                            return {
+                                "season": event.get("season"),
+                                "race": event.get("race"),
+                                "track": event.get("trackName"),
+                                "total_laps": event.get("laps", 72)  # Default 72 laps
+                            }
+                else:
+                    print(f"  [OSTRZEŻENIE] Kalendarz.data nie jest listą ani słownikiem (typ: {type(calendar_data).__name__})")
         except Exception as e:
             print(f"  [BŁĄD] Błąd wczytywania kalendarza: {e}")
 
