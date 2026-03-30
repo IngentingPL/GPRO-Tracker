@@ -239,7 +239,7 @@
       "total": 9041500,
       "balance": 24691500
     },
-    "fetched_at": "2026-03-30T20:20:15.704202Z"
+    "fetched_at": "2026-03-30T20:31:40.929874Z"
   },
   "race_summary": {
     "track": "Suzuka",
@@ -253,7 +253,7 @@
     "isSupporter": 1,
     "driverNotFoundNote": true,
     "credits": 0,
-    "cash": 18852348,
+    "cash": 224849,
     "natCode": "mx",
     "natName": "Meksyk",
     "face": "1",
@@ -428,7 +428,7 @@
     "privateOfferCost": 1000000,
     "setOfferCost": 500000,
     "setOfferType": "1",
-    "nextPriceIncrementIn": 218380,
+    "nextPriceIncrementIn": 217695,
     "offerPlaced": 0,
     "inShortList": 1,
     "oneRaceRenewFee": 184700,
@@ -450,7 +450,7 @@
     "setContractLengthExtend": "",
     "totalOffers": 0,
     "offersFrom": [],
-    "apiRequestsRemaining": 972
+    "apiRequestsRemaining": 966
   },
   "standings": {
     "loadingDataState": "1",
@@ -675,7 +675,7 @@
         "manPosChange": "+26",
         "manBgColor": "#007700",
         "negative": 0,
-        "cash": 18852348,
+        "cash": 224849,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -8202,13 +8202,13 @@
         }
       ]
     },
-    "apiRequestsRemaining": 971
+    "apiRequestsRemaining": 965
   },
   "car_status": {
     "loadingDataState": "1",
-    "carPower": 13,
-    "carHandl": 13,
-    "carAccel": 13,
+    "carPower": 27,
+    "carHandl": 27,
+    "carAccel": 27,
     "testPowerPoints": 23.1,
     "testHandlPoints": 23.1,
     "testAccelPoints": 23.1,
@@ -8221,29 +8221,29 @@
     "tPower": 0,
     "tHandl": 0,
     "tAccel": 0,
-    "lvlChassis": 1,
-    "lvlBrakes": 1,
-    "lvlCooling": 1,
-    "lvlElectronics": 1,
-    "lvlEngine": 1,
-    "lvlFWing": 1,
-    "lvlRWing": 1,
-    "lvlGear": 1,
-    "lvlSidepods": 1,
-    "lvlSusp": 1,
-    "lvlUnderbody": 1,
-    "usaBrakes": 55,
-    "usaChassis": 33,
-    "usaCooling": 28,
-    "usaElectronics": 27,
-    "usaEngine": 60,
-    "usaFWing": 42,
-    "usaGear": 55,
-    "usaRWing": 43,
-    "usaSidepods": 32,
-    "usaSusp": 50,
-    "usaUnderbody": 41,
-    "canRepair": 1,
+    "lvlChassis": 2,
+    "lvlBrakes": 2,
+    "lvlCooling": 2,
+    "lvlElectronics": 2,
+    "lvlEngine": 2,
+    "lvlFWing": 2,
+    "lvlRWing": 2,
+    "lvlGear": 2,
+    "lvlSidepods": 2,
+    "lvlSusp": 2,
+    "lvlUnderbody": 2,
+    "usaBrakes": 0,
+    "usaChassis": 0,
+    "usaCooling": 0,
+    "usaElectronics": 0,
+    "usaEngine": 0,
+    "usaFWing": 0,
+    "usaGear": 0,
+    "usaRWing": 0,
+    "usaSidepods": 0,
+    "usaSusp": 0,
+    "usaUnderbody": 0,
+    "canRepair": 0,
     "canUndo": 0,
     "endOfSeason": 0,
     "raceInProgress": 0,
@@ -8254,8 +8254,8 @@
           "value": 0,
           "cost": 0
         },
-        "newLvl": "1",
-        "newWear": "33",
+        "newLvl": "2",
+        "newWear": "0",
         "disabled": "false",
         "text": "Nie wymieniaj"
       },
@@ -8278,6 +8278,26 @@
         "newWear": "0",
         "disabled": "false",
         "text": "Zamie&#324; na L2 ($1.600.810)"
+      },
+      {
+        "value": {
+          "value": 3,
+          "cost": 1982603
+        },
+        "newLvl": "3",
+        "newWear": "0",
+        "disabled": "false",
+        "text": "Zamie&#324; na L3 ($1.982.603)"
+      },
+      {
+        "value": {
+          "value": -1,
+          "cost": 0
+        },
+        "newLvl": "1",
+        "newWear": "0",
+        "disabled": "false",
+        "text": "Obni&#380; na L1 (Zu&#380;ycie: 0%)"
       }
     ],
     "engineOptions": [
@@ -8286,8 +8306,8 @@
           "value": 0,
           "cost": 0
         },
-        "newLvl": "1",
-        "newWear": "60",
+        "newLvl": "2",
+        "newWear": "0",
         "disabled": "false",
         "text": "Nie wymieniaj"
       },
@@ -8310,6 +8330,26 @@
         "newWear": "0",
         "disabled": "false",
         "text": "Zamie&#324; na L2 ($4.101.586)"
+      },
+      {
+        "value": {
+          "value": 3,
+          "cost": 5079815
+        },
+        "newLvl": "3",
+        "newWear": "0",
+        "disabled": "false",
+        "text": "Zamie&#324; na L3 ($5.079.815)"
+      },
+      {
+        "value": {
+          "value": -1,
+          "cost": 0
+        },
+        "newLvl": "1",
+        "newWear": "0",
+        "disabled": "false",
+        "text": "Obni&#380; na L1 (Zu&#380;ycie: 0%)"
       }
     ],
     "fWingOptions": [
@@ -8318,8 +8358,8 @@
           "value": 0,
           "cost": 0
         },
-        "newLvl": "1",
-        "newWear": "42",
+        "newLvl": "2",
+        "newWear": "0",
         "disabled": "false",
         "text": "Nie wymieniaj"
       },
@@ -8342,6 +8382,26 @@
         "newWear": "0",
         "disabled": "false",
         "text": "Zamie&#324; na L2 ($1.921.352)"
+      },
+      {
+        "value": {
+          "value": 3,
+          "cost": 2379594
+        },
+        "newLvl": "3",
+        "newWear": "0",
+        "disabled": "false",
+        "text": "Zamie&#324; na L3 ($2.379.594)"
+      },
+      {
+        "value": {
+          "value": -1,
+          "cost": 0
+        },
+        "newLvl": "1",
+        "newWear": "0",
+        "disabled": "false",
+        "text": "Obni&#380; na L1 (Zu&#380;ycie: 0%)"
       }
     ],
     "rWingOptions": [
@@ -8350,8 +8410,8 @@
           "value": 0,
           "cost": 0
         },
-        "newLvl": "1",
-        "newWear": "43",
+        "newLvl": "2",
+        "newWear": "0",
         "disabled": "false",
         "text": "Nie wymieniaj"
       },
@@ -8374,6 +8434,26 @@
         "newWear": "0",
         "disabled": "false",
         "text": "Zamie&#324; na L2 ($1.862.860)"
+      },
+      {
+        "value": {
+          "value": 3,
+          "cost": 2307152
+        },
+        "newLvl": "3",
+        "newWear": "0",
+        "disabled": "false",
+        "text": "Zamie&#324; na L3 ($2.307.152)"
+      },
+      {
+        "value": {
+          "value": -1,
+          "cost": 0
+        },
+        "newLvl": "1",
+        "newWear": "0",
+        "disabled": "false",
+        "text": "Obni&#380; na L1 (Zu&#380;ycie: 0%)"
       }
     ],
     "underbodyOptions": [
@@ -8382,8 +8462,8 @@
           "value": 0,
           "cost": 0
         },
-        "newLvl": "1",
-        "newWear": "41",
+        "newLvl": "2",
+        "newWear": "0",
         "disabled": "false",
         "text": "Nie wymieniaj"
       },
@@ -8406,6 +8486,26 @@
         "newWear": "0",
         "disabled": "false",
         "text": "Zamie&#324; na L2 ($631.794)"
+      },
+      {
+        "value": {
+          "value": 3,
+          "cost": 782476
+        },
+        "newLvl": "3",
+        "newWear": "0",
+        "disabled": "false",
+        "text": "Zamie&#324; na L3 ($782.476)"
+      },
+      {
+        "value": {
+          "value": -1,
+          "cost": 0
+        },
+        "newLvl": "1",
+        "newWear": "0",
+        "disabled": "false",
+        "text": "Obni&#380; na L1 (Zu&#380;ycie: 0%)"
       }
     ],
     "sidepodsOptions": [
@@ -8414,8 +8514,8 @@
           "value": 0,
           "cost": 0
         },
-        "newLvl": "1",
-        "newWear": "32",
+        "newLvl": "2",
+        "newWear": "0",
         "disabled": "false",
         "text": "Nie wymieniaj"
       },
@@ -8438,6 +8538,26 @@
         "newWear": "0",
         "disabled": "false",
         "text": "Zamie&#324; na L2 ($569.501)"
+      },
+      {
+        "value": {
+          "value": 3,
+          "cost": 705327
+        },
+        "newLvl": "3",
+        "newWear": "0",
+        "disabled": "false",
+        "text": "Zamie&#324; na L3 ($705.327)"
+      },
+      {
+        "value": {
+          "value": -1,
+          "cost": 0
+        },
+        "newLvl": "1",
+        "newWear": "0",
+        "disabled": "false",
+        "text": "Obni&#380; na L1 (Zu&#380;ycie: 0%)"
       }
     ],
     "coolingOptions": [
@@ -8446,8 +8566,8 @@
           "value": 0,
           "cost": 0
         },
-        "newLvl": "1",
-        "newWear": "28",
+        "newLvl": "2",
+        "newWear": "0",
         "disabled": "false",
         "text": "Nie wymieniaj"
       },
@@ -8470,6 +8590,26 @@
         "newWear": "0",
         "disabled": "false",
         "text": "Zamie&#324; na L2 ($562.954)"
+      },
+      {
+        "value": {
+          "value": 3,
+          "cost": 697219
+        },
+        "newLvl": "3",
+        "newWear": "0",
+        "disabled": "false",
+        "text": "Zamie&#324; na L3 ($697.219)"
+      },
+      {
+        "value": {
+          "value": -1,
+          "cost": 0
+        },
+        "newLvl": "1",
+        "newWear": "0",
+        "disabled": "false",
+        "text": "Obni&#380; na L1 (Zu&#380;ycie: 0%)"
       }
     ],
     "gearOptions": [
@@ -8478,8 +8618,8 @@
           "value": 0,
           "cost": 0
         },
-        "newLvl": "1",
-        "newWear": "55",
+        "newLvl": "2",
+        "newWear": "0",
         "disabled": "false",
         "text": "Nie wymieniaj"
       },
@@ -8502,6 +8642,26 @@
         "newWear": "0",
         "disabled": "false",
         "text": "Zamie&#324; na L2 ($3.837.002)"
+      },
+      {
+        "value": {
+          "value": 3,
+          "cost": 4752127
+        },
+        "newLvl": "3",
+        "newWear": "0",
+        "disabled": "false",
+        "text": "Zamie&#324; na L3 ($4.752.127)"
+      },
+      {
+        "value": {
+          "value": -1,
+          "cost": 0
+        },
+        "newLvl": "1",
+        "newWear": "0",
+        "disabled": "false",
+        "text": "Obni&#380; na L1 (Zu&#380;ycie: 0%)"
       }
     ],
     "brakesOptions": [
@@ -8510,8 +8670,8 @@
           "value": 0,
           "cost": 0
         },
-        "newLvl": "1",
-        "newWear": "55",
+        "newLvl": "2",
+        "newWear": "0",
         "disabled": "false",
         "text": "Nie wymieniaj"
       },
@@ -8534,6 +8694,26 @@
         "newWear": "0",
         "disabled": "false",
         "text": "Zamie&#324; na L2 ($864.069)"
+      },
+      {
+        "value": {
+          "value": 3,
+          "cost": 1070150
+        },
+        "newLvl": "3",
+        "newWear": "0",
+        "disabled": "false",
+        "text": "Zamie&#324; na L3 ($1.070.150)"
+      },
+      {
+        "value": {
+          "value": -1,
+          "cost": 0
+        },
+        "newLvl": "1",
+        "newWear": "0",
+        "disabled": "false",
+        "text": "Obni&#380; na L1 (Zu&#380;ycie: 0%)"
       }
     ],
     "suspOptions": [
@@ -8542,8 +8722,8 @@
           "value": 0,
           "cost": 0
         },
-        "newLvl": "1",
-        "newWear": "50",
+        "newLvl": "2",
+        "newWear": "0",
         "disabled": "false",
         "text": "Nie wymieniaj"
       },
@@ -8566,6 +8746,26 @@
         "newWear": "0",
         "disabled": "false",
         "text": "Zamie&#324; na L2 ($1.463.343)"
+      },
+      {
+        "value": {
+          "value": 3,
+          "cost": 1812351
+        },
+        "newLvl": "3",
+        "newWear": "0",
+        "disabled": "false",
+        "text": "Zamie&#324; na L3 ($1.812.351)"
+      },
+      {
+        "value": {
+          "value": -1,
+          "cost": 0
+        },
+        "newLvl": "1",
+        "newWear": "0",
+        "disabled": "false",
+        "text": "Obni&#380; na L1 (Zu&#380;ycie: 0%)"
       }
     ],
     "electronicsOptions": [
@@ -8574,8 +8774,8 @@
           "value": 0,
           "cost": 0
         },
-        "newLvl": "1",
-        "newWear": "27",
+        "newLvl": "2",
+        "newWear": "0",
         "disabled": "false",
         "text": "Nie wymieniaj"
       },
@@ -8598,6 +8798,26 @@
         "newWear": "0",
         "disabled": "false",
         "text": "Zamie&#324; na L2 ($1.162.228)"
+      },
+      {
+        "value": {
+          "value": 3,
+          "cost": 1439420
+        },
+        "newLvl": "3",
+        "newWear": "0",
+        "disabled": "false",
+        "text": "Zamie&#324; na L3 ($1.439.420)"
+      },
+      {
+        "value": {
+          "value": -1,
+          "cost": 0
+        },
+        "newLvl": "1",
+        "newWear": "0",
+        "disabled": "false",
+        "text": "Obni&#380; na L1 (Zu&#380;ycie: 0%)"
       }
     ],
     "selectedBrakes": {
@@ -8647,13 +8867,13 @@
     "totalCosts": 0,
     "undoCompleted": 0,
     "carUpdated": 0,
-    "cash": 18852348,
+    "cash": 224849,
     "showCarUpdateAlert": false,
     "showUndoAlert": false,
     "showUndoAlertCredits": false,
     "showUndoAlertNoCredits": false,
     "credits": 0,
     "races": 1,
-    "apiRequestsRemaining": 970
+    "apiRequestsRemaining": 964
   }
 }
