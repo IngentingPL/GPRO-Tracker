@@ -445,10 +445,14 @@ def fetch_and_cache_calendar():
     calendar_raw = fetch_calendar()
 
     if calendar_raw:
-        save_json({
-            "data": calendar_raw,
-            "fetched_at": datetime.utcnow().isoformat() + "Z"
-        }, CALENDAR_FILE)
+        # Walidacja: kalendarz powinien być listą
+        if isinstance(calendar_raw, list):
+            save_json({
+                "data": calendar_raw,
+                "fetched_at": datetime.utcnow().isoformat() + "Z"
+            }, CALENDAR_FILE)
+        else:
+            print(f"  [BŁĄD] Nieprawidłowy format kalendarza (oczekiwano listy, otrzymano: {type(calendar_raw).__name__})")
     else:
         print("  [OSTRZEŻENIE] Nie udało się pobrać kalendarza.")
 

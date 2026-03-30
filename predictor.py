@@ -573,15 +573,19 @@ def get_next_race_info():
             with open(calendar_file, "r", encoding="utf-8") as f:
                 calendar = json.load(f)
 
-            # Szukamy następnego wyścigu
-            for event in calendar.get("data", []):
-                if event.get("season") == season and event.get("race") == race + 1:
-                    return {
-                        "season": event.get("season"),
-                        "race": event.get("race"),
-                        "track": event.get("trackName"),
-                        "total_laps": event.get("laps", 72)  # Default 72 laps
-                    }
+            # Walidacja: kalendarz powinien być słownikiem
+            if not isinstance(calendar, dict):
+                print(f"  [OSTRZEŻENIE] Nieprawidłowy format kalendarza (oczekiwano słownika, otrzymano: {type(calendar).__name__})")
+            else:
+                # Szukamy następnego wyścigu
+                for event in calendar.get("data", []):
+                    if event.get("season") == season and event.get("race") == race + 1:
+                        return {
+                            "season": event.get("season"),
+                            "race": event.get("race"),
+                            "track": event.get("trackName"),
+                            "total_laps": event.get("laps", 72)  # Default 72 laps
+                        }
         except Exception as e:
             print(f"  [BŁĄD] Błąd wczytywania kalendarza: {e}")
 
