@@ -14,6 +14,7 @@ wzorców w programowaniu danych.
 
 import json
 import os
+import subprocess
 import sys
 import time
 from urllib.request import Request, urlopen
@@ -34,6 +35,11 @@ LANG = "pl"
 # Folder na dane wyścigowe
 DATA_DIR = "data/races"
 
+# Folder na profile torów (cache)
+# Mini-lekcja: Profile torów zmieniają się rzadko, więc trzymamy
+# je w cache przez 30 dni. Oszczędza to limity API.
+TRACKS_DIR = "data/tracks"
+
 # Plik kalendarza (oddzielny od danych wyścigowych)
 # Mini-lekcja: Kalendarz to dane współdzielone między wyścigami,
 # więc trzymamy go w osobnym pliku zamiast kopiować do każdego JSONa.
@@ -41,6 +47,9 @@ CALENDAR_FILE = "data/calendar.json"
 
 # Jak często odświeżać kalendarz (w sekundach) - 7 dni
 CALENDAR_MAX_AGE = 7 * 24 * 60 * 60
+
+# Jak często odświeżać profile torów (w sekundach) - 30 dni
+TRACK_PROFILE_MAX_AGE = 30 * 24 * 60 * 60
 
 # Token API - pobierany ze zmiennej środowiskowej (GitHub Secret)
 # Mini-lekcja: Tokeny i hasła NIGDY nie powinny być zapisane w kodzie.
@@ -154,6 +163,53 @@ def fetch_car():
     """Pobiera dane o stanie bolidu - poziomy części, zużycie."""
     print("  Pobieram dane bolidu (UpdateCar)...")
     return api_get("UpdateCar")
+
+
+def fetch_track_profile(track_id):
+    """
+    Pobiera profil toru z API z cachowaniem.
+
+    Mini-lekcja: To jest wzorzec "cache" - sprawdzamy czy mamy
+    aktualne dane lokalnie przed pobraniem z API. Profile torów
+    zmieniają się rzadko, więc trzymamy je przez 30 dni.
+
+    Zwraca dane profilu toru lub None jeśli błąd.
+    """
+    if not track_id:
+        print("  [OSTRZEŻENIE] Brak track_id - pomijam pobieranie profilu toru.")
+        return None
+
+    # Ścieżka do pliku cache
+    track_file = f"{TRACKS_DIR}/{track_id}.json"
+
+    # Sprawdzamy czy plik istnieje i jest wystarczająco świeży
+    if os.path.exists(track_file):
+        file_age = time.time() - os.path.getmtime(track_file)
+        if file_age < TRACK_PROFILE_MAX_AGE:
+            print(f"  Profil toru {track_id} aktualny (wiek: {file_age / 3600:.0f}h). Wczytuję z cache...")
+            try:
+                with open(track_file, "r", encoding="utf-8") as f:
+                    return json.load(f)
+            except Exception as e:
+                print(f"  [BŁĄD] Błąd wczytywania cache: {e}. Pobieram z API...")
+
+    # Pobieramy z API
+    print(f"  Pobieram profil toru {track_id} (TrackProfile)...")
+    profile_data = api_get(f"TrackProfile?id={track_id}")
+
+    if profile_data:
+        # Zapisujemy do cache
+        os.makedirs(os.path.dirname(track_file), exist_ok=True)
+        with open(track_file, "w", encoding="utf-8") as f:
+            json.dump({
+                "data": profile_data,
+                "fetched_at": datetime.utcnow().isoformat() + "Z"
+            }, f, ensure_ascii=False, indent=2)
+        print(f"  Zapisano profil toru do: {track_file}")
+        return profile_data
+    else:
+        print(f"  [BŁĄD] Nie udało się pobrać profilu toru {track_id}.")
+        return None
 
 
 # ============================================================
@@ -469,6 +525,49 @@ def fetch_post_race():
 
     # 8. Zapisujemy też "latest.json" - zawsze wskazuje na ostatni wyścig
     save_json(combined, f"{DATA_DIR}/latest.json")
+
+    # 9. Pobierz profil następnego toru (jeśli mamy info z kalendarza)
+    # Mini-lekcja: Próbujemy znaleźć track_id następnego toru z kalendarza.
+    # Dzięki temu predictor może użyć bardziej szczegółowych danych o torze.
+    next_track_id = None
+    try:
+        if os.path.exists(CALENDAR_FILE):
+            with open(CALENDAR_FILE, "r", encoding="utf-8") as f:
+                calendar = json.load(f)
+
+            next_race_num = (int(race) if race.isdigit() else 0) + 1
+            calendar_races = calendar.get("data", calendar.get("races", []))
+
+            for event in calendar_races:
+                if str(event.get("raceNb", event.get("race", ""))) == str(next_race_num):
+                    next_track_id = event.get("trackId")
+                    if next_track_id:
+                        pause_between_requests()
+                        fetch_track_profile(next_track_id)
+                        break
+    except Exception as e:
+        print(f"  [OSTRZEŻENIE] Błąd podczas pobierania profilu następnego toru: {e}")
+
+    # 10. Uruchom predictor
+    # Mini-lekcja: Używamy subprocess żeby uruchomić predictor.py
+    # jako osobny proces. check=False oznacza, że nie crashujemy
+    # workflow jeśli predictor się nie powiedzie.
+    print("\n  Uruchamiam predictor.py...")
+    try:
+        result = subprocess.run(
+            [sys.executable, "predictor.py"],
+            check=False,
+            capture_output=True,
+            text=True
+        )
+        if result.returncode == 0:
+            print("  Predictor zakończony pomyślnie.")
+        else:
+            print(f"  [OSTRZEŻENIE] Predictor zakończony z błędem: {result.returncode}")
+            if result.stderr:
+                print(f"  Stderr: {result.stderr}")
+    except Exception as e:
+        print(f"  [BŁĄD] Nie udało się uruchomić predictora: {e}")
 
     print("\n" + "=" * 60)
     print(f"Gotowe! Dane zapisane do {race_file}")

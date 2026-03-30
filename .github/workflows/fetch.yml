@@ -48,11 +48,17 @@ jobs:
           GPRO_TOKEN: ${{ secrets.GPRO_TOKEN }}
         run: python gpro_fetcher.py
 
-      # 4. Wygeneruj dashboard HTML
+      # 4. Wygeneruj predykcje setupu
+      # Mini-lekcja: Predictor analizuje historię wyścigów i
+      # generuje rekomendacje setupu na następny wyścig.
+      - name: Generate predictions
+        run: python predictor.py
+
+      # 5. Wygeneruj dashboard HTML
       - name: Generate dashboard
         run: python generate_dashboard.py
 
-      # 5. Zapisz zmiany (commit + push)
+      # 6. Zapisz zmiany (commit + push)
       - name: Commit and push
         run: |
           git config user.name "GPRO Tracker Bot"
