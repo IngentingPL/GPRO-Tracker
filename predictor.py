@@ -281,7 +281,7 @@ def adjust_for_temperature(base_setup, base_temp, target_temp):
     for setting in ["fw", "rw", "eng", "bra", "gear", "susp"]:
         coefficient = TEMP_COEFFICIENTS[setting]
         change = coefficient * delta
-        new_value = base_setup[setting] + change
+        new_value = float(base_setup[setting]) + change
         # Ograniczamy do zakresu 0-999 i zaokrąglamy
         adjusted[setting] = max(0, min(999, round(new_value)))
 
@@ -302,12 +302,12 @@ def adjust_for_weather(setup, current_weather, target_weather):
     if current_weather == "dry" and target_weather == "wet":
         # dry → wet
         for setting in ["fw", "rw", "eng", "bra", "gear", "susp"]:
-            new_value = setup[setting] + DRY_TO_WET[setting]
+            new_value = float(setup[setting]) + DRY_TO_WET[setting]
             adjusted[setting] = max(0, min(999, round(new_value)))
     elif current_weather == "wet" and target_weather == "dry":
         # wet → dry
         for setting in ["fw", "rw", "eng", "bra", "gear", "susp"]:
-            new_value = setup[setting] + WET_TO_DRY[setting]
+            new_value = float(setup[setting]) + WET_TO_DRY[setting]
             adjusted[setting] = max(0, min(999, round(new_value)))
     else:
         # Nieznana pogoda → zwracamy bez zmian
@@ -329,7 +329,7 @@ def adjust_for_humidity(base_setup, base_hum, target_hum):
     for setting in ["fw", "rw", "eng", "bra", "gear", "susp"]:
         coefficient = TEMP_COEFFICIENTS[setting]
         change = coefficient * 0.1 * delta  # 0.1 = wilgotność ma ~10% wpływu temperatury
-        new_value = base_setup[setting] + change
+        new_value = float(base_setup[setting]) + change
         # Ograniczamy do zakresu 0-999 i zaokrąglamy
         adjusted[setting] = max(0, min(999, round(new_value)))
 
