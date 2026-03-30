@@ -563,8 +563,8 @@ def get_next_race_info():
         return None
 
     race_data = data.get("race_data", {})
-    season = race_data.get("season", 0)
-    race = race_data.get("race", 0)
+    season = int(race_data.get("season", 0))
+    race = int(race_data.get("race", 0))
 
     # Sprawdzamy kalendarz
     calendar_file = "data/calendar.json"
