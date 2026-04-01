@@ -1,0 +1,468 @@
+{
+  "data": [
+    {
+      "winner": {
+        "IDM": 0
+      },
+      "eventType": "SD",
+      "idxReal": "1",
+      "idx": "1",
+      "trackName": "Rynek transferowy #1",
+      "trackNatCode": "",
+      "dateEvent": "Lut 2, 2026",
+      "trackId": "1"
+    },
+    {
+      "winner": {
+        "IDM": 0
+      },
+      "eventType": "SD",
+      "idxReal": "2",
+      "idx": "2",
+      "trackName": "Rynek transferowy #2",
+      "trackNatCode": "",
+      "dateEvent": "Lut 5, 2026",
+      "trackId": "1"
+    },
+    {
+      "winner": {
+        "IDM": 0
+      },
+      "eventType": "R",
+      "idxReal": "3",
+      "idx": "1",
+      "trackName": "Brands Hatch GP (Wielka Brytania)",
+      "trackNatCode": "gb",
+      "dateEvent": "Lut 6, 2026",
+      "trackId": "23",
+      "isCurrentRace": 0,
+      "isFavTrack": 0
+    },
+    {
+      "winner": {
+        "IDM": 0
+      },
+      "eventType": "SD",
+      "idxReal": "4",
+      "idx": "4",
+      "trackName": "Rynek transferowy #3",
+      "trackNatCode": "",
+      "dateEvent": "Lut 9, 2026",
+      "trackId": "1"
+    },
+    {
+      "winner": {
+        "IDM": 0
+      },
+      "eventType": "R",
+      "idxReal": "5",
+      "idx": "2",
+      "trackName": "Spa GP (Belgia)",
+      "trackNatCode": "be",
+      "dateEvent": "Lut 10, 2026",
+      "trackId": "10",
+      "isCurrentRace": 0,
+      "isFavTrack": 0
+    },
+    {
+      "winner": {
+        "IDM": 0
+      },
+      "eventType": "SD",
+      "idxReal": "6",
+      "idx": "6",
+      "trackName": "Rynek transferowy #4",
+      "trackNatCode": "",
+      "dateEvent": "Lut 12, 2026",
+      "trackId": "1"
+    },
+    {
+      "winner": {
+        "IDM": 0
+      },
+      "eventType": "R",
+      "idxReal": "7",
+      "idx": "3",
+      "trackName": "Portimao GP (Portugalia)",
+      "trackNatCode": "pt",
+      "dateEvent": "Lut 13, 2026",
+      "trackId": "49",
+      "isCurrentRace": 0,
+      "isFavTrack": 0
+    },
+    {
+      "winner": {
+        "IDM": 0
+      },
+      "eventType": "SD",
+      "idxReal": "8",
+      "idx": "8",
+      "trackName": "Rynek transferowy #5",
+      "trackNatCode": "",
+      "dateEvent": "Lut 16, 2026",
+      "trackId": "1"
+    },
+    {
+      "winner": {
+        "IDM": 0
+      },
+      "eventType": "R",
+      "idxReal": "9",
+      "idx": "4",
+      "trackName": "Anderstorp GP (Szwecja)",
+      "trackNatCode": "se",
+      "dateEvent": "Lut 17, 2026",
+      "trackId": "30",
+      "isCurrentRace": 0,
+      "isFavTrack": 0
+    },
+    {
+      "winner": {
+        "IDM": 0
+      },
+      "eventType": "SD",
+      "idxReal": "10",
+      "idx": "10",
+      "trackName": "Rynek transferowy #6",
+      "trackNatCode": "",
+      "dateEvent": "Lut 19, 2026",
+      "trackId": "1"
+    },
+    {
+      "winner": {
+        "IDM": 0
+      },
+      "eventType": "R",
+      "idxReal": "11",
+      "idx": "5",
+      "trackName": "Serres GP (Grecja)",
+      "trackNatCode": "gr",
+      "dateEvent": "Lut 20, 2026",
+      "trackId": "53",
+      "isCurrentRace": 0,
+      "isFavTrack": 0
+    },
+    {
+      "winner": {
+        "IDM": 0
+      },
+      "eventType": "SD",
+      "idxReal": "12",
+      "idx": "12",
+      "trackName": "Rynek transferowy #7",
+      "trackNatCode": "",
+      "dateEvent": "Lut 23, 2026",
+      "trackId": "1"
+    },
+    {
+      "winner": {
+        "IDM": 0
+      },
+      "eventType": "R",
+      "idxReal": "13",
+      "idx": "6",
+      "trackName": "Jerez GP (Hiszpania)",
+      "trackNatCode": "es",
+      "dateEvent": "Lut 24, 2026",
+      "trackId": "14",
+      "isCurrentRace": 0,
+      "isFavTrack": 0
+    },
+    {
+      "winner": {
+        "IDM": 0
+      },
+      "eventType": "SD",
+      "idxReal": "14",
+      "idx": "14",
+      "trackName": "Rynek transferowy #8",
+      "trackNatCode": "",
+      "dateEvent": "Lut 26, 2026",
+      "trackId": "1"
+    },
+    {
+      "winner": {
+        "IDM": 0
+      },
+      "eventType": "R",
+      "idxReal": "15",
+      "idx": "7",
+      "trackName": "Bremgarten GP (Szwajcaria)",
+      "trackNatCode": "ch",
+      "dateEvent": "Lut 27, 2026",
+      "trackId": "57",
+      "isCurrentRace": 0,
+      "isFavTrack": 0
+    },
+    {
+      "winner": {
+        "IDM": 0
+      },
+      "eventType": "SD",
+      "idxReal": "16",
+      "idx": "16",
+      "trackName": "Rynek transferowy #9",
+      "trackNatCode": "",
+      "dateEvent": "Mar 2, 2026",
+      "trackId": "1"
+    },
+    {
+      "winner": {
+        "IDM": 0
+      },
+      "eventType": "R",
+      "idxReal": "17",
+      "idx": "8",
+      "trackName": "A1-Ring GP (Austria)",
+      "trackNatCode": "at",
+      "dateEvent": "Mar 3, 2026",
+      "trackId": "12",
+      "isCurrentRace": 0,
+      "isFavTrack": 0
+    },
+    {
+      "winner": {
+        "IDM": 0
+      },
+      "eventType": "SD",
+      "idxReal": "18",
+      "idx": "18",
+      "trackName": "Rynek transferowy #10",
+      "trackNatCode": "",
+      "dateEvent": "Mar 5, 2026",
+      "trackId": "1"
+    },
+    {
+      "winner": {
+        "IDM": 0
+      },
+      "eventType": "R",
+      "idxReal": "19",
+      "idx": "9",
+      "trackName": "Melbourne GP (Australia)",
+      "trackNatCode": "au",
+      "dateEvent": "Mar 6, 2026",
+      "trackId": "34",
+      "isCurrentRace": 0,
+      "isFavTrack": 0
+    },
+    {
+      "winner": {
+        "IDM": 0
+      },
+      "eventType": "SD",
+      "idxReal": "20",
+      "idx": "20",
+      "trackName": "Rynek transferowy #11",
+      "trackNatCode": "",
+      "dateEvent": "Mar 9, 2026",
+      "trackId": "1"
+    },
+    {
+      "winner": {
+        "IDM": 0
+      },
+      "eventType": "R",
+      "idxReal": "21",
+      "idx": "10",
+      "trackName": "Kyalami GP (Republika Po&#322;udniowej Afryki)",
+      "trackNatCode": "za",
+      "dateEvent": "Mar 10, 2026",
+      "trackId": "20",
+      "isCurrentRace": 0,
+      "isFavTrack": 0
+    },
+    {
+      "winner": {
+        "IDM": 0
+      },
+      "eventType": "SD",
+      "idxReal": "22",
+      "idx": "22",
+      "trackName": "Rynek transferowy #12",
+      "trackNatCode": "",
+      "dateEvent": "Mar 12, 2026",
+      "trackId": "1"
+    },
+    {
+      "winner": {
+        "IDM": 0
+      },
+      "eventType": "R",
+      "idxReal": "23",
+      "idx": "11",
+      "trackName": "Shanghai GP (Chiny)",
+      "trackNatCode": "cn",
+      "dateEvent": "Mar 13, 2026",
+      "trackId": "33",
+      "isCurrentRace": 0,
+      "isFavTrack": 0
+    },
+    {
+      "winner": {
+        "IDM": 0
+      },
+      "eventType": "SD",
+      "idxReal": "24",
+      "idx": "24",
+      "trackName": "Rynek transferowy #13",
+      "trackNatCode": "",
+      "dateEvent": "Mar 16, 2026",
+      "trackId": "1"
+    },
+    {
+      "winner": {
+        "IDM": 0
+      },
+      "eventType": "R",
+      "idxReal": "25",
+      "idx": "12",
+      "trackName": "Losail GP (Katar)",
+      "trackNatCode": "qa",
+      "dateEvent": "Mar 17, 2026",
+      "trackId": "63",
+      "isCurrentRace": 0,
+      "isFavTrack": 0
+    },
+    {
+      "winner": {
+        "IDM": 0
+      },
+      "eventType": "SD",
+      "idxReal": "26",
+      "idx": "26",
+      "trackName": "Rynek transferowy #14",
+      "trackNatCode": "",
+      "dateEvent": "Mar 19, 2026",
+      "trackId": "1"
+    },
+    {
+      "winner": {
+        "name": "Arrow Unknown",
+        "natCode": "0",
+        "IDM": 1126964,
+        "champs": "0"
+      },
+      "eventType": "R",
+      "idxReal": "27",
+      "idx": "13",
+      "trackName": "Sepang GP (Malezja)",
+      "trackNatCode": "my",
+      "dateEvent": "Mar 20, 2026",
+      "trackId": "15",
+      "isCurrentRace": 0,
+      "isFavTrack": 0
+    },
+    {
+      "winner": {
+        "IDM": 0
+      },
+      "eventType": "SD",
+      "idxReal": "28",
+      "idx": "28",
+      "trackName": "Rynek transferowy #15",
+      "trackNatCode": "",
+      "dateEvent": "Mar 23, 2026",
+      "trackId": "1"
+    },
+    {
+      "winner": {
+        "name": "Arrow Unknown",
+        "natCode": "0",
+        "IDM": 1126964,
+        "champs": "0"
+      },
+      "eventType": "R",
+      "idxReal": "29",
+      "idx": "14",
+      "trackName": "Yeongam GP (Korea Po&#322;udniowa)",
+      "trackNatCode": "kr",
+      "dateEvent": "Mar 24, 2026",
+      "trackId": "44",
+      "isCurrentRace": 0,
+      "isFavTrack": 0
+    },
+    {
+      "winner": {
+        "IDM": 0
+      },
+      "eventType": "SD",
+      "idxReal": "30",
+      "idx": "30",
+      "trackName": "Rynek transferowy #16",
+      "trackNatCode": "",
+      "dateEvent": "Mar 26, 2026",
+      "trackId": "1"
+    },
+    {
+      "winner": {
+        "name": "Piotr Tkaczyk",
+        "natCode": "0",
+        "IDM": 1134029,
+        "champs": "0"
+      },
+      "eventType": "R",
+      "idxReal": "31",
+      "idx": "15",
+      "trackName": "Suzuka GP (Japonia)",
+      "trackNatCode": "jp",
+      "dateEvent": "Mar 27, 2026",
+      "trackId": "13",
+      "isCurrentRace": 0,
+      "isFavTrack": 0
+    },
+    {
+      "winner": {
+        "IDM": 0
+      },
+      "eventType": "SD",
+      "idxReal": "32",
+      "idx": "32",
+      "trackName": "Rynek transferowy #17",
+      "trackNatCode": "",
+      "dateEvent": "<font color=\"yellow\"><b>Dzi&#347;</b></font>",
+      "trackId": "1"
+    },
+    {
+      "winner": {
+        "IDM": 0
+      },
+      "eventType": "R",
+      "idxReal": "33",
+      "idx": "16",
+      "trackName": "Buenos Aires GP (Argentyna)",
+      "trackNatCode": "ar",
+      "dateEvent": "Mar 31, 2026",
+      "trackId": "2",
+      "isCurrentRace": 1,
+      "isFavTrack": 0
+    },
+    {
+      "winner": {
+        "IDM": 0
+      },
+      "eventType": "SD",
+      "idxReal": "34",
+      "idx": "34",
+      "trackName": "Rynek transferowy #18",
+      "trackNatCode": "",
+      "dateEvent": "Kwi 2, 2026",
+      "trackId": "0"
+    },
+    {
+      "winner": {
+        "IDM": 0
+      },
+      "eventType": "R",
+      "idxReal": "35",
+      "idx": "17",
+      "trackName": "Laguna Seca GP (USA)",
+      "trackNatCode": "us",
+      "dateEvent": "Kwi 3, 2026",
+      "trackId": "35",
+      "isCurrentRace": 0,
+      "isFavTrack": 0
+    }
+  ],
+  "fetched_at": "2026-03-30T20:31:38.399419Z"
+}
