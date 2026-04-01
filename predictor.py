@@ -608,13 +608,9 @@ def get_next_race_info():
         except Exception as e:
             print(f"  [BŁĄD] Błąd wczytywania kalendarza: {e}")
 
-    # Fallback: wyścig + 1 (bez szczegółów)
-    return {
-        "season": season,
-        "race": race + 1,
-        "track": race_data.get("track", ""),
-        "total_laps": 72
-    }
+    # Fallback: jeśli brak kalendarza, nie zgadujemy toru
+    print(f"  [OSTRZEŻENIE] Brak danych kalendarza. Nie można określić następnego toru.")
+    return None
 
 
 # ============================================================
