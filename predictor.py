@@ -80,6 +80,31 @@ FUEL_RATES = {
     "very_high": 1.13
 }
 
+FUEL_RATES = {
+    "very_low": 1.45,
+    "low": 1.30,
+    "medium": 1.25,
+    "high": 1.20,
+    "very_high": 1.13
+}
+
+TYRE_COMPOUNDS = {
+    "practice": "medium",
+    "q1": "soft",
+    "q2": "soft",
+    "race": "medium"
+}
+
+TYRES_ORDER = ["super_soft", "soft", "medium", "hard", "rain"]
+
+TYRE_LIFE_BASE = {
+    "super_soft": 18,
+    "soft": 22,
+    "medium": 28,
+    "hard": 38,
+    "rain": 40
+}
+
 
 # ============================================================
 # WCZYTYWANIE DANYCH HISTORYCZNYCH
@@ -697,6 +722,11 @@ def generate_prediction():
     setup_q2 = adjust_for_temperature(base["setup"], base["temp"], q2_temp)
     setup_race = adjust_for_temperature(base["setup"], base["temp"], race_temp)
 
+    # Setup for Practice (same as base, with small temp adjustment)
+    practice_temp = base["temp"] + 1
+    setup_practice = adjust_for_temperature(base["setup"], base["temp"], practice_temp)
+    setup_practice["temp"] = practice_temp
+
     # 5. Oblicz strategię paliwową
     print(f"\n5. Obliczanie strategii paliwowej...")
     fuel_strategy = calculate_fuel_strategy(history, track_name, total_laps)
@@ -752,6 +782,15 @@ def generate_prediction():
             "half_MA": half_ma,
             "note": f"Setup ±{half_ma} od optimum da satisfied (MA={ma}, TI={ti}, EXP={exp})"
         },
+        "setup_practice": {
+            "fw": setup_practice["fw"],
+            "rw": setup_practice["rw"],
+            "eng": setup_practice["eng"],
+            "bra": setup_practice["bra"],
+            "gear": setup_practice["gear"],
+            "susp": setup_practice["susp"],
+            "temp": setup_practice["temp"]
+        },
         "setup_q1": {
             "fw": setup_q1["fw"],
             "rw": setup_q1["rw"],
@@ -783,6 +822,68 @@ def generate_prediction():
             "track": track_name,
             "setup": base["setup"],
             "temp": base["temp"]
+        },
+        "sessions": {
+            "practice": {
+                "setup": {
+                    "fw": setup_practice["fw"],
+                    "rw": setup_practice["rw"],
+                    "eng": setup_practice["eng"],
+                    "bra": setup_practice["bra"],
+                    "gear": setup_practice["gear"],
+                    "susp": setup_practice["susp"]
+                },
+                "temp": setup_practice["temp"],
+                "weather": "dry",
+                "tyres": TYRE_COMPOUNDS["practice"],
+                "fuel_start": 80,
+                "note": "Medium tyres, test setup, find satisfied"
+            },
+            "q1": {
+                "setup": {
+                    "fw": setup_q1["fw"],
+                    "rw": setup_q1["rw"],
+                    "eng": setup_q1["eng"],
+                    "bra": setup_q1["bra"],
+                    "gear": setup_q1["gear"],
+                    "susp": setup_q1["susp"]
+                },
+                "temp": q1_temp,
+                "weather": "dry",
+                "tyres": TYRE_COMPOUNDS["q1"],
+                "fuel_start": 40,
+                "note": "Soft tyres, push for time"
+            },
+            "q2": {
+                "setup": {
+                    "fw": setup_q2["fw"],
+                    "rw": setup_q2["rw"],
+                    "eng": setup_q2["eng"],
+                    "bra": setup_q2["bra"],
+                    "gear": setup_q2["gear"],
+                    "susp": setup_q2["susp"]
+                },
+                "temp": q2_temp,
+                "weather": "dry",
+                "tyres": TYRE_COMPOUNDS["q2"],
+                "fuel_start": 40,
+                "note": "Soft tyres, qualify for race"
+            },
+            "race": {
+                "setup": {
+                    "fw": setup_race["fw"],
+                    "rw": setup_race["rw"],
+                    "eng": setup_race["eng"],
+                    "bra": setup_race["bra"],
+                    "gear": setup_race["gear"],
+                    "susp": setup_race["susp"]
+                },
+                "temp": race_temp,
+                "weather": "dry",
+                "tyres": TYRE_COMPOUNDS["race"],
+                "fuel_strategy": fuel_strategy["recommended"],
+                "note": "Medium tyres, fuel strategy from analysis"
+            }
         },
         "fuel_strategy": fuel_strategy,
         "tyre_strategy": tyre_strategy,

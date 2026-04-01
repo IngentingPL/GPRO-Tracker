@@ -1,0 +1,220 @@
+{
+  "generated_at": "2026-04-01T15:32:39.610485Z",
+  "next_race": {
+    "track": "Laguna Seca GP (USA)",
+    "season": 109,
+    "race": 17,
+    "total_laps": 72
+  },
+  "confidence": "low",
+  "confidence_reason": "Fallback: domyślny setup medium downforce",
+  "driver_margin": {
+    "MA": 128,
+    "half_MA": 64,
+    "note": "Setup ±64 od optimum da satisfied (MA=128, TI=14, EXP=20)"
+  },
+  "setup_practice": {
+    "fw": 504,
+    "rw": 504,
+    "eng": 595,
+    "bra": 606,
+    "gear": 495,
+    "susp": 594,
+    "temp": 21
+  },
+  "setup_q1": {
+    "fw": 508,
+    "rw": 508,
+    "eng": 590,
+    "bra": 612,
+    "gear": 490,
+    "susp": 589,
+    "temp": 22
+  },
+  "setup_q2": {
+    "fw": 525,
+    "rw": 525,
+    "eng": 570,
+    "bra": 635,
+    "gear": 470,
+    "susp": 567,
+    "temp": 26
+  },
+  "setup_race": {
+    "fw": 529,
+    "rw": 529,
+    "eng": 565,
+    "bra": 641,
+    "gear": 465,
+    "susp": 562,
+    "temp": 27
+  },
+  "base": {
+    "track": "Laguna Seca GP (USA)",
+    "setup": {
+      "fw": 500,
+      "rw": 500,
+      "eng": 600,
+      "bra": 600,
+      "gear": 500,
+      "susp": 600
+    },
+    "temp": 20
+  },
+  "sessions": {
+    "practice": {
+      "setup": {
+        "fw": 504,
+        "rw": 504,
+        "eng": 595,
+        "bra": 606,
+        "gear": 495,
+        "susp": 594
+      },
+      "temp": 21,
+      "weather": "dry",
+      "tyres": "medium",
+      "fuel_start": 80,
+      "note": "Medium tyres, test setup, find satisfied"
+    },
+    "q1": {
+      "setup": {
+        "fw": 508,
+        "rw": 508,
+        "eng": 590,
+        "bra": 612,
+        "gear": 490,
+        "susp": 589
+      },
+      "temp": 22,
+      "weather": "dry",
+      "tyres": "soft",
+      "fuel_start": 40,
+      "note": "Soft tyres, push for time"
+    },
+    "q2": {
+      "setup": {
+        "fw": 525,
+        "rw": 525,
+        "eng": 570,
+        "bra": 635,
+        "gear": 470,
+        "susp": 567
+      },
+      "temp": 26,
+      "weather": "dry",
+      "tyres": "soft",
+      "fuel_start": 40,
+      "note": "Soft tyres, qualify for race"
+    },
+    "race": {
+      "setup": {
+        "fw": 529,
+        "rw": 529,
+        "eng": 565,
+        "bra": 641,
+        "gear": 465,
+        "susp": 562
+      },
+      "temp": 27,
+      "weather": "dry",
+      "tyres": "medium",
+      "fuel_strategy": {
+        "pits": 2,
+        "stints": [
+          86,
+          86,
+          86
+        ],
+        "total_fuel": 257
+      },
+      "note": "Medium tyres, fuel strategy from analysis"
+    }
+  },
+  "fuel_strategy": {
+    "fuel_per_lap": 3.58,
+    "recommended": {
+      "pits": 2,
+      "stints": [
+        86,
+        86,
+        86
+      ],
+      "total_fuel": 257
+    },
+    "alternative": {
+      "pits": 3,
+      "stints": [
+        86,
+        86,
+        86,
+        86
+      ],
+      "total_fuel": 344
+    }
+  },
+  "tyre_strategy": {
+    "est_tyre_life_laps": 28,
+    "laps_on_fuel": 50,
+    "bottleneck": "tyres",
+    "bottleneck_explanation": "Opony na ~28 okr, paliwo na ~50 okr → pit stopy wynikają z opon"
+  },
+  "practice_plan": {
+    "laps": [
+      {
+        "lap": 1,
+        "action": "Użyj rekomendowanego setupu",
+        "note": "Sprawdź czy satisfied"
+      },
+      {
+        "lap": 2,
+        "action": "Jeśli nie satisfied → zmień FW o +64",
+        "note": "Binary search"
+      },
+      {
+        "lap": 3,
+        "action": "Jeśli lap2 lepszy → kontynuuj w tym kierunku (+64)",
+        "note": "Szukamy optimum"
+      },
+      {
+        "lap": 4,
+        "action": "Jeśli lap2 gorszy → zmień FW o -64 od startu",
+        "note": "Zmień kierunek"
+      },
+      {
+        "lap": 5,
+        "action": "Zawęż zakres do ±32 od najlepszego",
+        "note": "Binary search step 2"
+      },
+      {
+        "lap": 6,
+        "action": "Zawęż zakres do ±16 od najlepszego",
+        "note": "Binary search step 3"
+      },
+      {
+        "lap": 7,
+        "action": "Powtórz dla ENG lub SUSP",
+        "note": "Drugie najważniejsze ustawienie"
+      },
+      {
+        "lap": 8,
+        "action": "Finalna weryfikacja najlepszego setupu",
+        "note": "Ten setup idzie do Q1"
+      }
+    ],
+    "priority_note": "FW/RW mają największy wpływ na czas. ENG i SUSP na drugim miejscu. BRA i GEAR zwykle trafiasz od razu."
+  },
+  "tyre_info": {
+    "supplier": "Pipirelli",
+    "bottleneck": "tyres",
+    "est_tyre_life_laps": 28
+  },
+  "notes": [
+    "Predykcja oparta na 2 wyścigach w historii.",
+    "Confidence: low - Fallback: domyślny setup medium downforce",
+    "Kierowca: Noel Lavin (TI=14, EXP=20)",
+    "Margines kierowcy: ±64 od optimum.",
+    "Opony: ~28 okr, paliwo: ~50 okr",
+    "Uwaga: Pogoda jest przykładowa. Sprawdź prognozę przed wyścigiem."
+  ]
+}

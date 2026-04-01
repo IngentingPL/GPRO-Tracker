@@ -597,10 +597,107 @@ def generate_html(race_data, prediction_data, calendar_data):
             width: 10%;
         }}
 
+        /* Session Card */
+        .session-card {{
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+        }}
+        .session-card.practice {{ border-left: 3px solid var(--accent-yellow); }}
+        .session-card.q1 {{ border-left: 3px solid var(--accent-green); }}
+        .session-card.q2 {{ border-left: 3px solid var(--accent-blue); }}
+        .session-card.race {{ border-left: 3px solid var(--accent-orange); }}
+
+        .session-header {{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }}
+
+        .session-header h4 {{
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }}
+
+        .session-badge {{
+            font-size: 0.65rem;
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+            background: var(--bg-tab);
+            color: var(--text-muted);
+        }}
+
+        .session-meta {{
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 0.5rem;
+        }}
+
+        .session-meta span {{ display: flex; align-items: center; gap: 0.25rem; }}
+
+        .session-setup {{
+            display: flex;
+            gap: 0.4rem;
+            flex-wrap: wrap;
+        }}
+
+        .session-setup .setup-part {{
+            background: var(--bg-tab);
+            padding: 0.3rem 0.5rem;
+            border-radius: 5px;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+        }}
+
+        .session-setup .setup-part .label {{
+            color: var(--text-muted);
+            font-size: 0.6rem;
+            text-transform: uppercase;
+        }}
+
+        .session-setup .setup-part .value {{
+            color: var(--accent-blue);
+            font-weight: 600;
+        }}
+
+        .session-note {{
+            margin-top: 0.4rem;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            font-style: italic;
+        }}
+
+        .fuel-stint-bar {{
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            margin-top: 0.5rem;
+            flex-wrap: wrap;
+        }}
+
+        .fuel-stint-bar .stint {{
+            background: var(--bg-tab);
+            padding: 0.25rem 0.4rem;
+            border-radius: 4px;
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+        }}
+
+        .fuel-stint-bar .arrow {{
+            color: var(--text-muted);
+            font-size: 0.65rem;
+        }}
+
         /* ==========================================================
            Setup Race Inline
-           Mini-lekcja: Kompaktowy wyświetlacz setupu wyścigowego
-           w jednej linii z separatorem "·".
            ========================================================== */
         .setup-race-inline {{
             display: flex;
@@ -953,8 +1050,9 @@ function renderPrediction(container) {{
     const driverMargin = pred.driver_margin || {{}};
     const base = pred.base || {{}};
     const fuelStrategy = pred.fuel_strategy || {{}};
-    const tyreInfo = pred.tyre_info || {{}};
+    const tyreInfo = pred.tyres_info || {{}};
     const notes = pred.notes || [];
+    const sessions = pred.sessions || {{}};
 
     let html = '';
 
@@ -972,34 +1070,63 @@ function renderPrediction(container) {{
     html += `<div class="rec-subtitle">${{confidenceReason}}</div>`;
     html += `</div>`;
 
-    html += `<div class="rec-grid">`;
+    // =============================================
+    // 2. SESJE: Practice, Q1, Q2, Race
+    // =============================================
+    const sessionOrder = ['practice', 'q1', 'q2', 'race'];
+    const sessionNames = {{ practice: 'Practice', q1: 'Q1', q2: 'Q2', race: 'Race' }};
 
-    // =============================================
-    // 2. SETUP Q1 I Q2 OBOK SIEBIE
-    // =============================================
-    // Setup Q1
-    html += `<div class="rec-card"><h3>Setup Q1</h3>`;
-    html += `<div class="setup-values">`;
-    const q1 = pred.setup_q1 || {{}};
-    const baseSetup = base.setup || {{}};
-    ['fw', 'rw', 'eng', 'bra', 'gear', 'susp'].forEach(key => {{
-        const val = q1[key] || 0;
-        const baseVal = baseSetup[key] || 0;
-        const diff = val - baseVal;
-        const diffClass = diff > 0 ? 'positive' : (diff < 0 ? 'negative' : '');
-        const diffSign = diff > 0 ? '+' : '';
-        html += `
-        <div class="setup-item">
-            <div class="setup-label">${{key.toUpperCase()}}</div>
-            <div class="setup-val">${{val}}</div>
-            <span class="adjustment-badge ${{diffClass}}">${{diffSign}}${{diff}}</span>
-        </div>`;
+    sessionOrder.forEach(sessionKey => {{
+        const session = sessions[sessionKey] || {{}};
+        if (!session.setup) return;
+
+        const s = session.setup;
+        const sessionName = sessionNames[sessionKey];
+
+        html += `<div class="session-card ${{sessionKey}}">`;
+        html += `<div class="session-header">`;
+        html += `<h4>${{sessionName}}</h4>`;
+        html += `<span class="session-badge">${{session.tyres || '?'}} tyres</span>`;
+        html += `</div>`;
+
+        html += `<div class="session-meta">`;
+        html += `<span>🌡️ ${{session.temp || '?'}}°C</span>`;
+        html += `<span>🌧️ ${{session.weather || 'dry'}}</span>`;
+        if (session.fuel_start) {{
+            html += `<span>⛽ ${{session.fuel_start}}L start</span>`;
+        }}
+        html += `</div>`;
+
+        html += `<div class="session-setup">`;
+        ['fw', 'rw', 'eng', 'bra', 'gear', 'susp'].forEach(key => {{
+            html += `<div class="setup-part"><span class="label">${{key.toUpperCase()}}</span> <span class="value">${{s[key] || 0}}</span></div>`;
+        }});
+        html += `</div>`;
+
+        if (session.note) {{
+            html += `<div class="session-note">${{session.note}}</div>`;
+        }}
+
+        // Fuel strategy for race
+        if (sessionKey === 'race' && session.fuel_strategy) {{
+            const fs = session.fuel_strategy;
+            html += `<div class="fuel-stint-bar">`;
+            (fs.stints || []).forEach((fuel, i) => {{
+                if (i > 0) html += `<span class="arrow">→</span>`;
+                html += `<span class="stint">${{fuel}}L</span>`;
+            }});
+            html += `<span class="arrow">→</span>`;
+            html += `<span class="stint" style="background:var(--accent-blue)">META</span>`;
+            html += `</div>`;
+            html += `<div class="session-meta" style="margin-top:0.25rem"><span>⛽ ${{fs.pits || 0}} pit stops</span></div>`;
+        }}
+
+        html += `</div>`;
     }});
-    html += `</div>`;
-    html += `<div class="setup-meta">Baza: ${{base.track || '?'}} (${{base.temp || '?'}}°C) → Prognoza: ${{q1.temp || '?'}}°C</div>`;
-    html += `</div>`;
 
-    // Setup Q2
+    // =============================================
+    // 3. STRATEGIA PALIWOWA (summary)
+    // =============================================
     html += `<div class="rec-card"><h3>Setup Q2</h3>`;
     html += `<div class="setup-values">`;
     const q2 = pred.setup_q2 || {{}};
