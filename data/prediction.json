@@ -1,84 +1,84 @@
 {
-  "generated_at": "2026-03-31T20:04:07.659262Z",
+  "generated_at": "2026-04-01T07:06:07.650870Z",
   "next_race": {
-    "track": "Suzuka (Japonia)",
+    "track": "Buenos Aires (Argentyna)",
     "season": 109,
-    "race": 16,
+    "race": 17,
     "total_laps": 72
   },
   "confidence": "high",
-  "confidence_reason": "Historia: 109/15 na Suzuka (Japonia)",
+  "confidence_reason": "Historia: 109/16 na Buenos Aires (Argentyna)",
   "driver_margin": {
-    "MA": 124,
-    "half_MA": 62,
-    "note": "Setup ±62 od optimum da satisfied (MA=124, TI=35, EXP=0)"
+    "MA": 128,
+    "half_MA": 64,
+    "note": "Setup ±64 od optimum da satisfied (MA=128, TI=14, EXP=20)"
   },
   "setup_q1": {
-    "fw": 380,
-    "rw": 380,
-    "eng": 630,
-    "bra": 524,
-    "gear": 502,
-    "susp": 629,
-    "temp": 7
+    "fw": 933,
+    "rw": 933,
+    "eng": 560,
+    "bra": 332,
+    "gear": 490,
+    "susp": 689,
+    "temp": 30
   },
   "setup_q2": {
-    "fw": 397,
-    "rw": 397,
-    "eng": 610,
-    "bra": 547,
-    "gear": 482,
-    "susp": 607,
-    "temp": 11
+    "fw": 950,
+    "rw": 950,
+    "eng": 540,
+    "bra": 355,
+    "gear": 470,
+    "susp": 667,
+    "temp": 34
   },
   "setup_race": {
-    "fw": 401,
-    "rw": 401,
-    "eng": 605,
-    "bra": 553,
-    "gear": 477,
-    "susp": 602,
-    "temp": 12
+    "fw": 954,
+    "rw": 954,
+    "eng": 535,
+    "bra": 361,
+    "gear": 465,
+    "susp": 662,
+    "temp": 35
   },
   "base": {
-    "track": "Suzuka (Japonia)",
+    "track": "Buenos Aires (Argentyna)",
     "setup": {
-      "fw": "372",
-      "rw": "372",
-      "eng": "640",
-      "bra": "512",
-      "gear": "512",
-      "susp": "640"
+      "fw": "925",
+      "rw": "925",
+      "eng": "570",
+      "bra": "320",
+      "gear": "500",
+      "susp": "700"
     },
-    "temp": 5
+    "temp": 28
   },
   "fuel_strategy": {
-    "fuel_per_lap": 5.0,
+    "fuel_per_lap": 2.15,
     "recommended": {
       "pits": 2,
       "stints": [
-        120,
-        120,
-        120
+        52,
+        52,
+        52
       ],
-      "total_fuel": 360
+      "total_fuel": 155
     },
     "alternative": {
       "pits": 3,
       "stints": [
-        120,
-        120,
-        120,
-        120
+        52,
+        52,
+        52,
+        52
       ],
-      "total_fuel": 480
+      "total_fuel": 208
     }
   },
   "tyre_strategy": {
-    "est_tyre_life_laps": 16,
-    "laps_on_fuel": 36,
+    "est_tyre_life_laps": 40,
+    "laps_on_fuel": 83,
     "bottleneck": "tyres",
-    "bottleneck_explanation": "Opony na ~16 okr, paliwo na ~36 okr → pit stopy wynikają z opon"
+    "bottleneck_explanation": "Opony na ~40 okr, paliwo na ~83 okr → pit stopy wynikają z opon"
   },
   "practice_plan": {
     "laps": [
@@ -128,14 +128,14 @@
   "tyre_info": {
     "supplier": "Pipirelli",
     "bottleneck": "tyres",
-    "est_tyre_life_laps": 16
+    "est_tyre_life_laps": 40
   },
   "notes": [
-    "Predykcja oparta na 1 wyścigach w historii.",
-    "Confidence: high - Historia: 109/15 na Suzuka (Japonia)",
-    "Kierowca: Vlad Raileanu (TI=35, EXP=0)",
-    "Margines kierowcy: ±62 od optimum.",
-    "Opony: ~16 okr, paliwo: ~36 okr",
+    "Predykcja oparta na 2 wyścigach w historii.",
+    "Confidence: high - Historia: 109/16 na Buenos Aires (Argentyna)",
+    "Kierowca: Noel Lavin (TI=14, EXP=20)",
+    "Margines kierowcy: ±64 od optimum.",
+    "Opony: ~40 okr, paliwo: ~83 okr",
     "Uwaga: Pogoda jest przykładowa. Sprawdź prognozę przed wyścigiem."
   ]
 }
