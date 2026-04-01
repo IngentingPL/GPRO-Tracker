@@ -594,15 +594,31 @@ def get_next_race_info():
                         calendar_data = []
 
                 if isinstance(calendar_data, list):
-                    # Szukamy następnego wyścigu
+                    # Szukamy następnego wyścigu (eventType="R" i idx = race + 1)
+                    current_race_idx = race
                     for event in calendar_data:
-                        if event.get("season") == season and event.get("race") == race + 1:
-                            return {
-                                "season": event.get("season"),
-                                "race": event.get("race"),
-                                "track": event.get("trackName"),
-                                "total_laps": event.get("laps", 72)  # Default 72 laps
-                            }
+                        if event.get("eventType") == "R":
+                            event_idx = int(event.get("idx", 0))
+                            if event_idx == current_race_idx + 1:
+                                return {
+                                    "season": season,
+                                    "race": event_idx,
+                                    "track": event.get("trackName"),
+                                    "total_laps": 72  # Default, GPRO standard
+                                }
+                    # Jeśli nie znaleziono następnego, szukamy obecnego (isCurrentRace=1)
+                    for event in calendar_data:
+                        if event.get("isCurrentRace") == 1:
+                            event_idx = int(event.get("idx", 0))
+                            # Następny to idx + 1
+                            for next_event in calendar_data:
+                                if next_event.get("eventType") == "R" and int(next_event.get("idx", 0)) == event_idx + 1:
+                                    return {
+                                        "season": season,
+                                        "race": int(next_event.get("idx", 0)),
+                                        "track": next_event.get("trackName"),
+                                        "total_laps": 72
+                                    }
                 else:
                     print(f"  [OSTRZEŻENIE] Kalendarz.data nie jest listą ani słownikiem (typ: {type(calendar_data).__name__})")
         except Exception as e:
