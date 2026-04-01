@@ -1132,7 +1132,7 @@ function renderPrediction(container) {{
     const q2 = pred.setup_q2 || {{}};
     ['fw', 'rw', 'eng', 'bra', 'gear', 'susp'].forEach(key => {{
         const val = q2[key] || 0;
-        const baseVal = baseSetup[key] || 0;
+        const baseVal = (base.setup || base)[key] || 0;
         const diff = val - baseVal;
         const diffClass = diff > 0 ? 'positive' : (diff < 0 ? 'negative' : '');
         const diffSign = diff > 0 ? '+' : '';
