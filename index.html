@@ -713,6 +713,277 @@
         ::-webkit-scrollbar-track { background: var(--bg-primary); }
         ::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 3px; }
         ::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+        /* ==========================================================
+           PRAKTYKA - Binary Search Setup
+           ========================================================== */
+        .practice-header {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .practice-header h2 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .practice-header .track-info {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .practice-timeline {
+            display: flex;
+            gap: 0.5rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+            padding-bottom: 0.5rem;
+        }
+
+        .timeline-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 80px;
+        }
+
+        .timeline-dot {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+            background: var(--bg-tab);
+            color: var(--text-muted);
+            border: 2px solid var(--border-color);
+        }
+
+        .timeline-step.active .timeline-dot {
+            background: var(--accent-blue);
+            border-color: var(--accent-blue);
+            color: white;
+        }
+
+        .timeline-step.completed .timeline-dot {
+            background: var(--accent-green);
+            border-color: var(--accent-green);
+            color: white;
+        }
+
+        .timeline-step.current .timeline-dot {
+            background: var(--accent-yellow);
+            border-color: var(--accent-yellow);
+            color: black;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        .timeline-label {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            margin-top: 0.25rem;
+            text-align: center;
+        }
+
+        .lap-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .lap-card.current {
+            border-color: var(--accent-yellow);
+            box-shadow: 0 0 0 1px var(--accent-yellow);
+        }
+
+        .lap-card.done {
+            opacity: 0.6;
+        }
+
+        .lap-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .lap-header h3 {
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .lap-badge {
+            font-size: 0.7rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 6px;
+            font-weight: 600;
+        }
+
+        .lap-badge.next {
+            background: var(--accent-yellow);
+            color: black;
+        }
+
+        .lap-badge.done {
+            background: var(--accent-green);
+            color: white;
+        }
+
+        .lap-badge.pending {
+            background: var(--bg-tab);
+            color: var(--text-muted);
+        }
+
+        .lap-setup {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        .setup-chip {
+            background: var(--bg-tab);
+            padding: 0.5rem 0.75rem;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .setup-chip .label {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        .setup-chip .value {
+            font-family: var(--font-mono);
+            font-weight: 700;
+            color: var(--accent-blue);
+            font-size: 0.95rem;
+        }
+
+        .lap-instruction {
+            background: rgba(234, 179, 8, 0.1);
+            border: 1px solid rgba(234, 179, 8, 0.3);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+
+        .lap-instruction .instruction {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--accent-yellow);
+            margin-bottom: 0.5rem;
+        }
+
+        .lap-instruction .note {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .binary-search-visual {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+            margin-top: 0.75rem;
+            padding: 0.75rem;
+            background: var(--bg-tab);
+            border-radius: 8px;
+        }
+
+        .search-range {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-align: center;
+        }
+
+        .search-arrow {
+            text-align: center;
+            color: var(--accent-yellow);
+            font-size: 0.8rem;
+        }
+
+        .session-summary {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.25rem;
+            margin-top: 1.5rem;
+        }
+
+        .session-summary h3 {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            color: var(--accent-green);
+        }
+
+        .next-up {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem;
+            background: var(--bg-card);
+            border: 1px solid var(--accent-blue);
+            border-radius: 12px;
+            margin-top: 1rem;
+        }
+
+        .next-up .icon {
+            font-size: 1.5rem;
+        }
+
+        .next-up .label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .next-up .value {
+            font-weight: 600;
+            color: var(--accent-blue);
+        }
+
+        .driver-stats-mini {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin: 1rem 0;
+            padding: 1rem;
+            background: var(--bg-tab);
+            border-radius: 8px;
+        }
+
+        .driver-stat-mini {
+            text-align: center;
+        }
+
+        .driver-stat-mini .label {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        .driver-stat-mini .value {
+            font-family: var(--font-mono);
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
     </style>
 </head>
 <body>
@@ -729,6 +1000,7 @@
 <!-- Zakładki -->
 <div class="tabs" id="tabsNav">
     <button class="tab-btn active" data-tab="nextrace">Następny wyścig</button>
+    <button class="tab-btn" data-tab="practice">Praktyka</button>
     <button class="tab-btn" data-tab="results">Wyniki</button>
     <button class="tab-btn" data-tab="setups">Setupy</button>
     <button class="tab-btn" data-tab="fuel">Paliwo & Opony</button>
@@ -738,6 +1010,7 @@
 
 <!-- Zawartość zakładek -->
 <div class="tab-content active" id="tab-nextrace"></div>
+<div class="tab-content" id="tab-practice"></div>
 <div class="tab-content" id="tab-results"></div>
 <div class="tab-content" id="tab-setups"></div>
 <div class="tab-content" id="tab-fuel"></div>
@@ -843,6 +1116,8 @@ function render() {
     renderSummary(latest);
 
     // Zakładki
+    renderNextRace();
+    renderPractice();
     renderResults();
     renderSetups();
     renderFuel();
@@ -1149,6 +1424,205 @@ function renderPrediction(container) {
         html += `</div>`;
     }
 
+    container.innerHTML = html;
+}
+
+// ==========================================================
+// ZAKŁADKA: PRAKTYKA - Binary Search Setup
+// Mini-lekcja: Pokazuje rekomendowany setup per lap praktyki
+// zgodnie z binary search methodology z Calc.
+// ==========================================================
+function renderPractice() {
+    const container = document.getElementById('tab-practice');
+    
+    if (!PREDICTION_DATA) {
+        container.innerHTML = `
+            <div class="empty-state">
+                <h2>Brak danych predykcji</h2>
+                <p>Uruchom predictor.py żeby wygenerować setup:</p>
+                <p style="margin-top:1rem"><code>python predictor.py</code></p>
+            </div>`;
+        return;
+    }
+    
+    const pred = PREDICTION_DATA;
+    const nextRace = pred.next_race || {};
+    const driverMargin = pred.driver_margin || {};
+    const practiceSetup = pred.sessions?.practice?.setup || pred.setup_practice || {};
+    const practiceTemp = pred.sessions?.practice?.temp || pred.setup_practice?.temp || 20;
+    const practicePlan = pred.practice_plan || {};
+    const laps = practicePlan.laps || [];
+    
+    let html = '';
+    
+    // Nagłówek
+    html += `<div class="practice-header">`;
+    html += `<h2>🏁 Praktyka - Binary Search Setup</h2>`;
+    html += `<div class="track-info">\${nextRace.track || 'Nieznany tor'} · Sezon \${nextRace.season || '?'} · Wyścig \${nextRace.race || '?'}</div>`;
+    html += `</div>`;
+    
+    // Driver stats mini
+    const ma = driverMargin.MA || 0;
+    const halfMa = driverMargin.half_MA || 0;
+    html += `<div class="driver-stats-mini">`;
+    html += `<div class="driver-stat-mini"><div class="label">Margines</div><div class="value" style="color:var(--accent-yellow)">\${halfMa}</div></div>`;
+    html += `<div class="driver-stat-mini"><div class="label">MA</div><div class="value">\${ma}</div></div>`;
+    html += `<div class="driver-stat-mini"><div class="label">Temp</div><div class="value">\${practiceTemp}°C</div></div>`;
+    html += `<div class="driver-stat-mini"><div class="label">Opony</div><div class="value">\${pred.sessions?.practice?.tyres || 'medium'}</div></div>`;
+    html += `</div>`;
+    
+    // Timeline
+    html += `<div class="practice-timeline">`;
+    const steps = ['P1', 'P2', 'P3', 'P4', 'P5', 'P6', 'P7', 'P8'];
+    const currentLap = 1; // Always start from lap 1
+    steps.forEach((step, i) => {
+        const lapNum = i + 1;
+        const isDone = lapNum < currentLap;
+        const isCurrent = lapNum === currentLap;
+        const statusClass = isDone ? 'completed' : (isCurrent ? 'current' : '');
+    html += `<div class="timeline-step \${statusClass}">`;
+    html += `<div class="timeline-dot">\${lapNum}</div>`;
+    html += `<div class="timeline-label">\${step}</div>`;
+        html += `</div>`;
+    });
+    html += `</div>`;
+    
+    // Lap cards
+    laps.forEach((lap, i) => {
+        const lapNum = lap.lap;
+        const isDone = lapNum < currentLap;
+        const isCurrent = lapNum === currentLap;
+        
+        // Calculate suggested setup based on binary search logic
+        let suggestedSetup = {...practiceSetup};
+        if (lapNum === 1) {
+            // First lap - use recommended setup
+        } else if (lapNum === 2) {
+            // After lap 1 feedback, try +halfMa if not satisfied
+            suggestedSetup.fw = practiceSetup.fw + halfMa;
+            suggestedSetup.rw = practiceSetup.rw + halfMa;
+        } else if (lapNum === 3) {
+            // Continue in direction from lap 2
+            suggestedSetup.fw = practiceSetup.fw + halfMa + Math.floor(halfMa/2);
+            suggestedSetup.rw = practiceSetup.rw + halfMa + Math.floor(halfMa/2);
+        } else if (lapNum === 4) {
+            // Change direction
+            suggestedSetup.fw = practiceSetup.fw - halfMa;
+            suggestedSetup.rw = practiceSetup.rw - halfMa;
+        } else {
+            // Narrow down binary search
+            const offset = Math.floor(halfMa / (lapNum - 2));
+            suggestedSetup.fw = practiceSetup.fw - halfMa + offset;
+            suggestedSetup.rw = practiceSetup.rw - halfMa + offset;
+        }
+        
+        html += `<div class="lap-card \${isCurrent ? 'current' : ''} \${isDone ? 'done' : ''}">`;
+        
+        // Lap header
+        html += `<h3>Lap \${lapNum}</h3>`;
+        if (isDone) {
+            html += `<span class="lap-badge done">✓ Wykonane</span>`;
+        } else if (isCurrent) {
+            html += `<span class="lap-badge next">▶ Teraz</span>`;
+        } else {
+            html += `<span class="lap-badge pending">⏳ Dalej</span>`;
+        }
+        html += `</div>`;
+        
+        // Setup chips
+        html += `<div class="lap-setup">`;
+        ['fw', 'rw', 'eng', 'bra', 'gear', 'susp'].forEach(key => {
+            const val = suggestedSetup[key] || 0;
+            html += `<div class="setup-chip">`;
+            html += `<span class="label">\${key.toUpperCase()}</span>`;
+            html += `<span class="value">\${val}</span>`;
+            html += `</div>`;
+        });
+        html += `</div>`;
+        
+        // Binary search visual
+        if (!isDone) {
+            html += `<div class="binary-search-visual">`;
+            if (lapNum === 1) {
+                html += `<div class="search-range">Start: \${practiceSetup.fw - halfMa} → \${practiceSetup.fw + halfMa}</div>`;
+            } else if (lapNum === 2) {
+                html += `<div class="search-arrow">Jeśli nie satisfied → FW +\${halfMa}</div>`;
+            } else if (lapNum === 4) {
+                html += `<div class="search-arrow">Jeśli gorszy → zmień kierunek</div>`;
+            } else {
+                html += `<div class="search-range">Zawężanie ±\${Math.floor(halfMa / (lapNum - 2))}</div>`;
+            }
+            html += `</div>`;
+        }
+        
+        // Instruction
+        if (!isDone) {
+            html += `<div class="lap-instruction">`;
+            html += `<div class="instruction">\${lap.action}</div>`;
+            html += `<div class="note">\${lap.note}</div>`;
+            html += `</div>`;
+        }
+        
+        html += `</div>`;
+    });
+    
+    // Session summary - Q1 after practice
+    html += `<div class="session-summary">`;
+    html += `<h3>📊 Po praktyce → Q1 Setup</h3>`;
+    const q1Setup = pred.sessions?.q1?.setup || pred.setup_q1 || {};
+    html += `<div class="lap-setup">`;
+    ['fw', 'rw', 'eng', 'bra', 'gear', 'susp'].forEach(key => {
+        const val = q1Setup[key] || 0;
+        html += `<div class="setup-chip">`;
+        html += `<span class="label">\${key.toUpperCase()}</span>`;
+        html += `<span class="value">\${val}</span>`;
+        html += `</div>`;
+    });
+    html += `</div>`;
+    html += `<div class="next-up">`;
+    html += `<span class="icon">🏎️</span>`;
+    html += `<div><div class="label">Następna sesja</div><div class="value">Q1 - Soft tyres, \${pred.sessions?.q1?.temp || 22}°C</div></div>`;
+    html += `</div>`;
+    html += `</div>`;
+    
+    // Q2 and Race summary
+    html += `<div class="session-summary">`;
+    html += `<h3>📊 Po Q1 → Q2 Setup</h3>`;
+    const q2Setup = pred.sessions?.q2?.setup || pred.setup_q2 || {};
+    html += `<div class="lap-setup">`;
+    ['fw', 'rw', 'eng', 'bra', 'gear', 'susp'].forEach(key => {
+        const val = q2Setup[key] || 0;
+        html += `<div class="setup-chip">`;
+        html += `<span class="label">\${key.toUpperCase()}</span>`;
+        html += `<span class="value">\${val}</span>`;
+        html += `</div>`;
+    });
+    html += `</div>`;
+    html += `<div class="next-up">`;
+    html += `<span class="icon">🎯</span>`;
+    html += `<div><div class="label">Następna sesja</div><div class="value">Q2 - Soft tyres, push for time</div></div>`;
+    html += `</div>`;
+    html += `</div>`;
+    
+    html += `<div class="session-summary">`;
+    html += `<h3>🏁 Wyścig Setup</h3>`;
+    const raceSetup = pred.sessions?.race?.setup || pred.setup_race || {};
+    html += `<div class="lap-setup">`;
+    ['fw', 'rw', 'eng', 'bra', 'gear', 'susp'].forEach(key => {
+        const val = raceSetup[key] || 0;
+        html += `<div class="setup-chip">`;
+        html += `<span class="label">\${key.toUpperCase()}</span>`;
+        html += `<span class="value">\${val}</span>`;
+        html += `</div>`;
+    });
+    html += `</div>`;
+    const fs = pred.sessions?.race?.fuel_strategy || {};
+    html += `<div class="next-up">`;
+    html += `<span class="icon">⛽</span>`;
+    html += `<div><div class="label">Strategia paliwowa</div><div class="value">\${fs.pits || 2} pit stopy · \${fs.total_fuel || 257}L</div></div>`;
+    html += `</div>`;
+    html += `</div>`;
+    
     container.innerHTML = html;
 }
 
