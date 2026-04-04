@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-03T19:56:41.696026Z",
+  "generated_at": "2026-04-04T18:59:39.527197Z",
   "next_race": {
     "track": "Laguna Seca GP (USA)",
     "season": 109,
@@ -11,7 +11,7 @@
   "driver_margin": {
     "MA": 128,
     "half_MA": 64,
-    "note": "Setup ±64 od optimum da satisfied (MA=128, TI=14, EXP=20)"
+    "note": "Setup ±64 od optimum da satisfied (MA=128, TI=15, EXP=21)"
   },
   "setup_practice": {
     "fw": 504,
@@ -122,42 +122,42 @@
       "fuel_strategy": {
         "pits": 2,
         "stints": [
-          86,
-          86,
-          86
+          117,
+          117,
+          117
         ],
-        "total_fuel": 257
+        "total_fuel": 352
       },
       "note": "Medium tyres, fuel strategy from analysis"
     }
   },
   "fuel_strategy": {
-    "fuel_per_lap": 3.58,
+    "fuel_per_lap": 4.88,
     "recommended": {
       "pits": 2,
       "stints": [
-        86,
-        86,
-        86
+        117,
+        117,
+        117
       ],
-      "total_fuel": 257
+      "total_fuel": 352
     },
     "alternative": {
       "pits": 3,
       "stints": [
-        86,
-        86,
-        86,
-        86
+        117,
+        117,
+        117,
+        117
       ],
-      "total_fuel": 344
+      "total_fuel": 468
     }
   },
   "tyre_strategy": {
-    "est_tyre_life_laps": 28,
-    "laps_on_fuel": 50,
+    "est_tyre_life_laps": 29,
+    "laps_on_fuel": 36,
     "bottleneck": "tyres",
-    "bottleneck_explanation": "Opony na ~28 okr, paliwo na ~50 okr → pit stopy wynikają z opon"
+    "bottleneck_explanation": "Opony na ~29 okr, paliwo na ~36 okr → pit stopy wynikają z opon"
   },
   "practice_plan": {
     "laps": [
@@ -207,14 +207,14 @@
   "tyre_info": {
     "supplier": "Pipirelli",
     "bottleneck": "tyres",
-    "est_tyre_life_laps": 28
+    "est_tyre_life_laps": 29
   },
   "notes": [
-    "Predykcja oparta na 2 wyścigach w historii.",
+    "Predykcja oparta na 3 wyścigach w historii.",
     "Confidence: low - Fallback: domyślny setup medium downforce",
-    "Kierowca: Noel Lavin (TI=14, EXP=20)",
+    "Kierowca: Noel Lavin (TI=15, EXP=21)",
     "Margines kierowcy: ±64 od optimum.",
-    "Opony: ~28 okr, paliwo: ~50 okr",
+    "Opony: ~29 okr, paliwo: ~36 okr",
     "Uwaga: Pogoda jest przykładowa. Sprawdź prognozę przed wyścigiem."
   ]
 }
