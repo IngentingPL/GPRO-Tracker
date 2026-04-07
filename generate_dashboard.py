@@ -30,6 +30,7 @@ PREDICTION_FILE = "data/prediction.json"
 
 # Plik kalendarza
 CALENDAR_FILE = "data/calendar.json"
+CURRENT_CONTEXT_FILE = "data/current_context.json"
 
 # Plik wyjściowy
 OUTPUT_FILE = "index.html"
@@ -119,11 +120,24 @@ def load_calendar():
         return None
 
 
+def load_current_context():
+    """Wczytuje aktywny kontekst sezonu/wyścigu zapisany przez fetcher."""
+    if not os.path.exists(CURRENT_CONTEXT_FILE):
+        print(f"  Plik {CURRENT_CONTEXT_FILE} nie istnieje.")
+        return None
+
+    try:
+        with open(CURRENT_CONTEXT_FILE, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except Exception as e:
+        print(f"  [BŁĄD] Błąd wczytywania {CURRENT_CONTEXT_FILE}: {e}")
+        return None
+
 # ============================================================
 # GENEROWANIE HTML
 # ============================================================
 
-def generate_html(race_data, prediction_data, calendar_data):
+def generate_html(race_data, prediction_data, calendar_data, current_context_data):
     """
     Generuje kompletny dashboard HTML z osadzonymi danymi.
 
@@ -135,6 +149,7 @@ def generate_html(race_data, prediction_data, calendar_data):
     race_data_js = json.dumps(race_data, ensure_ascii=False)
     prediction_data_js = json.dumps(prediction_data, ensure_ascii=False) if prediction_data else "null"
     calendar_data_js = json.dumps(calendar_data, ensure_ascii=False) if calendar_data else "null"
+    current_context_js = json.dumps(current_context_data, ensure_ascii=False) if current_context_data else "null"
 
     # Budujemy HTML
     html = f'''<!DOCTYPE html>
@@ -1171,6 +1186,9 @@ const PREDICTION_DATA = {prediction_data_js};
 // Dane kalendarza (pobrane z osobnego pliku data/calendar.json)
 const CALENDAR_DATA = {calendar_data_js};
 
+// Aktywny kontekst sezonu/wyścigu (Office + Calendar)
+const CURRENT_CONTEXT_DATA = {current_context_js};
+
 // ==========================================================
 // OBSŁUGA ZAKŁADEK
 // ==========================================================
@@ -1224,133 +1242,87 @@ function statClass(name, value) {{
 }}
 
 
-function getLatestRace() {{
-    if (!RACE_DATA || RACE_DATA.length === 0) return null;
-    return RACE_DATA[RACE_DATA.length - 1];
-}}
-
 function toInt(value) {{
     if (value === null || value === undefined || value === '') return null;
     const num = Number(value);
     return Number.isFinite(num) ? num : null;
 }}
 
-function normalizeTrackName(name) {{
-    return String(name || '')
-        .trim()
-        .toLowerCase()
-        .replace(/\s+/g, ' ');
+function getLatestRace() {{
+    if (!RACE_DATA || RACE_DATA.length === 0) return null;
+    return RACE_DATA[RACE_DATA.length - 1];
 }}
 
-function getCalendarEntries() {{
-    if (!CALENDAR_DATA) return [];
-    if (Array.isArray(CALENDAR_DATA)) return CALENDAR_DATA;
-    if (Array.isArray(CALENDAR_DATA.data)) return CALENDAR_DATA.data;
+function getCurrentContext() {{
+    const latest = getLatestRace()?.race_data || {{}};
+    const current = CURRENT_CONTEXT_DATA || null;
+    const predicted = PREDICTION_DATA?.next_race || null;
 
-    if (CALENDAR_DATA.data && typeof CALENDAR_DATA.data === 'object') {{
-        for (const key of ['data', 'races', 'calendar', 'events', 'schedule']) {{
-            if (Array.isArray(CALENDAR_DATA.data[key])) return CALENDAR_DATA.data[key];
-        }}
-    }}
-
-    for (const key of ['races', 'calendar', 'events', 'schedule']) {{
-        if (Array.isArray(CALENDAR_DATA[key])) return CALENDAR_DATA[key];
-    }}
-
-    return [];
-}}
-
-function getCalendarSeason() {{
-    const directSeason = toInt(CALENDAR_DATA?.season)
-        ?? toInt(CALENDAR_DATA?.selSeasonNb)
-        ?? toInt(CALENDAR_DATA?.seasonNb);
-    if (directSeason !== null) return directSeason;
-
-    const entries = getCalendarEntries();
-    for (const entry of entries) {{
-        const season = toInt(entry?.season) ?? toInt(entry?.selSeasonNb) ?? toInt(entry?.seasonNb);
-        if (season !== null) return season;
-    }}
-
+    if (current && toInt(current.season) !== null) return current;
+    if (predicted && toInt(predicted.season) !== null) return predicted;
+    if (latest && toInt(latest.season) !== null) return latest;
     return null;
 }}
 
-function normalizeCalendarRace(entry, index, fallbackSeason) {{
-    return {{
-        track: entry?.track || entry?.trackName || entry?.name || entry?.raceName || 'Nieznany tor',
-        season: toInt(entry?.season) ?? toInt(entry?.selSeasonNb) ?? toInt(entry?.seasonNb) ?? fallbackSeason,
-        race: toInt(entry?.race) ?? toInt(entry?.raceNb) ?? toInt(entry?.round) ?? toInt(entry?.number) ?? toInt(entry?.selRaceNb) ?? (index + 1),
-        total_laps: toInt(entry?.total_laps) ?? toInt(entry?.totalLaps) ?? toInt(entry?.laps) ?? toInt(entry?.lapNb) ?? toInt(entry?.noOfLaps) ?? null
-    }};
+function getDisplayedRaceData() {{
+    if (!RACE_DATA || RACE_DATA.length === 0) return [];
+    const active = getCurrentContext();
+    const activeSeason = toInt(active?.season);
+    if (activeSeason === null) return RACE_DATA;
+    return RACE_DATA.filter(item => toInt(item?.race_data?.season) === activeSeason);
 }}
 
-function getCalendarNextRace() {{
-    const entries = getCalendarEntries();
-    if (!entries || entries.length === 0) return null;
-
-    const fallbackSeason = getCalendarSeason();
-    const normalized = entries
-        .map((entry, index) => normalizeCalendarRace(entry, index, fallbackSeason))
-        .filter(entry => entry.track || entry.race !== null)
-        .sort((a, b) => (toInt(a.race) ?? 0) - (toInt(b.race) ?? 0));
-
-    if (normalized.length === 0) return null;
-
-    const latest = getLatestRace();
-    const latestRaceData = latest?.race_data || {{}};
-    const latestSeason = toInt(latestRaceData.season);
-    const latestRace = toInt(latestRaceData.race);
-    const calendarSeason = toInt(normalized[0].season) ?? fallbackSeason;
-
-    if (latestSeason === null) return normalized[0];
-    if (calendarSeason !== null && calendarSeason > latestSeason) return normalized[0];
-    if (calendarSeason !== null && calendarSeason < latestSeason) return null;
-    if (latestRace === null) return normalized[0];
-
-    return normalized.find(entry => (toInt(entry.race) ?? 0) > latestRace) || null;
+function isPendingSeasonMode() {{
+    const active = getCurrentContext();
+    const latest = getLatestRace()?.race_data || {{}};
+    const activeSeason = toInt(active?.season);
+    const latestSeason = toInt(latest?.season);
+    if (activeSeason === null) return false;
+    if (latestSeason === null) return true;
+    if (activeSeason > latestSeason) return true;
+    return getDisplayedRaceData().length === 0;
 }}
 
-function resolvePredictionContext(pred) {{
-    const predictedRace = pred?.next_race || {{}};
-    const calendarNextRace = getCalendarNextRace();
+function renderSeasonEmptyState(tabId, title, activeContext, lastCompleted, description) {{
+    const container = document.getElementById(tabId);
+    if (!container) return;
 
-    if (!calendarNextRace) {{
-        return {{ nextRace: predictedRace, isStale: false, staleReason: '' }};
-    }}
+    const lastText = lastCompleted ? `Ostatni ukończony wyścig: S${{lastCompleted.season || '?'}}R${{lastCompleted.race || '?'}} · ${{lastCompleted.track || 'Nieznany tor'}}.` : '';
+    container.innerHTML = `
+        <div class="empty-state">
+            <h2>${{title}}</h2>
+            <p>Aktywny sezon z API: <strong>S${{activeContext?.season || '?'}}R${{activeContext?.race || '?'}} · ${{activeContext?.track || 'Nieznany tor'}}</strong></p>
+            <p style="margin-top:0.75rem">${{description}}</p>
+            <p style="margin-top:0.75rem;color:var(--text-secondary)">${{lastText}}</p>
+        </div>`;
+}}
 
-    const predictedSeason = toInt(predictedRace.season);
-    const predictedRaceNo = toInt(predictedRace.race);
-    const calendarSeason = toInt(calendarNextRace.season);
-    const calendarRaceNo = toInt(calendarNextRace.race);
+function renderPendingSeasonOverview(activeContext) {{
+    const lastCompleted = getLatestRace()?.race_data || null;
 
-    const sameSeasonRace = predictedSeason !== null
-        && predictedRaceNo !== null
-        && calendarSeason !== null
-        && calendarRaceNo !== null
-        && predictedSeason === calendarSeason
-        && predictedRaceNo === calendarRaceNo;
+    document.getElementById('headerInfo').textContent =
+        `Sezon ${{activeContext?.season || '?'}} · Wyścig ${{activeContext?.race || '?'}} · ${{activeContext?.track || 'Nieznany tor'}} · Oczekiwanie na pierwszy wyścig sezonu`;
 
-    const sameTrack = normalizeTrackName(predictedRace.track) === normalizeTrackName(calendarNextRace.track);
+    const cards = [
+        {{ label: 'Aktywny sezon', value: `S${{activeContext?.season || '?'}}R${{activeContext?.race || '?'}}`, sub: activeContext?.track || 'Nieznany tor' }},
+        {{ label: 'Status', value: 'Nowy sezon', sub: 'Kontekst pobrany z Office + Calendar API' }},
+        {{ label: 'Ostatni ukończony', value: lastCompleted ? `S${{lastCompleted.season || '?'}}R${{lastCompleted.race || '?'}}` : 'Brak', sub: lastCompleted?.track || 'Brak danych' }},
+        {{ label: 'Rekomendacje', value: PREDICTION_DATA ? 'Gotowe' : 'Brak', sub: 'Sprawdź zakładkę Następny wyścig' }},
+    ];
 
-    if (sameSeasonRace && (sameTrack || !predictedRace.track || !calendarNextRace.track)) {{
-        return {{
-            nextRace: {{ ...calendarNextRace, ...predictedRace }},
-            isStale: false,
-            staleReason: ''
-        }};
-    }}
+    document.getElementById('summaryGrid').innerHTML = cards.map(c => `
+        <div class="summary-card">
+            <div class="label">${{c.label}}</div>
+            <div class="value">${{c.value}}</div>
+            <div class="sub">${{c.sub}}</div>
+        </div>
+    `).join('');
 
-    let staleReason = 'Prediction.json wskazuje inny wyścig niż aktualny kalendarz.';
-    if (predictedRace.track || predictedSeason !== null || predictedRaceNo !== null) {{
-        staleReason = `Prediction.json: ${{predictedRace.track || 'Nieznany tor'}} (S${{predictedSeason ?? '?'}} R${{predictedRaceNo ?? '?'}}) · ` +
-            `Kalendarz: ${{calendarNextRace.track || 'Nieznany tor'}} (S${{calendarSeason ?? '?'}} R${{calendarRaceNo ?? '?'}})`;
-    }}
-
-    return {{
-        nextRace: calendarNextRace,
-        isStale: true,
-        staleReason
-    }};
+    renderSeasonEmptyState('tab-results', 'Wyniki sezonu', activeContext, lastCompleted, 'Dane historyczne dla aktywnego sezonu pojawią się po ukończeniu pierwszego wyścigu.');
+    renderSeasonEmptyState('tab-setups', 'Setupy sezonu', activeContext, lastCompleted, 'Setupy historyczne dla tego sezonu będą dostępne po zapisaniu pierwszego wyścigu przez fetcher.');
+    renderSeasonEmptyState('tab-fuel', 'Paliwo sezonu', activeContext, lastCompleted, 'Strategie paliwowe dla aktywnego sezonu pojawią się po zakończeniu pierwszego wyścigu.');
+    renderSeasonEmptyState('tab-finances', 'Finanse sezonu', activeContext, lastCompleted, 'Finanse sezonu będą widoczne po pierwszym zapisanym wyścigu.');
+    renderSeasonEmptyState('tab-driver', 'Kierowca sezonu', activeContext, lastCompleted, 'Profil kierowcy w panelu historycznym będzie zasilony po zapisaniu wyścigu sezonu.');
 }}
 
 // ==========================================================
@@ -1362,7 +1334,16 @@ function render() {{
     // (może mieć kalendarz)
     renderNextRace();
 
-    if (!RACE_DATA || RACE_DATA.length === 0) {{
+    const activeContext = getCurrentContext();
+    const displayedData = getDisplayedRaceData();
+
+    if ((!displayedData || displayedData.length === 0) && activeContext && isPendingSeasonMode()) {{
+        renderPendingSeasonOverview(activeContext);
+        renderPractice();
+        return;
+    }}
+
+    if (!displayedData || displayedData.length === 0) {{
         document.getElementById('summaryGrid').innerHTML = '';
         document.getElementById('tab-results').innerHTML = `
             <div class="empty-state">
@@ -1373,13 +1354,12 @@ function render() {{
         return;
     }}
 
-    const latest = RACE_DATA[RACE_DATA.length - 1];
+    const latest = displayedData[displayedData.length - 1];
     const rd = latest.race_data || {{}};
-    const drv = rd.driver || {{}};
 
     // Nagłówek
     document.getElementById('headerInfo').textContent =
-        `Sezon ${{rd.season}} · Wyścig ${{rd.race}} · ${{rd.track}} · Dane: ${{RACE_DATA.length}} wyścigów`;
+        `Sezon ${{rd.season}} · Wyścig ${{rd.race}} · ${{rd.track}} · Dane sezonu: ${{displayedData.length}} wyścigów`;
 
     // Karty podsumowania
     renderSummary(latest);
@@ -1459,10 +1439,7 @@ function renderNextRace() {{
 
 function renderPrediction(container) {{
     const pred = PREDICTION_DATA;
-    const predictionContext = resolvePredictionContext(pred);
-    const nextRace = predictionContext.nextRace || pred.next_race || {{}};
-    const isStalePrediction = predictionContext.isStale;
-    const staleReason = predictionContext.staleReason || '';
+    const nextRace = pred.next_race || {{}};
     const confidence = pred.confidence || 'unknown';
     const confidenceReason = pred.confidence_reason || '';
     const driverMargin = pred.driver_margin || {{}};
@@ -1473,21 +1450,6 @@ function renderPrediction(container) {{
     const sessions = pred.sessions || {{}};
 
     let html = '';
-
-    if (isStalePrediction) {{
-        container.innerHTML = `
-            <div class="rec-card">
-                <h2>${{nextRace.track || 'Następny wyścig'}}</h2>
-                <div class="rec-subtitle">Sezon ${{nextRace.season || '?'}} · Wyścig ${{nextRace.race || '?'}}${{nextRace.total_laps ? ` · ${{nextRace.total_laps}} okrążeń` : ''}}</div>
-                <div style="margin-top:1rem;padding:1rem;border-radius:12px;background:rgba(245,158,11,0.12);border:1px solid rgba(245,158,11,0.35);color:var(--text-primary)">
-                    <strong>Wykryto nieaktualną predykcję.</strong>
-                    <div style="margin-top:0.5rem;color:var(--text-secondary)">${{staleReason}}</div>
-                    <div style="margin-top:0.75rem;color:var(--text-secondary)">Odśwież kalendarz i rekomendacje przed użyciem setupu:</div>
-                    <div style="margin-top:0.75rem"><code>python predictor.py</code></div>
-                </div>
-            </div>`;
-        return;
-    }}
 
     // =============================================
     // 1. NAGŁÓWEK Z INFO O TORZE
@@ -1733,19 +1695,7 @@ function renderPractice() {{
     }}
     
     const pred = PREDICTION_DATA;
-    const predictionContext = resolvePredictionContext(pred);
-    if (predictionContext.isStale) {{
-        const nextRace = predictionContext.nextRace || {{}};
-        container.innerHTML = `
-            <div class="empty-state">
-                <h2>Practice map wymaga odświeżenia predykcji</h2>
-                <p>${{predictionContext.staleReason}}</p>
-                <p style="margin-top:1rem">Aktualny następny wyścig: <strong>${{nextRace.track || 'Nieznany tor'}}</strong> (Sezon ${{nextRace.season || '?'}}, Wyścig ${{nextRace.race || '?'}})</p>
-                <p style="margin-top:1rem"><code>python predictor.py</code></p>
-            </div>`;
-        return;
-    }}
-    const nextRace = predictionContext.nextRace || pred.next_race || {{}};
+    const nextRace = pred.next_race || {{}};
     const driverMargin = pred.driver_margin || {{}};
     const practiceSetup = pred.sessions?.practice?.setup || pred.setup_practice || {{}};
     const practiceTemp = pred.sessions?.practice?.temp || pred.setup_practice?.temp || 20;
@@ -1926,7 +1876,8 @@ function renderPractice() {{
 }}
 
 function renderResults() {{
-    if (RACE_DATA.length === 0) return;
+    const displayedData = getDisplayedRaceData();
+    if (displayedData.length === 0) return;
 
     let html = '<table class="data-table"><thead><tr>';
     html += '<th>S/R</th><th>Tor</th><th>Q1</th><th>Q2</th><th>Pit</th>';
@@ -1934,8 +1885,8 @@ function renderResults() {{
     html += '</tr></thead><tbody>';
 
     // Od najnowszego do najstarszego
-    for (let i = RACE_DATA.length - 1; i >= 0; i--) {{
-        const rd = RACE_DATA[i].race_data || {{}};
+    for (let i = displayedData.length - 1; i >= 0; i--) {{
+        const rd = displayedData[i].race_data || {{}};
         const fin = rd.finances || {{}};
         const pits = rd.pits || [];
 
@@ -1956,11 +1907,12 @@ function renderResults() {{
 }}
 
 function renderSetups() {{
-    if (RACE_DATA.length === 0) return;
+    const displayedData = getDisplayedRaceData();
+    if (displayedData.length === 0) return;
 
     // Grupujemy setupy per tor
     const byTrack = {{}};
-    RACE_DATA.forEach(race => {{
+    displayedData.forEach(race => {{
         const rd = race.race_data || {{}};
         const track = rd.track || 'Unknown';
         if (!byTrack[track]) byTrack[track] = [];
@@ -2030,7 +1982,8 @@ function renderSetups() {{
 }}
 
 function renderFuel() {{
-    if (RACE_DATA.length === 0) return;
+    const displayedData = getDisplayedRaceData();
+    if (displayedData.length === 0) return;
 
     let html = '<table class="data-table"><thead><tr>';
     html += '<th>S/R</th><th>Tor</th><th>Start</th>';
@@ -2038,8 +1991,8 @@ function renderFuel() {{
     html += '<th>Opony %</th><th>Paliwo L</th>';
     html += '</tr></thead><tbody>';
 
-    for (let i = RACE_DATA.length - 1; i >= 0; i--) {{
-        const rd = RACE_DATA[i].race_data || {{}};
+    for (let i = displayedData.length - 1; i >= 0; i--) {{
+        const rd = displayedData[i].race_data || {{}};
         const pits = rd.pits || [];
 
         html += `<tr>`;
@@ -2066,15 +2019,16 @@ function renderFuel() {{
 }}
 
 function renderFinances() {{
-    if (RACE_DATA.length === 0) return;
+    const displayedData = getDisplayedRaceData();
+    if (displayedData.length === 0) return;
 
     let html = '<table class="data-table"><thead><tr>';
     html += '<th>S/R</th><th>Tor</th>';
     html += '<th>Przychody</th><th>Koszty</th><th>Bilans</th><th>Saldo</th>';
     html += '</tr></thead><tbody>';
 
-    for (let i = RACE_DATA.length - 1; i >= 0; i--) {{
-        const rd = RACE_DATA[i].race_data || {{}};
+    for (let i = displayedData.length - 1; i >= 0; i--) {{
+        const rd = displayedData[i].race_data || {{}};
         const fin = rd.finances || {{}};
         const txs = fin.transactions || [];
 
