@@ -1708,17 +1708,17 @@ function renderPractice() {{
     // Nagłówek
     html += `<div class="practice-header">`;
     html += `<h2>🏁 Praktyka - Binary Search Setup</h2>`;
-    html += `<div class="track-info">\${{nextRace.track || 'Nieznany tor'}} · Sezon \${{nextRace.season || '?'}} · Wyścig \${{nextRace.race || '?'}}</div>`;
+    html += `<div class="track-info">${{nextRace.track || 'Nieznany tor'}} · Sezon ${{nextRace.season || '?'}} · Wyścig ${{nextRace.race || '?'}}</div>`;
     html += `</div>`;
     
     // Driver stats mini
     const ma = driverMargin.MA || 0;
     const halfMa = driverMargin.half_MA || 0;
     html += `<div class="driver-stats-mini">`;
-    html += `<div class="driver-stat-mini"><div class="label">Margines</div><div class="value" style="color:var(--accent-yellow)">\${{halfMa}}</div></div>`;
-    html += `<div class="driver-stat-mini"><div class="label">MA</div><div class="value">\${{ma}}</div></div>`;
-    html += `<div class="driver-stat-mini"><div class="label">Temp</div><div class="value">\${{practiceTemp}}°C</div></div>`;
-    html += `<div class="driver-stat-mini"><div class="label">Opony</div><div class="value">\${{pred.sessions?.practice?.tyres || 'medium'}}</div></div>`;
+    html += `<div class="driver-stat-mini"><div class="label">Margines</div><div class="value" style="color:var(--accent-yellow)">${{halfMa}}</div></div>`;
+    html += `<div class="driver-stat-mini"><div class="label">MA</div><div class="value">${{ma}}</div></div>`;
+    html += `<div class="driver-stat-mini"><div class="label">Temp</div><div class="value">${{practiceTemp}}°C</div></div>`;
+    html += `<div class="driver-stat-mini"><div class="label">Opony</div><div class="value">${{pred.sessions?.practice?.tyres || 'medium'}}</div></div>`;
     html += `</div>`;
     
     // Timeline
@@ -1730,9 +1730,9 @@ function renderPractice() {{
         const isDone = lapNum < currentLap;
         const isCurrent = lapNum === currentLap;
         const statusClass = isDone ? 'completed' : (isCurrent ? 'current' : '');
-    html += `<div class="timeline-step \${{statusClass}}">`;
-    html += `<div class="timeline-dot">\${{lapNum}}</div>`;
-    html += `<div class="timeline-label">\${{step}}</div>`;
+    html += `<div class="timeline-step ${{statusClass}}">`;
+    html += `<div class="timeline-dot">${{lapNum}}</div>`;
+    html += `<div class="timeline-label">${{step}}</div>`;
         html += `</div>`;
     }});
     html += `</div>`;
@@ -1766,10 +1766,11 @@ function renderPractice() {{
             suggestedSetup.rw = practiceSetup.rw - halfMa + offset;
         }}
         
-        html += `<div class="lap-card \${{isCurrent ? 'current' : ''}} \${{isDone ? 'done' : ''}}">`;
+        html += `<div class="lap-card ${{isCurrent ? 'current' : ''}} ${{isDone ? 'done' : ''}}">`;
         
         // Lap header
-        html += `<h3>Lap \${{lapNum}}</h3>`;
+        html += `<div class="lap-header">`;
+        html += `<h3>Lap ${{lapNum}}</h3>`;
         if (isDone) {{
             html += `<span class="lap-badge done">✓ Wykonane</span>`;
         }} else if (isCurrent) {{
@@ -1777,15 +1778,15 @@ function renderPractice() {{
         }} else {{
             html += `<span class="lap-badge pending">⏳ Dalej</span>`;
         }}
-        html += `</div>`;
+        html += `</div>`; // lap-header
         
         // Setup chips
         html += `<div class="lap-setup">`;
         ['fw', 'rw', 'eng', 'bra', 'gear', 'susp'].forEach(key => {{
             const val = suggestedSetup[key] || 0;
             html += `<div class="setup-chip">`;
-            html += `<span class="label">\${{key.toUpperCase()}}</span>`;
-            html += `<span class="value">\${{val}}</span>`;
+            html += `<span class="label">${{key.toUpperCase()}}</span>`;
+            html += `<span class="value">${{val}}</span>`;
             html += `</div>`;
         }});
         html += `</div>`;
@@ -1794,13 +1795,13 @@ function renderPractice() {{
         if (!isDone) {{
             html += `<div class="binary-search-visual">`;
             if (lapNum === 1) {{
-                html += `<div class="search-range">Start: \${{practiceSetup.fw - halfMa}} → \${{practiceSetup.fw + halfMa}}</div>`;
+                html += `<div class="search-range">Start: ${{practiceSetup.fw - halfMa}} → ${{practiceSetup.fw + halfMa}}</div>`;
             }} else if (lapNum === 2) {{
-                html += `<div class="search-arrow">Jeśli nie satisfied → FW +\${{halfMa}}</div>`;
+                html += `<div class="search-arrow">Jeśli nie satisfied → FW +${{halfMa}}</div>`;
             }} else if (lapNum === 4) {{
                 html += `<div class="search-arrow">Jeśli gorszy → zmień kierunek</div>`;
             }} else {{
-                html += `<div class="search-range">Zawężanie ±\${{Math.floor(halfMa / (lapNum - 2))}}</div>`;
+                html += `<div class="search-range">Zawężanie ±${{Math.floor(halfMa / (lapNum - 2))}}</div>`;
             }}
             html += `</div>`;
         }}
@@ -1808,8 +1809,8 @@ function renderPractice() {{
         // Instruction
         if (!isDone) {{
             html += `<div class="lap-instruction">`;
-            html += `<div class="instruction">\${{lap.action}}</div>`;
-            html += `<div class="note">\${{lap.note}}</div>`;
+            html += `<div class="instruction">${{lap.action}}</div>`;
+            html += `<div class="note">${{lap.note}}</div>`;
             html += `</div>`;
         }}
         
@@ -1824,14 +1825,14 @@ function renderPractice() {{
     ['fw', 'rw', 'eng', 'bra', 'gear', 'susp'].forEach(key => {{
         const val = q1Setup[key] || 0;
         html += `<div class="setup-chip">`;
-        html += `<span class="label">\${{key.toUpperCase()}}</span>`;
-        html += `<span class="value">\${{val}}</span>`;
+        html += `<span class="label">${{key.toUpperCase()}}</span>`;
+        html += `<span class="value">${{val}}</span>`;
         html += `</div>`;
     }});
     html += `</div>`;
     html += `<div class="next-up">`;
     html += `<span class="icon">🏎️</span>`;
-    html += `<div><div class="label">Następna sesja</div><div class="value">Q1 - Soft tyres, \${{pred.sessions?.q1?.temp || 22}}°C</div></div>`;
+    html += `<div><div class="label">Następna sesja</div><div class="value">Q1 - Soft tyres, ${{pred.sessions?.q1?.temp || 22}}°C</div></div>`;
     html += `</div>`;
     html += `</div>`;
     
@@ -1843,8 +1844,8 @@ function renderPractice() {{
     ['fw', 'rw', 'eng', 'bra', 'gear', 'susp'].forEach(key => {{
         const val = q2Setup[key] || 0;
         html += `<div class="setup-chip">`;
-        html += `<span class="label">\${{key.toUpperCase()}}</span>`;
-        html += `<span class="value">\${{val}}</span>`;
+        html += `<span class="label">${{key.toUpperCase()}}</span>`;
+        html += `<span class="value">${{val}}</span>`;
         html += `</div>`;
     }});
     html += `</div>`;
@@ -1861,15 +1862,15 @@ function renderPractice() {{
     ['fw', 'rw', 'eng', 'bra', 'gear', 'susp'].forEach(key => {{
         const val = raceSetup[key] || 0;
         html += `<div class="setup-chip">`;
-        html += `<span class="label">\${{key.toUpperCase()}}</span>`;
-        html += `<span class="value">\${{val}}</span>`;
+        html += `<span class="label">${{key.toUpperCase()}}</span>`;
+        html += `<span class="value">${{val}}</span>`;
         html += `</div>`;
     }});
     html += `</div>`;
     const fs = pred.sessions?.race?.fuel_strategy || {{}};
     html += `<div class="next-up">`;
     html += `<span class="icon">⛽</span>`;
-    html += `<div><div class="label">Strategia paliwowa</div><div class="value">\${{fs.pits || 2}} pit stopy · \${{fs.total_fuel || 257}}L</div></div>`;
+    html += `<div><div class="label">Strategia paliwowa</div><div class="value">${{fs.pits || 2}} pit stopy · ${{fs.total_fuel || 257}}L</div></div>`;
     html += `</div>`;
     html += `</div>`;
     
