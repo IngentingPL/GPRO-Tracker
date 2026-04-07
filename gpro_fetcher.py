@@ -14,6 +14,7 @@ wzorców w programowaniu danych.
 
 import json
 import os
+import re
 import subprocess
 import sys
 import time
@@ -45,7 +46,7 @@ TRACKS_DIR = "data/tracks"
 # więc trzymamy go w osobnym pliku zamiast kopiować do każdego JSONa.
 CALENDAR_FILE = "data/calendar.json"
 
-# Plik z aktywnym kontekstem sezonu (Office + Calendar)
+# Plik z aktywnym kontekstem sezonu/wyścigu (Office + Calendar)
 CURRENT_CONTEXT_FILE = "data/current_context.json"
 
 # Jak często odświeżać kalendarz (w sekundach) - 7 dni
@@ -425,8 +426,107 @@ def save_json(data, filepath):
 
 
 # ============================================================
-# GŁÓWNA LOGIKA SKRYPTU
+# POMOCNICZE FUNKCJE KONTEKSTU SEZONU / KALENDARZA
 # ============================================================
+
+def load_json_safe(filepath):
+    """Wczytuje JSON jeśli plik istnieje i ma poprawny format."""
+    if not os.path.exists(filepath):
+        return None
+    try:
+        with open(filepath, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except Exception as e:
+        print(f"  [OSTRZEŻENIE] Nie udało się wczytać {filepath}: {e}")
+        return None
+
+
+def normalize_int(value):
+    """Konwertuje wartość do int jeśli to możliwe."""
+    if value is None or value == "":
+        return None
+    try:
+        return int(value)
+    except (TypeError, ValueError):
+        match = re.search(r"\d+", str(value))
+        return int(match.group(0)) if match else None
+
+
+def extract_office_context(office_raw):
+    """Wyciąga sezon i numer aktywnego wyścigu z endpointu Office."""
+    if not isinstance(office_raw, dict):
+        return {"season": None, "race": None}
+
+    season = None
+    race = None
+
+    for key in ["season", "selSeasonNb", "currentSeason", "curSeason", "seasonNb"]:
+        season = normalize_int(office_raw.get(key))
+        if season is not None:
+            break
+
+    for key in ["nextRace", "race", "selRaceNb", "currentRace", "curRace", "raceNb"]:
+        race = normalize_int(office_raw.get(key))
+        if race is not None:
+            break
+
+    return {"season": season, "race": race}
+
+
+def extract_calendar_races(calendar_payload):
+    """Zwraca listę eventów z kalendarza niezależnie od formatu."""
+    if isinstance(calendar_payload, list):
+        return calendar_payload
+
+    if isinstance(calendar_payload, dict):
+        data = calendar_payload.get("data", calendar_payload)
+        if isinstance(data, list):
+            return data
+        if isinstance(data, dict):
+            for key in ["races", "calendar", "events", "schedule", "items", "data"]:
+                value = data.get(key)
+                if isinstance(value, list):
+                    return value
+        for key in ["races", "calendar", "events", "schedule", "items"]:
+            value = calendar_payload.get(key)
+            if isinstance(value, list):
+                return value
+
+    return []
+
+
+def extract_calendar_season(calendar_payload):
+    """Próbuje ustalić sezon zapisany w kalendarzu."""
+    if isinstance(calendar_payload, dict):
+        for key in ["season", "selSeasonNb", "currentSeason", "seasonNb"]:
+            season = normalize_int(calendar_payload.get(key))
+            if season is not None:
+                return season
+
+    for event in extract_calendar_races(calendar_payload):
+        if not isinstance(event, dict):
+            continue
+        for key in ["season", "selSeasonNb", "seasonNb"]:
+            season = normalize_int(event.get(key))
+            if season is not None:
+                return season
+
+    return None
+
+
+def build_calendar_payload(calendar_raw, office_context=None):
+    """Normalizuje odpowiedź kalendarza do spójnego formatu JSON."""
+    office_context = office_context or {}
+    race_data = extract_calendar_races(calendar_raw)
+    season = office_context.get("season") or extract_calendar_season(calendar_raw)
+
+    return {
+        "season": season,
+        "office_race": office_context.get("race"),
+        "data": race_data,
+        "fetched_at": datetime.utcnow().isoformat() + "Z"
+    }
+
 
 def is_transfer_market_event(event):
     """Zwraca True dla eventów typu rynek transferowy / nie-race."""
@@ -437,9 +537,9 @@ def is_transfer_market_event(event):
     if event_type and event_type != "R":
         return True
 
-    track_name = str(event.get("trackName") or event.get("track") or event.get("name") or event.get("raceName") or "").strip().lower()
-    blocked_fragments = ["transfer market", "rynek transferowy", "market #", "market ", "transferowy #"]
-    return any(fragment in track_name for fragment in blocked_fragments)
+    name = str(event.get("trackName") or event.get("track") or event.get("name") or event.get("raceName") or "").strip().lower()
+    blocked = ["transfer market", "rynek transferowy", "market #", "transferowy #"]
+    return any(fragment in name for fragment in blocked)
 
 
 def build_current_context(calendar_payload, office_context=None, latest_completed=None):
@@ -450,22 +550,10 @@ def build_current_context(calendar_payload, office_context=None, latest_complete
     office_season = normalize_int(office_context.get("season"))
     office_race = normalize_int(office_context.get("race"))
     calendar_season = extract_calendar_season(calendar_payload) or office_season
-    races = extract_calendar_races(calendar_payload) or []
 
-    normalized_races = []
-    for event in races:
+    normalized = []
+    for event in extract_calendar_races(calendar_payload):
         if not isinstance(event, dict) or is_transfer_market_event(event):
-            continue
-
-        race_num = (
-            normalize_int(event.get("race"))
-            or normalize_int(event.get("raceNb"))
-            or normalize_int(event.get("round"))
-            or normalize_int(event.get("number"))
-            or normalize_int(event.get("idx"))
-            or normalize_int(event.get("selRaceNb"))
-        )
-        if race_num is None:
             continue
 
         season = (
@@ -475,32 +563,41 @@ def build_current_context(calendar_payload, office_context=None, latest_complete
             or calendar_season
             or office_season
         )
-        track_name = event.get("trackName") or event.get("track") or event.get("name") or event.get("raceName")
-        if not track_name:
+        race = (
+            normalize_int(event.get("race"))
+            or normalize_int(event.get("raceNb"))
+            or normalize_int(event.get("round"))
+            or normalize_int(event.get("number"))
+            or normalize_int(event.get("idx"))
+            or normalize_int(event.get("selRaceNb"))
+        )
+        track = event.get("trackName") or event.get("track") or event.get("name") or event.get("raceName")
+        if season is None or race is None or not track:
             continue
 
-        normalized_races.append({
+        normalized.append({
             "season": season,
-            "race": race_num,
-            "track": track_name,
+            "race": race,
+            "track": track,
             "track_id": event.get("trackId") or event.get("trackID") or event.get("id"),
             "total_laps": normalize_int(event.get("totalLaps")) or normalize_int(event.get("total_laps")) or normalize_int(event.get("laps")) or normalize_int(event.get("lapNb")) or 72,
             "is_current": normalize_int(event.get("isCurrentRace")) == 1 or event.get("current") is True or event.get("upcoming") is True
         })
 
-    normalized_races.sort(key=lambda x: (x["season"] or 0, x["race"] or 0))
-    selected = next((event for event in normalized_races if event.get("is_current")), None)
+    normalized.sort(key=lambda x: (x["season"], x["race"]))
+    selected = next((event for event in normalized if event.get("is_current")), None)
 
     if not selected and office_season is not None and office_race is not None:
-        selected = next((event for event in normalized_races if event["season"] == office_season and event["race"] == office_race), None)
+        selected = next((event for event in normalized if event["season"] == office_season and event["race"] == office_race), None)
 
     latest_season = normalize_int(latest_completed.get("season"))
-    if not selected and office_season is not None and latest_season is not None and office_season > latest_season:
-        selected = next((event for event in normalized_races if event["season"] == office_season), None)
-
     latest_race = normalize_int(latest_completed.get("race"))
+
+    if not selected and office_season is not None and latest_season is not None and office_season > latest_season:
+        selected = next((event for event in normalized if event["season"] == office_season), None)
+
     if not selected and latest_season is not None:
-        for event in normalized_races:
+        for event in normalized:
             if event["season"] > latest_season:
                 selected = event
                 break
@@ -508,8 +605,8 @@ def build_current_context(calendar_payload, office_context=None, latest_complete
                 selected = event
                 break
 
-    if not selected and normalized_races:
-        selected = normalized_races[0]
+    if not selected and normalized:
+        selected = normalized[0]
 
     if not selected:
         return {
@@ -532,60 +629,55 @@ def build_current_context(calendar_payload, office_context=None, latest_complete
         "fetched_at": datetime.utcnow().isoformat() + "Z"
     }
 
+# ============================================================
+# GŁÓWNA LOGIKA SKRYPTU
+# ============================================================
 
 def fetch_and_cache_calendar():
     """
     Pobiera kalendarz z API i zapisuje do osobnego pliku.
-    Odświeża tylko jeśli plik nie istnieje lub jest starszy niż 7 dni.
-
-    Mini-lekcja: To jest wzorzec "cache" - zamiast pobierać dane za każdym
-    razem, sprawdzamy najpierw czy mamy aktualną kopię. Dzięki temu
-    oszczędzamy limity API i przyspieszamy działanie.
+    Odświeża cache nie tylko wg wieku pliku, ale też przy zmianie sezonu
+    lub gdy Office wskazuje początek nowego sezonu (wyścig 1).
     """
-    # Sprawdzamy czy plik istnieje i czy jest wystarczająco świeży
-    if os.path.exists(CALENDAR_FILE):
-        file_age = time.time() - os.path.getmtime(CALENDAR_FILE)
-        if file_age < CALENDAR_MAX_AGE:
-            print(f"  Kalendarz aktualny (wiek: {file_age / 3600:.0f}h). Pomijam pobieranie.")
-            return
+    cached_calendar = load_json_safe(CALENDAR_FILE)
+    file_exists = os.path.exists(CALENDAR_FILE)
+    file_age = time.time() - os.path.getmtime(CALENDAR_FILE) if file_exists else None
 
-    print("  Kalendarz nieaktualny lub brak pliku. Pobieram...")
+    office_raw = fetch_office()
+    office_context = extract_office_context(office_raw)
+    office_season = office_context.get("season")
+    office_race = office_context.get("race")
+    cached_season = extract_calendar_season(cached_calendar)
+
+    refresh_reasons = []
+    if not file_exists:
+        refresh_reasons.append("brak pliku")
+    elif file_age is not None and file_age >= CALENDAR_MAX_AGE:
+        refresh_reasons.append(f"wiek {file_age / 3600:.0f}h")
+
+    if office_race == 1:
+        refresh_reasons.append("Office wskazuje początek sezonu (Race 1)")
+
+    if office_season is not None and cached_season is not None and office_season != cached_season:
+        refresh_reasons.append(f"zmiana sezonu: cache S{cached_season} -> Office S{office_season}")
+
+    if not refresh_reasons and file_exists:
+        print(f"  Kalendarz aktualny (wiek: {file_age / 3600:.0f}h). Pomijam pobieranie.")
+        return cached_calendar
+
+    reason_text = ", ".join(refresh_reasons) if refresh_reasons else "wymuszony refresh"
+    print(f"  Odświeżam kalendarz ({reason_text}).")
+    if office_raw:
+        pause_between_requests()
+
     calendar_raw = fetch_calendar()
-
-    if calendar_raw:
-        # Walidacja: kalendarz może być listą lub słownikiem
-        if isinstance(calendar_raw, list):
-            # Bezpośrednia lista wyścigów
-            save_json({
-                "data": calendar_raw,
-                "fetched_at": datetime.utcnow().isoformat() + "Z"
-            }, CALENDAR_FILE)
-        elif isinstance(calendar_raw, dict):
-            # Słownik - spróbujmy znaleźć listę wyścigów
-            # Sprawdzamy typowe klasy używane przez GPRO API
-            race_data = None
-            for key in ["data", "races", "calendar", "events", "schedule"]:
-                if key in calendar_raw and isinstance(calendar_raw[key], list):
-                    race_data = calendar_raw[key]
-                    break
-
-            if race_data:
-                save_json({
-                    "data": race_data,
-                    "fetched_at": datetime.utcnow().isoformat() + "Z"
-                }, CALENDAR_FILE)
-            else:
-                # Jeśli nie znaleźliśmy listy, zapiszemy cały słownik
-                print(f"  [OSTRZEŻENIE] Kalendarz w formacie słownika, ale nie znaleziono listy wyścigów. Zapisuję oryginalne dane.")
-                save_json({
-                    "data": calendar_raw,
-                    "fetched_at": datetime.utcnow().isoformat() + "Z"
-                }, CALENDAR_FILE)
-        else:
-            print(f"  [BŁĄD] Nieprawidłowy format kalendarza (oczekiwano listy lub słownika, otrzymano: {type(calendar_raw).__name__})")
-    else:
+    if not calendar_raw:
         print("  [OSTRZEŻENIE] Nie udało się pobrać kalendarza.")
+        return cached_calendar
 
+    normalized_calendar = build_calendar_payload(calendar_raw, office_context)
+    save_json(normalized_calendar, CALENDAR_FILE)
+    return normalized_calendar
 
 def fetch_post_race():
     """
@@ -660,13 +752,13 @@ def fetch_post_race():
     # 8. Zapisujemy też "latest.json" - zawsze wskazuje na ostatni wyścig
     save_json(combined, f"{DATA_DIR}/latest.json")
 
-    # 8.5. Budujemy aktywny kontekst sezonu/wyścigu z Office + Calendar
+    # 8.5. Zapisujemy aktywny kontekst sezonu/wyścigu z Office + Calendar
     latest_completed = {"season": season, "race": race, "track": track}
     office_context = {
         "season": normalize_int(calendar_payload.get("season")) if isinstance(calendar_payload, dict) else None,
         "race": normalize_int(calendar_payload.get("office_race")) if isinstance(calendar_payload, dict) else None
     }
-    current_context = build_current_context(calendar_payload, office_context, latest_completed)
+    current_context = build_current_context(calendar_payload or {}, office_context, latest_completed)
     save_json(current_context, CURRENT_CONTEXT_FILE)
 
     # 9. Pobierz profil aktywnego następnego toru (jeśli znamy track_id)
