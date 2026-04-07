@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-04-05T07:13:55.267935Z",
+  "generated_at": "2026-04-07T13:25:55.754500Z",
   "next_race": {
-    "track": "Laguna Seca GP (USA)",
+    "track": "Fuji GP (Japonia)",
     "season": 109,
-    "race": 17,
+    "race": 2,
     "total_laps": 72
   },
   "confidence": "low",
@@ -50,7 +50,7 @@
     "temp": 27
   },
   "base": {
-    "track": "Laguna Seca GP (USA)",
+    "track": "Fuji GP (Japonia)",
     "setup": {
       "fw": 500,
       "rw": 500,
