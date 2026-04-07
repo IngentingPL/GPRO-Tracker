@@ -235,7 +235,7 @@
       "total": 7870510,
       "balance": -30750175
     },
-    "fetched_at": "2026-04-07T13:25:45.192780Z"
+    "fetched_at": "2026-04-07T14:02:48.389364Z"
   },
   "race_summary": {
     "track": "Laguna Seca",
@@ -424,7 +424,7 @@
     "privateOfferCost": 1000000,
     "setOfferCost": 500000,
     "setOfferType": "1",
-    "nextPriceIncrementIn": 156847,
+    "nextPriceIncrementIn": 154628,
     "offerPlaced": 0,
     "inShortList": 1,
     "oneRaceRenewFee": 184700,
@@ -446,7 +446,7 @@
     "setContractLengthExtend": "",
     "totalOffers": 0,
     "offersFrom": [],
-    "apiRequestsRemaining": 985
+    "apiRequestsRemaining": 978
   },
   "standings": {
     "loadingDataState": "1",
@@ -7937,7 +7937,7 @@
       },
       "series": []
     },
-    "apiRequestsRemaining": 984
+    "apiRequestsRemaining": 977
   },
   "car_status": {
     "loadingDataState": "1",
@@ -8389,6 +8389,6 @@
     "showUndoAlertNoCredits": false,
     "credits": 0,
     "races": 3,
-    "apiRequestsRemaining": 983
+    "apiRequestsRemaining": 976
   }
 }
