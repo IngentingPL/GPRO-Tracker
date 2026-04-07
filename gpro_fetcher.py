@@ -14,6 +14,7 @@ wzorców w programowaniu danych.
 
 import json
 import os
+import re
 import subprocess
 import sys
 import time
@@ -425,59 +426,155 @@ def save_json(data, filepath):
 # GŁÓWNA LOGIKA SKRYPTU
 # ============================================================
 
+def load_json_safe(filepath):
+    """Wczytuje JSON jeśli plik istnieje i ma poprawny format."""
+    if not os.path.exists(filepath):
+        return None
+
+    try:
+        with open(filepath, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except Exception as e:
+        print(f"  [OSTRZEŻENIE] Nie udało się wczytać {filepath}: {e}")
+        return None
+
+
+def normalize_int(value):
+    """Konwertuje wartość do int jeśli to możliwe."""
+    if value is None or value == "":
+        return None
+
+    try:
+        return int(value)
+    except (TypeError, ValueError):
+        match = re.search(r"\d+", str(value))
+        return int(match.group(0)) if match else None
+
+
+def extract_office_context(office_raw):
+    """Wyciąga sezon i numer kolejnego/bieżącego wyścigu z endpointu Office."""
+    if not isinstance(office_raw, dict):
+        return {"season": None, "race": None}
+
+    season = None
+    race = None
+
+    for key in ["season", "selSeasonNb", "currentSeason", "curSeason", "seasonNb"]:
+        season = normalize_int(office_raw.get(key))
+        if season is not None:
+            break
+
+    for key in ["nextRace", "race", "selRaceNb", "currentRace", "curRace", "raceNb"]:
+        race = normalize_int(office_raw.get(key))
+        if race is not None:
+            break
+
+    return {"season": season, "race": race}
+
+
+def extract_calendar_races(calendar_payload):
+    """Zwraca listę wyścigów niezależnie od formatu odpowiedzi API."""
+    if isinstance(calendar_payload, list):
+        return calendar_payload
+
+    if isinstance(calendar_payload, dict):
+        for key in ["data", "races", "calendar", "events", "schedule"]:
+            value = calendar_payload.get(key)
+            if isinstance(value, list):
+                return value
+
+    return None
+
+
+def extract_calendar_season(calendar_payload):
+    """Próbuje ustalić sezon zapisany w kalendarzu."""
+    if not isinstance(calendar_payload, dict):
+        return None
+
+    for key in ["season", "selSeasonNb", "currentSeason", "seasonNb"]:
+        season = normalize_int(calendar_payload.get(key))
+        if season is not None:
+            return season
+
+    races = extract_calendar_races(calendar_payload) or []
+    for entry in races:
+        if not isinstance(entry, dict):
+            continue
+        for key in ["season", "selSeasonNb", "seasonNb"]:
+            season = normalize_int(entry.get(key))
+            if season is not None:
+                return season
+
+    return None
+
+
+def build_calendar_payload(calendar_raw, office_context=None):
+    """Normalizuje odpowiedź kalendarza do spójnego formatu JSON."""
+    office_context = office_context or {}
+    race_data = extract_calendar_races(calendar_raw)
+
+    if race_data is None:
+        print("  [OSTRZEŻENIE] Kalendarz w nietypowym formacie. Zapisuję oryginalne dane.")
+        race_data = calendar_raw
+
+    season = office_context.get("season") or extract_calendar_season(calendar_raw)
+
+    return {
+        "season": season,
+        "office_race": office_context.get("race"),
+        "data": race_data,
+        "fetched_at": datetime.utcnow().isoformat() + "Z"
+    }
+
+
 def fetch_and_cache_calendar():
     """
     Pobiera kalendarz z API i zapisuje do osobnego pliku.
-    Odświeża tylko jeśli plik nie istnieje lub jest starszy niż 7 dni.
-
-    Mini-lekcja: To jest wzorzec "cache" - zamiast pobierać dane za każdym
-    razem, sprawdzamy najpierw czy mamy aktualną kopię. Dzięki temu
-    oszczędzamy limity API i przyspieszamy działanie.
+    Odświeża cache nie tylko wg wieku pliku, ale też przy zmianie sezonu
+    lub gdy Office wskazuje początek nowego sezonu (wyścig 1).
     """
-    # Sprawdzamy czy plik istnieje i czy jest wystarczająco świeży
-    if os.path.exists(CALENDAR_FILE):
-        file_age = time.time() - os.path.getmtime(CALENDAR_FILE)
-        if file_age < CALENDAR_MAX_AGE:
-            print(f"  Kalendarz aktualny (wiek: {file_age / 3600:.0f}h). Pomijam pobieranie.")
-            return
+    cached_calendar = load_json_safe(CALENDAR_FILE)
+    file_exists = os.path.exists(CALENDAR_FILE)
+    file_age = time.time() - os.path.getmtime(CALENDAR_FILE) if file_exists else None
 
-    print("  Kalendarz nieaktualny lub brak pliku. Pobieram...")
+    office_raw = fetch_office()
+    office_context = extract_office_context(office_raw)
+    office_season = office_context.get("season")
+    office_race = office_context.get("race")
+    cached_season = extract_calendar_season(cached_calendar)
+
+    refresh_reasons = []
+
+    if not file_exists:
+        refresh_reasons.append("brak pliku")
+    elif file_age is not None and file_age >= CALENDAR_MAX_AGE:
+        refresh_reasons.append(f"wiek {file_age / 3600:.0f}h")
+
+    if office_race == 1:
+        refresh_reasons.append("Office wskazuje początek sezonu (Race 1)")
+
+    if office_season is not None and cached_season is not None and office_season != cached_season:
+        refresh_reasons.append(f"zmiana sezonu: cache S{cached_season} -> Office S{office_season}")
+
+    if not refresh_reasons and file_exists:
+        print(f"  Kalendarz aktualny (wiek: {file_age / 3600:.0f}h, sezon cache: {cached_season or '?'}). Pomijam pobieranie.")
+        return cached_calendar
+
+    reason_text = ", ".join(refresh_reasons) if refresh_reasons else "wymuszony refresh"
+    print(f"  Odświeżam kalendarz ({reason_text}).")
+
+    if office_raw:
+        pause_between_requests()
+
     calendar_raw = fetch_calendar()
 
-    if calendar_raw:
-        # Walidacja: kalendarz może być listą lub słownikiem
-        if isinstance(calendar_raw, list):
-            # Bezpośrednia lista wyścigów
-            save_json({
-                "data": calendar_raw,
-                "fetched_at": datetime.utcnow().isoformat() + "Z"
-            }, CALENDAR_FILE)
-        elif isinstance(calendar_raw, dict):
-            # Słownik - spróbujmy znaleźć listę wyścigów
-            # Sprawdzamy typowe klasy używane przez GPRO API
-            race_data = None
-            for key in ["data", "races", "calendar", "events", "schedule"]:
-                if key in calendar_raw and isinstance(calendar_raw[key], list):
-                    race_data = calendar_raw[key]
-                    break
-
-            if race_data:
-                save_json({
-                    "data": race_data,
-                    "fetched_at": datetime.utcnow().isoformat() + "Z"
-                }, CALENDAR_FILE)
-            else:
-                # Jeśli nie znaleźliśmy listy, zapiszemy cały słownik
-                print(f"  [OSTRZEŻENIE] Kalendarz w formacie słownika, ale nie znaleziono listy wyścigów. Zapisuję oryginalne dane.")
-                save_json({
-                    "data": calendar_raw,
-                    "fetched_at": datetime.utcnow().isoformat() + "Z"
-                }, CALENDAR_FILE)
-        else:
-            print(f"  [BŁĄD] Nieprawidłowy format kalendarza (oczekiwano listy lub słownika, otrzymano: {type(calendar_raw).__name__})")
-    else:
+    if not calendar_raw:
         print("  [OSTRZEŻENIE] Nie udało się pobrać kalendarza.")
+        return cached_calendar
 
+    normalized_calendar = build_calendar_payload(calendar_raw, office_context)
+    save_json(normalized_calendar, CALENDAR_FILE)
+    return normalized_calendar
 
 def fetch_post_race():
     """
