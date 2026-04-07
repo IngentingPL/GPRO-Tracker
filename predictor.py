@@ -15,6 +15,7 @@ import json
 import math
 import os
 import glob
+import re
 from datetime import datetime
 
 
@@ -128,7 +129,16 @@ def load_history():
 
     # Szukamy plików z wyścigami
     pattern = os.path.join(data_dir, "S*R*.json")
-    race_files = sorted(glob.glob(pattern))
+    race_files = glob.glob(pattern)
+
+    def sort_key(filepath):
+        filename = os.path.basename(filepath)
+        match = re.match(r"S(\d+)R(\d+)\.json$", filename)
+        if match:
+            return (int(match.group(1)), int(match.group(2)))
+        return (0, 0, filename)
+
+    race_files = sorted(race_files, key=sort_key)
 
     print(f"  Znaleziono {len(race_files)} plików z wyścigami.")
 
@@ -561,93 +571,197 @@ def generate_practice_plan(confidence):
 # INFO O NASTĘPNYM WYŚCIGU
 # ============================================================
 
+def normalize_int(value):
+    """Konwertuje wartość do int jeśli to możliwe."""
+    if value is None or value == "":
+        return None
+
+    try:
+        return int(value)
+    except (TypeError, ValueError):
+        match = re.search(r"\d+", str(value))
+        return int(match.group(0)) if match else None
+
+
+def extract_calendar_events(calendar_payload):
+    """Zwraca listę eventów z calendar.json niezależnie od formatu."""
+    if isinstance(calendar_payload, list):
+        return calendar_payload
+
+    if isinstance(calendar_payload, dict):
+        data = calendar_payload.get("data", calendar_payload)
+
+        if isinstance(data, list):
+            return data
+
+        if isinstance(data, dict):
+            for key in ["races", "calendar", "events", "schedule", "items", "data"]:
+                value = data.get(key)
+                if isinstance(value, list):
+                    return value
+
+        for key in ["races", "calendar", "events", "schedule", "items"]:
+            value = calendar_payload.get(key)
+            if isinstance(value, list):
+                return value
+
+    return []
+
+
+def extract_calendar_season(calendar_payload, fallback_season=None):
+    """Próbuje ustalić sezon zapisany w kalendarzu."""
+    if isinstance(calendar_payload, dict):
+        for key in ["season", "selSeasonNb", "currentSeason", "seasonNb"]:
+            season = normalize_int(calendar_payload.get(key))
+            if season is not None:
+                return season
+
+    events = extract_calendar_events(calendar_payload)
+    for event in events:
+        if not isinstance(event, dict):
+            continue
+        for key in ["season", "selSeasonNb", "seasonNb"]:
+            season = normalize_int(event.get(key))
+            if season is not None:
+                return season
+
+    return fallback_season
+
+
+def build_next_race_result(event, season_fallback=None):
+    """Normalizuje event kalendarza do formatu używanego przez predictor."""
+    if not isinstance(event, dict):
+        return None
+
+    season = (
+        normalize_int(event.get("season"))
+        or normalize_int(event.get("selSeasonNb"))
+        or normalize_int(event.get("seasonNb"))
+        or season_fallback
+    )
+
+    race_num = (
+        normalize_int(event.get("race"))
+        or normalize_int(event.get("raceNb"))
+        or normalize_int(event.get("round"))
+        or normalize_int(event.get("number"))
+        or normalize_int(event.get("idx"))
+        or normalize_int(event.get("selRaceNb"))
+    )
+
+    track_name = event.get("trackName") or event.get("track") or event.get("name") or event.get("raceName")
+    total_laps = (
+        normalize_int(event.get("totalLaps"))
+        or normalize_int(event.get("total_laps"))
+        or normalize_int(event.get("laps"))
+        or normalize_int(event.get("lapNb"))
+        or normalize_int(event.get("noOfLaps"))
+        or 72
+    )
+
+    if season is None or race_num is None or not track_name:
+        return None
+
+    return {
+        "season": season,
+        "race": race_num,
+        "track": track_name,
+        "total_laps": total_laps
+    }
+
+
 def get_next_race_info():
     """
     Znajduje informacje o następnym wyścigu.
 
-    Mini-lekcja: Bierzemy dane z ostatniego pliku wyścigowego
-    (pole calendar lub office) aby określić kolejny wyścig.
+    Priorytet:
+    1. Kalendarz oznaczony flagą isCurrentRace / current / upcoming.
+    2. Następny event względem ostatniego ukończonego wyścigu.
+    3. Fallback do pierwszego eventu sezonu z kalendarza.
+
+    Ważne przy rolloverze sezonu: sezon bierzemy z kalendarza,
+    a nie z ostatniego ukończonego wyścigu.
     """
     data_dir = "data/races"
 
-    # Szukamy najnowszego pliku
-    pattern = os.path.join(data_dir, "latest.json")
-    if not os.path.exists(pattern):
-        # Fallback: szukamy ostatniego S*R*.json
+    # Szukamy najnowszego pliku wyścigowego
+    latest_file = os.path.join(data_dir, "latest.json")
+    if not os.path.exists(latest_file):
         pattern = os.path.join(data_dir, "S*R*.json")
-        files = sorted(glob.glob(pattern))
+        files = glob.glob(pattern)
         if not files:
             return None
-        pattern = files[-1]
+
+        def sort_key(filepath):
+            filename = os.path.basename(filepath)
+            match = re.match(r"S(\d+)R(\d+)\.json$", filename)
+            if match:
+                return (int(match.group(1)), int(match.group(2)))
+            return (0, 0, filename)
+
+        files = sorted(files, key=sort_key)
+        latest_file = files[-1]
 
     try:
-        with open(pattern, "r", encoding="utf-8") as f:
+        with open(latest_file, "r", encoding="utf-8") as f:
             data = json.load(f)
     except Exception as e:
-        print(f"  [BŁĄD] Błąd wczytywania {pattern}: {e}")
+        print(f"  [BŁĄD] Błąd wczytywania {latest_file}: {e}")
         return None
 
     race_data = data.get("race_data", {})
-    season = int(race_data.get("season", 0))
-    race = int(race_data.get("race", 0))
+    latest_season = normalize_int(race_data.get("season")) or 0
+    latest_race = normalize_int(race_data.get("race")) or 0
 
-    # Sprawdzamy kalendarz
     calendar_file = "data/calendar.json"
     if os.path.exists(calendar_file):
         try:
             with open(calendar_file, "r", encoding="utf-8") as f:
                 calendar = json.load(f)
-
-            # Walidacja: kalendarz powinien być słownikiem
-            if not isinstance(calendar, dict):
-                print(f"  [OSTRZEŻENIE] Nieprawidłowy format kalendarza (oczekiwano słownika, otrzymano: {type(calendar).__name__})")
-            else:
-                # Pobierz dane wyścigów - mogą być jako lista lub słownik
-                calendar_data = calendar.get("data", [])
-
-                # Jeśli data to słownik, spróbujmy znaleźć listę
-                if isinstance(calendar_data, dict):
-                    print(f"  [OSTRZEŻENIE] Kalendarz.data jest słownikiem zamiast listą. Próbuję znaleźć listę wyścigów...")
-                    for key in ["races", "calendar", "events", "schedule", "items"]:
-                        if key in calendar_data and isinstance(calendar_data[key], list):
-                            calendar_data = calendar_data[key]
-                            print(f"  Znaleziono listę w kluczu '{key}'")
-                            break
-                    else:
-                        # Nie znaleziono listy - użyjemy fallback
-                        print(f"  [OSTRZEŻENIE] Nie znaleziono listy wyścigów w kalendarzu. Używam fallback.")
-                        calendar_data = []
-
-                if isinstance(calendar_data, list):
-                    # Szukamy następnego wyścigu (eventType="R" i idx = race + 1)
-                    current_race_idx = race
-                    for event in calendar_data:
-                        if event.get("eventType") == "R":
-                            event_idx = int(event.get("idx", 0))
-                            if event_idx == current_race_idx + 1:
-                                return {
-                                    "season": season,
-                                    "race": event_idx,
-                                    "track": event.get("trackName"),
-                                    "total_laps": 72  # Default, GPRO standard
-                                }
-                    # Jeśli nie znaleziono następnego, szukamy obecnego (isCurrentRace=1)
-                    for event in calendar_data:
-                        if event.get("isCurrentRace") == 1:
-                            event_idx = int(event.get("idx", 0))
-                            # Następny to idx + 1
-                            for next_event in calendar_data:
-                                if next_event.get("eventType") == "R" and int(next_event.get("idx", 0)) == event_idx + 1:
-                                    return {
-                                        "season": season,
-                                        "race": int(next_event.get("idx", 0)),
-                                        "track": next_event.get("trackName"),
-                                        "total_laps": 72
-                                    }
-                else:
-                    print(f"  [OSTRZEŻENIE] Kalendarz.data nie jest listą ani słownikiem (typ: {type(calendar_data).__name__})")
         except Exception as e:
             print(f"  [BŁĄD] Błąd wczytywania kalendarza: {e}")
+            return None
+
+        events = extract_calendar_events(calendar)
+        if not events:
+            print("  [OSTRZEŻENIE] Brak eventów w kalendarzu. Nie można określić następnego toru.")
+            return None
+
+        calendar_season = extract_calendar_season(calendar, latest_season)
+        race_events = [event for event in events if isinstance(event, dict) and event.get("eventType") == "R"]
+        if not race_events:
+            print("  [OSTRZEŻENIE] Kalendarz nie zawiera eventów typu Race.")
+            return None
+
+        # 1) Najpierw szukamy eventu oznaczonego jako current/upcoming.
+        for event in race_events:
+            if normalize_int(event.get("isCurrentRace")) == 1 or event.get("current") is True or event.get("upcoming") is True:
+                result = build_next_race_result(event, calendar_season)
+                if result:
+                    return result
+
+        # 2) Jeśli kalendarz jest już na nowy sezon, bierzemy pierwszy race tego sezonu.
+        if calendar_season and calendar_season > latest_season:
+            normalized = [build_next_race_result(event, calendar_season) for event in race_events]
+            normalized = [item for item in normalized if item]
+            if normalized:
+                normalized.sort(key=lambda x: x["race"])
+                return normalized[0]
+
+        # 3) W tym samym sezonie szukamy następnego eventu po ostatnim ukończonym wyścigu.
+        normalized = [build_next_race_result(event, calendar_season) for event in race_events]
+        normalized = [item for item in normalized if item]
+        normalized.sort(key=lambda x: (x["season"], x["race"]))
+
+        for item in normalized:
+            if item["season"] > latest_season:
+                return item
+            if item["season"] == latest_season and item["race"] > latest_race:
+                return item
+
+        # 4) Ostatni fallback: pierwszy event z kalendarza.
+        if normalized:
+            return normalized[0]
 
     # Fallback: jeśli brak kalendarza, nie zgadujemy toru
     print(f"  [OSTRZEŻENIE] Brak danych kalendarza. Nie można określić następnego toru.")
