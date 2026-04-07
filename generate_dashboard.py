@@ -30,6 +30,8 @@ PREDICTION_FILE = "data/prediction.json"
 
 # Plik kalendarza
 CALENDAR_FILE = "data/calendar.json"
+
+# Plik z aktywnym kontekstem sezonu/wyścigu
 CURRENT_CONTEXT_FILE = "data/current_context.json"
 
 # Plik wyjściowy
@@ -119,9 +121,10 @@ def load_calendar():
         print(f"  [BŁĄD] Błąd wczytywania {CALENDAR_FILE}: {e}")
         return None
 
-
 def load_current_context():
-    """Wczytuje aktywny kontekst sezonu/wyścigu zapisany przez fetcher."""
+    """
+    Wczytuje aktywny kontekst sezonu/wyścigu zapisany przez fetcher.
+    """
     if not os.path.exists(CURRENT_CONTEXT_FILE):
         print(f"  Plik {CURRENT_CONTEXT_FILE} nie istnieje.")
         return None
@@ -132,6 +135,7 @@ def load_current_context():
     except Exception as e:
         print(f"  [BŁĄD] Błąd wczytywania {CURRENT_CONTEXT_FILE}: {e}")
         return None
+
 
 # ============================================================
 # GENEROWANIE HTML
@@ -1254,9 +1258,9 @@ function getLatestRace() {{
 }}
 
 function getCurrentContext() {{
-    const latest = getLatestRace()?.race_data || {{}};
     const current = CURRENT_CONTEXT_DATA || null;
     const predicted = PREDICTION_DATA?.next_race || null;
+    const latest = getLatestRace()?.race_data || null;
 
     if (current && toInt(current.season) !== null) return current;
     if (predicted && toInt(predicted.season) !== null) return predicted;
@@ -1286,7 +1290,6 @@ function isPendingSeasonMode() {{
 function renderSeasonEmptyState(tabId, title, activeContext, lastCompleted, description) {{
     const container = document.getElementById(tabId);
     if (!container) return;
-
     const lastText = lastCompleted ? `Ostatni ukończony wyścig: S${{lastCompleted.season || '?'}}R${{lastCompleted.race || '?'}} · ${{lastCompleted.track || 'Nieznany tor'}}.` : '';
     container.innerHTML = `
         <div class="empty-state">
@@ -1299,7 +1302,6 @@ function renderSeasonEmptyState(tabId, title, activeContext, lastCompleted, desc
 
 function renderPendingSeasonOverview(activeContext) {{
     const lastCompleted = getLatestRace()?.race_data || null;
-
     document.getElementById('headerInfo').textContent =
         `Sezon ${{activeContext?.season || '?'}} · Wyścig ${{activeContext?.race || '?'}} · ${{activeContext?.track || 'Nieznany tor'}} · Oczekiwanie na pierwszy wyścig sezonu`;
 
@@ -1315,8 +1317,7 @@ function renderPendingSeasonOverview(activeContext) {{
             <div class="label">${{c.label}}</div>
             <div class="value">${{c.value}}</div>
             <div class="sub">${{c.sub}}</div>
-        </div>
-    `).join('');
+        </div>`).join('');
 
     renderSeasonEmptyState('tab-results', 'Wyniki sezonu', activeContext, lastCompleted, 'Dane historyczne dla aktywnego sezonu pojawią się po ukończeniu pierwszego wyścigu.');
     renderSeasonEmptyState('tab-setups', 'Setupy sezonu', activeContext, lastCompleted, 'Setupy historyczne dla tego sezonu będą dostępne po zapisaniu pierwszego wyścigu przez fetcher.');
@@ -2132,10 +2133,11 @@ def generate_dashboard():
     race_data = load_race_data()
     prediction_data = load_prediction()
     calendar_data = load_calendar()
+    current_context_data = load_current_context()
 
     # 2. Wygeneruj HTML
     print("\n2. Generowanie HTML...")
-    html = generate_html(race_data, prediction_data, calendar_data)
+    html = generate_html(race_data, prediction_data, calendar_data, current_context_data)
 
     # 3. Zapisz plik
     print(f"\n3. Zapisywanie do {OUTPUT_FILE}...")
