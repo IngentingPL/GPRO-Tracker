@@ -235,7 +235,7 @@
       "total": 7870510,
       "balance": -30750175
     },
-    "fetched_at": "2026-04-07T14:59:16.973572Z"
+    "fetched_at": "2026-04-07T17:19:51.586848Z"
   },
   "race_summary": {
     "track": "Laguna Seca",
@@ -424,7 +424,7 @@
     "privateOfferCost": 1000000,
     "setOfferCost": 500000,
     "setOfferType": "1",
-    "nextPriceIncrementIn": 151239,
+    "nextPriceIncrementIn": 142804,
     "offerPlaced": 0,
     "inShortList": 1,
     "oneRaceRenewFee": 184700,
@@ -446,7 +446,7 @@
     "setContractLengthExtend": "",
     "totalOffers": 0,
     "offersFrom": [],
-    "apiRequestsRemaining": 958
+    "apiRequestsRemaining": 950
   },
   "standings": {
     "loadingDataState": "1",
@@ -870,16 +870,16 @@
         "pts": "0"
       },
       {
-        "name": "Jozef Lesay",
+        "name": "Duccio Pizzi",
         "pos": "5",
         "tyre": "Pipirelli",
-        "natCode": "sk",
-        "IDM": 76837,
-        "manArrow": "equals",
+        "natCode": "it",
+        "IDM": 881997,
+        "manArrow": "down",
         "manPosChange": "",
         "manBgColor": "",
         "negative": 0,
-        "cash": 35000000,
+        "cash": 33900000,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -974,16 +974,16 @@
         "pts": "0"
       },
       {
-        "name": "Duccio Pizzi",
+        "name": "Jozef Lesay",
         "pos": "6",
         "tyre": "Pipirelli",
-        "natCode": "it",
-        "IDM": 881997,
-        "manArrow": "down",
+        "natCode": "sk",
+        "IDM": 76837,
+        "manArrow": "equals",
         "manPosChange": "",
         "manBgColor": "",
         "negative": 0,
-        "cash": 33900000,
+        "cash": 32212480,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -6380,6 +6380,110 @@
           }
         ],
         "pts": "0"
+      },
+      {
+        "name": "Carlos Caballer Ruiz",
+        "pos": "58",
+        "tyre": "Pipirelli",
+        "natCode": "es",
+        "IDM": 1038539,
+        "manArrow": "equals",
+        "manPosChange": "",
+        "manBgColor": "",
+        "negative": 0,
+        "cash": 30000000,
+        "retires": 0,
+        "goesRookie": 0,
+        "didSoftReset": 0,
+        "champs": "0",
+        "results": [
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          }
+        ],
+        "pts": "0"
       }
     ],
     "groups": [
@@ -7937,7 +8041,7 @@
       },
       "series": []
     },
-    "apiRequestsRemaining": 957
+    "apiRequestsRemaining": 949
   },
   "car_status": {
     "loadingDataState": "1",
@@ -8389,6 +8493,6 @@
     "showUndoAlertNoCredits": false,
     "credits": 0,
     "races": 3,
-    "apiRequestsRemaining": 956
+    "apiRequestsRemaining": 948
   }
 }
