@@ -11,7 +11,7 @@
       "idx": "1",
       "trackName": "Rynek transferowy #1",
       "trackNatCode": "",
-      "dateEvent": "<font color=\"orange\"><b>Wczoraj</b></font>",
+      "dateEvent": "Kwi 6, 2026",
       "trackId": "1"
     },
     {
@@ -457,5 +457,5 @@
       "isFavTrack": 0
     }
   ],
-  "fetched_at": "2026-04-07T20:05:11.704319Z"
+  "fetched_at": "2026-04-08T10:31:03.033045Z"
 }

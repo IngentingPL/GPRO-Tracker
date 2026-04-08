@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-04-07T20:05:22.014371Z",
+  "generated_at": "2026-04-08T10:31:15.035812Z",
   "next_race": {
-    "track": "Fuji GP (Japonia)",
-    "season": 109,
-    "race": 2,
+    "track": "Sakhir GP (Bahrajn)",
+    "season": 110,
+    "race": 1,
     "total_laps": 72
   },
   "confidence": "low",
@@ -50,7 +50,7 @@
     "temp": 27
   },
   "base": {
-    "track": "Fuji GP (Japonia)",
+    "track": "Sakhir GP (Bahrajn)",
     "setup": {
       "fw": 500,
       "rw": 500,

@@ -235,7 +235,7 @@
       "total": 7870510,
       "balance": -30750175
     },
-    "fetched_at": "2026-04-07T20:05:14.488585Z"
+    "fetched_at": "2026-04-08T10:31:06.203657Z"
   },
   "race_summary": {
     "track": "Laguna Seca",
@@ -424,7 +424,7 @@
     "privateOfferCost": 1000000,
     "setOfferCost": 500000,
     "setOfferType": "1",
-    "nextPriceIncrementIn": 132881,
+    "nextPriceIncrementIn": 80929,
     "offerPlaced": 0,
     "inShortList": 1,
     "oneRaceRenewFee": 184700,
@@ -446,7 +446,7 @@
     "setContractLengthExtend": "",
     "totalOffers": 0,
     "offersFrom": [],
-    "apiRequestsRemaining": 943
+    "apiRequestsRemaining": 929
   },
   "standings": {
     "loadingDataState": "1",
@@ -5446,16 +5446,16 @@
         "pts": "0"
       },
       {
-        "name": "Tanja Arsovska",
+        "name": "Neon5 Games",
         "pos": "49",
         "tyre": "Pipirelli",
-        "natCode": "si",
-        "IDM": 901260,
+        "natCode": "ng",
+        "IDM": 1117782,
         "manArrow": "equals",
         "manPosChange": "",
         "manBgColor": "",
         "negative": 0,
-        "cash": 24442984,
+        "cash": 22748414,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -5550,16 +5550,16 @@
         "pts": "0"
       },
       {
-        "name": "Neon5 Games",
+        "name": "Tanja Arsovska",
         "pos": "50",
         "tyre": "Pipirelli",
-        "natCode": "ng",
-        "IDM": 1117782,
+        "natCode": "si",
+        "IDM": 901260,
         "manArrow": "equals",
         "manPosChange": "",
         "manBgColor": "",
         "negative": 0,
-        "cash": 22748414,
+        "cash": 21442984,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -6174,8 +6174,112 @@
         "pts": "0"
       },
       {
-        "name": "&#1040;&#1083;&#1077;&#1082;&#1089;&#1077;&#1081; &#1044;&#1077;&#1085;&#1080;&#1084;&#1086;&#1074;",
+        "name": "Tolga Eatsmile",
         "pos": "56",
+        "tyre": "Pipirelli",
+        "natCode": "tr",
+        "IDM": 1138914,
+        "manArrow": "equals",
+        "manPosChange": "",
+        "manBgColor": "",
+        "negative": 0,
+        "cash": 30000000,
+        "retires": 0,
+        "goesRookie": 0,
+        "didSoftReset": 0,
+        "champs": "0",
+        "results": [
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          }
+        ],
+        "pts": "0"
+      },
+      {
+        "name": "&#1040;&#1083;&#1077;&#1082;&#1089;&#1077;&#1081; &#1044;&#1077;&#1085;&#1080;&#1084;&#1086;&#1074;",
+        "pos": "57",
         "tyre": "Pipirelli",
         "natCode": "ru",
         "IDM": 1138885,
@@ -7833,7 +7937,7 @@
       },
       "series": []
     },
-    "apiRequestsRemaining": 942
+    "apiRequestsRemaining": 928
   },
   "car_status": {
     "loadingDataState": "1",
@@ -8285,6 +8389,6 @@
     "showUndoAlertNoCredits": false,
     "credits": 0,
     "races": 3,
-    "apiRequestsRemaining": 941
+    "apiRequestsRemaining": 927
   }
 }
