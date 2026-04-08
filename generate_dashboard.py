@@ -163,53 +163,61 @@ def generate_html(race_data, prediction_data, calendar_data, current_context_dat
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GPRO Tracker</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700&family=Barlow:wght@300;400;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <style>
         /* ==========================================================
-           GŁÓWNE ZMIENNE KOLORÓW
+           LAMBORGHINI DESIGN SYSTEM
+           Inspiracja: lamborghini.com — czarne powierzchnie, złoto,
+           zero border-radius, uppercase typography.
            Mini-lekcja: CSS custom properties (--nazwa) pozwalają
            zdefiniować kolory raz i używać ich wszędzie.
            Zmiana jednej zmiennej zmienia kolor w całym dashboardzie.
            ========================================================== */
         :root {{
-            --bg-primary: #0a0e1a;
-            --bg-card: #111827;
-            --bg-card-hover: #1a2234;
-            --bg-tab: #1e293b;
-            --bg-tab-active: #2563eb;
-            --text-primary: #e2e8f0;
-            --text-secondary: #94a3b8;
-            --text-muted: #64748b;
-            --accent-blue: #3b82f6;
-            --accent-green: #22c55e;
-            --accent-red: #ef4444;
-            --accent-yellow: #eab308;
-            --accent-orange: #f97316;
-            --border-color: #1e293b;
-            --font-display: 'Outfit', sans-serif;
-            --font-mono: 'JetBrains Mono', monospace;
+            /* Surfaces — darkness layering (zamiast shadowów) */
+            --bg-primary: #000000;       /* Absolute Black — tło strony */
+            --bg-card: #202020;          /* Charcoal — karty i panele */
+            --bg-card-hover: #2a2a2a;    /* Nieco jaśniejszy charcoal na hover */
+            --bg-tab: #181818;           /* Dark Iron — zakładki i chipsy */
+            --bg-tab-active: #FFC000;    /* Lamborghini Gold — aktywna zakładka */
+
+            /* Text */
+            --text-primary: #FFFFFF;     /* Pure White — nagłówki i główny tekst */
+            --text-secondary: #F5F5F5;   /* Smoke — drugi poziom tekstu */
+            --text-muted: #7D7D7D;       /* Ash — metadane, timestampy */
+
+            /* Accent — TYLKO złoto jako kolor akcentujący */
+            --accent-blue: #FFC000;      /* → Lamborghini Gold (zastępuje niebieski) */
+            --accent-green: #FFC000;     /* → Gold (zastępuje zielony) */
+            --accent-red: #ef4444;       /* Zostaje czerwony (błędy, straty) */
+            --accent-yellow: #FFC000;    /* Lamborghini Gold */
+            --accent-orange: #FFCE3E;    /* Gold Text — lżejszy odcień złota */
+
+            /* Borders */
+            --border-color: #202020;     /* Subtelna granica — prawie czarna */
+
+            /* Fonts */
+            --font-display: 'Barlow Condensed', 'Barlow', sans-serif;
+            --font-mono: 'Share Tech Mono', monospace;
         }}
 
         /* Reset i bazowe style */
-        * {{ margin: 0; padding: 0; box-sizing: border-box; }}
+        * {{ margin: 0; padding: 0; box-sizing: border-box; border-radius: 0 !important; }}
 
         body {{
             font-family: var(--font-display);
             background: var(--bg-primary);
             color: var(--text-primary);
             min-height: 100vh;
-            /* Subtelna tekstura tła */
-            background-image:
-                radial-gradient(circle at 20% 50%, rgba(37, 99, 235, 0.03) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(34, 197, 94, 0.02) 0%, transparent 50%);
+            letter-spacing: 0.02em;
         }}
 
         /* ==========================================================
-           NAGŁÓWEK
+           NAGŁÓWEK — pływa w ciemności, zero tła
            ========================================================== */
         .header {{
             padding: 1.5rem 2rem;
-            border-bottom: 1px solid var(--border-color);
+            border-bottom: 1px solid #202020;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -218,97 +226,106 @@ def generate_html(race_data, prediction_data, calendar_data, current_context_dat
         }}
 
         .header h1 {{
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             font-weight: 700;
-            letter-spacing: -0.02em;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
         }}
 
         .header h1 span {{
-            color: var(--accent-blue);
+            color: #FFC000;
         }}
 
         .header-info {{
             font-family: var(--font-mono);
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
         }}
 
         /* ==========================================================
-           KARTY PODSUMOWANIA (na górze dashboardu)
+           KARTY PODSUMOWANIA
            ========================================================== */
         .summary-grid {{
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            padding: 1.5rem 2rem;
+            gap: 1px;
+            padding: 1px;
+            background: #202020;
+            margin: 1.5rem 2rem;
         }}
 
         .summary-card {{
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 1.25rem;
+            background: #000000;
+            padding: 1.5rem;
             transition: background 0.2s;
         }}
 
         .summary-card:hover {{
-            background: var(--bg-card-hover);
+            background: #181818;
         }}
 
         .summary-card .label {{
-            font-size: 0.75rem;
+            font-size: 0.65rem;
             color: var(--text-muted);
             text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-bottom: 0.5rem;
+            letter-spacing: 0.12em;
+            margin-bottom: 0.75rem;
         }}
 
         .summary-card .value {{
-            font-family: var(--font-mono);
-            font-size: 1.5rem;
+            font-family: var(--font-display);
+            font-size: 1.8rem;
             font-weight: 700;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
         }}
 
         .summary-card .sub {{
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-            margin-top: 0.25rem;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 0.4rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
         }}
 
         /* ==========================================================
-           ZAKŁADKI (TABS)
+           ZAKŁADKI (TABS) — złota aktywna linia
            Mini-lekcja: Zakładki działają bez JS dzięki atrybutom
            data-tab. JS tylko przełącza klasy CSS "active".
            ========================================================== */
         .tabs {{
             display: flex;
-            gap: 0.25rem;
+            gap: 0;
             padding: 0 2rem;
-            border-bottom: 1px solid var(--border-color);
+            border-bottom: 1px solid #202020;
             overflow-x: auto;
         }}
 
         .tab-btn {{
             font-family: var(--font-display);
-            font-size: 0.85rem;
+            font-size: 0.75rem;
             font-weight: 600;
-            padding: 0.75rem 1.25rem;
+            padding: 1rem 1.5rem;
             background: transparent;
             color: var(--text-muted);
             border: none;
             cursor: pointer;
             border-bottom: 2px solid transparent;
-            transition: all 0.2s;
+            transition: color 0.2s, border-color 0.2s;
             white-space: nowrap;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
         }}
 
         .tab-btn:hover {{
-            color: var(--text-primary);
+            color: #FFFFFF;
         }}
 
         .tab-btn.active {{
-            color: var(--accent-blue);
-            border-bottom-color: var(--accent-blue);
+            color: #FFC000;
+            border-bottom-color: #FFC000;
         }}
 
         .tab-content {{
@@ -321,12 +338,12 @@ def generate_html(race_data, prediction_data, calendar_data, current_context_dat
         }}
 
         /* ==========================================================
-           TABELE
+           TABELE — ostre krawędzie, złote akcenty
            ========================================================== */
         .data-table {{
             width: 100%;
             border-collapse: collapse;
-            font-size: 0.85rem;
+            font-size: 0.82rem;
         }}
 
         .data-table th {{
@@ -334,33 +351,33 @@ def generate_html(race_data, prediction_data, calendar_data, current_context_dat
             padding: 0.75rem 1rem;
             color: var(--text-muted);
             font-weight: 600;
-            font-size: 0.75rem;
+            font-size: 0.65rem;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
-            border-bottom: 1px solid var(--border-color);
+            letter-spacing: 0.12em;
+            border-bottom: 1px solid #202020;
             position: sticky;
             top: 0;
-            background: var(--bg-primary);
+            background: #000000;
         }}
 
         .data-table td {{
             padding: 0.75rem 1rem;
-            border-bottom: 1px solid var(--border-color);
+            border-bottom: 1px solid #181818;
             font-family: var(--font-mono);
             font-size: 0.8rem;
         }}
 
         .data-table tr:hover td {{
-            background: var(--bg-card-hover);
+            background: #181818;
         }}
 
         /* Kolorowanie pozycji */
-        .pos-1 {{ color: var(--accent-green); font-weight: 700; }}
-        .pos-2 {{ color: var(--accent-blue); }}
-        .pos-3 {{ color: var(--accent-orange); }}
+        .pos-1 {{ color: #FFC000; font-weight: 700; }}
+        .pos-2 {{ color: #FFCE3E; }}
+        .pos-3 {{ color: #7D7D7D; }}
 
         /* Kolorowanie wartości */
-        .val-positive {{ color: var(--accent-green); }}
+        .val-positive {{ color: #FFC000; }}
         .val-negative {{ color: var(--accent-red); }}
 
         /* ==========================================================
@@ -369,59 +386,58 @@ def generate_html(race_data, prediction_data, calendar_data, current_context_dat
         .setup-grid {{
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 1rem;
+            gap: 1px;
+            background: #202020;
         }}
 
         .setup-card {{
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 1.25rem;
+            background: #000000;
+            padding: 1.5rem;
         }}
 
         .setup-card h3 {{
-            font-size: 1rem;
-            margin-bottom: 0.75rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }}
-
-        .setup-card h3 .flag {{
-            font-size: 1.2rem;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #FFFFFF;
         }}
 
         .setup-values {{
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 0.5rem;
+            gap: 1px;
+            background: #202020;
         }}
 
         .setup-item {{
             text-align: center;
-            padding: 0.5rem;
-            background: var(--bg-tab);
-            border-radius: 8px;
+            padding: 0.75rem 0.5rem;
+            background: #181818;
         }}
 
         .setup-item .setup-label {{
-            font-size: 0.65rem;
+            font-size: 0.6rem;
             color: var(--text-muted);
             text-transform: uppercase;
-            margin-bottom: 0.25rem;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.35rem;
         }}
 
         .setup-item .setup-val {{
             font-family: var(--font-mono);
             font-weight: 700;
             font-size: 1.1rem;
-            color: var(--accent-blue);
+            color: #FFC000;
         }}
 
         .setup-meta {{
             margin-top: 0.75rem;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
         }}
 
         /* ==========================================================
@@ -430,22 +446,22 @@ def generate_html(race_data, prediction_data, calendar_data, current_context_dat
         .driver-stats {{
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-            gap: 0.75rem;
+            gap: 1px;
+            background: #202020;
         }}
 
         .stat-item {{
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 10px;
+            background: #000000;
+            border: 1px solid #181818;
             padding: 1rem;
             text-align: center;
         }}
 
         .stat-item .stat-name {{
-            font-size: 0.7rem;
+            font-size: 0.6rem;
             color: var(--text-muted);
             text-transform: uppercase;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.12em;
             margin-bottom: 0.5rem;
         }}
 
@@ -456,8 +472,8 @@ def generate_html(race_data, prediction_data, calendar_data, current_context_dat
         }}
 
         /* Kolory dla statystyk kierowcy */
-        .stat-good {{ color: var(--accent-green); }}
-        .stat-ok {{ color: var(--accent-yellow); }}
+        .stat-good {{ color: #FFC000; }}
+        .stat-ok {{ color: #FFCE3E; }}
         .stat-bad {{ color: var(--accent-red); }}
 
         /* ==========================================================
@@ -465,16 +481,15 @@ def generate_html(race_data, prediction_data, calendar_data, current_context_dat
            ========================================================== */
         .finance-bar {{
             display: flex;
-            gap: 1rem;
+            gap: 1px;
             margin-bottom: 1rem;
             flex-wrap: wrap;
+            background: #202020;
         }}
 
         .finance-card {{
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 10px;
-            padding: 1rem 1.5rem;
+            background: #000000;
+            padding: 1.25rem 1.5rem;
             flex: 1;
             min-width: 180px;
         }}
@@ -490,16 +505,19 @@ def generate_html(race_data, prediction_data, calendar_data, current_context_dat
 
         .empty-state h2 {{
             font-size: 1.5rem;
+            font-weight: 700;
             margin-bottom: 1rem;
-            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #FFFFFF;
         }}
 
         .empty-state code {{
-            background: var(--bg-card);
-            padding: 0.25rem 0.5rem;
-            border-radius: 4px;
+            background: #202020;
+            padding: 0.25rem 0.75rem;
             font-family: var(--font-mono);
             font-size: 0.85rem;
+            color: #FFC000;
         }}
 
         /* ==========================================================
@@ -508,38 +526,43 @@ def generate_html(race_data, prediction_data, calendar_data, current_context_dat
            rekomendacji od reszty dashboardu - łatwiej utrzymywać.
            ========================================================== */
         .rec-header {{
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 1.5rem;
+            background: #000000;
+            border-bottom: 1px solid #202020;
+            padding: 2rem 0;
             margin-bottom: 1.5rem;
         }}
 
         .rec-header h2 {{
-            font-size: 1.25rem;
-            margin-bottom: 0.25rem;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.4rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
         }}
 
         .rec-header .rec-subtitle {{
             color: var(--text-muted);
-            font-size: 0.85rem;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
         }}
 
         .rec-grid {{
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-            gap: 1rem;
+            gap: 1px;
+            background: #202020;
+            margin-bottom: 1px;
         }}
 
         .rec-card {{
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 1.25rem;
+            background: #000000;
+            padding: 1.5rem;
         }}
 
         .rec-card h3 {{
-            font-size: 0.95rem;
+            font-size: 0.65rem;
+            font-weight: 700;
             margin-bottom: 1rem;
             padding-bottom: 0.5rem;
             border-bottom: 1px solid var(--border-color);
@@ -556,68 +579,71 @@ def generate_html(race_data, prediction_data, calendar_data, current_context_dat
             font-size: 0.75rem;
             color: var(--text-muted);
             margin-top: 0.75rem;
-            font-style: italic;
         }}
 
         .rec-card .rec-warn {{
-            font-size: 0.8rem;
-            color: var(--accent-yellow);
+            font-size: 0.75rem;
+            color: #FFC000;
             margin-top: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
         }}
 
         .rec-card .rec-row {{
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0.35rem 0;
-            font-size: 0.85rem;
+            padding: 0.5rem 0;
+            font-size: 0.82rem;
+            border-bottom: 1px solid #181818;
         }}
 
         .rec-card .rec-row .rec-label {{
-            color: var(--text-secondary);
+            color: var(--text-muted);
+            text-transform: uppercase;
+            font-size: 0.65rem;
+            letter-spacing: 0.08em;
         }}
 
         .rec-disclaimer {{
             margin-top: 1.5rem;
             padding: 1rem 1.25rem;
-            background: rgba(234, 179, 8, 0.08);
-            border: 1px solid rgba(234, 179, 8, 0.2);
-            border-radius: 10px;
-            font-size: 0.8rem;
-            color: var(--accent-yellow);
+            background: rgba(255, 192, 0, 0.06);
+            border-left: 2px solid #FFC000;
+            font-size: 0.75rem;
+            color: #FFC000;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
         }}
 
         /* ==========================================================
-           Confidence Bar
+           Confidence Bar — złoto dla high, ciemniejsze dla low
            Mini-lekcja: Wizualny wskaźnik pewności predykcji.
-           Zielony = wysoka pewność, czerwony = niska.
            ========================================================== */
         .confidence-bar {{
-            height: 8px;
-            border-radius: 4px;
-            background: var(--bg-tab);
+            height: 2px;
+            background: #202020;
             overflow: hidden;
-            margin: 0.5rem 0;
+            margin: 0.75rem 0;
         }}
 
         .confidence-fill {{
             height: 100%;
-            border-radius: 4px;
             transition: width 0.3s;
         }}
 
         .confidence-fill.high {{
-            background: var(--accent-green);
+            background: #FFC000;
             width: 100%;
         }}
 
         .confidence-fill.medium {{
-            background: var(--accent-yellow);
+            background: #FFCE3E;
             width: 66%;
         }}
 
         .confidence-fill.low {{
-            background: var(--accent-orange);
+            background: #917300;
             width: 33%;
         }}
 
@@ -626,103 +652,108 @@ def generate_html(race_data, prediction_data, calendar_data, current_context_dat
             width: 10%;
         }}
 
-        /* Session Card */
+        /* Session Card — złota linia po lewej */
         .session-card {{
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 1rem;
-            margin-bottom: 0.75rem;
+            background: #000000;
+            border: 1px solid #202020;
+            padding: 1.25rem;
+            margin-bottom: 1px;
         }}
-        .session-card.practice {{ border-left: 3px solid var(--accent-yellow); }}
-        .session-card.q1 {{ border-left: 3px solid var(--accent-green); }}
-        .session-card.q2 {{ border-left: 3px solid var(--accent-blue); }}
-        .session-card.race {{ border-left: 3px solid var(--accent-orange); }}
+        .session-card.practice {{ border-left: 3px solid #7D7D7D; }}
+        .session-card.q1 {{ border-left: 3px solid #FFCE3E; }}
+        .session-card.q2 {{ border-left: 3px solid #FFC000; }}
+        .session-card.race {{ border-left: 3px solid #FFC000; }}
 
         .session-header {{
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.75rem;
         }}
 
         .session-header h4 {{
-            font-size: 0.9rem;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
         }}
 
         .session-badge {{
-            font-size: 0.65rem;
-            padding: 0.15rem 0.4rem;
-            border-radius: 4px;
-            background: var(--bg-tab);
+            font-size: 0.6rem;
+            padding: 0.2rem 0.5rem;
+            background: #202020;
             color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
         }}
 
         .session-meta {{
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             color: var(--text-muted);
             display: flex;
             gap: 1rem;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
         }}
 
         .session-meta span {{ display: flex; align-items: center; gap: 0.25rem; }}
 
         .session-setup {{
             display: flex;
-            gap: 0.4rem;
+            gap: 1px;
             flex-wrap: wrap;
+            background: #202020;
         }}
 
         .session-setup .setup-part {{
-            background: var(--bg-tab);
-            padding: 0.3rem 0.5rem;
-            border-radius: 5px;
+            background: #181818;
+            padding: 0.4rem 0.6rem;
             font-family: var(--font-mono);
             font-size: 0.75rem;
         }}
 
         .session-setup .setup-part .label {{
             color: var(--text-muted);
-            font-size: 0.6rem;
+            font-size: 0.55rem;
             text-transform: uppercase;
+            letter-spacing: 0.08em;
         }}
 
         .session-setup .setup-part .value {{
-            color: var(--accent-blue);
+            color: #FFC000;
             font-weight: 600;
         }}
 
         .session-note {{
-            margin-top: 0.4rem;
-            font-size: 0.7rem;
+            margin-top: 0.5rem;
+            font-size: 0.65rem;
             color: var(--text-muted);
-            font-style: italic;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
         }}
 
         .fuel-stint-bar {{
             display: flex;
             align-items: center;
-            gap: 0.25rem;
-            margin-top: 0.5rem;
+            gap: 0;
+            margin-top: 0.75rem;
             flex-wrap: wrap;
+            background: #202020;
         }}
 
         .fuel-stint-bar .stint {{
-            background: var(--bg-tab);
-            padding: 0.25rem 0.4rem;
-            border-radius: 4px;
+            background: #181818;
+            padding: 0.3rem 0.6rem;
             font-family: var(--font-mono);
             font-size: 0.7rem;
+            border-right: 1px solid #202020;
         }}
 
         .fuel-stint-bar .arrow {{
-            color: var(--text-muted);
+            color: #FFC000;
             font-size: 0.65rem;
+            padding: 0 0.25rem;
         }}
 
         /* ==========================================================
@@ -731,104 +762,105 @@ def generate_html(race_data, prediction_data, calendar_data, current_context_dat
         .setup-race-inline {{
             display: flex;
             flex-wrap: wrap;
-            gap: 0.5rem;
-            align-items: center;
+            gap: 1px;
+            align-items: stretch;
             font-family: var(--font-mono);
             font-size: 0.9rem;
-            padding: 0.75rem;
-            background: var(--bg-tab);
-            border-radius: 8px;
+            background: #202020;
         }}
 
         .setup-race-inline .setup-part {{
             display: flex;
             align-items: center;
-            gap: 0.25rem;
+            gap: 0.4rem;
+            padding: 0.6rem 0.75rem;
+            background: #181818;
         }}
 
         .setup-race-inline .setup-part .setup-label {{
-            font-size: 0.7rem;
+            font-size: 0.6rem;
             color: var(--text-muted);
             text-transform: uppercase;
+            letter-spacing: 0.08em;
         }}
 
         .setup-race-inline .setup-part .setup-val {{
             font-weight: 700;
-            color: var(--accent-blue);
+            color: #FFC000;
         }}
 
         .setup-race-inline .separator {{
-            color: var(--text-muted);
-            font-size: 0.8rem;
+            display: none;
         }}
 
         /* ==========================================================
-           Adjustment Badge
+           Adjustment Badge — złoto dla wzrostu, czerwony dla spadku
            Mini-lekcja: Mały badge pokazujący korektę setupu
-           względem wartości bazowej. Zielony = wzrost, czerwony = spadek.
+           względem wartości bazowej.
            ========================================================== */
         .adjustment-badge {{
-            font-size: 0.65rem;
+            font-size: 0.6rem;
             font-family: var(--font-mono);
             padding: 0.1rem 0.3rem;
-            border-radius: 4px;
-            background: var(--bg-tab);
-            color: var(--text-secondary);
+            background: #181818;
+            color: var(--text-muted);
             display: block;
-            margin-top: 0.1rem;
+            margin-top: 0.15rem;
         }}
 
         .adjustment-badge.positive {{
-            color: var(--accent-green);
-            background: rgba(34, 197, 94, 0.1);
+            color: #FFC000;
+            background: rgba(255, 192, 0, 0.08);
         }}
 
         .adjustment-badge.negative {{
             color: var(--accent-red);
-            background: rgba(239, 68, 68, 0.1);
+            background: rgba(239, 68, 68, 0.08);
         }}
 
         /* ==========================================================
-           Fuel Strategy
-           Mini-lekcja: Wizualna reprezentacja strategii paliwowej
-           z pit stopami.
+           Fuel Strategy — ostre prostokąty, złota meta
+           Mini-lekcja: Wizualna reprezentacja strategii paliwowej.
            ========================================================== */
         .fuel-strategy {{
             margin-top: 0.75rem;
         }}
 
         .fuel-strategy .strategy-name {{
-            font-size: 0.75rem;
+            font-size: 0.6rem;
             color: var(--text-muted);
             text-transform: uppercase;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.12em;
             margin-bottom: 0.5rem;
         }}
 
         .fuel-strategy .strategy-visual {{
             display: flex;
-            align-items: center;
-            gap: 0.5rem;
+            align-items: stretch;
+            gap: 1px;
             font-family: var(--font-mono);
-            font-size: 0.85rem;
+            font-size: 0.82rem;
+            background: #202020;
         }}
 
         .fuel-strategy .strategy-visual .pit-stop {{
-            background: var(--bg-tab);
-            padding: 0.4rem 0.6rem;
-            border-radius: 6px;
-            border: 1px solid var(--border-color);
+            background: #181818;
+            padding: 0.4rem 0.75rem;
         }}
 
         .fuel-strategy .strategy-visual .arrow {{
-            color: var(--text-muted);
+            color: #FFC000;
+            display: flex;
+            align-items: center;
+            padding: 0 0.25rem;
+            background: #000000;
         }}
 
         .fuel-strategy .strategy-visual .finish {{
-            background: var(--accent-blue);
-            color: white;
-            padding: 0.4rem 0.6rem;
-            border-radius: 6px;
+            background: #FFC000;
+            color: #000000;
+            padding: 0.4rem 0.75rem;
+            font-weight: 700;
         }}
 
         /* ==========================================================
@@ -845,10 +877,12 @@ def generate_html(race_data, prediction_data, calendar_data, current_context_dat
         }}
 
         .notes-list li {{
-            font-size: 0.8rem;
-            color: var(--text-secondary);
+            font-size: 0.75rem;
+            color: var(--text-muted);
             padding: 0.5rem 0;
-            border-bottom: 1px solid var(--border-color);
+            border-bottom: 1px solid #181818;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
         }}
 
         .notes-list li:last-child {{
@@ -860,31 +894,32 @@ def generate_html(race_data, prediction_data, calendar_data, current_context_dat
            ========================================================== */
         @media (max-width: 768px) {{
             .header {{ padding: 1rem; }}
-            .summary-grid {{ padding: 1rem; }}
+            .summary-grid {{ margin: 1rem; }}
             .tabs {{ padding: 0 1rem; }}
             .tab-content {{ padding: 1rem; }}
-            .summary-grid {{ grid-template-columns: repeat(2, 1fr); }}
         }}
 
-        /* Scrollbar stylizacja */
-        ::-webkit-scrollbar {{ width: 6px; height: 6px; }}
-        ::-webkit-scrollbar-track {{ background: var(--bg-primary); }}
-        ::-webkit-scrollbar-thumb {{ background: var(--border-color); border-radius: 3px; }}
-        ::-webkit-scrollbar-thumb:hover {{ background: var(--text-muted); }}
+        /* Scrollbar — minimalistyczny, czarny */
+        ::-webkit-scrollbar {{ width: 4px; height: 4px; }}
+        ::-webkit-scrollbar-track {{ background: #000000; }}
+        ::-webkit-scrollbar-thumb {{ background: #202020; }}
+        ::-webkit-scrollbar-thumb:hover {{ background: #7D7D7D; }}
 
         /* ==========================================================
            PRAKTYKA - Binary Search Setup
            ========================================================== */
         .practice-header {{
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 1.5rem;
+            background: #000000;
+            border-bottom: 1px solid #202020;
+            padding: 2rem 0;
             margin-bottom: 1.5rem;
         }}
 
         .practice-header h2 {{
-            font-size: 1.25rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
             margin-bottom: 0.5rem;
         }}
 
@@ -911,63 +946,64 @@ def generate_html(race_data, prediction_data, calendar_data, current_context_dat
         .timeline-dot {{
             width: 32px;
             height: 32px;
-            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             font-weight: 700;
-            background: var(--bg-tab);
+            background: #181818;
             color: var(--text-muted);
-            border: 2px solid var(--border-color);
+            border: 1px solid #202020;
+            font-family: var(--font-mono);
         }}
 
         .timeline-step.active .timeline-dot {{
-            background: var(--accent-blue);
-            border-color: var(--accent-blue);
-            color: white;
+            background: #FFC000;
+            border-color: #FFC000;
+            color: #000000;
         }}
 
         .timeline-step.completed .timeline-dot {{
-            background: var(--accent-green);
-            border-color: var(--accent-green);
-            color: white;
+            background: #917300;
+            border-color: #917300;
+            color: #000000;
         }}
 
         .timeline-step.current .timeline-dot {{
-            background: var(--accent-yellow);
-            border-color: var(--accent-yellow);
-            color: black;
+            background: #FFC000;
+            border-color: #FFC000;
+            color: #000000;
             animation: pulse 1.5s infinite;
         }}
 
         @keyframes pulse {{
             0%, 100% {{ opacity: 1; }}
-            50% {{ opacity: 0.6; }}
+            50% {{ opacity: 0.5; }}
         }}
 
         .timeline-label {{
-            font-size: 0.65rem;
+            font-size: 0.55rem;
             color: var(--text-muted);
             margin-top: 0.25rem;
             text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
         }}
 
         .lap-card {{
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
+            background: #000000;
+            border: 1px solid #202020;
             padding: 1.25rem;
-            margin-bottom: 1rem;
+            margin-bottom: 1px;
         }}
 
         .lap-card.current {{
-            border-color: var(--accent-yellow);
-            box-shadow: 0 0 0 1px var(--accent-yellow);
+            border-color: #FFC000;
+            border-left: 3px solid #FFC000;
         }}
 
         .lap-card.done {{
-            opacity: 0.6;
+            opacity: 0.5;
         }}
 
         .lap-header {{
@@ -978,81 +1014,86 @@ def generate_html(race_data, prediction_data, calendar_data, current_context_dat
         }}
 
         .lap-header h3 {{
-            font-size: 1.1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
         }}
 
         .lap-badge {{
-            font-size: 0.7rem;
-            padding: 0.25rem 0.5rem;
-            border-radius: 6px;
-            font-weight: 600;
+            font-size: 0.6rem;
+            padding: 0.2rem 0.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
         }}
 
         .lap-badge.next {{
-            background: var(--accent-yellow);
-            color: black;
+            background: #FFC000;
+            color: #000000;
         }}
 
         .lap-badge.done {{
-            background: var(--accent-green);
-            color: white;
+            background: #917300;
+            color: #000000;
         }}
 
         .lap-badge.pending {{
-            background: var(--bg-tab);
+            background: #202020;
             color: var(--text-muted);
         }}
 
         .lap-setup {{
             display: flex;
             flex-wrap: wrap;
-            gap: 0.5rem;
+            gap: 1px;
             margin: 1rem 0;
+            background: #202020;
         }}
 
         .setup-chip {{
-            background: var(--bg-tab);
+            background: #181818;
             padding: 0.5rem 0.75rem;
-            border-radius: 8px;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.4rem;
         }}
 
         .setup-chip .label {{
-            font-size: 0.7rem;
+            font-size: 0.6rem;
             color: var(--text-muted);
             text-transform: uppercase;
+            letter-spacing: 0.08em;
         }}
 
         .setup-chip .value {{
             font-family: var(--font-mono);
             font-weight: 700;
-            color: var(--accent-blue);
+            color: #FFC000;
             font-size: 0.95rem;
         }}
 
         .lap-instruction {{
-            background: rgba(234, 179, 8, 0.1);
-            border: 1px solid rgba(234, 179, 8, 0.3);
-            border-radius: 8px;
+            background: rgba(255, 192, 0, 0.06);
+            border-left: 2px solid #FFC000;
             padding: 1rem;
             margin-top: 1rem;
         }}
 
         .lap-instruction .instruction {{
-            font-size: 0.95rem;
-            font-weight: 600;
-            color: var(--accent-yellow);
-            margin-bottom: 0.5rem;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #FFC000;
+            margin-bottom: 0.4rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
         }}
 
         .lap-instruction .note {{
-            font-size: 0.8rem;
-            color: var(--text-secondary);
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
         }}
 
         .binary-search-visual {{
@@ -1061,86 +1102,95 @@ def generate_html(race_data, prediction_data, calendar_data, current_context_dat
             gap: 0.25rem;
             margin-top: 0.75rem;
             padding: 0.75rem;
-            background: var(--bg-tab);
-            border-radius: 8px;
+            background: #181818;
+            border-left: 2px solid #202020;
         }}
 
         .search-range {{
             font-family: var(--font-mono);
-            font-size: 0.75rem;
+            font-size: 0.72rem;
             color: var(--text-muted);
             text-align: center;
         }}
 
         .search-arrow {{
             text-align: center;
-            color: var(--accent-yellow);
-            font-size: 0.8rem;
+            color: #FFC000;
+            font-size: 0.75rem;
         }}
 
         .session-summary {{
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
+            background: #000000;
+            border: 1px solid #202020;
+            border-left: 3px solid #FFC000;
             padding: 1.25rem;
-            margin-top: 1.5rem;
+            margin-top: 1px;
         }}
 
         .session-summary h3 {{
-            font-size: 1rem;
+            font-size: 0.7rem;
+            font-weight: 700;
             margin-bottom: 1rem;
-            color: var(--accent-green);
+            color: #FFC000;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
         }}
 
         .next-up {{
             display: flex;
             align-items: center;
             gap: 0.75rem;
-            padding: 1rem;
-            background: var(--bg-card);
-            border: 1px solid var(--accent-blue);
-            border-radius: 12px;
-            margin-top: 1rem;
+            padding: 0.75rem 1rem;
+            background: #181818;
+            border-left: 2px solid #FFC000;
+            margin-top: 0.75rem;
         }}
 
         .next-up .icon {{
-            font-size: 1.5rem;
+            font-size: 1.2rem;
         }}
 
         .next-up .label {{
-            font-size: 0.75rem;
+            font-size: 0.6rem;
             color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
         }}
 
         .next-up .value {{
-            font-weight: 600;
-            color: var(--accent-blue);
+            font-weight: 700;
+            color: #FFC000;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            font-size: 0.82rem;
         }}
 
         .driver-stats-mini {{
             display: flex;
-            gap: 1rem;
+            gap: 1px;
             flex-wrap: wrap;
             margin: 1rem 0;
-            padding: 1rem;
-            background: var(--bg-tab);
-            border-radius: 8px;
+            background: #202020;
         }}
 
         .driver-stat-mini {{
             text-align: center;
+            padding: 0.75rem 1rem;
+            background: #000000;
         }}
 
         .driver-stat-mini .label {{
-            font-size: 0.65rem;
+            font-size: 0.55rem;
             color: var(--text-muted);
             text-transform: uppercase;
+            letter-spacing: 0.12em;
+            margin-bottom: 0.25rem;
         }}
 
         .driver-stat-mini .value {{
             font-family: var(--font-mono);
             font-weight: 700;
-            font-size: 1.1rem;
+            font-size: 1rem;
         }}
     </style>
 </head>
