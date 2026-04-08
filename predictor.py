@@ -712,8 +712,16 @@ def generate_prediction():
     print(f"   Załadowano {len(history)} wyścigów.")
 
     # 2. Znajdź info o następnym wyścigu
+    # Mini-lekcja: Najpierw sprawdzamy current_context.json - plik zapisany przez
+    # fetcher który zawsze ma aktualny sezon z API (Office + Calendar).
+    # Dopiero jeśli go brak, używamy starej logiki kalendarza jako fallback.
     print("\n2. Szukanie informacji o następnym wyścigu...")
-    next_race = get_next_race_info()
+    next_race = load_current_context()
+    if next_race:
+        print(f"   Źródło: current_context.json (S{next_race['season']}R{next_race['race']})")
+    else:
+        next_race = get_next_race_info()
+        print(f"   Źródło: fallback z kalendarza")
 
     if not next_race:
         print("   [BŁĄD] Nie udało się znaleźć informacji o następnym wyścigu.")
