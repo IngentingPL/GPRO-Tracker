@@ -563,6 +563,18 @@ def generate_practice_plan(confidence):
 # INFO O NASTĘPNYM WYŚCIGU
 # ============================================================
 
+def normalize_int(value):
+    """Konwertuje wartość do int jeśli to możliwe. Obsługuje stringi i None."""
+    if value is None or value == "":
+        return None
+    try:
+        return int(value)
+    except (TypeError, ValueError):
+        import re
+        match = re.search(r"\d+", str(value))
+        return int(match.group(0)) if match else None
+
+
 def load_current_context():
     """Wczytuje aktywny kontekst sezonu/wyścigu zapisany przez fetcher."""
     if not os.path.exists(CURRENT_CONTEXT_FILE):
