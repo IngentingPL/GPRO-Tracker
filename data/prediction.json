@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-08T19:47:49.097095Z",
+  "generated_at": "2026-04-10T19:59:36.271387Z",
   "next_race": {
     "track": "Sakhir GP (Bahrajn)",
     "season": 110,
@@ -9,9 +9,9 @@
   "confidence": "low",
   "confidence_reason": "Fallback: domyślny setup medium downforce",
   "driver_margin": {
-    "MA": 128,
-    "half_MA": 64,
-    "note": "Setup ±64 od optimum da satisfied (MA=128, TI=15, EXP=21)"
+    "MA": 127,
+    "half_MA": 63,
+    "note": "Setup ±63 od optimum da satisfied (MA=127, TI=17, EXP=22)"
   },
   "setup_practice": {
     "fw": 504,
@@ -126,13 +126,13 @@
           117,
           117
         ],
-        "total_fuel": 352
+        "total_fuel": 350
       },
       "note": "Medium tyres, fuel strategy from analysis"
     }
   },
   "fuel_strategy": {
-    "fuel_per_lap": 4.88,
+    "fuel_per_lap": 4.87,
     "recommended": {
       "pits": 2,
       "stints": [
@@ -140,7 +140,7 @@
         117,
         117
       ],
-      "total_fuel": 352
+      "total_fuel": 350
     },
     "alternative": {
       "pits": 3,
@@ -210,10 +210,10 @@
     "est_tyre_life_laps": 29
   },
   "notes": [
-    "Predykcja oparta na 3 wyścigach w historii.",
+    "Predykcja oparta na 4 wyścigach w historii.",
     "Confidence: low - Fallback: domyślny setup medium downforce",
-    "Kierowca: Noel Lavin (TI=15, EXP=21)",
-    "Margines kierowcy: ±64 od optimum.",
+    "Kierowca: Noel Lavin (TI=17, EXP=22)",
+    "Margines kierowcy: ±63 od optimum.",
     "Opony: ~29 okr, paliwo: ~36 okr",
     "Uwaga: Pogoda jest przykładowa. Sprawdź prognozę przed wyścigiem."
   ]
