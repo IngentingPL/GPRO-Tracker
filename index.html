@@ -1340,6 +1340,25 @@ function parsePolishDate(dateStr) {
 }
 
 function getCalendarNextRace() {
+    // PRIORYTET: Użyj current_context.json jeśli jest dostępny - ma aktualne dane z Office API
+    // To jest najbardziej wiarygodne źródło (pobrane z API)
+    if (CURRENT_CONTEXT_DATA) {
+        const cc = CURRENT_CONTEXT_DATA;
+        const ccSeason = toInt(cc.season);
+        const ccRace = toInt(cc.race);
+        const ccTrack = cc.track;
+        
+        if (ccSeason !== null && ccRace !== null && ccTrack) {
+            return {
+                season: ccSeason,
+                race: ccRace,
+                track: ccTrack,
+                total_laps: cc.total_laps || 72
+            };
+        }
+    }
+
+    // Fallback: użyj kalendarza jeśli current_context niedostępny
     const entries = getCalendarEntries();
     if (!entries || entries.length === 0) return null;
 
@@ -1359,8 +1378,7 @@ function getCalendarNextRace() {
 
     if (normalized.length === 0) return null;
 
-    // ROZBUDOWA: filtruj po dacie - wybierz TYLKO przyszłe wyścigi
-    // Pobierz daty z kalendarza i przefiltruj
+    // Znajdź najbliższy przyszły wyścig (data > dzisiejsza data)
     const racesWithDates = entries
         .map((entry, idx) => {
             const raceInfo = normalizeCalendarRace(entry, idx, fallbackSeason);
@@ -1372,7 +1390,6 @@ function getCalendarNextRace() {
         .filter(r => !isTransferMarketName(r.track))
         .filter(r => r.race !== null);
 
-    // Znajdź najbliższy przyszły wyścig (data > dzisiejsza data)
     let nextFutureRace = null;
     for (const race of racesWithDates) {
         if (race.parsedDate && race.parsedDate > today) {
@@ -1382,13 +1399,13 @@ function getCalendarNextRace() {
         }
     }
 
-    // Jeśli znaleziono przyszły wyścig, zwróć go
     if (nextFutureRace) return nextFutureRace;
 
-    // Fallback: jeśli brak dat lub wszystkie w przeszłości, użyj starej logiki
+    // Fallback: szukaj isCurrentRace
     const explicitCurrent = normalized.find(entry => entry.isCurrent);
     if (explicitCurrent) return explicitCurrent;
 
+    // Fallback: szukaj wyścigu po sezonie/race z getCurrentContext
     const active = getCurrentContext();
     const activeSeason = toInt(active?.season);
     const activeRace = toInt(active?.race);
@@ -1400,6 +1417,7 @@ function getCalendarNextRace() {
         if (exact) return exact;
     }
 
+    // Fallback: szukaj następnego wyścigu po ostatnim zapisanym
     const latest = getLatestRace()?.race_data || {};
     const latestSeason = toInt(latest?.season);
     const latestRace = toInt(latest?.race);
@@ -1416,52 +1434,55 @@ function getCalendarNextRace() {
 }
 
 function resolvePredictionContext(pred) {
+    // Simple approach: compare prediction.json with current_context (most reliable source)
     const predictedRace = pred?.next_race || {};
-    const calendarNextRace = getCalendarNextRace();
-
-    if (!calendarNextRace) {
-        return { nextRace: predictedRace, isStale: false, staleReason: '' };
+    
+    // Use current_context if available, otherwise fall back to prediction
+    let nextRace;
+    let isStale = false;
+    let staleReason = '';
+    
+    if (CURRENT_CONTEXT_DATA) {
+        const cc = CURRENT_CONTEXT_DATA;
+        const ccSeason = toInt(cc.season);
+        const ccRace = toInt(cc.race);
+        const ccTrack = cc.track;
+        
+        const predSeason = toInt(predictedRace.season);
+        const predRace = toInt(predictedRace.race);
+        const predTrack = predictedRace.track || '';
+        const ccTrackNorm = normalizeTrackName(ccTrack);
+        
+        // Sprawdź czy predykcja pasuje do current_context
+        // Porównujemy season/race ORAZ track (jeśli pred ma track)
+        const trackMatches = !predTrack || normalizeTrackName(predTrack) === ccTrackNorm;
+        const matches = predSeason === ccSeason && predRace === ccRace && trackMatches;
+        
+        if (matches) {
+            // Predykcja jest aktualna - użyj jej
+            nextRace = { ...predictedRace, total_laps: cc.total_laps || 72 };
+            isStale = false;
+        } else {
+            // Predykcja nieaktualna - użyj current_context ale zachowaj setup z predykcji
+            nextRace = {
+                season: ccSeason,
+                race: ccRace,
+                track: ccTrack,
+                total_laps: cc.total_laps || 72
+            };
+            isStale = true;
+            staleReason = 
+                `Prediction.json: ${predTrack || 'Nieznany tor'} (S${predSeason ?? '?'} R${predRace ?? '?'}) · ` +
+                `Aktualny: ${ccTrack} (S${ccSeason} R${ccRace})`;
+        }
+    } else {
+        // Brak current_context - użyj predykcji bezpośrednio
+        nextRace = predictedRace;
+        isStale = false;
     }
 
-    const predictedSeason = toInt(predictedRace.season);
-    const predictedRaceNo = toInt(predictedRace.race);
-    const calendarSeason = toInt(calendarNextRace.season);
-    const calendarRaceNo = toInt(calendarNextRace.race);
-
-    const sameSeasonRace =
-        predictedSeason !== null &&
-        predictedRaceNo !== null &&
-        calendarSeason !== null &&
-        calendarRaceNo !== null &&
-        predictedSeason === calendarSeason &&
-        predictedRaceNo === calendarRaceNo;
-
-    const sameTrack =
-        normalizeTrackName(predictedRace.track) ===
-        normalizeTrackName(calendarNextRace.track);
-
-    if (sameSeasonRace && (sameTrack || !predictedRace.track || !calendarNextRace.track)) {
-        return {
-            nextRace: { ...calendarNextRace, ...predictedRace },
-            isStale: false,
-            staleReason: ''
-        };
-    }
-
-    let staleReason = 'Prediction.json wskazuje inny wyścig niż aktualny kalendarz.';
-    if (predictedRace.track || predictedSeason !== null || predictedRaceNo !== null) {
-        staleReason =
-            `Prediction.json: ${predictedRace.track || 'Nieznany tor'} ` +
-            `(S${predictedSeason ?? '?'} R${predictedRaceNo ?? '?'}) · ` +
-            `Kalendarz: ${calendarNextRace.track || 'Nieznany tor'} ` +
-            `(S${calendarSeason ?? '?'} R${calendarRaceNo ?? '?'})`;
-    }
-
-    return {
-        nextRace: calendarNextRace,
-        isStale: true,
-        staleReason
-    };
+    return { nextRace, isStale, staleReason };
+}
 }
 
 // ==========================================================
