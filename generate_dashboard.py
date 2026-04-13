@@ -2029,17 +2029,98 @@ function renderPractice() {{
     const practicePlan = pred.practice_plan || {{}};
     const laps = practicePlan.laps || [];
     
+    // Get laps completed and comments from localStorage
+    let practiceState = {{ lapsCompleted: 0, comments: {{}} }};
+    try {{
+        const saved = localStorage.getItem('gpro_practice_state');
+        if (saved) {{
+            practiceState = JSON.parse(saved);
+        }}
+    }} catch (e) {{}}
+    
+    const lapsCompleted = practiceState.lapsCompleted || 0;
+    const comments = practiceState.comments || {{}};
+    const totalLaps = 8;
+    const currentLap = lapsCompleted + 1;
+    
+    // Calculate current setup based on comments
+    let currentSetup = {{...practiceSetup}};
+    
+    const commentCorrections = {{
+        'grip': {{fw: +20, rw: +20}},
+        'unstable': {{fw: +30, rw: +30}},
+        'understeer': {{fw: +15}},
+        'oversteer': {{rw: +15}},
+        'too much front': {{fw: -20}},
+        'too much rear': {{rw: -20}},
+        'engine power': {{eng: +20}},
+        'engine feels weak': {{eng: +25}},
+        'rigid': {{susp: -20}},
+        'too soft': {{susp: +20}},
+        'not effective': {{bra: +20}},
+        'top speed': {{gear: +15}},
+    }};
+    
+    const satisfiedWords = ['satisfied', 'happy', 'perfect'];
+    
+    // Apply corrections from stored comments
+    for (let lapNum = 1; lapNum <= lapsCompleted; lapNum++) {{
+        const comment = comments[lapNum] || '';
+        if (!comment) continue;
+        const normalized = comment.toLowerCase();
+        
+        let isSatisfied = false;
+        for (const word of satisfiedWords) {{
+            if (normalized.includes(word)) {{ isSatisfied = true; break; }}
+        }}
+        if (isSatisfied) continue;
+        
+        for (const [keyword, corrections] of Object.entries(commentCorrections)) {{
+            if (normalized.includes(keyword)) {{
+                for (const [setting, change] of Object.entries(corrections)) {{
+                    const multiplier = halfMa > 60 ? 1.0 : 0.7;
+                    currentSetup[setting] = Math.max(0, Math.min(999, (currentSetup[setting] || 500) + Math.round(change * multiplier)));
+                }}
+            }}
+        }}
+    }}
+    
     let html = '';
     
     // Nagłówek
     html += `<div class="practice-header">`;
-    html += `<h2>🏁 Praktyka - Binary Search Setup</h2>`;
+    html += `<h2>Praktyka - Setup krokowy</h2>`;
     html += `<div class="track-info">${{nextRace.track || 'Nieznany tor'}} · Sezon ${{nextRace.season || '?'}} · Wyścig ${{nextRace.race || '?'}}</div>`;
     html += `</div>`;
     
     // Driver stats mini
     const ma = driverMargin.MA || 0;
     const halfMa = driverMargin.half_MA || 0;
+    html += `<div class="driver-stats-mini">`;
+    html += `<div class="driver-stat-mini"><div class="label">Okrążenie</div><div class="value" style="color:var(--accent-yellow)">${{currentLap}}/${{totalLaps}}</div></div>`;
+    html += `<div class="driver-stat-mini"><div class="label">Temp</div><div class="value">${{practiceTemp}}°C</div></div>`;
+    html += `<div class="driver-stat-mini"><div class="label">Opony</div><div class="value">${{pred.sessions?.practice?.tyres || 'medium'}}</div></div>`;
+    html += `</div>`;
+    
+    // Show current lap comment if any
+    if (lapsCompleted > 0 && comments[lapsCompleted]) {{
+        const prevComment = comments[lapsCompleted];
+        const normalized = prevComment.toLowerCase();
+        const isSatisfied = satisfiedWords.some(w => normalized.includes(w));
+        
+        html += `<div class="lap-card current" style="margin-bottom:1rem">`;
+        html += `<div class="lap-header">`;
+        html += `<h3>Komentarz z okrążenia ${{lapsCompleted}}</h3>`;
+        html += `<span class="lap-badge ${{isSatisfied ? 'done' : 'next'}}">${{isSatisfied ? '✓ Zadowolony' : '⚠ Wymaga korekty'}}</span>`;
+        html += `</div>`;
+        html += `<div class="lap-instruction">`;
+        html += `<div class="instruction" style="font-size:0.9rem">${{prevComment}}</div>`;
+        html += `</div>`;
+        html += `</div>`;
+    }}
+    
+    // Driver stats mini
+    // (ma and halfMa already declared above)
     html += `<div class="driver-stats-mini">`;
     html += `<div class="driver-stat-mini"><div class="label">Margines</div><div class="value" style="color:var(--accent-yellow)">${{halfMa}}</div></div>`;
     html += `<div class="driver-stat-mini"><div class="label">MA</div><div class="value">${{ma}}</div></div>`;
@@ -2050,7 +2131,7 @@ function renderPractice() {{
     // Timeline
     html += `<div class="practice-timeline">`;
     const steps = ['P1', 'P2', 'P3', 'P4', 'P5', 'P6', 'P7', 'P8'];
-    const currentLap = 1; // Always start from lap 1
+    // currentLap is already set above
     steps.forEach((step, i) => {{
         const lapNum = i + 1;
         const isDone = lapNum < currentLap;
@@ -2069,27 +2150,27 @@ function renderPractice() {{
         const isDone = lapNum < currentLap;
         const isCurrent = lapNum === currentLap;
         
-        // Calculate suggested setup based on binary search logic
-        let suggestedSetup = {{...practiceSetup}};
+        // Use currentSetup that has been adjusted based on comments
+        let suggestedSetup = {{...currentSetup}};
         if (lapNum === 1) {{
-            // First lap - use recommended setup
+            // First lap - use current setup (possibly adjusted by comments)
         }} else if (lapNum === 2) {{
             // After lap 1 feedback, try +halfMa if not satisfied
-            suggestedSetup.fw = practiceSetup.fw + halfMa;
-            suggestedSetup.rw = practiceSetup.rw + halfMa;
+            suggestedSetup.fw = currentSetup.fw + halfMa;
+            suggestedSetup.rw = currentSetup.rw + halfMa;
         }} else if (lapNum === 3) {{
             // Continue in direction from lap 2
-            suggestedSetup.fw = practiceSetup.fw + halfMa + Math.floor(halfMa/2);
-            suggestedSetup.rw = practiceSetup.rw + halfMa + Math.floor(halfMa/2);
+            suggestedSetup.fw = currentSetup.fw + halfMa + Math.floor(halfMa/2);
+            suggestedSetup.rw = currentSetup.rw + halfMa + Math.floor(halfMa/2);
         }} else if (lapNum === 4) {{
             // Change direction
-            suggestedSetup.fw = practiceSetup.fw - halfMa;
-            suggestedSetup.rw = practiceSetup.rw - halfMa;
+            suggestedSetup.fw = currentSetup.fw - halfMa;
+            suggestedSetup.rw = currentSetup.rw - halfMa;
         }} else {{
             // Narrow down binary search
             const offset = Math.floor(halfMa / (lapNum - 2));
-            suggestedSetup.fw = practiceSetup.fw - halfMa + offset;
-            suggestedSetup.rw = practiceSetup.rw - halfMa + offset;
+            suggestedSetup.fw = currentSetup.fw - halfMa + offset;
+            suggestedSetup.rw = currentSetup.rw - halfMa + offset;
         }}
         
         html += `<div class="lap-card ${{isCurrent ? 'current' : ''}} ${{isDone ? 'done' : ''}}">`;
@@ -2142,6 +2223,15 @@ function renderPractice() {{
         
         html += `</div>`;
     }});
+    
+    // Test input for simulating lap completion
+    if (currentLap <= totalLaps) {{
+        html += `<div style="margin-top:1.5rem;padding:1rem;background:#181818;border:1px solid #333">`;
+        html += `<div style="font-size:0.7rem;color:var(--text-muted);margin-bottom:0.5rem">Wpisz komentarz kierowcy z gry po wykonaniu okrążenia:</div>`;
+        html += `<input type="text" id="driverCommentInput" placeholder="np. Wings: I am missing a bit of grip" style="width:100%;padding:0.5rem;background:#000;color:#fff;border:1px solid #333;margin-bottom:0.5rem">`;
+        html += `<button onclick="completeLap()" style="background:#FFC000;color:#000;padding:0.5rem 1rem;border:none;cursor:pointer;font-weight:700">Zapisz komentarz &raquo;</button>`;
+        html += `</div>`;
+    }}
     
     // Session summary - Q1 after practice
     html += `<div class="session-summary">`;
@@ -2201,6 +2291,33 @@ function renderPractice() {{
     html += `</div>`;
     
     container.innerHTML = html;
+}}
+
+// Funkcja do symulacji ukończenia okrążenia
+function completeLap() {{
+    const input = document.getElementById('driverCommentInput');
+    const comment = input.value.trim();
+    
+    if (!comment) {{
+        alert('Wpisz komentarz kierowcy!');
+        return;
+    }}
+    
+    let practiceState = {{ lapsCompleted: 0, comments: {{}} }};
+    try {{
+        const saved = localStorage.getItem('gpro_practice_state');
+        if (saved) {{
+            practiceState = JSON.parse(saved);
+        }}
+    }} catch (e) {{}}
+    
+    const nextLap = practiceState.lapsCompleted + 1;
+    practiceState.comments[nextLap] = comment;
+    practiceState.lapsCompleted = nextLap;
+    
+    localStorage.setItem('gpro_practice_state', JSON.stringify(practiceState));
+    
+    renderPractice();
 }}
 
 function renderResults() {{

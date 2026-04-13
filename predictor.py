@@ -21,6 +21,143 @@ CURRENT_CONTEXT_FILE = "data/current_context.json"
 
 
 # ============================================================
+# MAPOWANIE KOMENTARZY KIEROWCY -> KOREKTY SETUPU
+# ============================================================
+
+# Mini-lekcja: Komentarze kierowcy to klucz do znalezienia optimum setupu.
+# Na podstawie słów kluczowych w komentarzu korygujemy konkretne parametry.
+# Jeden komentarz może sugerować zmianę kilku parametrów.
+
+COMMENT_KEYWORDS = {
+    # Wings - docisk
+    "grip": {"fw": +20, "rw": +20},           # Brak przyczepności = więcej docisku
+    "unstable": {"fw": +30, "rw": +30},       # Niestały = więcej docisku
+    "understeer": {"fw": +15},                # Understeer = więcej docisku z przodu
+    "oversteer": {"rw": +15},                 # Oversteer = więcej docisku z tyłu
+    "understeering": {"fw": +15},
+    "oversteering": {"rw": +15},
+    "too much front downforce": {"fw": -20},  # Za dużo docisku = zmniejsz
+    "too much rear downforce": {"rw": -20},
+    "missing grip": {"fw": +20, "rw": +20},
+    
+    # Engine - moc
+    "engine power": {"eng": +20},             # Za mało mocy = zwiększ
+    "engine feels weak": {"eng": +25},
+    "not enough engine": {"eng": +20},
+    "engine too strong": {"eng": -20},        # Za dużo mocy = zmniejsz
+    "engine powerful": {"eng": -15},
+    "engine feel": {"eng": +15},              # Ogólne odczucie mocy
+    
+    # Suspension - zawieszenie
+    "rigid": {"susp": -20},                   # Za sztywne = zmniejsz
+    "too rigid": {"susp": -25},
+    "too soft": {"susp": +20},                # Za miękkie = zwiększ
+    "soft": {"susp": +15},
+    "bounces": {"susp": -30},                # Podskakuje = dużo mniej sztywne
+    "suspension": {"susp": +10},             # Ogólne uwagi o zawieszeniu
+    
+    # Brakes - hamulce
+    "brakes": {"bra": +15},                   # Problemy z hamulcami = więcej
+    "not effective": {"bra": +20},            # Słabe hamowanie = więcej
+    "locking": {"bra": -20},                   # Blokuje się = mniej
+    "brake pressure": {"bra": -15},
+    "braking": {"bra": +10},
+    
+    # Gear - przełożenie
+    "gear": {"gear": +10},                    # Ogólne uwagi o przełożeniu
+    "top speed": {"gear": +15},               # Brak prędkości max = wyższe przełożenie
+    "acceleration": {"gear": -15},            # Słabe przyspieszenie = niższe przełożenie
+    "ratio": {"gear": +10},
+    
+    # Satisfied - zadowolony
+    "satisfied": {},                           # Brak zmian
+    "happy": {},
+    "perfect": {},
+    "happy with the setup": {},
+}
+
+# Słowa kluczowe dla "satisfied" - najczęstszefrazy oznaczające zgodę
+SATISFIED_KEYWORDS = ["satisfied", "happy", "perfect setup", "all good", "nothing to change"]
+
+
+def interpret_driver_comment(comment):
+    """
+    Interpretuje komentarz kierowcy i zwraca słownik z proponowanymi zmianami.
+    
+    Mini-lekcja: W GPRO kierowca mówi po angielsku, np.:
+    - "Wings: I am missing a bit of grip in the curves" (potrzeba więcej docisku)
+    - "Engine: I feel that I do not have enough engine power in the straights" (więcej ENG)
+    - "Suspension: The car is too rigid" (mniej SUSP)
+    - "I am satisfied with the setup of the car" (nic nie zmieniaj)
+    
+    Funkcja szuka słów kluczowych i sumuje proponowane zmiany.
+    """
+    if not comment:
+        return {}
+    
+    # Normalizuj komentarz (małe litery, usuń polskie znaki)
+    normalized = comment.lower()
+    # Obsłuż polskie znaki w komentarzach z API (choć API zwraca po angielsku)
+    normalized = normalized.replace("ć", "c").replace("ę", "e").replace("ł", "l")
+    normalized = normalized.replace("ś", "s").replace("ą", "a").replace("ó", "o")
+    normalized = normalized.replace("ź", "z").replace("ż", "z")
+    
+    # Sprawdź czy kierowca jest zadowolony (najpierw - to ma najwyższy priorytet)
+    for keyword in SATISFIED_KEYWORDS:
+        if keyword in normalized:
+            return {}  # Brak zmian - setup jest OK
+    
+    # Szukaj słów kluczowych i sumuj korekty
+    corrections = {}
+    
+    for keyword, changes in COMMENT_KEYWORDS.items():
+        if keyword in normalized:
+            for setting, change in changes.items():
+                corrections[setting] = corrections.get(setting, 0) + change
+    
+    return corrections
+
+
+def adjust_for_driver_comment(base_setup, comment, confidence="medium"):
+    """
+    Korektuje setup na podstawie komentarza kierowcy.
+    
+    Args:
+        base_setup: Bazowy setup (słownik z fw, rw, eng, bra, gear, susp)
+        comment: Komentarz kierowcy (np. "Wings: I am missing a bit of grip...")
+        confidence: Poziom pewności - wpływa na wielkość korekty
+    
+    Returns:
+        Skorygowany setup (słownik)
+    """
+    corrections = interpret_driver_comment(comment)
+    
+    if not corrections:
+        return base_setup.copy()  # Brak zmian
+    
+    # Wielkość korekty wg poziomu pewności
+    # Niedoświadczony kierowca = mniejsze kroki (ostrożniej)
+    confidence_multiplier = {
+        "high": 1.0,      # Doświadczony kierowca - pełne korekty
+        "medium": 0.8,   # Średni - 80% korekty
+        "low": 0.5,      # Niedoświadczony - 50% korekty (ostrożniej)
+    }
+    
+    multiplier = confidence_multiplier.get(confidence, 0.7)
+    
+    adjusted = base_setup.copy()
+    
+    for setting, change in corrections.items():
+        if setting in adjusted:
+            # Zaokrąglamy do liczb całkowitych
+            new_value = int(adjusted[setting] + change * multiplier)
+            # Ograniczamy do zakresu 0-999
+            adjusted[setting] = max(0, min(999, new_value))
+    
+    return adjusted
+
+
+# ============================================================
 # STAŁE (dane z community GPRO Strategy ITA, zweryfikowane od lat)
 # ============================================================
 
