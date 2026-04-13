@@ -227,7 +227,7 @@
       "total": 7728700,
       "balance": 29378700
     },
-    "fetched_at": "2026-04-13T08:19:39.942091Z"
+    "fetched_at": "2026-04-13T09:00:33.760541Z"
   },
   "race_summary": {
     "track": "Sakhir",
@@ -411,12 +411,12 @@
     "setRaces": "",
     "canOfferPrivate": 0,
     "canOfferTrophyBonus": 0,
-    "offerCost": 500000,
-    "semiOfferCost": 750000,
-    "privateOfferCost": 1000000,
-    "setOfferCost": 500000,
+    "offerCost": 750000,
+    "semiOfferCost": 875000,
+    "privateOfferCost": 1125000,
+    "setOfferCost": 750000,
     "setOfferType": "1",
-    "nextPriceIncrementIn": 2415,
+    "nextPriceIncrementIn": 14362,
     "offerPlaced": 0,
     "inShortList": 1,
     "oneRaceRenewFee": 184700,
@@ -438,7 +438,7 @@
     "setContractLengthExtend": "",
     "totalOffers": 0,
     "offersFrom": [],
-    "apiRequestsRemaining": 990
+    "apiRequestsRemaining": 984
   },
   "standings": {
     "loadingDataState": "1",
@@ -8291,7 +8291,7 @@
         }
       ]
     },
-    "apiRequestsRemaining": 989
+    "apiRequestsRemaining": 983
   },
   "car_status": {
     "loadingDataState": "1",
@@ -8743,6 +8743,6 @@
     "showUndoAlertNoCredits": false,
     "credits": 0,
     "races": 4,
-    "apiRequestsRemaining": 988
+    "apiRequestsRemaining": 982
   }
 }
