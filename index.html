@@ -1309,11 +1309,43 @@ function normalizeCalendarRace(entry, index, fallbackSeason) {
     };
 }
 
+// Pomocnicza: parsuj polską datę z kalendarza (np. "Kwi 10, 2026")
+function parsePolishDate(dateStr) {
+    if (!dateStr) return null;
+    
+    const months = {
+        'sty': 0, 'lut': 1, 'mar': 2, 'kwi': 3, 'maj': 4, 'cze': 5,
+        'lip': 6, 'sie': 7, 'wrz': 8, 'paź': 9, 'lis': 10, 'gru': 11
+    };
+    
+    // Usuń polskie znaki i normalizuj
+    const normalized = dateStr.toLowerCase()
+        .replace('ą', 'a').replace('ę', 'e')
+        .replace('ó', 'o').replace('ń', 'n')
+        .replace('ś', 's').replace('ź', 'z')
+        .replace('ż', 'z').replace('ł', 'l');
+    
+    // Format: "Kwi 10, 2026" lub "Apr 10, 2026"
+    const match = normalized.match(/([a-z]+)\s+(\d+),?\s*(\d{4})/);
+    if (!match) return null;
+    
+    const monthName = match[1];
+    const day = parseInt(match[2]);
+    const year = parseInt(match[3]);
+    
+    const month = months[monthName];
+    if (month === undefined) return null;
+    
+    return new Date(year, month, day);
+}
+
 function getCalendarNextRace() {
     const entries = getCalendarEntries();
     if (!entries || entries.length === 0) return null;
 
     const fallbackSeason = getCalendarSeason();
+    const now = new Date();
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 
     const normalized = entries
         .map((entry, index) => normalizeCalendarRace(entry, index, fallbackSeason))
@@ -1327,6 +1359,33 @@ function getCalendarNextRace() {
 
     if (normalized.length === 0) return null;
 
+    // ROZBUDOWA: filtruj po dacie - wybierz TYLKO przyszłe wyścigi
+    // Pobierz daty z kalendarza i przefiltruj
+    const racesWithDates = entries
+        .map((entry, idx) => {
+            const raceInfo = normalizeCalendarRace(entry, idx, fallbackSeason);
+            const dateStr = entry?.dateEvent || entry?.eventDate || entry?.date || null;
+            const parsedDate = parsePolishDate(dateStr);
+            return { ...raceInfo, dateStr, parsedDate };
+        })
+        .filter(r => r.eventType === '' || r.eventType === 'R')
+        .filter(r => !isTransferMarketName(r.track))
+        .filter(r => r.race !== null);
+
+    // Znajdź najbliższy przyszły wyścig (data > dzisiejsza data)
+    let nextFutureRace = null;
+    for (const race of racesWithDates) {
+        if (race.parsedDate && race.parsedDate > today) {
+            if (!nextFutureRace || race.parsedDate < nextFutureRace.parsedDate) {
+                nextFutureRace = race;
+            }
+        }
+    }
+
+    // Jeśli znaleziono przyszły wyścig, zwróć go
+    if (nextFutureRace) return nextFutureRace;
+
+    // Fallback: jeśli brak dat lub wszystkie w przeszłości, użyj starej logiki
     const explicitCurrent = normalized.find(entry => entry.isCurrent);
     if (explicitCurrent) return explicitCurrent;
 
