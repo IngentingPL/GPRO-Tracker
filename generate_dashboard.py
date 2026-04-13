@@ -1376,6 +1376,193 @@ function renderPendingSeasonOverview(activeContext) {{
     renderSeasonEmptyState('tab-driver', 'Kierowca sezonu', activeContext, lastCompleted, 'Profil kierowcy w panelu historycznym będzie zasilony po zapisaniu wyścigu sezonu.');
 }}
 
+function normalizeTrackName(name) {{
+    return String(name || '')
+        .trim()
+        .toLowerCase()
+        .replace(/\s+/g, ' ');
+}}
+
+function isTransferMarketName(name) {{
+    const normalized = normalizeTrackName(name);
+    return normalized.includes('rynek transferowy') ||
+           normalized.includes('transfer market');
+}}
+
+function getCalendarEntries() {{
+    if (!CALENDAR_DATA) return [];
+
+    const payload = Array.isArray(CALENDAR_DATA)
+        ? {{ data: CALENDAR_DATA }}
+        : CALENDAR_DATA;
+
+    const rootData = payload?.data;
+
+    if (Array.isArray(rootData)) return rootData;
+
+    if (rootData && typeof rootData === 'object') {{
+        for (const key of ['races', 'calendar', 'events', 'schedule', 'items', 'data']) {{
+            if (Array.isArray(rootData[key])) return rootData[key];
+        }}
+    }}
+
+    for (const key of ['races', 'calendar', 'events', 'schedule', 'items']) {{
+        if (Array.isArray(payload?.[key])) return payload[key];
+    }}
+
+    return [];
+}}
+
+function getCalendarSeason() {{
+    const direct =
+        toInt(CALENDAR_DATA?.season) ??
+        toInt(CALENDAR_DATA?.selSeasonNb) ??
+        toInt(CALENDAR_DATA?.seasonNb);
+
+    if (direct !== null) return direct;
+
+    for (const entry of getCalendarEntries()) {{
+        const season =
+            toInt(entry?.season) ??
+            toInt(entry?.selSeasonNb) ??
+            toInt(entry?.seasonNb);
+
+        if (season !== null) return season;
+    }}
+
+    return null;
+}}
+
+function normalizeCalendarRace(entry, index, fallbackSeason) {{
+    const eventType = String(entry?.eventType || '').trim().toUpperCase();
+    const track = entry?.track || entry?.trackName || entry?.name || entry?.raceName || 'Nieznany tor';
+
+    return {{
+        eventType,
+        track,
+        season:
+            toInt(entry?.season) ??
+            toInt(entry?.selSeasonNb) ??
+            toInt(entry?.seasonNb) ??
+            fallbackSeason,
+        race:
+            toInt(entry?.race) ??
+            toInt(entry?.raceNb) ??
+            toInt(entry?.round) ??
+            toInt(entry?.number) ??
+            toInt(entry?.idx) ??
+            toInt(entry?.selRaceNb) ??
+            (index + 1),
+        total_laps:
+            toInt(entry?.total_laps) ??
+            toInt(entry?.totalLaps) ??
+            toInt(entry?.laps) ??
+            toInt(entry?.lapNb) ??
+            toInt(entry?.noOfLaps) ??
+            null,
+        isCurrent:
+            toInt(entry?.isCurrentRace) === 1 ||
+            entry?.current === true ||
+            entry?.upcoming === true
+    }};
+}}
+
+function getCalendarNextRace() {{
+    const entries = getCalendarEntries();
+    if (!entries || entries.length === 0) return null;
+
+    const fallbackSeason = getCalendarSeason();
+
+    const normalized = entries
+        .map((entry, index) => normalizeCalendarRace(entry, index, fallbackSeason))
+        .filter(entry => entry.eventType === '' || entry.eventType === 'R')
+        .filter(entry => !isTransferMarketName(entry.track))
+        .filter(entry => entry.race !== null)
+        .sort((a, b) =>
+            ((toInt(a.season) ?? 0) - (toInt(b.season) ?? 0)) ||
+            ((toInt(a.race) ?? 0) - (toInt(b.race) ?? 0))
+        );
+
+    if (normalized.length === 0) return null;
+
+    const explicitCurrent = normalized.find(entry => entry.isCurrent);
+    if (explicitCurrent) return explicitCurrent;
+
+    const active = getCurrentContext();
+    const activeSeason = toInt(active?.season);
+    const activeRace = toInt(active?.race);
+    if (activeSeason !== null && activeRace !== null) {{
+        const exact = normalized.find(entry =>
+            toInt(entry.season) === activeSeason &&
+            toInt(entry.race) === activeRace
+        );
+        if (exact) return exact;
+    }}
+
+    const latest = getLatestRace()?.race_data || {{}};
+    const latestSeason = toInt(latest?.season);
+    const latestRace = toInt(latest?.race);
+
+    for (const entry of normalized) {{
+        const season = toInt(entry.season);
+        const race = toInt(entry.race);
+        if (latestSeason === null) return entry;
+        if (season > latestSeason) return entry;
+        if (season === latestSeason && latestRace !== null && race > latestRace) return entry;
+    }}
+
+    return normalized[0] || null;
+}}
+
+function resolvePredictionContext(pred) {{
+    const predictedRace = pred?.next_race || {{}};
+    const calendarNextRace = getCalendarNextRace();
+
+    if (!calendarNextRace) {{
+        return {{ nextRace: predictedRace, isStale: false, staleReason: '' }};
+    }}
+
+    const predictedSeason = toInt(predictedRace.season);
+    const predictedRaceNo = toInt(predictedRace.race);
+    const calendarSeason = toInt(calendarNextRace.season);
+    const calendarRaceNo = toInt(calendarNextRace.race);
+
+    const sameSeasonRace =
+        predictedSeason !== null &&
+        predictedRaceNo !== null &&
+        calendarSeason !== null &&
+        calendarRaceNo !== null &&
+        predictedSeason === calendarSeason &&
+        predictedRaceNo === calendarRaceNo;
+
+    const sameTrack =
+        normalizeTrackName(predictedRace.track) ===
+        normalizeTrackName(calendarNextRace.track);
+
+    if (sameSeasonRace && (sameTrack || !predictedRace.track || !calendarNextRace.track)) {{
+        return {{
+            nextRace: {{ ...calendarNextRace, ...predictedRace }},
+            isStale: false,
+            staleReason: ''
+        }};
+    }}
+
+    let staleReason = 'Prediction.json wskazuje inny wyścig niż aktualny kalendarz.';
+    if (predictedRace.track || predictedSeason !== null || predictedRaceNo !== null) {{
+        staleReason =
+            `Prediction.json: ${{predictedRace.track || 'Nieznany tor'}} ` +
+            `(S${{predictedSeason ?? '?'}} R${{predictedRaceNo ?? '?'}}) · ` +
+            `Kalendarz: ${{calendarNextRace.track || 'Nieznany tor'}} ` +
+            `(S${{calendarSeason ?? '?'}} R${{calendarRaceNo ?? '?'}})`;
+    }}
+
+    return {{
+        nextRace: calendarNextRace,
+        isStale: true,
+        staleReason
+    }};
+}}
+
 // ==========================================================
 // RENDEROWANIE DASHBOARDU
 // ==========================================================
@@ -1490,7 +1677,10 @@ function renderNextRace() {{
 
 function renderPrediction(container) {{
     const pred = PREDICTION_DATA;
-    const nextRace = pred.next_race || {{}};
+    const predictionContext = resolvePredictionContext(pred);
+    const nextRace = predictionContext.nextRace || pred.next_race || {{}};
+    const isStalePrediction = predictionContext.isStale;
+    const staleReason = predictionContext.staleReason || '';
     const confidence = pred.confidence || 'unknown';
     const confidenceReason = pred.confidence_reason || '';
     const driverMargin = pred.driver_margin || {{}};
@@ -1501,6 +1691,21 @@ function renderPrediction(container) {{
     const sessions = pred.sessions || {{}};
 
     let html = '';
+
+    if (isStalePrediction) {{
+        container.innerHTML = `
+            <div class="rec-card">
+                <h2>${{nextRace.track || 'Następny wyścig'}}</h2>
+                <div class="rec-subtitle">Sezon ${{nextRace.season || '?'}} · Wyścig ${{nextRace.race || '?'}}${{nextRace.total_laps ? ` · ${{nextRace.total_laps}} okrążeń` : ''}}</div>
+                <div style="margin-top:1rem;padding:1rem;border-radius:12px;background:rgba(245,158,11,0.12);border:1px solid rgba(245,158,11,0.35);color:var(--text-primary)">
+                    <strong>Wykryto nieaktualną predykcję.</strong>
+                    <div style="margin-top:0.5rem;color:var(--text-secondary)">${{staleReason}}</div>
+                    <div style="margin-top:0.75rem;color:var(--text-secondary)">Odśwież kalendarz i rekomendacje przed użyciem setupu:</div>
+                    <div style="margin-top:0.75rem"><code>python predictor.py</code></div>
+                </div>
+            </div>`;
+        return;
+    }}
 
     // =============================================
     // 1. NAGŁÓWEK Z INFO O TORZE
@@ -1746,7 +1951,19 @@ function renderPractice() {{
     }}
     
     const pred = PREDICTION_DATA;
-    const nextRace = pred.next_race || {{}};
+    const predictionContext = resolvePredictionContext(pred);
+    if (predictionContext.isStale) {{
+        const nextRace = predictionContext.nextRace || {{}};
+        container.innerHTML = `
+            <div class="empty-state">
+                <h2>Practice map wymaga odświeżenia predykcji</h2>
+                <p>${{predictionContext.staleReason}}</p>
+                <p style="margin-top:1rem">Aktualny następny wyścig: <strong>${{nextRace.track || 'Nieznany tor'}}</strong> (Sezon ${{nextRace.season || '?'}}, Wyścig ${{nextRace.race || '?'}})</p>
+                <p style="margin-top:1rem"><code>python predictor.py</code></p>
+            </div>`;
+        return;
+    }}
+    const nextRace = predictionContext.nextRace || pred.next_race || {{}};
     const driverMargin = pred.driver_margin || {{}};
     const practiceSetup = pred.sessions?.practice?.setup || pred.setup_practice || {{}};
     const practiceTemp = pred.sessions?.practice?.temp || pred.setup_practice?.temp || 20;
