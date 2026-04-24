@@ -1,22 +1,21 @@
 {
-  "generated_at": "2026-04-24T18:55:37.730347Z",
-  "generated_at": "2026-04-24T18:23:20.769237Z",
+  "generated_at": "2026-04-24T20:00:57.489085Z",
   "next_race": {
-    "track": "Istanbul GP (Turcja)",
+    "track": "Rafaela Oval GP (Argentyna)",
     "season": 110,
-    "race": 5,
+    "race": 6,
     "total_laps": 72,
-    "track_id": "36"
+    "track_id": "54"
   },
   "confidence": "low",
   "confidence_reason": "Fallback: domyślny setup medium downforce",
   "driver_margin": {
-    "MA": 126,
-    "half_MA": 63,
-    "note": "Setup ±63 od optimum da satisfied (MA=126, TI=21, EXP=25)"
+    "MA": 125,
+    "half_MA": 62,
+    "note": "Setup ±62 od optimum da satisfied (MA=125, TI=22, EXP=26)"
   },
   "base": {
-    "track": "Istanbul GP (Turcja)",
+    "track": "Rafaela Oval GP (Argentyna)",
     "setup": {
       "fw": 500,
       "rw": 500,
@@ -42,7 +41,7 @@
         "temp": 21
       },
       "feedback": "",
-      "tyres": "Medium",
+      "tyres": "Hard",
       "temp": 21,
       "note": "Sugerowany setup na podstawie poprzednich kroków",
       "is_next": true
@@ -53,7 +52,7 @@
       "completed": false,
       "setup": null,
       "feedback": "",
-      "tyres": "Medium",
+      "tyres": "Hard",
       "temp": 21,
       "note": ""
     },
@@ -63,7 +62,7 @@
       "completed": false,
       "setup": null,
       "feedback": "",
-      "tyres": "Medium",
+      "tyres": "Hard",
       "temp": 21,
       "note": ""
     },
@@ -73,7 +72,7 @@
       "completed": false,
       "setup": null,
       "feedback": "",
-      "tyres": "Medium",
+      "tyres": "Hard",
       "temp": 21,
       "note": ""
     },
@@ -83,7 +82,7 @@
       "completed": false,
       "setup": null,
       "feedback": "",
-      "tyres": "Medium",
+      "tyres": "Hard",
       "temp": 21,
       "note": ""
     },
@@ -93,7 +92,7 @@
       "completed": false,
       "setup": null,
       "feedback": "",
-      "tyres": "Medium",
+      "tyres": "Hard",
       "temp": 21,
       "note": ""
     },
@@ -103,7 +102,7 @@
       "completed": false,
       "setup": null,
       "feedback": "",
-      "tyres": "Medium",
+      "tyres": "Hard",
       "temp": 21,
       "note": ""
     },
@@ -113,7 +112,7 @@
       "completed": false,
       "setup": null,
       "feedback": "",
-      "tyres": "Medium",
+      "tyres": "Hard",
       "temp": 21,
       "note": ""
     },
@@ -123,7 +122,7 @@
       "completed": false,
       "setup": null,
       "feedback": "",
-      "tyres": "Medium",
+      "tyres": "Hard",
       "temp": 22,
       "note": "Push for time"
     },
@@ -133,7 +132,7 @@
       "completed": false,
       "setup": null,
       "feedback": "",
-      "tyres": "Medium",
+      "tyres": "Hard",
       "temp": 26,
       "note": "Qualify for race"
     },
@@ -149,58 +148,58 @@
         "gear": 465,
         "susp": 562
       },
-      "tyres": "Medium",
+      "tyres": "Hard",
       "temp": 27,
       "fuel_strategy": {
         "pits": 2,
         "stints": [
-          91,
-          91,
-          91
+          108,
+          108,
+          108
         ],
-        "total_fuel": 272
+        "total_fuel": 325
       },
       "note": "Final race strategy"
     }
   ],
   "fuel_strategy": {
-    "fuel_per_lap": 4.53,
+    "fuel_per_lap": 4.51,
     "recommended": {
       "pits": 2,
       "stints": [
-        91,
-        91,
-        91
+        108,
+        108,
+        108
       ],
-      "total_fuel": 272
+      "total_fuel": 325
     },
     "alternative": {
       "pits": 3,
       "stints": [
-        91,
-        91,
-        91,
-        91
+        108,
+        108,
+        108,
+        108
       ],
-      "total_fuel": 364
+      "total_fuel": 432
     }
   },
   "tyre_strategy": {
-    "est_tyre_life_laps": 35,
+    "est_tyre_life_laps": 40,
     "laps_on_fuel": 39,
-    "bottleneck": "tyres",
-    "bottleneck_explanation": "Opony na ~35 okr, paliwo na ~39 okr → pit stopy wynikają z opon"
+    "bottleneck": "fuel",
+    "bottleneck_explanation": "Paliwo na ~39 okr, opony na ~40 okr → pit stopy wynikają z paliwa"
   },
   "tyre_info": {
     "supplier": "Pipirelli",
-    "bottleneck": "tyres",
-    "est_tyre_life_laps": 35
+    "bottleneck": "fuel",
+    "est_tyre_life_laps": 40
   },
   "notes": [
-    "Predykcja oparta na 7 wyścigach w historii.",
+    "Predykcja oparta na 8 wyścigach w historii.",
     "Pewność: low - Fallback: domyślny setup medium downforce",
-    "Kierowca: Noel Lavin (TI=21, EXP=25)",
-    "Margines kierowcy: ±63 od optimum.",
-    "Opony: ~35 okr, paliwo: ~39 okr"
+    "Kierowca: Noel Lavin (TI=22, EXP=26)",
+    "Margines kierowcy: ±62 od optimum.",
+    "Opony: ~40 okr, paliwo: ~39 okr"
   ]
 }
