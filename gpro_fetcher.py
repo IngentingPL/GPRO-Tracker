@@ -460,13 +460,24 @@ def extract_office_context(office_raw):
     season = None
     race = None
 
+    # Sezon
     for key in ["season", "selSeasonNb", "currentSeason", "curSeason", "seasonNb"]:
-        season = normalize_int(office_raw.get(key))
+        val = office_raw.get(key)
+        if isinstance(val, dict):
+            season = normalize_int(val.get("season") or val.get("seasonNb") or val.get("number"))
+        else:
+            season = normalize_int(val)
         if season is not None:
             break
 
+    # Wyścig
     for key in ["nextRace", "race", "selRaceNb", "currentRace", "curRace", "raceNb"]:
-        race = normalize_int(office_raw.get(key))
+        val = office_raw.get(key)
+        if isinstance(val, dict):
+            # Jeśli to obiekt (np. nextRace), szukamy w środku
+            race = normalize_int(val.get("race") or val.get("raceNb") or val.get("number") or val.get("idx"))
+        else:
+            race = normalize_int(val)
         if race is not None:
             break
 
@@ -585,25 +596,37 @@ def build_current_context(calendar_payload, office_context=None, latest_complete
         })
 
     normalized.sort(key=lambda x: (x["season"], x["race"]))
-    selected = next((event for event in normalized if event.get("is_current")), None)
-
-    if not selected and office_season is not None and office_race is not None:
-        selected = next((event for event in normalized if event["season"] == office_season and event["race"] == office_race), None)
 
     latest_season = normalize_int(latest_completed.get("season"))
     latest_race = normalize_int(latest_completed.get("race"))
 
-    if not selected and office_season is not None and latest_season is not None and office_season > latest_season:
-        selected = next((event for event in normalized if event["season"] == office_season), None)
+    selected = None
 
-    if not selected and latest_season is not None:
-        for event in normalized:
-            if event["season"] > latest_season:
-                selected = event
-                break
-            if event["season"] == latest_season and latest_race is not None and event["race"] > latest_race:
-                selected = event
-                break
+    # 1. Priorytet: Office API (najbardziej aktualne dane o tym co widzi manager)
+    if office_season is not None and office_race is not None:
+        selected = next((event for event in normalized if event["season"] == office_season and event["race"] == office_race), None)
+
+    # 2. Jeśli brak w Office lub Office wskazuje na już ukończony wyścig, szukamy następnego po latest_completed
+    if latest_season is not None:
+        is_office_stale = False
+        if selected:
+            if office_season < latest_season:
+                is_office_stale = True
+            elif office_season == latest_season and office_race is not None and latest_race is not None and office_race <= latest_race:
+                is_office_stale = True
+
+        if not selected or is_office_stale:
+            for event in normalized:
+                if event["season"] > latest_season:
+                    selected = event
+                    break
+                if event["season"] == latest_season and latest_race is not None and event["race"] > latest_race:
+                    selected = event
+                    break
+
+    # 3. Jeśli nadal brak, szukamy flagi isCurrent z kalendarza
+    if not selected:
+        selected = next((event for event in normalized if event.get("is_current")), None)
 
     if not selected and normalized:
         selected = normalized[0]
