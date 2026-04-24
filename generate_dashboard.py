@@ -174,34 +174,33 @@ def generate_html(race_data, prediction_data, calendar_data, current_context_dat
            Zmiana jednej zmiennej zmienia kolor w całym dashboardzie.
            ========================================================== */
         :root {{
-            /* Surfaces — darkness layering (zamiast shadowów) */
-            --bg-primary: #000000;       /* Absolute Black — tło strony */
-            --bg-card: #202020;          /* Charcoal — karty i panele */
-            --bg-card-hover: #2a2a2a;    /* Nieco jaśniejszy charcoal na hover */
-            --bg-tab: #181818;           /* Dark Iron — zakładki i chipsy */
-            --bg-tab-active: #FFC000;    /* Lamborghini Gold — aktywna zakładka */
+            /* Surfaces — darkness layering */
+            --bg-primary: #000000;       /* Absolute Black */
+            --bg-card: #181818;          /* Dark Iron */
+            --bg-elevated: #202020;      /* Charcoal */
+            --bg-tab-active: #FFC000;    /* Lamborghini Gold */
 
             /* Text */
-            --text-primary: #FFFFFF;     /* Pure White — nagłówki i główny tekst */
-            --text-secondary: #F5F5F5;   /* Smoke — drugi poziom tekstu */
-            --text-muted: #7D7D7D;       /* Ash — metadane, timestampy */
+            --text-primary: #FFFFFF;     /* Pure White */
+            --text-secondary: #F5F5F5;   /* Smoke */
+            --text-muted: #7D7D7D;       /* Ash */
+            --text-gold: #FFC000;        /* Lamborghini Gold */
 
-            /* Accent — TYLKO złoto jako kolor akcentujący */
-            --accent-blue: #FFC000;      /* → Lamborghini Gold (zastępuje niebieski) */
-            --accent-green: #FFC000;     /* → Gold (zastępuje zielony) */
-            --accent-red: #ef4444;       /* Zostaje czerwony (błędy, straty) */
-            --accent-yellow: #FFC000;    /* Lamborghini Gold */
-            --accent-orange: #FFCE3E;    /* Gold Text — lżejszy odcień złota */
+            /* Accent */
+            --accent-gold: #FFC000;      /* Lamborghini Gold */
+            --accent-gold-dark: #917300; /* Dark Gold */
+            --accent-red: #ef4444;       /* Error/Loss Red */
+            --accent-cyan: #29ABE2;      /* Cyan Pulse */
 
             /* Borders */
-            --border-color: #202020;     /* Subtelna granica — prawie czarna */
+            --border-color: #202020;     /* Charcoal Border */
 
             /* Fonts */
             --font-display: 'Barlow Condensed', 'Barlow', sans-serif;
             --font-mono: 'Share Tech Mono', monospace;
         }}
 
-        /* Reset i bazowe style */
+        /* Reset and base styles */
         * {{ margin: 0; padding: 0; box-sizing: border-box; border-radius: 0 !important; }}
 
         body {{
@@ -210,84 +209,99 @@ def generate_html(race_data, prediction_data, calendar_data, current_context_dat
             color: var(--text-primary);
             min-height: 100vh;
             letter-spacing: 0.02em;
+            line-height: 1.5;
         }}
 
         /* ==========================================================
-           NAGŁÓWEK — pływa w ciemności, zero tła
+           HEADER — floats in darkness
            ========================================================== */
         .header {{
-            padding: 1.5rem 2rem;
-            border-bottom: 1px solid #202020;
+            padding: 2rem;
+            border-bottom: 1px solid var(--border-color);
             display: flex;
             align-items: center;
             justify-content: space-between;
             flex-wrap: wrap;
             gap: 1rem;
+            background: var(--bg-primary);
         }}
 
         .header h1 {{
-            font-size: 1.8rem;
+            font-size: 2.5rem;
             font-weight: 700;
-            letter-spacing: 0.12em;
+            letter-spacing: 0.15em;
             text-transform: uppercase;
+            line-height: 0.92;
         }}
 
         .header h1 span {{
-            color: #FFC000;
+            color: var(--accent-gold);
         }}
 
         .header-info {{
             font-family: var(--font-mono);
-            font-size: 0.75rem;
+            font-size: 0.85rem;
             color: var(--text-muted);
             text-transform: uppercase;
-            letter-spacing: 0.08em;
+            letter-spacing: 0.1em;
         }}
 
         /* ==========================================================
-           KARTY PODSUMOWANIA
+           SUMMARY CARDS
            ========================================================== */
         .summary-grid {{
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 1px;
             padding: 1px;
-            background: #202020;
-            margin: 1.5rem 2rem;
+            background: var(--border-color);
+            margin: 0 2rem 2rem 2rem;
         }}
 
         .summary-card {{
-            background: #000000;
-            padding: 1.5rem;
-            transition: background 0.2s;
+            background: var(--bg-primary);
+            padding: 2rem;
+            transition: background 0.3s;
+            border-bottom: 1px solid var(--border-color);
         }}
 
         .summary-card:hover {{
-            background: #181818;
+            background: var(--bg-card);
         }}
 
         .summary-card .label {{
-            font-size: 0.65rem;
+            font-size: 0.75rem;
             color: var(--text-muted);
             text-transform: uppercase;
-            letter-spacing: 0.12em;
-            margin-bottom: 0.75rem;
+            letter-spacing: 0.15em;
+            margin-bottom: 1rem;
         }}
 
         .summary-card .value {{
             font-family: var(--font-display);
-            font-size: 1.8rem;
+            font-size: 2.5rem;
             font-weight: 700;
-            letter-spacing: 0.04em;
+            letter-spacing: 0.05em;
             text-transform: uppercase;
+            line-height: 1;
+            color: var(--text-primary);
+        }}
+
+        .summary-card .value-small {{
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            line-height: 1;
         }}
 
         .summary-card .sub {{
-            font-size: 0.75rem;
+            font-size: 0.85rem;
             color: var(--text-muted);
-            margin-top: 0.4rem;
+            margin-top: 0.5rem;
             text-transform: uppercase;
-            letter-spacing: 0.06em;
+            letter-spacing: 0.1em;
         }}
 
         /* ==========================================================
@@ -305,27 +319,28 @@ def generate_html(race_data, prediction_data, calendar_data, current_context_dat
 
         .tab-btn {{
             font-family: var(--font-display);
-            font-size: 0.75rem;
+            font-size: 0.85rem;
             font-weight: 600;
-            padding: 1rem 1.5rem;
+            padding: 1.25rem 2rem;
             background: transparent;
             color: var(--text-muted);
             border: none;
             cursor: pointer;
             border-bottom: 2px solid transparent;
-            transition: color 0.2s, border-color 0.2s;
+            transition: all 0.3s;
             white-space: nowrap;
             text-transform: uppercase;
-            letter-spacing: 0.12em;
+            letter-spacing: 0.15em;
         }}
 
         .tab-btn:hover {{
-            color: #FFFFFF;
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.05);
         }}
 
         .tab-btn.active {{
-            color: #FFC000;
-            border-bottom-color: #FFC000;
+            color: var(--accent-gold);
+            border-bottom-color: var(--accent-gold);
         }}
 
         .tab-content {{
@@ -348,16 +363,16 @@ def generate_html(race_data, prediction_data, calendar_data, current_context_dat
 
         .data-table th {{
             text-align: left;
-            padding: 0.75rem 1rem;
+            padding: 1rem 1.5rem;
             color: var(--text-muted);
-            font-weight: 600;
-            font-size: 0.65rem;
+            font-weight: 700;
+            font-size: 0.75rem;
             text-transform: uppercase;
-            letter-spacing: 0.12em;
-            border-bottom: 1px solid #202020;
+            letter-spacing: 0.2em;
+            border-bottom: 1px solid var(--border-color);
             position: sticky;
             top: 0;
-            background: #000000;
+            background: var(--bg-primary);
         }}
 
         .data-table td {{
@@ -909,18 +924,19 @@ def generate_html(race_data, prediction_data, calendar_data, current_context_dat
            PRAKTYKA - Binary Search Setup
            ========================================================== */
         .practice-header {{
-            background: #000000;
-            border-bottom: 1px solid #202020;
-            padding: 2rem 0;
-            margin-bottom: 1.5rem;
+            background: var(--bg-primary);
+            border-bottom: 2px solid var(--accent-gold);
+            padding: 3rem 0;
+            margin-bottom: 2rem;
         }}
 
         .practice-header h2 {{
-            font-size: 1.5rem;
+            font-size: 3rem;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.12em;
-            margin-bottom: 0.5rem;
+            letter-spacing: 0.2em;
+            margin-bottom: 1rem;
+            line-height: 1;
         }}
 
         .practice-header .track-info {{
@@ -991,10 +1007,15 @@ def generate_html(race_data, prediction_data, calendar_data, current_context_dat
         }}
 
         .lap-card {{
-            background: #000000;
-            border: 1px solid #202020;
-            padding: 1.25rem;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            padding: 1.5rem;
             margin-bottom: 1px;
+            transition: background 0.3s;
+        }}
+
+        .lap-card:hover {{
+            background: var(--bg-card);
         }}
 
         .lap-card.current {{
@@ -1202,13 +1223,17 @@ def generate_html(race_data, prediction_data, calendar_data, current_context_dat
     <div class="header-info" id="headerInfo">Ładowanie...</div>
 </div>
 
-<!-- Karty podsumowania -->
-<div class="summary-grid" id="summaryGrid"></div>
+<!-- Karty podsumowania (Main) -->
+<div id="mainSummaryContainer">
+    <div class="summary-grid" id="summaryGrid"></div>
+</div>
 
 <!-- Zakładki -->
 <div class="tabs" id="tabsNav">
-    <button class="tab-btn active" data-tab="nextrace">Następny wyścig</button>
+    <button class="tab-btn active" data-tab="overview">Przegląd</button>
+    <button class="tab-btn" data-tab="nextrace">Następny wyścig</button>
     <button class="tab-btn" data-tab="practice">Praktyka</button>
+    <button class="tab-btn" data-tab="car">Bolid</button>
     <button class="tab-btn" data-tab="results">Wyniki</button>
     <button class="tab-btn" data-tab="setups">Setupy</button>
     <button class="tab-btn" data-tab="fuel">Paliwo & Opony</button>
@@ -1217,8 +1242,10 @@ def generate_html(race_data, prediction_data, calendar_data, current_context_dat
 </div>
 
 <!-- Zawartość zakładek -->
-<div class="tab-content active" id="tab-nextrace"></div>
+<div class="tab-content active" id="tab-overview"></div>
+<div class="tab-content" id="tab-nextrace"></div>
 <div class="tab-content" id="tab-practice"></div>
+<div class="tab-content" id="tab-car"></div>
 <div class="tab-content" id="tab-results"></div>
 <div class="tab-content" id="tab-setups"></div>
 <div class="tab-content" id="tab-fuel"></div>
@@ -1254,7 +1281,16 @@ document.querySelectorAll('.tab-btn').forEach(btn => {{
 
         // Aktywuj klikniętą
         btn.classList.add('active');
-        document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+        const tabId = btn.dataset.tab;
+        document.getElementById('tab-' + tabId).classList.add('active');
+
+        // Hide main summary grid if Overview is selected
+        const mainSummary = document.getElementById('mainSummaryContainer');
+        if (['overview', 'nextrace', 'practice', 'car'].includes(tabId)) {{
+            mainSummary.style.display = 'none';
+        }} else {{
+            mainSummary.style.display = 'block';
+        }}
     }});
 }});
 
@@ -1380,7 +1416,7 @@ function normalizeTrackName(name) {{
     return String(name || '')
         .trim()
         .toLowerCase()
-        .replace(/\s+/g, ' ');
+        .replace(/\\s+/g, ' ');
 }}
 
 function isTransferMarketName(name) {{
@@ -1484,7 +1520,7 @@ function parsePolishDate(dateStr) {{
         .replace('ż', 'z').replace('ł', 'l');
     
     // Format: "Kwi 10, 2026" lub "Apr 10, 2026"
-    const match = normalized.match(/([a-z]+)\s+(\d+),?\s*(\d{{4}})/);
+    const match = normalized.match(/([a-z]+)\\s+(\\d+),?\\s*(\\d{{4}})/);
     if (!match) return null;
     
     const monthName = match[1];
@@ -1641,23 +1677,23 @@ function resolvePredictionContext(pred) {{
 
     return {{ nextRace, isStale, staleReason }};
 }}
-}}
 
 // ==========================================================
 // RENDEROWANIE DASHBOARDU
 // ==========================================================
 
 function render() {{
-    // Renderuj zakładkę "Następny wyścig" nawet bez danych wyścigowych
-    // (może mieć kalendarz)
+    // Renderuj podstawowe zakładki
+    renderOverview();
     renderNextRace();
+    renderPractice();
+    renderCar();
 
     const activeContext = getCurrentContext();
     const displayedData = getDisplayedRaceData();
 
     if ((!displayedData || displayedData.length === 0) && activeContext && isPendingSeasonMode()) {{
         renderPendingSeasonOverview(activeContext);
-        renderPractice();
         return;
     }}
 
@@ -1682,14 +1718,118 @@ function render() {{
     // Karty podsumowania
     renderSummary(latest);
 
-    // Zakładki
-    renderNextRace();
-    renderPractice();
+    // Pozostałe zakładki
     renderResults();
     renderSetups();
     renderFuel();
     renderFinances();
     renderDriver(latest);
+}}
+
+// ==========================================================
+// ZAKŁADKA: PRZEGLĄD (Executive Summary)
+// ==========================================================
+function renderOverview() {{
+    const container = document.getElementById('tab-overview');
+    const latest = getLatestRace();
+    const nextRace = getCalendarNextRace();
+    const pred = PREDICTION_DATA;
+
+    if (!latest && !nextRace) {{
+        container.innerHTML = '<div class="empty-state"><h2>Brak danych do przeglądu</h2></div>';
+        return;
+    }}
+
+    const rd = latest?.race_data || {{}};
+    const dp = latest?.driver_profile || {{}};
+    const cs = latest?.car_status || {{}};
+
+    let html = '';
+
+    // 1. Sekcja: Następny wyścig (Hero-like)
+    if (nextRace) {{
+        html += `
+        <div class="rec-header" style="border-bottom: 2px solid var(--accent-gold); margin-bottom: 2rem;">
+            <div class="rec-subtitle">NASTĘPNY WYŚCIG</div>
+            <h2 style="font-size: 3.5rem; line-height: 1;">${{nextRace.track || 'Nieznany tor'}}</h2>
+            <div class="rec-subtitle">Sezon ${{nextRace.season}} · Wyścig ${{nextRace.race}} · ${{nextRace.total_laps || 72}} OKRĄŻEŃ</div>
+            ${{pred ? `<div style="margin-top: 1rem;"><span class="session-badge" style="background: var(--accent-gold); color: #000; font-weight: 700;">REKOMENDACJE GOTOWE</span></div>` : ''}}
+        </div>`;
+    }}
+
+    // 2. Grid z kluczowymi informacjami
+    html += `<div class="summary-grid" style="margin-left: 0; margin-right: 0;">`;
+
+    // FINANSE
+    const cash = dp.cash || rd.finances?.balance || 0;
+    html += `
+    <div class="summary-card">
+        <div class="label">FINANSE</div>
+        <div class="value" style="color: ${{cash >= 0 ? 'var(--accent-gold)' : 'var(--accent-red)'}}">
+            ${{formatMoney(cash)}}
+        </div>
+        <div class="sub">SALDO KONTA</div>
+        ${{rd.finances ? `<div class="rec-row" style="margin-top: 1rem; border-top: 1px solid var(--border-color); padding-top: 0.5rem;"><span class="rec-label">Ostatni wyścig</span><span class="${{rd.finances.total >= 0 ? 'val-positive' : 'val-negative'}}">${{formatMoney(rd.finances.total)}}</span></div>` : ''}}
+    </div>`;
+
+    // KIEROWCA
+    if (rd.driver || dp.driName) {{
+        const drvName = dp.driName || rd.driver.name;
+        const drvOA = dp.overall || rd.driver.OA;
+        html += `
+        <div class="summary-card">
+            <div class="label">KIEROWCA</div>
+            <div class="value-small">${{drvName}}</div>
+            <div class="sub">OVERALL: ${{drvOA}}</div>
+            <div class="rec-grid" style="grid-template-columns: 1fr 1fr; gap: 1px; margin-top: 1rem; background: var(--border-color); padding: 1px;">
+                <div class="stat-item" style="background: var(--bg-primary);">
+                    <div class="stat-name">Konc</div>
+                    <div class="stat-value" style="font-size: 1.2rem;">${{dp.concentration || rd.driver.concentration}}</div>
+                </div>
+                <div class="stat-item" style="background: var(--bg-primary);">
+                    <div class="stat-name">Talent</div>
+                    <div class="stat-value" style="font-size: 1.2rem;">${{dp.talent || rd.driver.talent}}</div>
+                </div>
+            </div>
+        </div>`;
+    }}
+
+    // BOLID (Stan ogólny)
+    if (cs.lvlEngine || rd.car_parts) {{
+        const parts = ['Chassis', 'Engine', 'FWing', 'RWing', 'Underbody', 'Sidepods', 'Cooling', 'Gear', 'Brakes', 'Susp', 'Electronics'];
+        let totalWear = 0;
+        let criticalParts = 0;
+
+        parts.forEach(p => {{
+            const wear = cs['usa' + p] || rd.car_parts?.[p.toLowerCase()]?.finish_wear || 0;
+            totalWear += wear;
+            if (wear > 70) criticalParts++;
+        }});
+
+        const avgWear = Math.round(totalWear / parts.length);
+
+        html += `
+        <div class="summary-card">
+            <div class="label">BOLID</div>
+            <div class="value" style="color: ${{criticalParts > 0 ? 'var(--accent-red)' : 'var(--text-primary)'}}">
+                ${{avgWear}}%
+            </div>
+            <div class="sub">ŚREDNIE ZUŻYCIE</div>
+            <div class="sub" style="margin-top: 0.5rem;">${{criticalParts > 0 ? `<span style="color: var(--accent-red)">⚠ ${{criticalParts}} CZĘŚCI WYMAGA UWAGI</span>` : 'STAN DOBRY'}}</div>
+            <div style="margin-top: 1rem;">
+                <button class="tab-btn" data-tab="car" style="padding: 0.5rem 1rem; border: 1px solid var(--accent-gold); font-size: 0.6rem; color: var(--accent-gold); height: auto; line-height: 1;">SZCZEGÓŁY BOLIDU &raquo;</button>
+            </div>
+        </div>`;
+    }}
+
+    html += `</div>`; // zamknięcie summary-grid
+
+    container.innerHTML = html;
+
+    // Re-attach listener for the button inside overview
+    container.querySelector('[data-tab="car"]')?.addEventListener('click', () => {{
+        document.querySelector('.tab-btn[data-tab="car"]').click();
+    }});
 }}
 
 function renderSummary(latest) {{
@@ -1774,32 +1914,34 @@ function renderPrediction(container) {{
 
     if (isStalePrediction) {{
         container.innerHTML = `
-            <div class="rec-card">
-                <h2>${{nextRace.track || 'Następny wyścig'}}</h2>
+            <div class="rec-header">
+                <h2>${{nextRace.track || 'Nieznany tor'}}</h2>
                 <div class="rec-subtitle">Sezon ${{nextRace.season || '?'}} · Wyścig ${{nextRace.race || '?'}}${{nextRace.total_laps ? ` · ${{nextRace.total_laps}} okrążeń` : ''}}</div>
-                <div style="margin-top:1rem;padding:1rem;border-radius:12px;background:rgba(245,158,11,0.12);border:1px solid rgba(245,158,11,0.35);color:var(--text-primary)">
-                    <strong>Wykryto nieaktualną predykcję.</strong>
-                    <div style="margin-top:0.5rem;color:var(--text-secondary)">${{staleReason}}</div>
-                    <div style="margin-top:0.75rem;color:var(--text-secondary)">Odśwież kalendarz i rekomendacje przed użyciem setupu:</div>
-                    <div style="margin-top:0.75rem"><code>python predictor.py</code></div>
+                <div class="lap-instruction" style="margin-top: 1rem;">
+                    <div class="instruction">Wykryto nieaktualną predykcję</div>
+                    <div class="note">${{staleReason}}</div>
+                    <div class="note" style="margin-top: 0.5rem;">Uruchom <code>python predictor.py</code> aby odświeżyć.</div>
                 </div>
             </div>`;
         return;
     }}
 
     // =============================================
-    // 1. NAGŁÓWEK Z INFO O TORZE
+    // 1. NAGŁÓWEK (Lamborghini Impact)
     // =============================================
-    html += `<div class="rec-header">`;
-    html += `<h2>${{nextRace.track || 'Nieznany tor'}}</h2>`;
-    html += `<span class="rec-subtitle">Sezon ${{nextRace.season || '?'}} · Wyścig ${{nextRace.race || '?'}} · ${{nextRace.total_laps || '?'}} okrążeń</span>`;
+    html += `
+    <div class="rec-header" style="text-align: center; border-bottom: 2px solid var(--accent-gold); padding-bottom: 3rem;">
+        <div class="rec-subtitle" style="font-size: 1rem; color: var(--accent-gold); margin-bottom: 1rem;">PLAN WYŚCIGOWY</div>
+        <h2 style="font-size: 5rem; line-height: 0.9; margin-bottom: 1.5rem;">${{nextRace.track || 'Nieznany tor'}}</h2>
+        <div class="rec-subtitle" style="font-size: 1.2rem; letter-spacing: 0.3em;">S${{nextRace.season}}R${{nextRace.race}} · ${{nextRace.total_laps || 72}} OKRĄŻEŃ</div>
 
-    // Confidence bar
-    html += `<div class="confidence-bar">`;
-    html += `<div class="confidence-fill ${{confidence}}"></div>`;
-    html += `</div>`;
-    html += `<div class="rec-subtitle">${{confidenceReason}}</div>`;
-    html += `</div>`;
+        <div style="max-width: 600px; margin: 2rem auto 0 auto;">
+            <div class="confidence-bar" style="height: 4px;">
+                <div class="confidence-fill ${{confidence}}"></div>
+            </div>
+            <div class="rec-subtitle" style="margin-top: 0.5rem; font-size: 0.7rem;">PEWNOŚĆ: ${{confidence.toUpperCase()}} — ${{confidenceReason}}</div>
+        </div>
+    </div>`;
 
     // =============================================
     // 2. SESJE: Practice, Q1, Q2, Race
@@ -1856,9 +1998,12 @@ function renderPrediction(container) {{
     }});
 
     // =============================================
-    // 3. STRATEGIA PALIWOWA (summary)
+    // 3. STRATEGIA PALIWOWA & SETUP SUMMARY
     // =============================================
-    html += `<div class="rec-card"><h3>Setup Q2</h3>`;
+    html += `<div class="rec-grid" style="margin-top: 1rem;">`;
+
+    // SETUP Q2
+    html += `<div class="rec-card"><h3>SETUP Q2</h3>`;
     html += `<div class="setup-values">`;
     const q2 = pred.setup_q2 || {{}};
     ['fw', 'rw', 'eng', 'bra', 'gear', 'susp'].forEach(key => {{
@@ -1875,28 +2020,31 @@ function renderPrediction(container) {{
         </div>`;
     }});
     html += `</div>`;
-    html += `<div class="setup-meta">Baza: ${{base.track || '?'}} (${{base.temp || '?'}}°C) → Prognoza: ${{q2.temp || '?'}}°C</div>`;
+    html += `<div class="setup-meta" style="margin-top: 1rem;">Baza: ${{base.track || '?'}} (${{base.temp || '?'}}°C) → Q2: ${{q2.temp || '?'}}°C</div>`;
+    html += `</div>`;
+
+    // SETUP RACE
+    html += `<div class="rec-card"><h3>SETUP RACE</h3>`;
+    html += `<div class="setup-values">`;
+    const race = pred.setup_race || {{}};
+    ['fw', 'rw', 'eng', 'bra', 'gear', 'susp'].forEach(key => {{
+        const val = race[key] || 0;
+        const baseVal = (base.setup || base)[key] || 0;
+        const diff = val - baseVal;
+        const diffClass = diff > 0 ? 'positive' : (diff < 0 ? 'negative' : '');
+        const diffSign = diff > 0 ? '+' : '';
+        html += `
+        <div class="setup-item">
+            <div class="setup-label">${{key.toUpperCase()}}</div>
+            <div class="setup-val" style="color: var(--accent-gold);">${{val}}</div>
+            <span class="adjustment-badge ${{diffClass}}">${{diffSign}}${{diff}}</span>
+        </div>`;
+    }});
+    html += `</div>`;
+    html += `<div class="setup-meta" style="margin-top: 1rem;">Race Temp: ${{race.temp || '?'}}°C</div>`;
     html += `</div>`;
 
     html += `</div>`; // zamknięcie rec-grid
-
-    // =============================================
-    // 3. SETUP RACE (jedna linia)
-    // =============================================
-    html += `<div class="rec-card" style="margin-top:1rem"><h3>Setup Race</h3>`;
-    const race = pred.setup_race || {{}};
-    const raceParts = ['fw', 'rw', 'eng', 'bra', 'gear', 'susp'];
-    html += `<div class="setup-race-inline">`;
-    raceParts.forEach((key, i) => {{
-        if (i > 0) html += `<span class="separator">·</span>`;
-        html += `<div class="setup-part">`;
-        html += `<span class="setup-label">${{key.toUpperCase()}}</span>`;
-        html += `<span class="setup-val">${{race[key] || 0}}</span>`;
-        html += `</div>`;
-    }});
-    html += `</div>`;
-    html += `<div class="setup-meta" style="margin-top:0.5rem">Temperatura: ${{race.temp || '?'}}°C</div>`;
-    html += `</div>`;
 
     html += `<div class="rec-grid" style="margin-top:1rem">`;
 
@@ -1979,7 +2127,7 @@ function renderPrediction(container) {{
     // =============================================
     // 6. PLAN TRENINGOWY
     // =============================================
-    html += `<div class="rec-card" style="margin-top:1rem"><h3>Plan treningowy</h3>`;
+    html += `<div class="rec-card" style="margin-top:1rem; border-left: 4px solid var(--accent-gold);"><h3>Plan treningowy</h3>`;
     const practicePlan = pred.practice_plan || {{}};
     const laps = practicePlan.laps || [];
     const priorityNote = practicePlan.priority_note || '';
@@ -1998,7 +2146,7 @@ function renderPrediction(container) {{
     // 7. NOTATKI
     // =============================================
     if (notes && notes.length > 0) {{
-        html += `<div class="rec-card" style="margin-top:1rem"><h3>Notatki</h3>`;
+        html += `<div class="rec-card" style="margin-top:1rem; background: var(--bg-card);"><h3>Notatki</h3>`;
         html += `<div class="notes-list">`;
         html += `<ul>`;
         notes.forEach(note => {{
@@ -2372,6 +2520,104 @@ function renderResults() {{
     document.getElementById('tab-results').innerHTML = html;
 }}
 
+// ==========================================================
+// ZAKŁADKA: BOLID (Car & Parts Upgrade Planning)
+// ==========================================================
+function renderCar() {{
+    const container = document.getElementById('tab-car');
+    const latest = getLatestRace();
+    if (!latest) return;
+
+    const cs = latest.car_status || {{}};
+    const rd = latest.race_data || {{}};
+
+    const parts = [
+        {{ key: 'Chassis', label: 'Chassis', options: cs.chassisOptions }},
+        {{ key: 'Engine', label: 'Silnik', options: cs.engineOptions }},
+        {{ key: 'FWing', label: 'Przednie skrzydło', options: cs.fWingOptions }},
+        {{ key: 'RWing', label: 'Tylne skrzydło', options: cs.rWingOptions }},
+        {{ key: 'Underbody', label: 'Podłoga', options: cs.underbodyOptions }},
+        {{ key: 'Sidepods', label: 'Sekcje boczne', options: cs.sidepodsOptions }},
+        {{ key: 'Cooling', label: 'Chłodzenie', options: cs.coolingOptions }},
+        {{ key: 'Gear', label: 'Skrzynia biegów', options: cs.gearOptions }},
+        {{ key: 'Brakes', label: 'Hamulce', options: cs.brakesOptions }},
+        {{ key: 'Susp', label: 'Zawieszenie', options: cs.suspOptions }},
+        {{ key: 'Electronics', label: 'Elektronika', options: cs.electronicsOptions }},
+    ];
+
+    let html = `
+    <div class="practice-header">
+        <h2>Stan Bolidu i Planowanie</h2>
+        <div class="track-info">Poziomy części i zużycie po ostatnim wyścigu</div>
+    </div>
+
+    <div class="summary-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); margin-left: 0; margin-right: 0;">`;
+
+    parts.forEach(p => {{
+        const lvl = cs['lvl' + p.key] || 0;
+        const wear = cs['usa' + p.key] || 0;
+        const health = 100 - wear;
+        const color = wear > 85 ? 'var(--accent-red)' : (wear > 70 ? 'var(--accent-gold)' : 'var(--accent-cyan)');
+
+        // GPRO Analyzer-like logic: Estimate wear after next race
+        // Try to get average wear per lap from history
+        let wearPerLap = 0.3; // Default fallback
+        const trackRaces = RACE_DATA.filter(r => r.race_data?.track === rd.track);
+        const sourceRaces = trackRaces.length > 0 ? trackRaces : RACE_DATA.slice(-3);
+
+        if (sourceRaces.length > 0) {{
+            let totalWPL = 0;
+            let count = 0;
+            sourceRaces.forEach(r => {{
+                const partData = r.race_data?.car_parts?.[p.key.toLowerCase()] || r.race_data?.car_parts?.[p.key];
+                const laps = r.race_summary?.results?.[0]?.laps || 70;
+                if (partData && partData.finish_wear !== undefined && partData.start_wear !== undefined) {{
+                    totalWPL += (partData.finish_wear - partData.start_wear) / laps;
+                    count++;
+                }}
+            }});
+            if (count > 0) wearPerLap = totalWPL / count;
+        }}
+
+        const nextLaps = getCalendarNextRace()?.total_laps || 72;
+        const estRaceWear = Math.round(wearPerLap * nextLaps);
+        const estWear = wear + estRaceWear;
+        const needsUpgrade = estWear > 85;
+
+        html += `
+        <div class="summary-card" style="border-left: 4px solid ${{color}};">
+            <div class="session-header">
+                <h4 style="color: #fff;">${{p.label}}</h4>
+                <span class="session-badge">Lvl ${{lvl}}</span>
+            </div>
+            <div class="value" style="font-size: 1.5rem; color: ${{color}};">${{wear}}% <span style="font-size: 0.7rem; color: var(--text-muted);">ZUŻYCIA</span></div>
+
+            <div style="height: 4px; background: #333; margin: 1rem 0; position: relative;">
+                <div style="height: 100%; width: ${{health}}%; background: ${{color}}; transition: width 1s ease-out;"></div>
+            </div>
+
+            <div class="rec-note">
+                EST. PO NAST. WYŚCIGU: <span style="color: ${{needsUpgrade ? 'var(--accent-red)' : '#fff'}}">${{estWear}}%</span>
+            </div>
+
+            ${{needsUpgrade ? `
+            <div class="lap-instruction" style="margin-top: 1rem; padding: 0.5rem;">
+                <div class="instruction" style="font-size: 0.7rem; color: var(--accent-red);">⚠ WYMAGANA WYMIANA</div>
+            </div>` : ''}}
+
+            <div style="margin-top: 1rem;">
+                <select style="width: 100%; background: #000; color: var(--text-muted); border: 1px solid var(--border-color); padding: 0.4rem; font-size: 0.6rem; font-family: var(--font-mono);">
+                    <option>ZOBACZ OPCJE WYMIANY...</option>
+                    ${{(p.options || []).map(o => `<option>${{o.text}}</option>`).join('')}}
+                </select>
+            </div>
+        </div>`;
+    }});
+
+    html += `</div>`;
+    container.innerHTML = html;
+}}
+
 function renderSetups() {{
     const displayedData = getDisplayedRaceData();
     if (displayedData.length === 0) return;
@@ -2553,13 +2799,13 @@ function renderDriver(latest) {{
     const ts = rd.tyre_supplier || {{}};
     if (ts.name) {{
         html += `
-        <h3 style="margin-top:2rem;margin-bottom:1rem">Dostawca opon: ${{ts.name}}</h3>
+        <h3 style="margin-top:3rem;margin-bottom:1.5rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent-gold);">Dostawca opon: ${{ts.name}}</h3>
         <div class="driver-stats">
-            <div class="stat-item"><div class="stat-name">Peak temp</div><div class="stat-value">${{ts.peak_temp || '-'}}°C</div></div>
-            <div class="stat-item"><div class="stat-name">Dry perf</div><div class="stat-value">${{ts.dry_perf || '-'}}</div></div>
-            <div class="stat-item"><div class="stat-name">Wet perf</div><div class="stat-value">${{ts.wet_perf || '-'}}</div></div>
-            <div class="stat-item"><div class="stat-name">Durability</div><div class="stat-value">${{ts.durability || '-'}}</div></div>
-            <div class="stat-item"><div class="stat-name">Warmup</div><div class="stat-value">${{ts.warmup || '-'}}</div></div>
+            <div class="stat-item" style="border-bottom: 2px solid var(--accent-gold);"><div class="stat-name">Peak temp</div><div class="stat-value">${{ts.peak_temp || '-'}}°C</div></div>
+            <div class="stat-item" style="border-bottom: 2px solid var(--accent-gold);"><div class="stat-name">Dry perf</div><div class="stat-value">${{ts.dry_perf || '-'}}</div></div>
+            <div class="stat-item" style="border-bottom: 2px solid var(--accent-gold);"><div class="stat-name">Wet perf</div><div class="stat-value">${{ts.wet_perf || '-'}}</div></div>
+            <div class="stat-item" style="border-bottom: 2px solid var(--accent-gold);"><div class="stat-name">Durability</div><div class="stat-value">${{ts.durability || '-'}}</div></div>
+            <div class="stat-item" style="border-bottom: 2px solid var(--accent-gold);"><div class="stat-name">Warmup</div><div class="stat-value">${{ts.warmup || '-'}}</div></div>
         </div>`;
     }}
 
@@ -2567,7 +2813,19 @@ function renderDriver(latest) {{
 }}
 
 // Start!
-render();
+window.onload = () => {{
+    render();
+
+    // Initial visibility state based on active tab
+    const activeBtn = document.querySelector('.tab-btn.active');
+    if (activeBtn) {{
+        const tabId = activeBtn.dataset.tab;
+        const mainSummary = document.getElementById('mainSummaryContainer');
+        if (['overview', 'nextrace', 'practice', 'car'].includes(tabId)) {{
+            mainSummary.style.display = 'none';
+        }}
+    }}
+}};
 </script>
 </body>
 </html>'''
