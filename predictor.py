@@ -721,43 +721,6 @@ def calculate_tyre_strategy(history, track_name, fuel_strategy, total_laps, sele
     }
 
 
-def generate_practice_plan(confidence):
-    """
-    Generuje plan treningowy na podstawie poziomu pewności.
-
-    Mini-lekcja: Jeśli mamy dużo danych (high confidence), możemy
-    skupić się na fine-tuningu. Jeśli mało danych (low confidence),
-    używamy binary search żeby znaleźć optimum.
-    """
-    if confidence == "high":
-        # Fine-tuning - małe kroki, precyzyjne szukanie
-        laps = [
-            {"lap": 1, "action": "Użyj rekomendowanego setupu", "note": "Sprawdź czy satisfied"},
-            {"lap": 2, "action": "Jeśli satisfied → zmień FW o +15", "note": "Porównaj czas z lap 1"},
-            {"lap": 3, "action": "Jeśli lap2 wolniejszy → wróć do lap1 i zmień FW o -15", "note": "Szukamy kierunku"},
-            {"lap": 4, "action": "Fine-tune najlepszy FW z krokiem ±8", "note": "Wąski zakres wokół optimum"},
-            {"lap": 5, "action": "Powtórz dla ENG lub SUSP", "note": "Drugie najważniejsze ustawienie"},
-            {"lap": 6, "action": "Fine-tune ENG/SUSP z krokiem ±8", "note": "Precyzyjne dostrojenie"},
-            {"lap": 7, "action": "Testuj wing split: FW+10, RW-10 vs obecny", "note": "Suma FW+RW bez zmian"},
-            {"lap": 8, "action": "Finalna weryfikacja najlepszego setupu", "note": "Ten setup idzie do Q1"},
-        ]
-    else:
-        # Binary search - duże kroki, szybkie znalezienie zakresu
-        laps = [
-            {"lap": 1, "action": "Użyj rekomendowanego setupu", "note": "Sprawdź czy satisfied"},
-            {"lap": 2, "action": "Jeśli nie satisfied → zmień FW o +64", "note": "Binary search"},
-            {"lap": 3, "action": "Jeśli lap2 lepszy → kontynuuj w tym kierunku (+64)", "note": "Szukamy optimum"},
-            {"lap": 4, "action": "Jeśli lap2 gorszy → zmień FW o -64 od startu", "note": "Zmień kierunek"},
-            {"lap": 5, "action": "Zawęż zakres do ±32 od najlepszego", "note": "Binary search step 2"},
-            {"lap": 6, "action": "Zawęż zakres do ±16 od najlepszego", "note": "Binary search step 3"},
-            {"lap": 7, "action": "Powtórz dla ENG lub SUSP", "note": "Drugie najważniejsze ustawienie"},
-            {"lap": 8, "action": "Finalna weryfikacja najlepszego setupu", "note": "Ten setup idzie do Q1"},
-        ]
-
-    return {
-        "laps": laps,
-        "priority_note": "FW/RW mają największy wpływ na czas. ENG i SUSP na drugim miejscu. BRA i GEAR zwykle trafiasz od razu.",
-    }
 
 
 # ============================================================
@@ -801,8 +764,34 @@ def load_current_context():
         "season": season,
         "race": race,
         "track": track,
+        "track_id": data.get("track_id"),
         "total_laps": normalize_int(data.get("total_laps")) or 72
     }
+
+
+def load_active_race_data(season, race):
+    """Wczytuje dane obecnego wyścigu jeśli już istnieją (np. po treningach)."""
+    filepath = f"data/races/S{season}R{race}.json"
+    if not os.path.exists(filepath):
+        # Sprawdź też latest.json czy to ten sam wyścig
+        latest_path = "data/races/latest.json"
+        if os.path.exists(latest_path):
+            try:
+                with open(latest_path, "r", encoding="utf-8") as f:
+                    data = json.load(f)
+                    rd = data.get("race_data", {})
+                    if normalize_int(rd.get("season")) == season and normalize_int(rd.get("race")) == race:
+                        return data
+            except:
+                pass
+        return None
+
+    try:
+        with open(filepath, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except Exception as e:
+        print(f"  [OSTRZEŻENIE] Nie udało się wczytać aktywnego wyścigu: {e}")
+        return None
 
 
 def get_next_race_info():
@@ -1013,10 +1002,13 @@ def generate_prediction():
     print(f"   Okrążeń na baku: ~{tyre_strategy['laps_on_fuel']}")
     print(f"   Bottleneck: {tyre_strategy['bottleneck']}")
 
-    # 8. Generuj plan treningowy
-    print(f"\n8. Generowanie planu treningowego...")
-    practice_plan = generate_practice_plan(base["confidence"])
-    print(f"   Plan składa się z {len(practice_plan['laps'])} okrążeń")
+    # 8. Analiza obecnej progresji wyścigu
+    print(f"\n8. Analiza obecnej progresji wyścigu...")
+    active_data = load_active_race_data(season, race_num)
+    completed_setups = []
+    if active_data:
+        completed_setups = active_data.get("race_data", {}).get("setups", [])
+        print(f"   Znaleziono {len(completed_setups)} ukończonych sesji setupu.")
 
     # 9. Wybór opon (NOWA LOGIKA: takie same dla wszystkich sesji)
     print(f"\n9. Wybieranie opon na wyścig...")
@@ -1046,7 +1038,158 @@ def generate_prediction():
     print(f"   Aktualizacja strategii paliwowej o żywotność opon (~{tyre_strategy['est_tyre_life_laps']} okr)...")
     fuel_strategy = calculate_fuel_strategy(history, track_name, total_laps, tyre_strategy['est_tyre_life_laps'])
 
-    # 12. Zbuduj predykcję
+    # 12. Budowanie sekwencji sesji
+    print(f"\n12. Budowanie sekwencji sesji...")
+
+    # Mapowanie sesji z API na nasze kroki
+    # Mini-lekcja: GPRO API zwraca nazwy sesji w zależności od wybranego języka w fetcherze.
+    # W naszym przypadku fetcher używa pl (polski), więc sesje to "Trening 1", "Kw1", "Kw2", "Wyścig".
+    import html
+    api_session_map = {}
+    for s in completed_setups:
+        raw_session = s.get("session", "")
+        # Odczytujemy nazwę sesji, dekodując encje HTML (np. Wy&#347;cig -> Wyścig)
+        decoded_session = html.unescape(raw_session)
+        api_session_map[decoded_session] = s
+
+    # Generujemy listę wszystkich 11 kroków
+    sequence = []
+
+    # Kroki treningowe (P1 - P8)
+    current_practice_setup = setup_practice.copy()
+
+    for i in range(1, 9):
+        # W API pl sesje to "Trening 1", "Trening 2", itd.
+        api_id = f"Trening {i}"
+        display_id = f"Practice {i}"
+        completed = api_session_map.get(api_id)
+
+        step_data = {
+            "id": display_id,
+            "type": "practice",
+            "completed": completed is not None,
+            "setup": {},
+            "feedback": completed.get("feedback", "") if completed else "",
+            "tyres": selected_compound_name,
+            "temp": practice_temp,
+            "note": ""
+        }
+
+        if completed:
+            # Dane z API
+            step_data["setup"] = {
+                "fw": normalize_int(completed.get("fw")),
+                "rw": normalize_int(completed.get("rw")),
+                "eng": normalize_int(completed.get("eng")),
+                "bra": normalize_int(completed.get("bra")),
+                "gear": normalize_int(completed.get("gear")),
+                "susp": normalize_int(completed.get("susp"))
+            }
+            # Aktualizujemy setup roboczy na podstawie feedbacku z sesji zakończonej
+            current_practice_setup = adjust_for_driver_comment(step_data["setup"], step_data["feedback"], base["confidence"])
+        else:
+            # Sugestia dla sesji nieukończonej
+            already_has_next = any(s.get("is_next") or (not s["completed"]) for s in sequence)
+            if not already_has_next:
+                step_data["setup"] = current_practice_setup
+                step_data["is_next"] = True
+                step_data["note"] = "Sugerowany setup na podstawie poprzednich kroków"
+            else:
+                step_data["setup"] = None
+
+        sequence.append(step_data)
+
+    # Qualify 1
+    q1_api = api_session_map.get("Kw1")
+    q1_step = {
+        "id": "Qualify 1",
+        "type": "q1",
+        "completed": q1_api is not None,
+        "setup": {},
+        "feedback": q1_api.get("feedback", "") if q1_api else "",
+        "tyres": selected_compound_name,
+        "temp": q1_temp,
+        "note": "Push for time"
+    }
+    if q1_api:
+        q1_step["setup"] = {
+            "fw": normalize_int(q1_api.get("fw")),
+            "rw": normalize_int(q1_api.get("rw")),
+            "eng": normalize_int(q1_api.get("eng")),
+            "bra": normalize_int(q1_api.get("bra")),
+            "gear": normalize_int(q1_api.get("gear")),
+            "susp": normalize_int(q1_api.get("susp"))
+        }
+    else:
+        is_next = not any(s.get("is_next") for s in sequence) and all(s["completed"] for s in sequence if s["type"] == "practice")
+        if is_next:
+            q1_step["setup"] = setup_q1
+            q1_step["is_next"] = True
+        else:
+            q1_step["setup"] = None
+    sequence.append(q1_step)
+
+    # Qualify 2
+    q2_api = api_session_map.get("Kw2")
+    q2_step = {
+        "id": "Qualify 2",
+        "type": "q2",
+        "completed": q2_api is not None,
+        "setup": {},
+        "feedback": q2_api.get("feedback", "") if q2_api else "",
+        "tyres": selected_compound_name,
+        "temp": q2_temp,
+        "note": "Qualify for race"
+    }
+    if q2_api:
+        q2_step["setup"] = {
+            "fw": normalize_int(q2_api.get("fw")),
+            "rw": normalize_int(q2_api.get("rw")),
+            "eng": normalize_int(q2_api.get("eng")),
+            "bra": normalize_int(q2_api.get("bra")),
+            "gear": normalize_int(q2_api.get("gear")),
+            "susp": normalize_int(q2_api.get("susp"))
+        }
+    else:
+        is_next = not any(s.get("is_next") for s in sequence) and q1_step["completed"]
+        if is_next:
+            q2_step["setup"] = setup_q2
+            q2_step["is_next"] = True
+        else:
+            q2_step["setup"] = None
+    sequence.append(q2_step)
+
+    # Race
+    # Wyścig w API pl to "Wyścig"
+    race_api = api_session_map.get("Wyścig")
+    race_completed = active_data is not None and active_data.get("race_summary") is not None
+    race_step = {
+        "id": "Race",
+        "type": "race",
+        "completed": race_completed,
+        "setup": setup_race if not race_completed else None,
+        "tyres": selected_compound_name,
+        "temp": race_temp,
+        "fuel_strategy": fuel_strategy["recommended"],
+        "note": "Final race strategy"
+    }
+    if not race_completed:
+        is_next = not any(s.get("is_next") for s in sequence) and q2_step["completed"]
+        if is_next:
+            race_step["is_next"] = True
+    else:
+        race_step["setup"] = {
+            "fw": normalize_int(race_api.get("fw")),
+            "rw": normalize_int(race_api.get("rw")),
+            "eng": normalize_int(race_api.get("eng")),
+            "bra": normalize_int(race_api.get("bra")),
+            "gear": normalize_int(race_api.get("gear")),
+            "susp": normalize_int(race_api.get("susp"))
+        } if race_api else None
+
+    sequence.append(race_step)
+
+    # 13. Zbuduj predykcję
     prediction = {
         "generated_at": datetime.utcnow().isoformat() + "Z",
         "next_race": {
@@ -1063,124 +1206,25 @@ def generate_prediction():
             "half_MA": half_ma,
             "note": f"Setup ±{half_ma} od optimum da satisfied (MA={ma}, TI={ti}, EXP={exp})"
         },
-        "setup_practice": {
-            "fw": setup_practice["fw"],
-            "rw": setup_practice["rw"],
-            "eng": setup_practice["eng"],
-            "bra": setup_practice["bra"],
-            "gear": setup_practice["gear"],
-            "susp": setup_practice["susp"],
-            "temp": setup_practice["temp"]
-        },
-        "setup_q1": {
-            "fw": setup_q1["fw"],
-            "rw": setup_q1["rw"],
-            "eng": setup_q1["eng"],
-            "bra": setup_q1["bra"],
-            "gear": setup_q1["gear"],
-            "susp": setup_q1["susp"],
-            "temp": q1_temp
-        },
-        "setup_q2": {
-            "fw": setup_q2["fw"],
-            "rw": setup_q2["rw"],
-            "eng": setup_q2["eng"],
-            "bra": setup_q2["bra"],
-            "gear": setup_q2["gear"],
-            "susp": setup_q2["susp"],
-            "temp": q2_temp
-        },
-        "setup_race": {
-            "fw": setup_race["fw"],
-            "rw": setup_race["rw"],
-            "eng": setup_race["eng"],
-            "bra": setup_race["bra"],
-            "gear": setup_race["gear"],
-            "susp": setup_race["susp"],
-            "temp": race_temp
-        },
         "base": {
             "track": track_name,
             "setup": base["setup"],
             "temp": base["temp"]
         },
-        "sessions": {
-            "practice": {
-                "setup": {
-                    "fw": setup_practice["fw"],
-                    "rw": setup_practice["rw"],
-                    "eng": setup_practice["eng"],
-                    "bra": setup_practice["bra"],
-                    "gear": setup_practice["gear"],
-                    "susp": setup_practice["susp"]
-                },
-                "temp": setup_practice["temp"],
-                "weather": "dry",
-                "tyres": selected_compound_name,
-                "fuel_start": 80,
-                "note": f"{selected_compound_name} tyres, test setup, find satisfied"
-            },
-            "q1": {
-                "setup": {
-                    "fw": setup_q1["fw"],
-                    "rw": setup_q1["rw"],
-                    "eng": setup_q1["eng"],
-                    "bra": setup_q1["bra"],
-                    "gear": setup_q1["gear"],
-                    "susp": setup_q1["susp"]
-                },
-                "temp": q1_temp,
-                "weather": "dry",
-                "tyres": selected_compound_name,
-                "fuel_start": 40,
-                "note": f"{selected_compound_name} tyres, push for time"
-            },
-            "q2": {
-                "setup": {
-                    "fw": setup_q2["fw"],
-                    "rw": setup_q2["rw"],
-                    "eng": setup_q2["eng"],
-                    "bra": setup_q2["bra"],
-                    "gear": setup_q2["gear"],
-                    "susp": setup_q2["susp"]
-                },
-                "temp": q2_temp,
-                "weather": "dry",
-                "tyres": selected_compound_name,
-                "fuel_start": 40,
-                "note": f"{selected_compound_name} tyres, qualify for race"
-            },
-            "race": {
-                "setup": {
-                    "fw": setup_race["fw"],
-                    "rw": setup_race["rw"],
-                    "eng": setup_race["eng"],
-                    "bra": setup_race["bra"],
-                    "gear": setup_race["gear"],
-                    "susp": setup_race["susp"]
-                },
-                "temp": race_temp,
-                "weather": "dry",
-                "tyres": selected_compound_name,
-                "fuel_strategy": fuel_strategy["recommended"],
-                "note": f"{selected_compound_name} tyres, fuel strategy from analysis"
-            }
-        },
+        "sequence": sequence,
         "fuel_strategy": fuel_strategy,
         "tyre_strategy": tyre_strategy,
-        "practice_plan": practice_plan,
         "tyre_info": {
-            "supplier": "Pipirelli",  # Domyślny dostawca
+            "supplier": "Pipirelli",
             "bottleneck": tyre_strategy["bottleneck"],
             "est_tyre_life_laps": tyre_strategy["est_tyre_life_laps"]
         },
         "notes": [
             f"Predykcja oparta na {len(history)} wyścigach w historii.",
-            f"Confidence: {base['confidence']} - {base['source']}",
+            f"Pewność: {base['confidence']} - {base['source']}",
             f"Kierowca: {driver_name} (TI={ti}, EXP={exp})",
             f"Margines kierowcy: ±{half_ma} od optimum.",
-            f"Opony: ~{tyre_strategy['est_tyre_life_laps']} okr, paliwo: ~{tyre_strategy['laps_on_fuel']} okr",
-            "Uwaga: Pogoda jest przykładowa. Sprawdź prognozę przed wyścigiem."
+            f"Opony: ~{tyre_strategy['est_tyre_life_laps']} okr, paliwo: ~{tyre_strategy['laps_on_fuel']} okr"
         ]
     }
 
