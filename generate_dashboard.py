@@ -1273,7 +1273,7 @@ def generate_html(race_data, prediction_data, calendar_data, current_context_dat
 <div class="tabs" id="tabsNav">
     <button class="tab-btn active" data-tab="overview">Przegląd</button>
     <button class="tab-btn" data-tab="nextrace">Następny wyścig</button>
-    <button class="tab-btn" data-tab="car">Bolid</button>
+    <button class="tab-btn" data-tab="standings">Tabela</button>
     <button class="tab-btn" data-tab="results">Wyniki</button>
     <button class="tab-btn" data-tab="setups">Setupy</button>
     <button class="tab-btn" data-tab="fuel">Paliwo & Opony</button>
@@ -1284,7 +1284,7 @@ def generate_html(race_data, prediction_data, calendar_data, current_context_dat
 <!-- Zawartość zakładek -->
 <div class="tab-content active" id="tab-overview"></div>
 <div class="tab-content" id="tab-nextrace"></div>
-<div class="tab-content" id="tab-car"></div>
+<div class="tab-content" id="tab-standings"></div>
 <div class="tab-content" id="tab-results"></div>
 <div class="tab-content" id="tab-setups"></div>
 <div class="tab-content" id="tab-fuel"></div>
@@ -1445,6 +1445,7 @@ function renderPendingSeasonOverview(activeContext) {{
     renderSeasonEmptyState('tab-fuel', 'Paliwo sezonu', activeContext, lastCompleted, 'Strategie paliwowe dla aktywnego sezonu pojawią się po zakończeniu pierwszego wyścigu.');
     renderSeasonEmptyState('tab-finances', 'Finanse sezonu', activeContext, lastCompleted, 'Finanse sezonu będą widoczne po pierwszym zapisanym wyścigu.');
     renderSeasonEmptyState('tab-driver', 'Kierowca sezonu', activeContext, lastCompleted, 'Profil kierowcy w panelu historycznym będzie zasilony po zapisaniu wyścigu sezonu.');
+    renderSeasonEmptyState('tab-standings', 'Tabela sezonu', activeContext, lastCompleted, 'Tabela ligowa dla aktywnego sezonu pojawi się po pierwszym zapisanym wyścigu.');
 }}
 
 function normalizeTrackName(name) {{
@@ -1721,7 +1722,7 @@ function render() {{
     // Renderuj podstawowe zakładki
     renderOverview();
     renderNextRace();
-    renderCar();
+    renderStandings();
 
     const activeContext = getCurrentContext();
     const displayedData = getDisplayedRaceData();
@@ -1813,48 +1814,99 @@ function renderOverview() {{
     if (rd.driver || dp.driName) {{
         const drvName = dp.driName || rd.driver.name;
         const drvOA = dp.overall || rd.driver.OA;
+
+        // Kariera
+        const cWins = dp.wins || 0;
+        const cPodiums = dp.podiums || 0;
+        const cPoles = dp.poles || 0;
+
+        // Sezon
+        let sWins = 0, sPodiums = 0, sPoles = 0;
+        const myName = dp.manName || dp.manager || dp.owner?.name || '';
+
+        // Spróbuj pobrać statystyki sezonu z tabeli ligowej (najbardziej wiarygodne źródło dla pozycji)
+        const myStanding = latest?.standings?.managers?.find(m => m.name === myName);
+        if (myStanding && myStanding.results) {{
+            myStanding.results.forEach(r => {{
+                const pos = toInt(r.pos);
+                if (pos === 1) sWins++;
+                if (pos >= 1 && pos <= 3) sPodiums++;
+
+                const qPos = toInt(r.grid);
+                if (qPos === 1) sPoles++;
+            }});
+        }} else {{
+            // Fallback do danych wyścigowych jeśli brak tabeli
+            const displayedData = getDisplayedRaceData();
+            displayedData.forEach(d => {{
+                const summary = d.race_summary;
+                let myResult = summary?.results?.find(r => r.manager === myName);
+                if (!myResult) myResult = summary?.results?.find(r => r.gap === '' || r.gap === '0.000s' || r.gap === '+0.000s');
+
+                const pos = toInt(myResult?.position);
+                if (pos === 1) sWins++;
+                if (pos >= 1 && pos <= 3) sPodiums++;
+
+                const qPos = toInt(d.race_data?.q1_pos);
+                if (qPos === 1) sPoles++;
+            }});
+        }}
+
         html += `
         <div class="summary-card">
             <div class="label">KIEROWCA</div>
             <div class="value-small">${{drvName}}</div>
             <div class="sub">OVERALL: ${{drvOA}}</div>
-            <div class="rec-grid" style="grid-template-columns: 1fr 1fr; gap: 1px; margin-top: 1rem; background: var(--border-color); padding: 1px;">
-                <div class="stat-item" style="background: var(--bg-primary);">
-                    <div class="stat-name">Konc</div>
-                    <div class="stat-value" style="font-size: 1.2rem;">${{dp.concentration || rd.driver.concentration}}</div>
+
+            <div class="rec-grid" style="grid-template-columns: 1fr 1fr 1fr; gap: 1px; margin-top: 1rem; background: var(--border-color); padding: 1px;">
+                <div class="stat-item" style="background: var(--bg-primary); padding: 0.5rem;">
+                    <div class="stat-name">WINS</div>
+                    <div class="stat-value" style="font-size: 1rem; color: var(--accent-gold);">${{cWins}}</div>
+                    <div class="sub" style="font-size: 0.6rem;">S: ${{sWins}}</div>
                 </div>
-                <div class="stat-item" style="background: var(--bg-primary);">
-                    <div class="stat-name">Talent</div>
-                    <div class="stat-value" style="font-size: 1.2rem;">${{dp.talent || rd.driver.talent}}</div>
+                <div class="stat-item" style="background: var(--bg-primary); padding: 0.5rem;">
+                    <div class="stat-name">PODIUM</div>
+                    <div class="stat-value" style="font-size: 1rem; color: var(--accent-gold);">${{cPodiums}}</div>
+                    <div class="sub" style="font-size: 0.6rem;">S: ${{sPodiums}}</div>
+                </div>
+                <div class="stat-item" style="background: var(--bg-primary); padding: 0.5rem;">
+                    <div class="stat-name">POLES</div>
+                    <div class="stat-value" style="font-size: 1rem; color: var(--accent-gold);">${{cPoles}}</div>
+                    <div class="sub" style="font-size: 0.6rem;">S: ${{sPoles}}</div>
                 </div>
             </div>
         </div>`;
     }}
 
-    // BOLID (Stan ogólny)
-    if (cs.lvlEngine || rd.car_parts) {{
-        const parts = ['Chassis', 'Engine', 'FWing', 'RWing', 'Underbody', 'Sidepods', 'Cooling', 'Gear', 'Brakes', 'Susp', 'Electronics'];
-        let totalWear = 0;
-        let criticalParts = 0;
+    // TABELA LIGOWA (League Table)
+    const standings = latest?.standings?.managers || [];
+    if (standings.length > 0) {{
+        const myName = dp.manName || dp.manager || dp.owner?.name || '';
+        const myIndex = standings.findIndex(m => m.name === myName);
 
-        parts.forEach(p => {{
-            const wear = cs['usa' + p] || rd.car_parts?.[p.toLowerCase()]?.finish_wear || 0;
-            totalWear += wear;
-            if (wear > 70) criticalParts++;
-        }});
+        // Wybierz kilka osób obok
+        let startIndex = Math.max(0, myIndex - 1);
+        let endIndex = Math.min(standings.length, startIndex + 3);
+        if (endIndex === standings.length) startIndex = Math.max(0, endIndex - 3);
 
-        const avgWear = Math.round(totalWear / parts.length);
+        const miniStandings = standings.slice(startIndex, endIndex);
 
         html += `
         <div class="summary-card">
-            <div class="label">BOLID</div>
-            <div class="value" style="color: ${{criticalParts > 0 ? 'var(--accent-red)' : 'var(--text-primary)'}}">
-                ${{avgWear}}%
-            </div>
-            <div class="sub">ŚREDNIE ZUŻYCIE</div>
-            <div class="sub" style="margin-top: 0.5rem;">${{criticalParts > 0 ? `<span style="color: var(--accent-red)">⚠ ${{criticalParts}} CZĘŚCI WYMAGA UWAGI</span>` : 'STAN DOBRY'}}</div>
+            <div class="label">TABELA LIGOWA</div>
             <div style="margin-top: 1rem;">
-                <button class="tab-btn" data-tab="car" style="padding: 0.5rem 1rem; border: 1px solid var(--accent-gold); font-size: 0.6rem; color: var(--accent-gold); height: auto; line-height: 1;">SZCZEGÓŁY BOLIDU &raquo;</button>
+                <table style="width: 100%; border-collapse: collapse; font-family: var(--font-mono); font-size: 0.75rem;">
+                    ${{miniStandings.map(m => `
+                        <tr style="${{m.name === myName ? 'color: var(--accent-gold); font-weight: 700;' : 'color: var(--text-secondary);'}}">
+                            <td style="padding: 0.25rem 0;">P${{m.pos}}</td>
+                            <td style="padding: 0.25rem 0; text-transform: uppercase;">${{m.name.split(' ')[0]}}</td>
+                            <td style="padding: 0.25rem 0; text-align: right;">${{m.pts}} PKT</td>
+                        </tr>
+                    `).join('')}}
+                </table>
+            </div>
+            <div style="margin-top: 1rem;">
+                <button class="tab-btn" data-tab="standings" style="padding: 0.5rem 1rem; border: 1px solid var(--accent-gold); font-size: 0.6rem; color: var(--accent-gold); height: auto; line-height: 1;">PEŁNA TABELA &raquo;</button>
             </div>
         </div>`;
     }}
@@ -1864,8 +1916,8 @@ function renderOverview() {{
     container.innerHTML = html;
 
     // Re-attach listener for the button inside overview
-    container.querySelector('[data-tab="car"]')?.addEventListener('click', () => {{
-        document.querySelector('.tab-btn[data-tab="car"]').click();
+    container.querySelector('[data-tab="standings"]')?.addEventListener('click', () => {{
+        document.querySelector('.tab-btn[data-tab="standings"]').click();
     }});
 }}
 
@@ -1885,7 +1937,7 @@ function renderSummary(latest) {{
     if (summary && summary.results && summary.results.length > 0) {{
         // Szukamy naszego wyniku - porównujemy nazwę managera z driver_profile
         const dp = latest.driver_profile || {{}};
-        const myName = dp.manName || dp.manager || '';
+        const myName = dp.manName || dp.manager || dp.owner?.name || '';
         let myResult = null;
         if (myName) {{
             myResult = summary.results.find(r => r.manager === myName);
@@ -2071,7 +2123,7 @@ function renderResults() {{
     const positions = displayedData.map(d => {{
         const summary = d.race_summary;
         const dp = d.driver_profile || {{}};
-        const myName = dp.manName || dp.manager || '';
+        const myName = dp.manName || dp.manager || dp.owner?.name || '';
         let myResult = summary?.results?.find(r => r.manager === myName);
         if (!myResult) myResult = summary?.results?.find(r => r.gap === '' || r.gap === '0.000s' || r.gap === '+0.000s');
         return toInt(myResult?.position);
@@ -2137,103 +2189,80 @@ function renderResults() {{
 }}
 
 // ==========================================================
-// ZAKŁADKA: BOLID (Car & Parts Upgrade Planning)
+// ZAKŁADKA: TABELA LIGOWA (Standings)
 // ==========================================================
-function renderCar() {{
-    const container = document.getElementById('tab-car');
+function renderStandings() {{
+    const container = document.getElementById('tab-standings');
     const latest = getLatestRace();
-    if (!latest) return;
+    if (!latest || !latest.standings) {{
+        container.innerHTML = '<div class="empty-state"><h2>Brak danych tabeli ligowej</h2></div>';
+        return;
+    }}
 
-    const cs = latest.car_status || {{}};
-    const rd = latest.race_data || {{}};
-
-    const parts = [
-        {{ key: 'Chassis', label: 'CHASSIS', options: cs.chassisOptions }},
-        {{ key: 'Engine', label: 'SILNIK', options: cs.engineOptions }},
-        {{ key: 'FWing', label: 'PRZEDNIE SKRZYDŁO', options: cs.fWingOptions }},
-        {{ key: 'RWing', label: 'TYLNE SKRZYDŁO', options: cs.rWingOptions }},
-        {{ key: 'Underbody', label: 'PODŁOGA', options: cs.underbodyOptions }},
-        {{ key: 'Sidepods', label: 'SEKCJE BOCZNE', options: cs.sidepodsOptions }},
-        {{ key: 'Cooling', label: 'CHŁODZENIE', options: cs.coolingOptions }},
-        {{ key: 'Gear', label: 'SKRZYNIA BIEGÓW', options: cs.gearOptions }},
-        {{ key: 'Brakes', label: 'HAMULCE', options: cs.brakesOptions }},
-        {{ key: 'Susp', label: 'ZAWIESZENIE', options: cs.suspOptions }},
-        {{ key: 'Electronics', label: 'ELEKTRONIKA', options: cs.electronicsOptions }},
-    ];
+    const s = latest.standings;
+    const managers = s.managers || [];
+    const dp = latest.driver_profile || {{}};
+    const myName = dp.manName || dp.manager || dp.owner?.name || '';
 
     let html = `
     <div class="hero-section">
-        <span class="hero-subtitle">RAPORT TECHNICZNY</span>
-        <h2>STAN BOLIDU</h2>
+        <span class="hero-subtitle">RANKING MANAGERÓW</span>
+        <h2>${{s.group || 'TABELA LIGOWA'}}</h2>
         <div class="hero-meta">
-            <span>🛠️ POZIOMY CZĘŚCI I ZUŻYCIE PO OSTATNIEJ RUNDZIE</span>
+            <span>📊 SEZON ${{getCurrentContext()?.season || '?'}}</span>
+            <span>👥 ${{managers.length}} UCZESTNIKÓW</span>
         </div>
     </div>
 
-    <div class="summary-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); margin-left: 0; margin-right: 0;">`;
+    <div class="data-card" style="padding: 0; overflow-x: auto;">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>POZ</th>
+                    <th>MANAGER</th>
+                    <th>OPONY</th>
+                    <th>PKT</th>
+                    <th>WYNIKI (1-17)</th>
+                </tr>
+            </thead>
+            <tbody>`;
 
-    parts.forEach(p => {{
-        const lvl = cs['lvl' + p.key] || 0;
-        const wear = cs['usa' + p.key] || 0;
-        const health = 100 - wear;
-        const color = wear > 85 ? 'var(--accent-red)' : (wear > 70 ? 'var(--accent-gold)' : 'var(--accent-cyan)');
-
-        // GPRO Analyzer-like logic: Estimate wear after next race
-        // Try to get average wear per lap from history
-        let wearPerLap = 0.3; // Default fallback
-        const trackRaces = RACE_DATA.filter(r => r.race_data?.track === rd.track);
-        const sourceRaces = trackRaces.length > 0 ? trackRaces : RACE_DATA.slice(-3);
-
-        if (sourceRaces.length > 0) {{
-            let totalWPL = 0;
-            let count = 0;
-            sourceRaces.forEach(r => {{
-                const partData = r.race_data?.car_parts?.[p.key.toLowerCase()] || r.race_data?.car_parts?.[p.key];
-                const laps = r.race_summary?.results?.[0]?.laps || 70;
-                if (partData && partData.finish_wear !== undefined && partData.start_wear !== undefined) {{
-                    totalWPL += (partData.finish_wear - partData.start_wear) / laps;
-                    count++;
-                }}
-            }});
-            if (count > 0) wearPerLap = totalWPL / count;
-        }}
-
-        const nextLaps = getCalendarNextRace()?.total_laps || 72;
-        const estRaceWear = Math.round(wearPerLap * nextLaps);
-        const estWear = wear + estRaceWear;
-        const needsUpgrade = estWear > 85;
-
+    managers.forEach(m => {{
+        const isMe = m.name === myName;
         html += `
-        <div class="summary-card" style="border-left: 4px solid ${{color}};">
-            <div class="session-header">
-                <h4 style="color: #fff;">${{p.label}}</h4>
-                <span class="session-badge">Lvl ${{lvl}}</span>
-            </div>
-            <div class="value" style="font-size: 1.5rem; color: ${{color}};">${{wear}}% <span style="font-size: 0.7rem; color: var(--text-muted);">ZUŻYCIA</span></div>
-
-            <div style="height: 4px; background: #333; margin: 1rem 0; position: relative;">
-                <div style="height: 100%; width: ${{health}}%; background: ${{color}}; transition: width 1s ease-out;"></div>
-            </div>
-
-            <div class="rec-note">
-                EST. PO NAST. WYŚCIGU: <span style="color: ${{needsUpgrade ? 'var(--accent-red)' : '#fff'}}">${{estWear}}%</span>
-            </div>
-
-            ${{needsUpgrade ? `
-            <div class="lap-instruction" style="margin-top: 1rem; padding: 0.5rem;">
-                <div class="instruction" style="font-size: 0.7rem; color: var(--accent-red);">⚠ WYMAGANA WYMIANA</div>
-            </div>` : ''}}
-
-            <div style="margin-top: 1rem;">
-                <select style="width: 100%; background: #000; color: var(--text-muted); border: 1px solid var(--border-color); padding: 0.4rem; font-size: 0.6rem; font-family: var(--font-mono);">
-                    <option>ZOBACZ OPCJE WYMIANY...</option>
-                    ${{(p.options || []).map(o => `<option>${{o.text}}</option>`).join('')}}
-                </select>
-            </div>
-        </div>`;
+            <tr style="${{isMe ? 'background: rgba(255,192,0,0.05);' : ''}}">
+                <td class="${{posClass(m.pos)}}">${{m.pos}}</td>
+                <td style="${{isMe ? 'color: var(--accent-gold); font-weight: 700;' : ''}}">${{m.name}}</td>
+                <td>${{m.tyre}}</td>
+                <td style="font-weight: 700;">${{m.pts}}</td>
+                <td>
+                    <div style="display: flex; gap: 4px;">
+                    ${{(m.results || []).map(r => `
+                        <div style="
+                            width: 18px;
+                            height: 18px;
+                            font-size: 0.6rem;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            background: ${{ r.pos === '-' ? '#111' : (toInt(r.pos) <= 3 ? 'var(--accent-gold)' : (toInt(r.pos) <= 10 ? '#444' : '#222')) }};
+                            color: ${{ toInt(r.pos) <= 3 ? '#000' : '#888' }};
+                            font-weight: ${{ toInt(r.pos) <= 10 ? '700' : '400' }};
+                            border: 1px solid #1a1a1a;
+                        ">
+                            ${{r.pos === '-' ? '' : r.pos}}
+                        </div>
+                    `).join('')}}
+                    </div>
+                </td>
+            </tr>`;
     }});
 
-    html += `</div>`;
+    html += `
+            </tbody>
+        </table>
+    </div>`;
+
     container.innerHTML = html;
 }}
 
@@ -2532,7 +2561,7 @@ window.onload = () => {{
     if (activeBtn) {{
         const tabId = activeBtn.dataset.tab;
         const mainSummary = document.getElementById('mainSummaryContainer');
-        if (['overview', 'nextrace', 'car'].includes(tabId)) {{
+        if (['overview', 'nextrace', 'standings'].includes(tabId)) {{
             mainSummary.style.display = 'none';
         }}
     }}
