@@ -1,9 +1,9 @@
 {
   "generated_at": "2026-04-24T17:08:04.738648Z",
   "next_race": {
-    "track": "Sakhir GP (Bahrajn)",
+    "track": "Istanbul GP (Turcja)",
     "season": 110,
-    "race": 1,
+    "race": 5,
     "total_laps": 72
   },
   "confidence": "low",
@@ -50,7 +50,7 @@
     "temp": 27
   },
   "base": {
-    "track": "Sakhir GP (Bahrajn)",
+    "track": "Istanbul GP (Turcja)",
     "setup": {
       "fw": 500,
       "rw": 500,
