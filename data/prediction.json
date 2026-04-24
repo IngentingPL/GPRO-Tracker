@@ -1,10 +1,11 @@
 {
-  "generated_at": "2026-04-24T17:20:24.673539Z",
+  "generated_at": "2026-04-24T17:36:22.377567Z",
   "next_race": {
     "track": "Istanbul GP (Turcja)",
     "season": 110,
     "race": 5,
-    "total_laps": 72
+    "total_laps": 72,
+    "track_id": null
   },
   "confidence": "low",
   "confidence_reason": "Fallback: domyślny setup medium downforce",
