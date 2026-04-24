@@ -3,7 +3,7 @@
   "race": 5,
   "track": "Istanbul GP (Turcja)",
   "track_id": "36",
-  "total_laps": 58,
+  "total_laps": 72,
   "is_current": false,
   "phase": "upcoming",
   "latest_completed": {
@@ -13,5 +13,5 @@
   },
   "office_season": 110,
   "office_race": 1,
-  "fetched_at": "2026-04-24T17:10:40.414861Z"
+  "fetched_at": "2026-04-24T18:23:19.670953Z"
 }
