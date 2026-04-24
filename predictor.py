@@ -227,22 +227,89 @@ FUEL_RATES = {
     "very_high": 1.13
 }
 
-TYRE_COMPOUNDS = {
-    "practice": "medium",
-    "q1": "soft",
-    "q2": "soft",
-    "race": "medium"
+# Mapowanie nazw opon (internal -> display)
+TYRE_NAMES = {
+    "extra_soft": "Extra Soft",
+    "soft": "Soft",
+    "medium": "Medium",
+    "hard": "Hard",
+    "rain": "Rain"
 }
 
-TYRES_ORDER = ["super_soft", "soft", "medium", "hard", "rain"]
+TYRES_ORDER = ["extra_soft", "soft", "medium", "hard"]
 
+# Bazowa żywotność opon (okrążenia przy 20°C, średnie zużycie toru)
 TYRE_LIFE_BASE = {
-    "super_soft": 18,
-    "soft": 22,
-    "medium": 28,
-    "hard": 38,
-    "rain": 40
+    "extra_soft": 18,
+    "soft": 25,
+    "medium": 35,
+    "hard": 50,
+    "rain": 45
 }
+
+def select_best_compound(track_data, supplier_data, driver_data, race_temp, weather="dry"):
+    """
+    Wybiera optymalną mieszankę opon na podstawie danych toru, dostawcy i temperatury.
+    Logika inspirowana GPRO Analyzer.
+    """
+    if weather == "wet":
+        return "rain"
+
+    # 1. Punkt wyjścia na podstawie temperatury
+    # Każda mieszanka ma swój "idealny" zakres
+    if race_temp < 13:
+        compound = "extra_soft"
+    elif race_temp < 23:
+        compound = "soft"
+    elif race_temp < 33:
+        compound = "medium"
+    else:
+        compound = "hard"
+
+    # 2. Korekta o zużycie toru
+    track_wear = track_data.get("tyreWear", "Średnie").lower()
+
+    # Przesuwamy o jeden stopień w górę (twardsze) jeśli tor mocno żre opony
+    # lub w dół (miększe) jeśli tor jest łaskawy
+    idx = TYRES_ORDER.index(compound)
+
+    if "bardzo wysokie" in track_wear or "very high" in track_wear:
+        idx = min(len(TYRES_ORDER) - 1, idx + 1)
+    elif "wysokie" in track_wear or "high" in track_wear:
+        # Jeśli temperatura jest na granicy, przesuń
+        if (race_temp % 10) > 5:
+            idx = min(len(TYRES_ORDER) - 1, idx + 1)
+    elif "bardzo niskie" in track_wear or "very low" in track_wear:
+        idx = max(0, idx - 1)
+    elif "niskie" in track_wear or "low" in track_wear:
+        if (race_temp % 10) < 5:
+            idx = max(0, idx - 1)
+
+    compound = TYRES_ORDER[idx]
+
+    # 3. Korekta o agresywność kierowcy
+    aggr = int(driver_data.get("aggressiveness", 0))
+    if aggr > 80:
+        # Bardzo agresywny kierowca = szybciej niszczy opony, może warto twardsze
+        if idx < len(TYRES_ORDER) - 1 and (race_temp % 10) > 3:
+            idx = min(len(TYRES_ORDER) - 1, idx + 1)
+
+    return TYRES_ORDER[idx]
+
+def load_track_data(track_id):
+    """Wczytuje szczegółowe dane toru z cache."""
+    if not track_id:
+        return {}
+
+    filepath = f"data/tracks/{track_id}.json"
+    if os.path.exists(filepath):
+        try:
+            with open(filepath, "r", encoding="utf-8") as f:
+                content = json.load(f)
+                return content.get("data", {})
+        except:
+            pass
+    return {}
 
 
 # ============================================================
@@ -504,12 +571,12 @@ def adjust_for_humidity(base_setup, base_hum, target_hum):
 # STRATEGIA PALIWOWA
 # ============================================================
 
-def calculate_fuel_strategy(history, track_name, total_laps):
+def calculate_fuel_strategy(history, track_name, total_laps, est_tyre_life_laps=None):
     """
-    Oblicza strategię paliwową na podstawie historii pit stopów.
+    Oblicza strategię paliwową na podstawie historii pit stopów i żywotności opon.
 
     Mini-lekcja: Celem jest minimalizacja liczby pit stopów
-    przy zachowaniu bezpiecznego zapasu paliwa.
+    przy zachowaniu bezpiecznego zapasu paliwa i nie przekraczaniu zużycia opon.
     """
     # Szukamy danych z tego toru
     track_history = [h for h in history if h["track_name"] == track_name]
@@ -557,7 +624,10 @@ def calculate_fuel_strategy(history, track_name, total_laps):
         # Fuel per stint
         fuel_per_stint = laps_per_stint * fuel_per_lap
 
-        if fuel_per_stint <= 180:  # Limit baku
+        # Sprawdzamy czy opony wytrzymają taki stint
+        tyres_ok = est_tyre_life_laps is None or laps_per_stint <= est_tyre_life_laps
+
+        if fuel_per_stint <= 180 and tyres_ok:  # Limit baku i opon
             strategies.append({
                 "pits": num_pits,
                 "stints": [round(fuel_per_stint)] * num_stints,
@@ -596,46 +666,40 @@ def calculate_fuel_strategy(history, track_name, total_laps):
     }
 
 
-def calculate_tyre_strategy(history, track_name, fuel_strategy, total_laps):
+def calculate_tyre_strategy(history, track_name, fuel_strategy, total_laps, selected_compound="medium", track_data=None):
     """
     Oblicza strategię oponową i bottleneck.
-
-    Mini-lekcja: Celem jest ustalenie czy paliwo czy opony są
-    ograniczeniem (bottleneck). Z historii pit stopów obliczamy
-    szacowaną żywotność opon.
     """
-    # Szukamy danych z tego toru
+    # 1. Próba estymacji z historii (najdokładniejsza)
     track_history = [h for h in history if h["track_name"] == track_name]
-
     tyre_life_estimates = []
 
     if track_history:
         for h in track_history:
-            pits = h["pits"]
-            if pits and pits[0].get("tyre_condition") is not None and pits[0].get("lap"):
-                # Obliczamy ile okrążeń opony wytrzymały do pierwszego pitu
-                tyre_at_pit = pits[0]["tyre_condition"]
-                wear_per_lap = (100 - tyre_at_pit) / pits[0]["lap"]
-                # Szacujemy ile okrążeń do ~10% (minimalny bezpieczny stan)
-                if wear_per_lap > 0:
-                    estimated_laps = math.floor(90 / wear_per_lap)
-                    tyre_life_estimates.append(estimated_laps)
-
-    # Fallback: ogólna estymacja ze wszystkich wyścigów
-    if not tyre_life_estimates:
-        for h in history:
-            pits = h["pits"]
+            pits = h.get("pits", [])
             if pits and pits[0].get("tyre_condition") is not None and pits[0].get("lap"):
                 wear_per_lap = (100 - pits[0]["tyre_condition"]) / pits[0]["lap"]
                 if wear_per_lap > 0:
-                    estimated_laps = math.floor(90 / wear_per_lap)
-                    tyre_life_estimates.append(estimated_laps)
+                    tyre_life_estimates.append(math.floor(90 / wear_per_lap))
 
-    # Średnia żywotność opon
     if tyre_life_estimates:
         est_tyre_life_laps = round(sum(tyre_life_estimates) / len(tyre_life_estimates))
+        source = "historia toru"
     else:
-        est_tyre_life_laps = 25  # Domyślna wartość
+        # 2. Jeśli brak historii toru, używamy bazowej żywotności wybranego compoundu
+        # i korygujemy o zużycie toru
+        base_life = TYRE_LIFE_BASE.get(selected_compound.lower().replace(" ", "_"), 30)
+
+        # Korekta o zużycie toru
+        track_wear = (track_data or {}).get("tyreWear", "Średnie").lower()
+        wear_multiplier = 1.0
+        if "bardzo wysokie" in track_wear or "very high" in track_wear: wear_multiplier = 0.6
+        elif "wysokie" in track_wear or "high" in track_wear: wear_multiplier = 0.8
+        elif "bardzo niskie" in track_wear or "very low" in track_wear: wear_multiplier = 1.4
+        elif "niskie" in track_wear or "low" in track_wear: wear_multiplier = 1.2
+
+        est_tyre_life_laps = round(base_life * wear_multiplier)
+        source = f"baza ({selected_compound}) x {wear_multiplier:.1f} (zużycie toru)"
 
     # Obliczamy ile okrążeń na baku paliwowym
     fuel_per_lap = fuel_strategy.get("fuel_per_lap", 5.0)
@@ -915,8 +979,8 @@ def generate_prediction():
     setup_practice = adjust_for_temperature(base["setup"], base["temp"], practice_temp)
     setup_practice["temp"] = practice_temp
 
-    # 5. Oblicz strategię paliwową
-    print(f"\n5. Obliczanie strategii paliwowej...")
+    # 5. Oblicz wstępną strategię paliwową
+    print(f"\n5. Obliczanie wstępnej strategii paliwowej...")
     fuel_strategy = calculate_fuel_strategy(history, track_name, total_laps)
     print(f"   Zużycie paliwa: {fuel_strategy['fuel_per_lap']} L/okrążenie")
     print(f"   Rekomendacja: {fuel_strategy['recommended']['pits']} pit stopy")
@@ -942,8 +1006,8 @@ def generate_prediction():
     print(f"   MA (Margines Akceptacji): {ma}")
     print(f"   Margines od optimum: ±{half_ma}")
 
-    # 7. Oblicz strategię oponową
-    print(f"\n7. Obliczanie strategii oponowej...")
+    # 7. Oblicz strategię oponową (tymczasowa, zostanie zaktualizowana po wyborze opon)
+    print(f"\n7. Obliczanie wstępnej strategii oponowej...")
     tyre_strategy = calculate_tyre_strategy(history, track_name, fuel_strategy, total_laps)
     print(f"   Żywotność opon: ~{tyre_strategy['est_tyre_life_laps']} okrążeń")
     print(f"   Okrążeń na baku: ~{tyre_strategy['laps_on_fuel']}")
@@ -954,14 +1018,43 @@ def generate_prediction():
     practice_plan = generate_practice_plan(base["confidence"])
     print(f"   Plan składa się z {len(practice_plan['laps'])} okrążeń")
 
-    # 9. Zbuduj predykcję
+    # 9. Wybór opon (NOWA LOGIKA: takie same dla wszystkich sesji)
+    print(f"\n9. Wybieranie opon na wyścig...")
+
+    # Pobieramy dane pomocnicze z ostatniego wyścigu
+    latest_race_raw = {}
+    pattern = "data/races/latest.json"
+    if os.path.exists(pattern):
+        with open(pattern, "r", encoding="utf-8") as f:
+            latest_race_raw = json.load(f)
+
+    track_id = next_race.get("track_id")
+    track_data = load_track_data(track_id)
+    supplier_data = latest_race_raw.get("race_data", {}).get("tyre_supplier", {})
+    driver_data = latest_race_raw.get("race_data", {}).get("driver", {})
+
+    selected_compound = select_best_compound(track_data, supplier_data, driver_data, race_temp)
+    selected_compound_name = TYRE_NAMES.get(selected_compound, selected_compound)
+
+    print(f"   Wybrana mieszanka: {selected_compound_name} (dla wszystkich sesji)")
+
+    # 10. Aktualizacja strategii oponowej o wybrany compound
+    print(f"   Aktualizacja strategii oponowej dla {selected_compound_name}...")
+    tyre_strategy = calculate_tyre_strategy(history, track_name, fuel_strategy, total_laps, selected_compound, track_data)
+
+    # 11. Aktualizacja strategii paliwowej o żywotność opon
+    print(f"   Aktualizacja strategii paliwowej o żywotność opon (~{tyre_strategy['est_tyre_life_laps']} okr)...")
+    fuel_strategy = calculate_fuel_strategy(history, track_name, total_laps, tyre_strategy['est_tyre_life_laps'])
+
+    # 12. Zbuduj predykcję
     prediction = {
         "generated_at": datetime.utcnow().isoformat() + "Z",
         "next_race": {
             "track": track_name,
             "season": season,
             "race": race_num,
-            "total_laps": total_laps
+            "total_laps": total_laps,
+            "track_id": track_id
         },
         "confidence": base["confidence"],
         "confidence_reason": base["source"],
@@ -1023,9 +1116,9 @@ def generate_prediction():
                 },
                 "temp": setup_practice["temp"],
                 "weather": "dry",
-                "tyres": TYRE_COMPOUNDS["practice"],
+                "tyres": selected_compound_name,
                 "fuel_start": 80,
-                "note": "Medium tyres, test setup, find satisfied"
+                "note": f"{selected_compound_name} tyres, test setup, find satisfied"
             },
             "q1": {
                 "setup": {
@@ -1038,9 +1131,9 @@ def generate_prediction():
                 },
                 "temp": q1_temp,
                 "weather": "dry",
-                "tyres": TYRE_COMPOUNDS["q1"],
+                "tyres": selected_compound_name,
                 "fuel_start": 40,
-                "note": "Soft tyres, push for time"
+                "note": f"{selected_compound_name} tyres, push for time"
             },
             "q2": {
                 "setup": {
@@ -1053,9 +1146,9 @@ def generate_prediction():
                 },
                 "temp": q2_temp,
                 "weather": "dry",
-                "tyres": TYRE_COMPOUNDS["q2"],
+                "tyres": selected_compound_name,
                 "fuel_start": 40,
-                "note": "Soft tyres, qualify for race"
+                "note": f"{selected_compound_name} tyres, qualify for race"
             },
             "race": {
                 "setup": {
@@ -1068,9 +1161,9 @@ def generate_prediction():
                 },
                 "temp": race_temp,
                 "weather": "dry",
-                "tyres": TYRE_COMPOUNDS["race"],
+                "tyres": selected_compound_name,
                 "fuel_strategy": fuel_strategy["recommended"],
-                "note": "Medium tyres, fuel strategy from analysis"
+                "note": f"{selected_compound_name} tyres, fuel strategy from analysis"
             }
         },
         "fuel_strategy": fuel_strategy,

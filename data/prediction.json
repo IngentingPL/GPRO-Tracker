@@ -73,7 +73,7 @@
       },
       "temp": 21,
       "weather": "dry",
-      "tyres": "medium",
+      "tyres": "Medium",
       "fuel_start": 80,
       "note": "Medium tyres, test setup, find satisfied"
     },
@@ -88,9 +88,9 @@
       },
       "temp": 22,
       "weather": "dry",
-      "tyres": "soft",
+      "tyres": "Medium",
       "fuel_start": 40,
-      "note": "Soft tyres, push for time"
+      "note": "Medium tyres, push for time"
     },
     "q2": {
       "setup": {
@@ -103,9 +103,9 @@
       },
       "temp": 26,
       "weather": "dry",
-      "tyres": "soft",
+      "tyres": "Medium",
       "fuel_start": 40,
-      "note": "Soft tyres, qualify for race"
+      "note": "Medium tyres, qualify for race"
     },
     "race": {
       "setup": {
@@ -118,7 +118,7 @@
       },
       "temp": 27,
       "weather": "dry",
-      "tyres": "medium",
+      "tyres": "Medium",
       "fuel_strategy": {
         "pits": 2,
         "stints": [
@@ -154,10 +154,10 @@
     }
   },
   "tyre_strategy": {
-    "est_tyre_life_laps": 28,
+    "est_tyre_life_laps": 35,
     "laps_on_fuel": 39,
     "bottleneck": "tyres",
-    "bottleneck_explanation": "Opony na ~28 okr, paliwo na ~39 okr → pit stopy wynikają z opon"
+    "bottleneck_explanation": "Opony na ~35 okr, paliwo na ~39 okr → pit stopy wynikają z opon"
   },
   "practice_plan": {
     "laps": [
@@ -207,14 +207,14 @@
   "tyre_info": {
     "supplier": "Pipirelli",
     "bottleneck": "tyres",
-    "est_tyre_life_laps": 28
+    "est_tyre_life_laps": 35
   },
   "notes": [
     "Predykcja oparta na 7 wyścigach w historii.",
     "Confidence: low - Fallback: domyślny setup medium downforce",
     "Kierowca: Noel Lavin (TI=21, EXP=25)",
     "Margines kierowcy: ±63 od optimum.",
-    "Opony: ~28 okr, paliwo: ~39 okr",
+    "Opony: ~35 okr, paliwo: ~39 okr",
     "Uwaga: Pogoda jest przykładowa. Sprawdź prognozę przed wyścigiem."
   ]
 }
