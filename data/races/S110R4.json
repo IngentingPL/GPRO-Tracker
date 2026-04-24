@@ -227,7 +227,7 @@
       "total": 7978700,
       "balance": 32680824
     },
-    "fetched_at": "2026-04-24T15:36:04.739507Z"
+    "fetched_at": "2026-04-24T15:49:06.279670Z"
   },
   "race_summary": {
     "track": "Irungattukottai",
@@ -416,7 +416,7 @@
     "privateOfferCost": 1000000,
     "setOfferCost": 500000,
     "setOfferType": "1",
-    "nextPriceIncrementIn": 235431,
+    "nextPriceIncrementIn": 234650,
     "offerPlaced": 0,
     "inShortList": 1,
     "oneRaceRenewFee": 184700,
@@ -438,7 +438,7 @@
     "setContractLengthExtend": "",
     "totalOffers": 0,
     "offersFrom": [],
-    "apiRequestsRemaining": 996
+    "apiRequestsRemaining": 990
   },
   "standings": {
     "loadingDataState": "1",
@@ -1287,7 +1287,7 @@
         "manPosChange": "0",
         "manBgColor": "",
         "negative": 0,
-        "cash": 35158785,
+        "cash": 30258829,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -6889,7 +6889,7 @@
         }
       ]
     },
-    "apiRequestsRemaining": 995
+    "apiRequestsRemaining": 989
   },
   "car_status": {
     "loadingDataState": "1",
@@ -7541,6 +7541,6 @@
     "showUndoAlertNoCredits": false,
     "credits": 0,
     "races": 7,
-    "apiRequestsRemaining": 994
+    "apiRequestsRemaining": 988
   }
 }
