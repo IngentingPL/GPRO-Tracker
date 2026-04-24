@@ -1892,12 +1892,12 @@ function renderPrediction(container) {
     // =============================================
     html += `<div class="rec-card"><h3>Paliwo</h3>`;
     const fuelPerLap = fuelStrategy.fuel_per_lap || 0;
-    const totalLaps = nextRace.total_laps || 72;
+    const raceTotalLaps = nextRace.total_laps || 72;
     const recommended = fuelStrategy.recommended || {};
     const alternative = fuelStrategy.alternative || {};
 
     html += `<div class="rec-row"><span class="rec-label">Zużycie</span><span class="rec-value">~${fuelPerLap} L/lap</span></div>`;
-    html += `<div class="rec-row"><span class="rec-label">Okrążenia</span><span>${totalLaps}</span></div>`;
+    html += `<div class="rec-row"><span class="rec-label">Okrążenia</span><span>${raceTotalLaps}</span></div>`;
     html += `<div class="rec-row"><span class="rec-label">Pit stopy</span><span class="rec-value">${recommended.pits || 0}</span></div>`;
 
     // Rekomendowana strategia
