@@ -1,11 +1,10 @@
 {
-  "generated_at": "2026-04-24T17:28:32.802268Z",
+  "generated_at": "2026-04-24T17:20:24.673539Z",
   "next_race": {
-    "track": "Sakhir GP (Bahrajn)",
+    "track": "Istanbul GP (Turcja)",
     "season": 110,
-    "race": 1,
-    "total_laps": 72,
-    "track_id": null
+    "race": 5,
+    "total_laps": 72
   },
   "confidence": "low",
   "confidence_reason": "Fallback: domyślny setup medium downforce",
@@ -51,7 +50,7 @@
     "temp": 27
   },
   "base": {
-    "track": "Sakhir GP (Bahrajn)",
+    "track": "Istanbul GP (Turcja)",
     "setup": {
       "fw": 500,
       "rw": 500,
