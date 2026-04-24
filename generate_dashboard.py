@@ -921,223 +921,135 @@ def generate_html(race_data, prediction_data, calendar_data, current_context_dat
         ::-webkit-scrollbar-thumb:hover {{ background: #7D7D7D; }}
 
         /* ==========================================================
-           PRAKTYKA - Binary Search Setup
+           MODERN SEQUENTIAL UI
            ========================================================== */
-        .practice-header {{
-            background: var(--bg-primary);
-            border-bottom: 2px solid var(--accent-gold);
-            padding: 3rem 0;
-            margin-bottom: 2rem;
-        }}
-
-        .practice-header h2 {{
-            font-size: 3rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.2em;
-            margin-bottom: 1rem;
-            line-height: 1;
-        }}
-
-        .practice-header .track-info {{
-            color: var(--text-muted);
-            font-size: 0.85rem;
-        }}
-
-        .practice-timeline {{
-            display: flex;
-            gap: 0.5rem;
-            margin: 1rem 0;
-            overflow-x: auto;
-            padding-bottom: 0.5rem;
-        }}
-
-        .timeline-step {{
+        .step-container {{
             display: flex;
             flex-direction: column;
-            align-items: center;
-            min-width: 80px;
+            gap: 1rem;
+            margin-top: 2rem;
         }}
 
-        .timeline-dot {{
-            width: 32px;
-            height: 32px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.7rem;
-            font-weight: 700;
-            background: #181818;
-            color: var(--text-muted);
-            border: 1px solid #202020;
-            font-family: var(--font-mono);
-        }}
-
-        .timeline-step.active .timeline-dot {{
-            background: #FFC000;
-            border-color: #FFC000;
-            color: #000000;
-        }}
-
-        .timeline-step.completed .timeline-dot {{
-            background: #917300;
-            border-color: #917300;
-            color: #000000;
-        }}
-
-        .timeline-step.current .timeline-dot {{
-            background: #FFC000;
-            border-color: #FFC000;
-            color: #000000;
-            animation: pulse 1.5s infinite;
-        }}
-
-        @keyframes pulse {{
-            0%, 100% {{ opacity: 1; }}
-            50% {{ opacity: 0.5; }}
-        }}
-
-        .timeline-label {{
-            font-size: 0.55rem;
-            color: var(--text-muted);
-            margin-top: 0.25rem;
-            text-align: center;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-        }}
-
-        .lap-card {{
-            background: var(--bg-primary);
-            border: 1px solid var(--border-color);
-            padding: 1.5rem;
-            margin-bottom: 1px;
-            transition: background 0.3s;
-        }}
-
-        .lap-card:hover {{
+        .step-card {{
             background: var(--bg-card);
+            border-left: 4px solid #333;
+            padding: 1.5rem;
+            transition: all 0.3s;
         }}
 
-        .lap-card.current {{
-            border-color: #FFC000;
-            border-left: 3px solid #FFC000;
+        .step-card.completed {{
+            border-left-color: #917300;
+            opacity: 0.8;
         }}
 
-        .lap-card.done {{
-            opacity: 0.5;
+        .step-card.next {{
+            border-left-color: var(--accent-gold);
+            background: #101010;
+            box-shadow: 0 0 30px rgba(255, 192, 0, 0.05);
+            transform: scale(1.01);
         }}
 
-        .lap-header {{
+        .step-card.future {{
+            border-left-color: #202020;
+            opacity: 0.4;
+        }}
+
+        .step-header {{
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 1rem;
         }}
 
-        .lap-header h3 {{
-            font-size: 0.85rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.12em;
-        }}
-
-        .lap-badge {{
-            font-size: 0.6rem;
-            padding: 0.2rem 0.5rem;
+        .step-title {{
+            font-size: 1.2rem;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.1em;
         }}
 
-        .lap-badge.next {{
-            background: #FFC000;
-            color: #000000;
+        .step-status {{
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 0.25rem 0.75rem;
+            background: #222;
+            color: #777;
+            text-transform: uppercase;
         }}
 
-        .lap-badge.done {{
+        .step-card.next .step-status {{
+            background: var(--accent-gold);
+            color: #000;
+        }}
+
+        .step-card.completed .step-status {{
             background: #917300;
-            color: #000000;
+            color: #000;
         }}
 
-        .lap-badge.pending {{
-            background: #202020;
-            color: var(--text-muted);
-        }}
-
-        .lap-setup {{
+        .setup-display {{
             display: flex;
             flex-wrap: wrap;
             gap: 1px;
+            background: #222;
             margin: 1rem 0;
-            background: #202020;
         }}
 
-        .setup-chip {{
-            background: #181818;
-            padding: 0.5rem 0.75rem;
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-        }}
-
-        .setup-chip .label {{
-            font-size: 0.6rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-        }}
-
-        .setup-chip .value {{
-            font-family: var(--font-mono);
-            font-weight: 700;
-            color: #FFC000;
-            font-size: 0.95rem;
-        }}
-
-        .lap-instruction {{
-            background: rgba(255, 192, 0, 0.06);
-            border-left: 2px solid #FFC000;
-            padding: 1rem;
-            margin-top: 1rem;
-        }}
-
-        .lap-instruction .instruction {{
-            font-size: 0.85rem;
-            font-weight: 700;
-            color: #FFC000;
-            margin-bottom: 0.4rem;
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-        }}
-
-        .lap-instruction .note {{
-            font-size: 0.72rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.04em;
-        }}
-
-        .binary-search-visual {{
-            display: flex;
-            flex-direction: column;
-            gap: 0.25rem;
-            margin-top: 0.75rem;
+        .setup-box {{
+            flex: 1;
+            min-width: 80px;
+            background: #000;
             padding: 0.75rem;
-            background: #181818;
-            border-left: 2px solid #202020;
+            text-align: center;
         }}
 
-        .search-range {{
-            font-family: var(--font-mono);
-            font-size: 0.72rem;
+        .setup-box .label {{
+            font-size: 0.55rem;
             color: var(--text-muted);
-            text-align: center;
+            text-transform: uppercase;
+            margin-bottom: 0.25rem;
         }}
 
-        .search-arrow {{
-            text-align: center;
-            color: #FFC000;
-            font-size: 0.75rem;
+        .setup-box .value {{
+            font-family: var(--font-mono);
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--accent-gold);
+        }}
+
+        .feedback-box {{
+            background: rgba(255, 255, 255, 0.03);
+            padding: 1rem;
+            font-size: 0.85rem;
+            color: #bbb;
+            border-left: 2px solid #444;
+            margin-top: 0.5rem;
+        }}
+
+        .feedback-box span {{
+            color: var(--accent-gold);
+            font-weight: 700;
+            margin-right: 0.5rem;
+        }}
+
+        .deploy-btn {{
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: var(--accent-gold);
+            color: #000;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-top: 2rem;
+            transition: transform 0.2s;
+        }}
+
+        .deploy-btn:hover {{
+            transform: translateY(-2px);
+            background: #ffcf33;
         }}
 
         .session-summary {{
@@ -1896,39 +1808,21 @@ function renderPrediction(container) {{
     const pred = PREDICTION_DATA;
     const predictionContext = resolvePredictionContext(pred);
     const nextRace = predictionContext.nextRace || pred.next_race || {{}};
-    const isStalePrediction = predictionContext.isStale;
-    const staleReason = predictionContext.staleReason || '';
+    const sequence = pred.sequence || [];
     const confidence = pred.confidence || 'unknown';
     const confidenceReason = pred.confidence_reason || '';
-    const driverMargin = pred.driver_margin || {{}};
-    const base = pred.base || {{}};
     const fuelStrategy = pred.fuel_strategy || {{}};
-    const tyreInfo = pred.tyres_info || {{}};
+    const tyreStrategy = pred.tyre_strategy || {{}};
     const notes = pred.notes || [];
-    const sessions = pred.sessions || {{}};
 
     let html = '';
 
-    if (isStalePrediction) {{
-        container.innerHTML = `
-            <div class="rec-header">
-                <h2>${{nextRace.track || 'Nieznany tor'}}</h2>
-                <div class="rec-subtitle">Sezon ${{nextRace.season || '?'}} · Wyścig ${{nextRace.race || '?'}}${{nextRace.total_laps ? ` · ${{nextRace.total_laps}} okrążeń` : ''}}</div>
-                <div class="lap-instruction" style="margin-top: 1rem;">
-                    <div class="instruction">Wykryto nieaktualną predykcję</div>
-                    <div class="note">${{staleReason}}</div>
-                    <div class="note" style="margin-top: 0.5rem;">Uruchom <code>python predictor.py</code> aby odświeżyć.</div>
-                </div>
-            </div>`;
-        return;
-    }}
-
     // =============================================
-    // 1. NAGŁÓWEK (Lamborghini Impact)
+    // 1. NAGŁÓWEK
     // =============================================
     html += `
     <div class="rec-header" style="text-align: center; border-bottom: 2px solid var(--accent-gold); padding-bottom: 3rem;">
-        <div class="rec-subtitle" style="font-size: 1rem; color: var(--accent-gold); margin-bottom: 1rem;">PLAN WYŚCIGOWY</div>
+        <div class="rec-subtitle" style="font-size: 1rem; color: var(--accent-gold); margin-bottom: 1rem;">NASTĘPNE WYDARZENIA</div>
         <h2 style="font-size: 5rem; line-height: 0.9; margin-bottom: 1.5rem;">${{nextRace.track || 'Nieznany tor'}}</h2>
         <div class="rec-subtitle" style="font-size: 1.2rem; letter-spacing: 0.3em;">S${{nextRace.season}}R${{nextRace.race}} · ${{nextRace.total_laps || 72}} OKRĄŻEŃ</div>
 
@@ -1938,49 +1832,56 @@ function renderPrediction(container) {{
             </div>
             <div class="rec-subtitle" style="margin-top: 0.5rem; font-size: 0.7rem;">PEWNOŚĆ: ${{confidence.toUpperCase()}} — ${{confidenceReason}}</div>
         </div>
+
+        <div id="deployBtnContainer"></div>
     </div>`;
 
     // =============================================
-    // 2. SESJE: Practice, Q1, Q2, Race
+    // 2. SEKWENCJA ZDARZEŃ
     // =============================================
-    const sessionOrder = ['practice', 'q1', 'q2', 'race'];
-    const sessionNames = {{ practice: 'Practice', q1: 'Q1', q2: 'Q2', race: 'Race' }};
+    html += `<div class="step-container">`;
 
-    sessionOrder.forEach(sessionKey => {{
-        const session = sessions[sessionKey] || {{}};
-        if (!session.setup) return;
+    sequence.forEach(step => {{
+        const isCompleted = step.completed;
+        const isNext = step.is_next;
+        const statusClass = isCompleted ? 'completed' : (isNext ? 'next' : 'future');
+        const statusLabel = isCompleted ? 'UKOŃCZONE' : (isNext ? 'TWÓJ NASTĘPNY KROK' : 'W PRZYSZŁOŚCI');
 
-        const s = session.setup;
-        const sessionName = sessionNames[sessionKey];
-
-        html += `<div class="session-card ${{sessionKey}}">`;
-        html += `<div class="session-header">`;
-        html += `<h4>${{sessionName}}</h4>`;
-        html += `<span class="session-badge">${{session.tyres || '?'}} tyres</span>`;
+        html += `<div class="step-card ${{statusClass}}">`;
+        html += `<div class="step-header">`;
+        html += `<div class="step-title">${{step.id}}</div>`;
+        html += `<div class="step-status">${{statusLabel}}</div>`;
         html += `</div>`;
 
         html += `<div class="session-meta">`;
-        html += `<span>🌡️ ${{session.temp || '?'}}°C</span>`;
-        html += `<span>🌧️ ${{session.weather || 'dry'}}</span>`;
-        if (session.fuel_start) {{
-            html += `<span>⛽ ${{session.fuel_start}}L start</span>`;
+        html += `<span>🌡️ ${{step.temp || '?'}}°C</span>`;
+        html += `<span>🛞 ${{step.tyres || '?'}}</span>`;
+        if (step.id === 'Race' && step.fuel_strategy) {{
+             html += `<span>⛽ ${{step.fuel_strategy.pits}} PIT STOPS</span>`;
         }}
         html += `</div>`;
 
-        html += `<div class="session-setup">`;
-        ['fw', 'rw', 'eng', 'bra', 'gear', 'susp'].forEach(key => {{
-            html += `<div class="setup-part"><span class="label">${{key.toUpperCase()}}</span> <span class="value">${{s[key] || 0}}</span></div>`;
-        }});
-        html += `</div>`;
-
-        if (session.note) {{
-            html += `<div class="session-note">${{session.note}}</div>`;
+        if (step.setup) {{
+            html += `<div class="setup-display">`;
+            ['fw', 'rw', 'eng', 'bra', 'gear', 'susp'].forEach(k => {{
+                html += `<div class="setup-box"><div class="label">${{k.toUpperCase()}}</div><div class="value">${{step.setup[k] || '-'}}</div></div>`;
+            }});
+            html += `</div>`;
+        }} else {{
+            html += `<div style="padding: 2rem; text-align: center; color: #444; font-size: 0.8rem; border: 1px dashed #222; margin: 1rem 0;">PARAMETRY ZOSTANĄ WYGENEROWANE PO UKOŃCZENIU POPRZEDNIEGO KROKU</div>`;
         }}
 
-        // Fuel strategy for race
-        if (sessionKey === 'race' && session.fuel_strategy) {{
-            const fs = session.fuel_strategy;
-            html += `<div class="fuel-stint-bar">`;
+        if (step.feedback) {{
+            html += `<div class="feedback-box"><span>FEEDBACK:</span> ${{step.feedback}}</div>`;
+        }}
+
+        if (step.note) {{
+            html += `<div class="session-note" style="margin-top: 1rem; color: var(--accent-gold); font-weight: 700;">${{step.note}}</div>`;
+        }}
+
+        if (step.id === 'Race' && step.fuel_strategy) {{
+            const fs = step.fuel_strategy;
+            html += `<div class="fuel-stint-bar" style="margin-top: 1.5rem;">`;
             (fs.stints || []).forEach((fuel, i) => {{
                 if (i > 0) html += `<span class="arrow">→</span>`;
                 html += `<span class="stint">${{fuel}}L</span>`;
@@ -1988,274 +1889,43 @@ function renderPrediction(container) {{
             html += `<span class="arrow">→</span>`;
             html += `<span class="stint" style="background:var(--accent-blue)">META</span>`;
             html += `</div>`;
-            html += `<div class="session-meta" style="margin-top:0.25rem"><span>⛽ ${{fs.pits || 0}} pit stops</span></div>`;
         }}
 
         html += `</div>`;
     }});
 
-    // =============================================
-    // 3. STRATEGIA PALIWOWA & SETUP SUMMARY
-    // =============================================
-    html += `<div class="rec-grid" style="margin-top: 1rem;">`;
-
-    // SETUP Q2
-    html += `<div class="rec-card"><h3>SETUP Q2</h3>`;
-    html += `<div class="setup-values">`;
-    const q2 = pred.setup_q2 || {{}};
-    ['fw', 'rw', 'eng', 'bra', 'gear', 'susp'].forEach(key => {{
-        const val = q2[key] || 0;
-        const baseVal = (base.setup || base)[key] || 0;
-        const diff = val - baseVal;
-        const diffClass = diff > 0 ? 'positive' : (diff < 0 ? 'negative' : '');
-        const diffSign = diff > 0 ? '+' : '';
-        html += `
-        <div class="setup-item">
-            <div class="setup-label">${{key.toUpperCase()}}</div>
-            <div class="setup-val">${{val}}</div>
-            <span class="adjustment-badge ${{diffClass}}">${{diffSign}}${{diff}}</span>
-        </div>`;
-    }});
-    html += `</div>`;
-    html += `<div class="setup-meta" style="margin-top: 1rem;">Baza: ${{base.track || '?'}} (${{base.temp || '?'}}°C) → Q2: ${{q2.temp || '?'}}°C</div>`;
     html += `</div>`;
 
-    // SETUP RACE
-    html += `<div class="rec-card"><h3>SETUP RACE</h3>`;
-    html += `<div class="setup-values">`;
-    const race = pred.setup_race || {{}};
-    ['fw', 'rw', 'eng', 'bra', 'gear', 'susp'].forEach(key => {{
-        const val = race[key] || 0;
-        const baseVal = (base.setup || base)[key] || 0;
-        const diff = val - baseVal;
-        const diffClass = diff > 0 ? 'positive' : (diff < 0 ? 'negative' : '');
-        const diffSign = diff > 0 ? '+' : '';
-        html += `
-        <div class="setup-item">
-            <div class="setup-label">${{key.toUpperCase()}}</div>
-            <div class="setup-val" style="color: var(--accent-gold);">${{val}}</div>
-            <span class="adjustment-badge ${{diffClass}}">${{diffSign}}${{diff}}</span>
-        </div>`;
-    }});
-    html += `</div>`;
-    html += `<div class="setup-meta" style="margin-top: 1rem;">Race Temp: ${{race.temp || '?'}}°C</div>`;
+    // =============================================
+    // 3. PODSUMOWANIE STRATEGII
+    // =============================================
+    html += `<div class="rec-grid" style="margin-top: 2rem;">`;
+
+    // Paliwo
+    html += `<div class="rec-card"><h3>STRATEGIA PALIWOWA</h3>`;
+    html += `<div class="rec-row"><span class="rec-label">Zużycie</span><span class="rec-value">~${{fuelStrategy.fuel_per_lap || 0}} L/lap</span></div>`;
+    html += `<div class="rec-row"><span class="rec-label">Pit stopy</span><span class="rec-value">${{fuelStrategy.recommended?.pits || 0}}</span></div>`;
     html += `</div>`;
 
-    html += `</div>`; // zamknięcie rec-grid
-
-    html += `<div class="rec-grid" style="margin-top:1rem">`;
-
-    // =============================================
-    // 4. STRATEGIA PALIWOWA
-    // =============================================
-    html += `<div class="rec-card"><h3>Paliwo</h3>`;
-    const fuelPerLap = fuelStrategy.fuel_per_lap || 0;
-    const raceTotalLaps = nextRace.total_laps || 72;
-    const recommended = fuelStrategy.recommended || {{}};
-    const alternative = fuelStrategy.alternative || {{}};
-
-    html += `<div class="rec-row"><span class="rec-label">Zużycie</span><span class="rec-value">~${{fuelPerLap}} L/lap</span></div>`;
-    html += `<div class="rec-row"><span class="rec-label">Okrążenia</span><span>${{raceTotalLaps}}</span></div>`;
-    html += `<div class="rec-row"><span class="rec-label">Pit stopy</span><span class="rec-value">${{recommended.pits || 0}}</span></div>`;
-
-    // Rekomendowana strategia
-    if (recommended.stints && recommended.stints.length > 0) {{
-        html += `<div class="fuel-strategy">`;
-        html += `<div class="strategy-name">Rekomendowana:</div>`;
-        html += `<div class="strategy-visual">`;
-        recommended.stints.forEach((fuel, i) => {{
-            if (i > 0) html += `<span class="arrow">→</span>`;
-            html += `<div class="pit-stop">${{fuel}}L</div>`;
-        }});
-        html += `<span class="arrow">→</span>`;
-        html += `<div class="finish">META</div>`;
-        html += `</div>`;
-        html += `</div>`;
-    }}
-
-    // Alternatywna strategia
-    if (alternative.stints && alternative.stints.length > 0 && alternative.pits !== recommended.pits) {{
-        html += `<div class="fuel-strategy" style="margin-top:0.5rem">`;
-        html += `<div class="strategy-name">Alternatywa (${{alternative.pits}} pitty):</div>`;
-        html += `<div class="strategy-visual">`;
-        alternative.stints.forEach((fuel, i) => {{
-            if (i > 0) html += `<span class="arrow">→</span>`;
-            html += `<div class="pit-stop">${{fuel}}L</div>`;
-        }});
-        html += `<span class="arrow">→</span>`;
-        html += `<div class="finish">META</div>`;
-        html += `</div>`;
-        html += `</div>`;
-    }}
+    // Opony
+    html += `<div class="rec-card"><h3>STRATEGIA OPONOWA</h3>`;
+    html += `<div class="rec-row"><span class="rec-label">Żywotność</span><span class="rec-value">~${{tyreStrategy.est_tyre_life_laps || 0}} okr</span></div>`;
+    html += `<div class="rec-row"><span class="rec-label">Bottleneck</span><span class="rec-value">${{(tyreStrategy.bottleneck || '').toUpperCase()}}</span></div>`;
+    html += `</div>`;
 
     html += `</div>`;
 
     // =============================================
-    // 4.5. STRATEGIA OPONOWA
-    // =============================================
-    html += `<div class="rec-card"><h3>Opony</h3>`;
-    const tyreStrategy = pred.tyre_strategy || {{}};
-    const estTyreLife = tyreStrategy.est_tyre_life_laps || 0;
-    const lapsOnFuel = tyreStrategy.laps_on_fuel || 0;
-    const bottleneck = tyreStrategy.bottleneck || 'unknown';
-    const bottleneckExpl = tyreStrategy.bottleneck_explanation || '';
-
-    html += `<div class="rec-row"><span class="rec-label">Żywotność</span><span class="rec-value">~${{estTyreLife}} okr</span></div>`;
-    html += `<div class="rec-row"><span class="rec-label">Okrążeń na baku</span><span>~${{lapsOnFuel}}</span></div>`;
-    html += `<div class="rec-row"><span class="rec-label">Bottleneck</span><span class="rec-value">${{bottleneck.toUpperCase()}}</span></div>`;
-    html += `<p style="margin-top:0.5rem;font-size:0.8rem;color:var(--text-secondary)">${{bottleneckExpl}}</p>`;
-    html += `</div>`;
-
-    // =============================================
-    // 5. MARGINES KIEROWCY
-    // =============================================
-    html += `<div class="rec-card"><h3>Kierowca</h3>`;
-    const ma = driverMargin.MA || 0;
-    const halfMa = driverMargin.half_MA || 0;
-    const note = driverMargin.note || '';
-
-    html += `<div class="rec-row"><span class="rec-label">Margines</span><span class="rec-value">±${{halfMa}} pkt</span></div>`;
-    html += `<div class="rec-row"><span class="rec-label">MA</span><span>${{ma}}</span></div>`;
-    html += `<p style="margin-top:0.5rem;font-size:0.85rem;color:var(--text-secondary)">${{note}}</p>`;
-    html += `</div>`;
-
-    html += `</div>`; // zamknięcie rec-grid
-
-    // =============================================
-    // 6. PLAN TRENINGOWY (INTERAKTYWNY)
-    // =============================================
-    html += `<div class="rec-card" style="margin-top:1rem; border-left: 4px solid var(--accent-gold);"><h3>Plan treningowy (Interaktywny)</h3>`;
-    
-    const practiceSetup = pred.sessions?.practice?.setup || pred.setup_practice || {{}};
-    const practiceTemp = pred.sessions?.practice?.temp || pred.setup_practice?.temp || 20;
-    const practicePlan = pred.practice_plan || {{}};
-    const laps = practicePlan.laps || [];
-    const priorityNote = practicePlan.priority_note || '';
-    
-    let practiceState = {{ lapsCompleted: 0, comments: {{}} }};
-    try {{
-        const saved = localStorage.getItem('gpro_practice_state');
-        if (saved) practiceState = JSON.parse(saved);
-    }} catch (e) {{}}
-    
-    const lapsCompleted = practiceState.lapsCompleted || 0;
-    const comments = practiceState.comments || {{}};
-    const totalLaps = 8;
-    const currentLap = lapsCompleted + 1;
-    
-    let currentSetup = {{...practiceSetup}};
-    const satisfiedWords = ['satisfied', 'happy', 'perfect'];
-    const commentCorrections = {{
-        'grip': {{fw: 20, rw: 20}}, 'unstable': {{fw: 30, rw: 30}}, 'understeer': {{fw: 15}}, 'oversteer': {{rw: 15}},
-        'too much front': {{fw: -20}}, 'too much rear': {{rw: -20}}, 'engine power': {{eng: 20}}, 'engine feels weak': {{eng: 25}},
-        'rigid': {{susp: -20}}, 'too soft': {{susp: 20}}, 'not effective': {{bra: 20}}, 'top speed': {{gear: 15}}
-    }};
-    
-    for (let lapNum = 1; lapNum <= lapsCompleted; lapNum++) {{
-        const comment = (comments[lapNum] || '').toLowerCase();
-        if (!comment || satisfiedWords.some(w => comment.includes(w))) continue;
-        for (const [kw, corr] of Object.entries(commentCorrections)) {{
-            if (comment.includes(kw)) {{
-                for (const [s, v] of Object.entries(corr)) {{
-                    const mult = (driverMargin.half_MA || 50) > 60 ? 1.0 : 0.7;
-                    currentSetup[s] = Math.max(0, Math.min(999, (currentSetup[s] || 500) + Math.round(v * mult)));
-                }}
-            }}
-        }}
-    }}
-
-    html += `<div class="driver-stats-mini" style="margin-top: 1rem;">`;
-    html += `<div class="driver-stat-mini"><div class="label">Okrążenie</div><div class="value" style="color:var(--accent-gold)">${{currentLap}}/${{totalLaps}}</div></div>`;
-    html += `<div class="driver-stat-mini"><div class="label">Temp</div><div class="value">${{practiceTemp}}°C</div></div>`;
-    html += `<div class="driver-stat-mini"><div class="label">Opony</div><div class="value">${{pred.sessions?.practice?.tyres || 'medium'}}</div></div>`;
-    html += `</div>`;
-    
-    html += `<div class="practice-timeline">`;
-    ['P1','P2','P3','P4','P5','P6','P7','P8'].forEach((step, i) => {{
-        const lapNum = i + 1;
-        const status = lapNum < currentLap ? 'completed' : (lapNum === currentLap ? 'current' : '');
-        html += `<div class="timeline-step ${{status}}"><div class="timeline-dot">${{lapNum}}</div><div class="timeline-label">${{step}}</div></div>`;
-    }});
-    html += `</div>`;
-
-    if (lapsCompleted > 0 && comments[lapsCompleted]) {{
-        const prevComment = comments[lapsCompleted];
-        const isSatisfied = satisfiedWords.some(w => prevComment.toLowerCase().includes(w));
-        html += `<div class="lap-card current" style="margin-bottom:1rem"><div class="lap-header"><h3>Okrążenie ${{lapsCompleted}} - FEEDBACK</h3><span class="lap-badge ${{isSatisfied ? 'done' : 'next'}}">${{isSatisfied ? '✓ OK' : '⚠ Korekta'}}</span></div><div class="lap-instruction"><div class="instruction" style="font-size:0.9rem">${{prevComment}}</div></div></div>`;
-    }}
-
-    if (currentLap <= totalLaps) {{
-        const lap = laps.find(l => l.lap === currentLap) || {{ action: 'Test setup', note: 'Adjust based on feedback' }};
-        let suggestedSetup = {{...currentSetup}};
-        const halfMa = driverMargin.half_MA || 50;
-        if (currentLap === 2) {{ suggestedSetup.fw += halfMa; suggestedSetup.rw += halfMa; }}
-        else if (currentLap === 3) {{ suggestedSetup.fw += halfMa + Math.floor(halfMa/2); suggestedSetup.rw += halfMa + Math.floor(halfMa/2); }}
-        else if (currentLap === 4) {{ suggestedSetup.fw -= halfMa; suggestedSetup.rw -= halfMa; }}
-        else if (currentLap > 4) {{ const off = Math.floor(halfMa / (currentLap - 2)); suggestedSetup.fw = currentSetup.fw - halfMa + off; suggestedSetup.rw = currentSetup.rw - halfMa + off; }}
-
-        html += `<div class="lap-card current">`;
-        html += `<div class="lap-header"><h3>Lap ${{currentLap}} - SUGEROWANY SETUP</h3><span class="lap-badge next">▶ Teraz</span></div>`;
-        html += `<div class="lap-setup">`;
-        ['fw', 'rw', 'eng', 'bra', 'gear', 'susp'].forEach(k => {{ html += `<div class="setup-chip"><span class="label">${{k.toUpperCase()}}</span><span class="value">${{suggestedSetup[k] || 0}}</span></div>`; }});
-        html += `</div><div class="lap-instruction"><div class="instruction">${{lap.action}}</div><div class="note">${{lap.note}}</div></div>`;
-        html += `<div style="margin-top:1.5rem;padding:1rem;background:#181818;border:1px solid #333"><div style="font-size:0.7rem;color:var(--text-muted);margin-bottom:0.5rem">Wklej komentarz kierowcy:</div><input type="text" id="driverCommentInput" placeholder="np. Wings: I am missing a bit of grip" style="width:100%;padding:0.5rem;background:#000;color:#fff;border:1px solid #333;margin-bottom:0.5rem"><button onclick="completeLap()" style="background:#FFC000;color:#000;padding:0.5rem 1rem;border:none;cursor:pointer;font-weight:700">ZAPISZ KOMENTARZ &raquo;</button></div></div>`;
-    }}
-
-    html += `<p style="margin-top:0.75rem;font-size:0.8rem;color:var(--text-secondary)">${{priorityNote}}</p>`;
-    if (lapsCompleted > 0) html += `<button onclick="resetPractice()" style="margin-top: 1rem; background:transparent; color:var(--accent-red); border:1px solid var(--accent-red); padding:0.3rem 0.6rem; font-size:0.6rem; cursor:pointer; text-transform:uppercase;">Resetuj postęp praktyki</button>`;
-    html += `</div>`;
-
-    // =============================================
-    // 7. NOTATKI
+    // 4. NOTATKI
     // =============================================
     if (notes && notes.length > 0) {{
-        html += `<div class="rec-card" style="margin-top:1rem; background: var(--bg-card);"><h3>Notatki</h3>`;
-        html += `<div class="notes-list">`;
-        html += `<ul>`;
-        notes.forEach(note => {{
-            html += `<li>${{note}}</li>`;
-        }});
-        html += `</ul>`;
-        html += `</div>`;
-        html += `</div>`;
+        html += `<div class="rec-card" style="margin-top:1rem; background: var(--bg-card);"><h3>Wskazówki</h3>`;
+        html += `<div class="notes-list"><ul>`;
+        notes.forEach(note => {{ html += `<li>${{note}}</li>`; }});
+        html += `</ul></div></div>`;
     }}
 
     container.innerHTML = html;
-}}
-
-// ==========================================================
-// ZAKŁADKA: PRAKTYKA - Binary Search Setup
-// Mini-lekcja: Pokazuje rekomendowany setup per lap praktyki
-// zgodnie z binary search methodology z Calc.
-// ==========================================================
-function completeLap() {{
-    const input = document.getElementById('driverCommentInput');
-    const comment = input.value.trim();
-    
-    if (!comment) {{
-        alert('Wpisz komentarz kierowcy!');
-        return;
-    }}
-    
-    let practiceState = {{ lapsCompleted: 0, comments: {{}} }};
-    try {{
-        const saved = localStorage.getItem('gpro_practice_state');
-        if (saved) practiceState = JSON.parse(saved);
-    }} catch (e) {{}}
-    
-    const nextLap = practiceState.lapsCompleted + 1;
-    practiceState.comments[nextLap] = comment;
-    practiceState.lapsCompleted = nextLap;
-    
-    localStorage.setItem('gpro_practice_state', JSON.stringify(practiceState));
-    renderNextRace();
-}}
-
-function resetPractice() {{
-    if (confirm('Czy na pewno chcesz zresetować postęp praktyki?')) {{
-        localStorage.removeItem('gpro_practice_state');
-        renderNextRace();
-    }}
 }}
 
 function renderResults() {{
@@ -2581,9 +2251,36 @@ function renderDriver(latest) {{
     document.getElementById('tab-driver').innerHTML = html;
 }}
 
+// Funkcja generująca link do GitHub Actions
+function renderDeployButton() {{
+    const container = document.getElementById('deployBtnContainer');
+    if (!container) return;
+
+    // Próba wykrycia repozytorium z URL (format: https://username.github.io/repo/)
+    const pathParts = window.location.pathname.split('/').filter(p => p);
+    let repoUrl = 'https://github.com/';
+
+    if (window.location.hostname.includes('github.io')) {{
+        const user = window.location.hostname.split('.')[0];
+        const repo = pathParts[0] || '';
+        repoUrl += `${{user}}/${{repo}}`;
+    }} else {{
+        // Fallback dla lokalnego developmentu
+        repoUrl += 'user/repo';
+    }}
+
+    repoUrl += '/actions/workflows/fetch.yml';
+
+    container.innerHTML = `
+        <a href="${{repoUrl}}" target="_blank" class="deploy-btn">
+            <span>🚀 FETCH GPRO DATA & DEPLOY</span>
+        </a>`;
+}}
+
 // Start!
 window.onload = () => {{
     render();
+    renderDeployButton();
 
     // Initial visibility state based on active tab
     const activeBtn = document.querySelector('.tab-btn.active');
