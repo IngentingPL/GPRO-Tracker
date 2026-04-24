@@ -154,11 +154,11 @@
       "fuel_strategy": {
         "pits": 2,
         "stints": [
-          109,
-          109,
-          109
+          91,
+          91,
+          91
         ],
-        "total_fuel": 326
+        "total_fuel": 272
       },
       "note": "Final race strategy"
     }
@@ -168,21 +168,21 @@
     "recommended": {
       "pits": 2,
       "stints": [
-        109,
-        109,
-        109
+        91,
+        91,
+        91
       ],
-      "total_fuel": 326
+      "total_fuel": 272
     },
     "alternative": {
       "pits": 3,
       "stints": [
-        109,
-        109,
-        109,
-        109
+        91,
+        91,
+        91,
+        91
       ],
-      "total_fuel": 436
+      "total_fuel": 364
     }
   },
   "tyre_strategy": {
