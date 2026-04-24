@@ -1232,7 +1232,6 @@ def generate_html(race_data, prediction_data, calendar_data, current_context_dat
 <div class="tabs" id="tabsNav">
     <button class="tab-btn active" data-tab="overview">Przegląd</button>
     <button class="tab-btn" data-tab="nextrace">Następny wyścig</button>
-    <button class="tab-btn" data-tab="practice">Praktyka</button>
     <button class="tab-btn" data-tab="car">Bolid</button>
     <button class="tab-btn" data-tab="results">Wyniki</button>
     <button class="tab-btn" data-tab="setups">Setupy</button>
@@ -1244,7 +1243,6 @@ def generate_html(race_data, prediction_data, calendar_data, current_context_dat
 <!-- Zawartość zakładek -->
 <div class="tab-content active" id="tab-overview"></div>
 <div class="tab-content" id="tab-nextrace"></div>
-<div class="tab-content" id="tab-practice"></div>
 <div class="tab-content" id="tab-car"></div>
 <div class="tab-content" id="tab-results"></div>
 <div class="tab-content" id="tab-setups"></div>
@@ -1286,7 +1284,7 @@ document.querySelectorAll('.tab-btn').forEach(btn => {{
 
         // Hide main summary grid if Overview is selected
         const mainSummary = document.getElementById('mainSummaryContainer');
-        if (['overview', 'nextrace', 'practice', 'car'].includes(tabId)) {{
+        if (['overview', 'nextrace', 'car'].includes(tabId)) {{
             mainSummary.style.display = 'none';
         }} else {{
             mainSummary.style.display = 'block';
@@ -1686,7 +1684,6 @@ function render() {{
     // Renderuj podstawowe zakładki
     renderOverview();
     renderNextRace();
-    renderPractice();
     renderCar();
 
     const activeContext = getCurrentContext();
@@ -2053,12 +2050,12 @@ function renderPrediction(container) {{
     // =============================================
     html += `<div class="rec-card"><h3>Paliwo</h3>`;
     const fuelPerLap = fuelStrategy.fuel_per_lap || 0;
-    const totalLaps = nextRace.total_laps || 72;
+    const raceTotalLaps = nextRace.total_laps || 72;
     const recommended = fuelStrategy.recommended || {{}};
     const alternative = fuelStrategy.alternative || {{}};
 
     html += `<div class="rec-row"><span class="rec-label">Zużycie</span><span class="rec-value">~${{fuelPerLap}} L/lap</span></div>`;
-    html += `<div class="rec-row"><span class="rec-label">Okrążenia</span><span>${{totalLaps}}</span></div>`;
+    html += `<div class="rec-row"><span class="rec-label">Okrążenia</span><span>${{raceTotalLaps}}</span></div>`;
     html += `<div class="rec-row"><span class="rec-label">Pit stopy</span><span class="rec-value">${{recommended.pits || 0}}</span></div>`;
 
     // Rekomendowana strategia
@@ -2125,21 +2122,87 @@ function renderPrediction(container) {{
     html += `</div>`; // zamknięcie rec-grid
 
     // =============================================
-    // 6. PLAN TRENINGOWY
+    // 6. PLAN TRENINGOWY (INTERAKTYWNY)
     // =============================================
-    html += `<div class="rec-card" style="margin-top:1rem; border-left: 4px solid var(--accent-gold);"><h3>Plan treningowy</h3>`;
+    html += `<div class="rec-card" style="margin-top:1rem; border-left: 4px solid var(--accent-gold);"><h3>Plan treningowy (Interaktywny)</h3>`;
+    
+    const practiceSetup = pred.sessions?.practice?.setup || pred.setup_practice || {{}};
+    const practiceTemp = pred.sessions?.practice?.temp || pred.setup_practice?.temp || 20;
     const practicePlan = pred.practice_plan || {{}};
     const laps = practicePlan.laps || [];
     const priorityNote = practicePlan.priority_note || '';
+    
+    let practiceState = {{ lapsCompleted: 0, comments: {{}} }};
+    try {{
+        const saved = localStorage.getItem('gpro_practice_state');
+        if (saved) practiceState = JSON.parse(saved);
+    }} catch (e) {{}}
+    
+    const lapsCompleted = practiceState.lapsCompleted || 0;
+    const comments = practiceState.comments || {{}};
+    const totalLaps = 8;
+    const currentLap = lapsCompleted + 1;
+    
+    let currentSetup = {{...practiceSetup}};
+    const satisfiedWords = ['satisfied', 'happy', 'perfect'];
+    const commentCorrections = {{
+        'grip': {{fw: 20, rw: 20}}, 'unstable': {{fw: 30, rw: 30}}, 'understeer': {{fw: 15}}, 'oversteer': {{rw: 15}},
+        'too much front': {{fw: -20}}, 'too much rear': {{rw: -20}}, 'engine power': {{eng: 20}}, 'engine feels weak': {{eng: 25}},
+        'rigid': {{susp: -20}}, 'too soft': {{susp: 20}}, 'not effective': {{bra: 20}}, 'top speed': {{gear: 15}}
+    }};
+    
+    for (let lapNum = 1; lapNum <= lapsCompleted; lapNum++) {{
+        const comment = (comments[lapNum] || '').toLowerCase();
+        if (!comment || satisfiedWords.some(w => comment.includes(w))) continue;
+        for (const [kw, corr] of Object.entries(commentCorrections)) {{
+            if (comment.includes(kw)) {{
+                for (const [s, v] of Object.entries(corr)) {{
+                    const mult = (driverMargin.half_MA || 50) > 60 ? 1.0 : 0.7;
+                    currentSetup[s] = Math.max(0, Math.min(999, (currentSetup[s] || 500) + Math.round(v * mult)));
+                }}
+            }}
+        }}
+    }}
 
-    html += `<div class="notes-list">`;
-    html += `<ul>`;
-    laps.forEach(lap => {{
-        html += `<li><strong>Lap ${{lap.lap}}:</strong> ${{lap.action}} <span style="color:var(--text-muted)">${{lap.note}}</span></li>`;
-    }});
-    html += `</ul>`;
+    html += `<div class="driver-stats-mini" style="margin-top: 1rem;">`;
+    html += `<div class="driver-stat-mini"><div class="label">Okrążenie</div><div class="value" style="color:var(--accent-gold)">${{currentLap}}/${{totalLaps}}</div></div>`;
+    html += `<div class="driver-stat-mini"><div class="label">Temp</div><div class="value">${{practiceTemp}}°C</div></div>`;
+    html += `<div class="driver-stat-mini"><div class="label">Opony</div><div class="value">${{pred.sessions?.practice?.tyres || 'medium'}}</div></div>`;
     html += `</div>`;
+    
+    html += `<div class="practice-timeline">`;
+    ['P1','P2','P3','P4','P5','P6','P7','P8'].forEach((step, i) => {{
+        const lapNum = i + 1;
+        const status = lapNum < currentLap ? 'completed' : (lapNum === currentLap ? 'current' : '');
+        html += `<div class="timeline-step ${{status}}"><div class="timeline-dot">${{lapNum}}</div><div class="timeline-label">${{step}}</div></div>`;
+    }});
+    html += `</div>`;
+
+    if (lapsCompleted > 0 && comments[lapsCompleted]) {{
+        const prevComment = comments[lapsCompleted];
+        const isSatisfied = satisfiedWords.some(w => prevComment.toLowerCase().includes(w));
+        html += `<div class="lap-card current" style="margin-bottom:1rem"><div class="lap-header"><h3>Okrążenie ${{lapsCompleted}} - FEEDBACK</h3><span class="lap-badge ${{isSatisfied ? 'done' : 'next'}}">${{isSatisfied ? '✓ OK' : '⚠ Korekta'}}</span></div><div class="lap-instruction"><div class="instruction" style="font-size:0.9rem">${{prevComment}}</div></div></div>`;
+    }}
+
+    if (currentLap <= totalLaps) {{
+        const lap = laps.find(l => l.lap === currentLap) || {{ action: 'Test setup', note: 'Adjust based on feedback' }};
+        let suggestedSetup = {{...currentSetup}};
+        const halfMa = driverMargin.half_MA || 50;
+        if (currentLap === 2) {{ suggestedSetup.fw += halfMa; suggestedSetup.rw += halfMa; }}
+        else if (currentLap === 3) {{ suggestedSetup.fw += halfMa + Math.floor(halfMa/2); suggestedSetup.rw += halfMa + Math.floor(halfMa/2); }}
+        else if (currentLap === 4) {{ suggestedSetup.fw -= halfMa; suggestedSetup.rw -= halfMa; }}
+        else if (currentLap > 4) {{ const off = Math.floor(halfMa / (currentLap - 2)); suggestedSetup.fw = currentSetup.fw - halfMa + off; suggestedSetup.rw = currentSetup.rw - halfMa + off; }}
+
+        html += `<div class="lap-card current">`;
+        html += `<div class="lap-header"><h3>Lap ${{currentLap}} - SUGEROWANY SETUP</h3><span class="lap-badge next">▶ Teraz</span></div>`;
+        html += `<div class="lap-setup">`;
+        ['fw', 'rw', 'eng', 'bra', 'gear', 'susp'].forEach(k => {{ html += `<div class="setup-chip"><span class="label">${{k.toUpperCase()}}</span><span class="value">${{suggestedSetup[k] || 0}}</span></div>`; }});
+        html += `</div><div class="lap-instruction"><div class="instruction">${{lap.action}}</div><div class="note">${{lap.note}}</div></div>`;
+        html += `<div style="margin-top:1.5rem;padding:1rem;background:#181818;border:1px solid #333"><div style="font-size:0.7rem;color:var(--text-muted);margin-bottom:0.5rem">Wklej komentarz kierowcy:</div><input type="text" id="driverCommentInput" placeholder="np. Wings: I am missing a bit of grip" style="width:100%;padding:0.5rem;background:#000;color:#fff;border:1px solid #333;margin-bottom:0.5rem"><button onclick="completeLap()" style="background:#FFC000;color:#000;padding:0.5rem 1rem;border:none;cursor:pointer;font-weight:700">ZAPISZ KOMENTARZ &raquo;</button></div></div>`;
+    }}
+
     html += `<p style="margin-top:0.75rem;font-size:0.8rem;color:var(--text-secondary)">${{priorityNote}}</p>`;
+    if (lapsCompleted > 0) html += `<button onclick="resetPractice()" style="margin-top: 1rem; background:transparent; color:var(--accent-red); border:1px solid var(--accent-red); padding:0.3rem 0.6rem; font-size:0.6rem; cursor:pointer; text-transform:uppercase;">Resetuj postęp praktyki</button>`;
     html += `</div>`;
 
     // =============================================
@@ -2165,304 +2228,6 @@ function renderPrediction(container) {{
 // Mini-lekcja: Pokazuje rekomendowany setup per lap praktyki
 // zgodnie z binary search methodology z Calc.
 // ==========================================================
-function renderPractice() {{
-    const container = document.getElementById('tab-practice');
-    
-    if (!PREDICTION_DATA) {{
-        container.innerHTML = `
-            <div class="empty-state">
-                <h2>Brak danych predykcji</h2>
-                <p>Uruchom predictor.py żeby wygenerować setup:</p>
-                <p style="margin-top:1rem"><code>python predictor.py</code></p>
-            </div>`;
-        return;
-    }}
-    
-    const pred = PREDICTION_DATA;
-    const predictionContext = resolvePredictionContext(pred);
-    if (predictionContext.isStale) {{
-        const nextRace = predictionContext.nextRace || {{}};
-        container.innerHTML = `
-            <div class="empty-state">
-                <h2>Practice map wymaga odświeżenia predykcji</h2>
-                <p>${{predictionContext.staleReason}}</p>
-                <p style="margin-top:1rem">Aktualny następny wyścig: <strong>${{nextRace.track || 'Nieznany tor'}}</strong> (Sezon ${{nextRace.season || '?'}}, Wyścig ${{nextRace.race || '?'}})</p>
-                <p style="margin-top:1rem"><code>python predictor.py</code></p>
-            </div>`;
-        return;
-    }}
-    const nextRace = predictionContext.nextRace || pred.next_race || {{}};
-    const driverMargin = pred.driver_margin || {{}};
-    const practiceSetup = pred.sessions?.practice?.setup || pred.setup_practice || {{}};
-    const practiceTemp = pred.sessions?.practice?.temp || pred.setup_practice?.temp || 20;
-    const practicePlan = pred.practice_plan || {{}};
-    const laps = practicePlan.laps || [];
-    
-    // Get laps completed and comments from localStorage
-    let practiceState = {{ lapsCompleted: 0, comments: {{}} }};
-    try {{
-        const saved = localStorage.getItem('gpro_practice_state');
-        if (saved) {{
-            practiceState = JSON.parse(saved);
-        }}
-    }} catch (e) {{}}
-    
-    const lapsCompleted = practiceState.lapsCompleted || 0;
-    const comments = practiceState.comments || {{}};
-    const totalLaps = 8;
-    const currentLap = lapsCompleted + 1;
-    
-    // Calculate current setup based on comments
-    let currentSetup = {{...practiceSetup}};
-    
-    const commentCorrections = {{
-        'grip': {{fw: +20, rw: +20}},
-        'unstable': {{fw: +30, rw: +30}},
-        'understeer': {{fw: +15}},
-        'oversteer': {{rw: +15}},
-        'too much front': {{fw: -20}},
-        'too much rear': {{rw: -20}},
-        'engine power': {{eng: +20}},
-        'engine feels weak': {{eng: +25}},
-        'rigid': {{susp: -20}},
-        'too soft': {{susp: +20}},
-        'not effective': {{bra: +20}},
-        'top speed': {{gear: +15}},
-    }};
-    
-    const satisfiedWords = ['satisfied', 'happy', 'perfect'];
-    
-    // Apply corrections from stored comments
-    for (let lapNum = 1; lapNum <= lapsCompleted; lapNum++) {{
-        const comment = comments[lapNum] || '';
-        if (!comment) continue;
-        const normalized = comment.toLowerCase();
-        
-        let isSatisfied = false;
-        for (const word of satisfiedWords) {{
-            if (normalized.includes(word)) {{ isSatisfied = true; break; }}
-        }}
-        if (isSatisfied) continue;
-        
-        for (const [keyword, corrections] of Object.entries(commentCorrections)) {{
-            if (normalized.includes(keyword)) {{
-                for (const [setting, change] of Object.entries(corrections)) {{
-                    const multiplier = halfMa > 60 ? 1.0 : 0.7;
-                    currentSetup[setting] = Math.max(0, Math.min(999, (currentSetup[setting] || 500) + Math.round(change * multiplier)));
-                }}
-            }}
-        }}
-    }}
-    
-    let html = '';
-    
-    // Nagłówek
-    html += `<div class="practice-header">`;
-    html += `<h2>Praktyka - Setup krokowy</h2>`;
-    html += `<div class="track-info">${{nextRace.track || 'Nieznany tor'}} · Sezon ${{nextRace.season || '?'}} · Wyścig ${{nextRace.race || '?'}}</div>`;
-    html += `</div>`;
-    
-    // Driver stats mini
-    const ma = driverMargin.MA || 0;
-    const halfMa = driverMargin.half_MA || 0;
-    html += `<div class="driver-stats-mini">`;
-    html += `<div class="driver-stat-mini"><div class="label">Okrążenie</div><div class="value" style="color:var(--accent-yellow)">${{currentLap}}/${{totalLaps}}</div></div>`;
-    html += `<div class="driver-stat-mini"><div class="label">Temp</div><div class="value">${{practiceTemp}}°C</div></div>`;
-    html += `<div class="driver-stat-mini"><div class="label">Opony</div><div class="value">${{pred.sessions?.practice?.tyres || 'medium'}}</div></div>`;
-    html += `</div>`;
-    
-    // Show current lap comment if any
-    if (lapsCompleted > 0 && comments[lapsCompleted]) {{
-        const prevComment = comments[lapsCompleted];
-        const normalized = prevComment.toLowerCase();
-        const isSatisfied = satisfiedWords.some(w => normalized.includes(w));
-        
-        html += `<div class="lap-card current" style="margin-bottom:1rem">`;
-        html += `<div class="lap-header">`;
-        html += `<h3>Komentarz z okrążenia ${{lapsCompleted}}</h3>`;
-        html += `<span class="lap-badge ${{isSatisfied ? 'done' : 'next'}}">${{isSatisfied ? '✓ Zadowolony' : '⚠ Wymaga korekty'}}</span>`;
-        html += `</div>`;
-        html += `<div class="lap-instruction">`;
-        html += `<div class="instruction" style="font-size:0.9rem">${{prevComment}}</div>`;
-        html += `</div>`;
-        html += `</div>`;
-    }}
-    
-    // Driver stats mini
-    // (ma and halfMa already declared above)
-    html += `<div class="driver-stats-mini">`;
-    html += `<div class="driver-stat-mini"><div class="label">Margines</div><div class="value" style="color:var(--accent-yellow)">${{halfMa}}</div></div>`;
-    html += `<div class="driver-stat-mini"><div class="label">MA</div><div class="value">${{ma}}</div></div>`;
-    html += `<div class="driver-stat-mini"><div class="label">Temp</div><div class="value">${{practiceTemp}}°C</div></div>`;
-    html += `<div class="driver-stat-mini"><div class="label">Opony</div><div class="value">${{pred.sessions?.practice?.tyres || 'medium'}}</div></div>`;
-    html += `</div>`;
-    
-    // Timeline
-    html += `<div class="practice-timeline">`;
-    const steps = ['P1', 'P2', 'P3', 'P4', 'P5', 'P6', 'P7', 'P8'];
-    // currentLap is already set above
-    steps.forEach((step, i) => {{
-        const lapNum = i + 1;
-        const isDone = lapNum < currentLap;
-        const isCurrent = lapNum === currentLap;
-        const statusClass = isDone ? 'completed' : (isCurrent ? 'current' : '');
-    html += `<div class="timeline-step ${{statusClass}}">`;
-    html += `<div class="timeline-dot">${{lapNum}}</div>`;
-    html += `<div class="timeline-label">${{step}}</div>`;
-        html += `</div>`;
-    }});
-    html += `</div>`;
-    
-    // Lap cards
-    laps.forEach((lap, i) => {{
-        const lapNum = lap.lap;
-        const isDone = lapNum < currentLap;
-        const isCurrent = lapNum === currentLap;
-        
-        // Use currentSetup that has been adjusted based on comments
-        let suggestedSetup = {{...currentSetup}};
-        if (lapNum === 1) {{
-            // First lap - use current setup (possibly adjusted by comments)
-        }} else if (lapNum === 2) {{
-            // After lap 1 feedback, try +halfMa if not satisfied
-            suggestedSetup.fw = currentSetup.fw + halfMa;
-            suggestedSetup.rw = currentSetup.rw + halfMa;
-        }} else if (lapNum === 3) {{
-            // Continue in direction from lap 2
-            suggestedSetup.fw = currentSetup.fw + halfMa + Math.floor(halfMa/2);
-            suggestedSetup.rw = currentSetup.rw + halfMa + Math.floor(halfMa/2);
-        }} else if (lapNum === 4) {{
-            // Change direction
-            suggestedSetup.fw = currentSetup.fw - halfMa;
-            suggestedSetup.rw = currentSetup.rw - halfMa;
-        }} else {{
-            // Narrow down binary search
-            const offset = Math.floor(halfMa / (lapNum - 2));
-            suggestedSetup.fw = currentSetup.fw - halfMa + offset;
-            suggestedSetup.rw = currentSetup.rw - halfMa + offset;
-        }}
-        
-        html += `<div class="lap-card ${{isCurrent ? 'current' : ''}} ${{isDone ? 'done' : ''}}">`;
-        
-        // Lap header
-        html += `<div class="lap-header">`;
-        html += `<h3>Lap ${{lapNum}}</h3>`;
-        if (isDone) {{
-            html += `<span class="lap-badge done">✓ Wykonane</span>`;
-        }} else if (isCurrent) {{
-            html += `<span class="lap-badge next">▶ Teraz</span>`;
-        }} else {{
-            html += `<span class="lap-badge pending">⏳ Dalej</span>`;
-        }}
-        html += `</div>`; // lap-header
-        
-        // Setup chips
-        html += `<div class="lap-setup">`;
-        ['fw', 'rw', 'eng', 'bra', 'gear', 'susp'].forEach(key => {{
-            const val = suggestedSetup[key] || 0;
-            html += `<div class="setup-chip">`;
-            html += `<span class="label">${{key.toUpperCase()}}</span>`;
-            html += `<span class="value">${{val}}</span>`;
-            html += `</div>`;
-        }});
-        html += `</div>`;
-        
-        // Binary search visual
-        if (!isDone) {{
-            html += `<div class="binary-search-visual">`;
-            if (lapNum === 1) {{
-                html += `<div class="search-range">Start: ${{practiceSetup.fw - halfMa}} → ${{practiceSetup.fw + halfMa}}</div>`;
-            }} else if (lapNum === 2) {{
-                html += `<div class="search-arrow">Jeśli nie satisfied → FW +${{halfMa}}</div>`;
-            }} else if (lapNum === 4) {{
-                html += `<div class="search-arrow">Jeśli gorszy → zmień kierunek</div>`;
-            }} else {{
-                html += `<div class="search-range">Zawężanie ±${{Math.floor(halfMa / (lapNum - 2))}}</div>`;
-            }}
-            html += `</div>`;
-        }}
-        
-        // Instruction
-        if (!isDone) {{
-            html += `<div class="lap-instruction">`;
-            html += `<div class="instruction">${{lap.action}}</div>`;
-            html += `<div class="note">${{lap.note}}</div>`;
-            html += `</div>`;
-        }}
-        
-        html += `</div>`;
-    }});
-    
-    // Test input for simulating lap completion
-    if (currentLap <= totalLaps) {{
-        html += `<div style="margin-top:1.5rem;padding:1rem;background:#181818;border:1px solid #333">`;
-        html += `<div style="font-size:0.7rem;color:var(--text-muted);margin-bottom:0.5rem">Wpisz komentarz kierowcy z gry po wykonaniu okrążenia:</div>`;
-        html += `<input type="text" id="driverCommentInput" placeholder="np. Wings: I am missing a bit of grip" style="width:100%;padding:0.5rem;background:#000;color:#fff;border:1px solid #333;margin-bottom:0.5rem">`;
-        html += `<button onclick="completeLap()" style="background:#FFC000;color:#000;padding:0.5rem 1rem;border:none;cursor:pointer;font-weight:700">Zapisz komentarz &raquo;</button>`;
-        html += `</div>`;
-    }}
-    
-    // Session summary - Q1 after practice
-    html += `<div class="session-summary">`;
-    html += `<h3>📊 Po praktyce → Q1 Setup</h3>`;
-    const q1Setup = pred.sessions?.q1?.setup || pred.setup_q1 || {{}};
-    html += `<div class="lap-setup">`;
-    ['fw', 'rw', 'eng', 'bra', 'gear', 'susp'].forEach(key => {{
-        const val = q1Setup[key] || 0;
-        html += `<div class="setup-chip">`;
-        html += `<span class="label">${{key.toUpperCase()}}</span>`;
-        html += `<span class="value">${{val}}</span>`;
-        html += `</div>`;
-    }});
-    html += `</div>`;
-    html += `<div class="next-up">`;
-    html += `<span class="icon">🏎️</span>`;
-    html += `<div><div class="label">Następna sesja</div><div class="value">Q1 - Soft tyres, ${{pred.sessions?.q1?.temp || 22}}°C</div></div>`;
-    html += `</div>`;
-    html += `</div>`;
-    
-    // Q2 and Race summary
-    html += `<div class="session-summary">`;
-    html += `<h3>📊 Po Q1 → Q2 Setup</h3>`;
-    const q2Setup = pred.sessions?.q2?.setup || pred.setup_q2 || {{}};
-    html += `<div class="lap-setup">`;
-    ['fw', 'rw', 'eng', 'bra', 'gear', 'susp'].forEach(key => {{
-        const val = q2Setup[key] || 0;
-        html += `<div class="setup-chip">`;
-        html += `<span class="label">${{key.toUpperCase()}}</span>`;
-        html += `<span class="value">${{val}}</span>`;
-        html += `</div>`;
-    }});
-    html += `</div>`;
-    html += `<div class="next-up">`;
-    html += `<span class="icon">🎯</span>`;
-    html += `<div><div class="label">Następna sesja</div><div class="value">Q2 - Soft tyres, push for time</div></div>`;
-    html += `</div>`;
-    html += `</div>`;
-    
-    html += `<div class="session-summary">`;
-    html += `<h3>🏁 Wyścig Setup</h3>`;
-    const raceSetup = pred.sessions?.race?.setup || pred.setup_race || {{}};
-    html += `<div class="lap-setup">`;
-    ['fw', 'rw', 'eng', 'bra', 'gear', 'susp'].forEach(key => {{
-        const val = raceSetup[key] || 0;
-        html += `<div class="setup-chip">`;
-        html += `<span class="label">${{key.toUpperCase()}}</span>`;
-        html += `<span class="value">${{val}}</span>`;
-        html += `</div>`;
-    }});
-    html += `</div>`;
-    const fs = pred.sessions?.race?.fuel_strategy || {{}};
-    html += `<div class="next-up">`;
-    html += `<span class="icon">⛽</span>`;
-    html += `<div><div class="label">Strategia paliwowa</div><div class="value">${{fs.pits || 2}} pit stopy · ${{fs.total_fuel || 257}}L</div></div>`;
-    html += `</div>`;
-    html += `</div>`;
-    
-    container.innerHTML = html;
-}}
-
-// Funkcja do symulacji ukończenia okrążenia
 function completeLap() {{
     const input = document.getElementById('driverCommentInput');
     const comment = input.value.trim();
@@ -2475,9 +2240,7 @@ function completeLap() {{
     let practiceState = {{ lapsCompleted: 0, comments: {{}} }};
     try {{
         const saved = localStorage.getItem('gpro_practice_state');
-        if (saved) {{
-            practiceState = JSON.parse(saved);
-        }}
+        if (saved) practiceState = JSON.parse(saved);
     }} catch (e) {{}}
     
     const nextLap = practiceState.lapsCompleted + 1;
@@ -2485,8 +2248,14 @@ function completeLap() {{
     practiceState.lapsCompleted = nextLap;
     
     localStorage.setItem('gpro_practice_state', JSON.stringify(practiceState));
-    
-    renderPractice();
+    renderNextRace();
+}}
+
+function resetPractice() {{
+    if (confirm('Czy na pewno chcesz zresetować postęp praktyki?')) {{
+        localStorage.removeItem('gpro_practice_state');
+        renderNextRace();
+    }}
 }}
 
 function renderResults() {{
@@ -2821,7 +2590,7 @@ window.onload = () => {{
     if (activeBtn) {{
         const tabId = activeBtn.dataset.tab;
         const mainSummary = document.getElementById('mainSummaryContainer');
-        if (['overview', 'nextrace', 'practice', 'car'].includes(tabId)) {{
+        if (['overview', 'nextrace', 'car'].includes(tabId)) {{
             mainSummary.style.display = 'none';
         }}
     }}
