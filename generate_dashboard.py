@@ -1267,16 +1267,24 @@ const CURRENT_CONTEXT_DATA = {current_context_js};
 // ==========================================================
 // OBSŁUGA ZAKŁADEK
 // ==========================================================
-document.querySelectorAll('.tab-btn').forEach(btn => {{
-    btn.addEventListener('click', () => {{
-        // Dezaktywuj wszystkie zakładki
+function setupTabs() {{
+    // Event delegation - obsłuży wszystkie przyciski .tab-btn teraz i w przyszłości
+    document.addEventListener('click', (e) => {{
+        const btn = e.target.closest('.tab-btn');
+        if (!btn || !btn.dataset.tab) return;
+
+        const tabId = btn.dataset.tab;
+        const targetContent = document.getElementById('tab-' + tabId);
+        if (!targetContent) return;
+
+        // Dezaktywuj wszystkie przyciski i treści
         document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
         document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
 
-        // Aktywuj klikniętą
-        btn.classList.add('active');
-        const tabId = btn.dataset.tab;
-        document.getElementById('tab-' + tabId).classList.add('active');
+        // Aktywuj klikniętą zakładkę (znajdź główny przycisk w nawigacji)
+        const navBtn = document.querySelector(`.tabs .tab-btn[data-tab="${{tabId}}"]`);
+        if (navBtn) navBtn.classList.add('active');
+        else btn.classList.add('active');
 
         // Main summary is now always visible in the new Lamborghini style
         const mainSummary = document.getElementById('mainSummaryContainer');
@@ -1678,6 +1686,10 @@ function render() {{
     renderOverview();
     renderNextRace();
     renderStandings();
+
+    // Ensure main summary is visible
+    const mainSummary = document.getElementById('mainSummaryContainer');
+    if (mainSummary) mainSummary.style.display = 'block';
 
     // Ensure main summary is visible
     const mainSummary = document.getElementById('mainSummaryContainer');
@@ -2530,6 +2542,7 @@ setupTabs();
 render();
 
 window.onload = () => {{
+    setupTabs();
     render();
     renderDeployButton();
 
