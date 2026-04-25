@@ -1781,7 +1781,20 @@ function renderOverview() {{
 
     let html = '';
 
-    // 1. Sekcja: Następny wyścig (Hero-like)
+    // 1. Sekcja: Nagłówek Przeglądu (Hero)
+    html += `
+    <div class="hero-section">
+        <span class="hero-subtitle">CENTRUM DOWODZENIA</span>
+        <h2>PRZEGLĄD SEZONU</h2>
+        <div class="hero-meta">
+            <span>📊 STATUS TWOJEJ KARIERY GPRO</span>
+        </div>
+    </div>`;
+
+    // 2. Grid z kluczowymi informacjami
+    html += `<div class="summary-grid" style="margin-left: 0; margin-right: 0;">`;
+
+    // NASTĘPNY WYŚCIG (Karta zamiast Hero, aby uniknąć duplikatu)
     if (nextRace) {{
         html += `
         <div class="hero-section">
@@ -1794,9 +1807,6 @@ function renderOverview() {{
             ${{pred ? `<div><span class="hero-badge">REKOMENDACJE GOTOWE</span></div>` : ''}}
         </div>`;
     }}
-
-    // 2. Grid z kluczowymi informacjami
-    html += `<div class="summary-grid" style="margin-left: 0; margin-right: 0;">`;
 
     // FINANSE
     const cash = dp.cash || rd.finances?.balance || 0;
