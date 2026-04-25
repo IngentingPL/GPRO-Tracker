@@ -1,17 +1,17 @@
 {
   "season": 110,
-  "race": 5,
-  "track": "Istanbul GP (Turcja)",
-  "track_id": "36",
+  "race": 6,
+  "track": "Rafaela Oval GP (Argentyna)",
+  "track_id": "54",
   "total_laps": 72,
   "is_current": false,
   "phase": "upcoming",
   "latest_completed": {
     "season": "110",
-    "race": "4",
-    "track": "Irungattukottai (Indie)"
+    "race": "5",
+    "track": "Istanbul (Turcja)"
   },
   "office_season": 110,
   "office_race": 1,
-  "fetched_at": "2026-04-24T17:20:22.337626Z"
+  "fetched_at": "2026-04-25T08:52:02.741715Z"
 }

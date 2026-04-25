@@ -255,7 +255,8 @@ def extract_race_data(analysis):
             "bra": setup.get("setBra", ""),
             "gear": setup.get("setGear", ""),
             "susp": setup.get("setSusp", ""),
-            "tyres": setup.get("setTyres", "")
+            "tyres": setup.get("setTyres", ""),
+            "feedback": setup.get("feedback", "")
         })
 
     # Wyciągamy dane pogodowe

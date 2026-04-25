@@ -968,6 +968,9 @@ def generate_html(race_data, prediction_data, calendar_data, current_context_dat
         ::-webkit-scrollbar-thumb:hover {{ background: #7D7D7D; }}
 
         /* ==========================================================
+           MODERN SEQUENTIAL UI
+           ========================================================== */
+        .step-container {{
            VISUAL DATA CARDS (Zastępują tabele)
            ========================================================== */
         .data-grid {{
@@ -1052,189 +1055,130 @@ def generate_html(race_data, prediction_data, calendar_data, current_context_dat
         .timeline-step {{
             display: flex;
             flex-direction: column;
-            align-items: center;
-            min-width: 80px;
+            gap: 1rem;
+            margin-top: 2rem;
         }}
 
-        .timeline-dot {{
-            width: 32px;
-            height: 32px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.7rem;
-            font-weight: 700;
-            background: #181818;
-            color: var(--text-muted);
-            border: 1px solid #202020;
-            font-family: var(--font-mono);
-        }}
-
-        .timeline-step.active .timeline-dot {{
-            background: #FFC000;
-            border-color: #FFC000;
-            color: #000000;
-        }}
-
-        .timeline-step.completed .timeline-dot {{
-            background: #917300;
-            border-color: #917300;
-            color: #000000;
-        }}
-
-        .timeline-step.current .timeline-dot {{
-            background: #FFC000;
-            border-color: #FFC000;
-            color: #000000;
-            animation: pulse 1.5s infinite;
-        }}
-
-        @keyframes pulse {{
-            0%, 100% {{ opacity: 1; }}
-            50% {{ opacity: 0.5; }}
-        }}
-
-        .timeline-label {{
-            font-size: 0.55rem;
-            color: var(--text-muted);
-            margin-top: 0.25rem;
-            text-align: center;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-        }}
-
-        .lap-card {{
-            background: var(--bg-primary);
-            border: 1px solid var(--border-color);
-            padding: 1.5rem;
-            margin-bottom: 1px;
-            transition: background 0.3s;
-        }}
-
-        .lap-card:hover {{
+        .step-card {{
             background: var(--bg-card);
+            border-left: 4px solid #333;
+            padding: 1.5rem;
+            transition: all 0.3s;
         }}
 
-        .lap-card.current {{
-            border-color: #FFC000;
-            border-left: 3px solid #FFC000;
+        .step-card.completed {{
+            border-left-color: #917300;
+            opacity: 0.8;
         }}
 
-        .lap-card.done {{
-            opacity: 0.5;
+        .step-card.next {{
+            border-left-color: var(--accent-gold);
+            background: #101010;
+            box-shadow: 0 0 30px rgba(255, 192, 0, 0.05);
+            transform: scale(1.01);
         }}
 
-        .lap-header {{
+        .step-card.future {{
+            border-left-color: #202020;
+            opacity: 0.4;
+        }}
+
+        .step-header {{
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 1rem;
         }}
 
-        .lap-header h3 {{
-            font-size: 0.85rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.12em;
-        }}
-
-        .lap-badge {{
-            font-size: 0.6rem;
-            padding: 0.2rem 0.5rem;
+        .step-title {{
+            font-size: 1.2rem;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.1em;
         }}
 
-        .lap-badge.next {{
-            background: #FFC000;
-            color: #000000;
+        .step-status {{
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 0.25rem 0.75rem;
+            background: #222;
+            color: #777;
+            text-transform: uppercase;
         }}
 
-        .lap-badge.done {{
+        .step-card.next .step-status {{
+            background: var(--accent-gold);
+            color: #000;
+        }}
+
+        .step-card.completed .step-status {{
             background: #917300;
-            color: #000000;
+            color: #000;
         }}
 
-        .lap-badge.pending {{
-            background: #202020;
-            color: var(--text-muted);
-        }}
-
-        .lap-setup {{
+        .setup-display {{
             display: flex;
             flex-wrap: wrap;
             gap: 1px;
+            background: #222;
             margin: 1rem 0;
-            background: #202020;
         }}
 
-        .setup-chip {{
-            background: #181818;
-            padding: 0.5rem 0.75rem;
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-        }}
-
-        .setup-chip .label {{
-            font-size: 0.6rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-        }}
-
-        .setup-chip .value {{
-            font-family: var(--font-mono);
-            font-weight: 700;
-            color: #FFC000;
-            font-size: 0.95rem;
-        }}
-
-        .lap-instruction {{
-            background: rgba(255, 192, 0, 0.06);
-            border-left: 2px solid #FFC000;
-            padding: 1rem;
-            margin-top: 1rem;
-        }}
-
-        .lap-instruction .instruction {{
-            font-size: 0.85rem;
-            font-weight: 700;
-            color: #FFC000;
-            margin-bottom: 0.4rem;
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-        }}
-
-        .lap-instruction .note {{
-            font-size: 0.72rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.04em;
-        }}
-
-        .binary-search-visual {{
-            display: flex;
-            flex-direction: column;
-            gap: 0.25rem;
-            margin-top: 0.75rem;
+        .setup-box {{
+            flex: 1;
+            min-width: 80px;
+            background: #000;
             padding: 0.75rem;
-            background: #181818;
-            border-left: 2px solid #202020;
+            text-align: center;
         }}
 
-        .search-range {{
-            font-family: var(--font-mono);
-            font-size: 0.72rem;
+        .setup-box .label {{
+            font-size: 0.55rem;
             color: var(--text-muted);
-            text-align: center;
+            text-transform: uppercase;
+            margin-bottom: 0.25rem;
         }}
 
-        .search-arrow {{
-            text-align: center;
-            color: #FFC000;
-            font-size: 0.75rem;
+        .setup-box .value {{
+            font-family: var(--font-mono);
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--accent-gold);
+        }}
+
+        .feedback-box {{
+            background: rgba(255, 255, 255, 0.03);
+            padding: 1rem;
+            font-size: 0.85rem;
+            color: #bbb;
+            border-left: 2px solid #444;
+            margin-top: 0.5rem;
+        }}
+
+        .feedback-box span {{
+            color: var(--accent-gold);
+            font-weight: 700;
+            margin-right: 0.5rem;
+        }}
+
+        .deploy-btn {{
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: var(--accent-gold);
+            color: #000;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-top: 2rem;
+            transition: transform 0.2s;
+        }}
+
+        .deploy-btn:hover {{
+            transform: translateY(-2px);
+            background: #ffcf33;
         }}
 
         .session-summary {{
@@ -1329,7 +1273,7 @@ def generate_html(race_data, prediction_data, calendar_data, current_context_dat
 <div class="tabs" id="tabsNav">
     <button class="tab-btn active" data-tab="overview">Przegląd</button>
     <button class="tab-btn" data-tab="nextrace">Następny wyścig</button>
-    <button class="tab-btn" data-tab="car">Bolid</button>
+    <button class="tab-btn" data-tab="standings">Tabela</button>
     <button class="tab-btn" data-tab="results">Wyniki</button>
     <button class="tab-btn" data-tab="setups">Setupy</button>
     <button class="tab-btn" data-tab="fuel">Paliwo & Opony</button>
@@ -1340,7 +1284,7 @@ def generate_html(race_data, prediction_data, calendar_data, current_context_dat
 <!-- Zawartość zakładek -->
 <div class="tab-content active" id="tab-overview"></div>
 <div class="tab-content" id="tab-nextrace"></div>
-<div class="tab-content" id="tab-car"></div>
+<div class="tab-content" id="tab-standings"></div>
 <div class="tab-content" id="tab-results"></div>
 <div class="tab-content" id="tab-setups"></div>
 <div class="tab-content" id="tab-fuel"></div>
@@ -1381,7 +1325,7 @@ document.querySelectorAll('.tab-btn').forEach(btn => {{
 
         // Main summary is now always visible in the new Lamborghini style
         const mainSummary = document.getElementById('mainSummaryContainer');
-        if (mainSummary) mainSummary.style.display = 'block';
+        mainSummary.style.display = 'block';
     }});
 }});
 
@@ -1501,6 +1445,7 @@ function renderPendingSeasonOverview(activeContext) {{
     renderSeasonEmptyState('tab-fuel', 'Paliwo sezonu', activeContext, lastCompleted, 'Strategie paliwowe dla aktywnego sezonu pojawią się po zakończeniu pierwszego wyścigu.');
     renderSeasonEmptyState('tab-finances', 'Finanse sezonu', activeContext, lastCompleted, 'Finanse sezonu będą widoczne po pierwszym zapisanym wyścigu.');
     renderSeasonEmptyState('tab-driver', 'Kierowca sezonu', activeContext, lastCompleted, 'Profil kierowcy w panelu historycznym będzie zasilony po zapisaniu wyścigu sezonu.');
+    renderSeasonEmptyState('tab-standings', 'Tabela sezonu', activeContext, lastCompleted, 'Tabela ligowa dla aktywnego sezonu pojawi się po pierwszym zapisanym wyścigu.');
 }}
 
 function normalizeTrackName(name) {{
@@ -1777,7 +1722,7 @@ function render() {{
     // Renderuj podstawowe zakładki
     renderOverview();
     renderNextRace();
-    renderCar();
+    renderStandings();
 
     const activeContext = getCurrentContext();
     const displayedData = getDisplayedRaceData();
@@ -1852,11 +1797,14 @@ function renderOverview() {{
     // NASTĘPNY WYŚCIG (Karta zamiast Hero, aby uniknąć duplikatu)
     if (nextRace) {{
         html += `
-        <div class="summary-card" style="border-left: 4px solid var(--accent-gold);">
-            <div class="label">NASTĘPNY WYŚCIG</div>
-            <div class="value-small">${{nextRace.track || 'Nieznany tor'}}</div>
-            <div class="sub">S${{nextRace.season}}R${{nextRace.race}} · ${{nextRace.total_laps || 72}} OKR</div>
-            ${{pred ? `<div class="hero-badge" style="margin-top: 1rem;">Rekomendacje gotowe</div>` : ''}}
+        <div class="hero-section">
+            <span class="hero-subtitle">NASTĘPNY WYŚCIG</span>
+            <h2>${{nextRace.track || 'Nieznany tor'}}</h2>
+            <div class="hero-meta">
+                <span>📅 SEZON ${{nextRace.season}} R${{nextRace.race}}</span>
+                <span>🏁 ${{nextRace.total_laps || 72}} OKRĄŻEŃ</span>
+            </div>
+            ${{pred ? `<div><span class="hero-badge">REKOMENDACJE GOTOWE</span></div>` : ''}}
         </div>`;
     }}
 
@@ -1876,48 +1824,99 @@ function renderOverview() {{
     if (rd.driver || dp.driName) {{
         const drvName = dp.driName || rd.driver.name;
         const drvOA = dp.overall || rd.driver.OA;
+
+        // Kariera
+        const cWins = dp.wins || 0;
+        const cPodiums = dp.podiums || 0;
+        const cPoles = dp.poles || 0;
+
+        // Sezon
+        let sWins = 0, sPodiums = 0, sPoles = 0;
+        const myName = dp.manName || dp.manager || dp.owner?.name || '';
+
+        // Spróbuj pobrać statystyki sezonu z tabeli ligowej (najbardziej wiarygodne źródło dla pozycji)
+        const myStanding = latest?.standings?.managers?.find(m => m.name === myName);
+        if (myStanding && myStanding.results) {{
+            myStanding.results.forEach(r => {{
+                const pos = toInt(r.pos);
+                if (pos === 1) sWins++;
+                if (pos >= 1 && pos <= 3) sPodiums++;
+
+                const qPos = toInt(r.grid);
+                if (qPos === 1) sPoles++;
+            }});
+        }} else {{
+            // Fallback do danych wyścigowych jeśli brak tabeli
+            const displayedData = getDisplayedRaceData();
+            displayedData.forEach(d => {{
+                const summary = d.race_summary;
+                let myResult = summary?.results?.find(r => r.manager === myName);
+                if (!myResult) myResult = summary?.results?.find(r => r.gap === '' || r.gap === '0.000s' || r.gap === '+0.000s');
+
+                const pos = toInt(myResult?.position);
+                if (pos === 1) sWins++;
+                if (pos >= 1 && pos <= 3) sPodiums++;
+
+                const qPos = toInt(d.race_data?.q1_pos);
+                if (qPos === 1) sPoles++;
+            }});
+        }}
+
         html += `
         <div class="summary-card">
             <div class="label">KIEROWCA</div>
             <div class="value-small">${{drvName}}</div>
             <div class="sub">OVERALL: ${{drvOA}}</div>
-            <div class="rec-grid" style="grid-template-columns: 1fr 1fr; gap: 1px; margin-top: 1rem; background: var(--border-color); padding: 1px;">
-                <div class="stat-item" style="background: var(--bg-primary);">
-                    <div class="stat-name">Konc</div>
-                    <div class="stat-value" style="font-size: 1.2rem;">${{dp.concentration || rd.driver.concentration}}</div>
+
+            <div class="rec-grid" style="grid-template-columns: 1fr 1fr 1fr; gap: 1px; margin-top: 1rem; background: var(--border-color); padding: 1px;">
+                <div class="stat-item" style="background: var(--bg-primary); padding: 0.5rem;">
+                    <div class="stat-name">WINS</div>
+                    <div class="stat-value" style="font-size: 1rem; color: var(--accent-gold);">${{cWins}}</div>
+                    <div class="sub" style="font-size: 0.6rem;">S: ${{sWins}}</div>
                 </div>
-                <div class="stat-item" style="background: var(--bg-primary);">
-                    <div class="stat-name">Talent</div>
-                    <div class="stat-value" style="font-size: 1.2rem;">${{dp.talent || rd.driver.talent}}</div>
+                <div class="stat-item" style="background: var(--bg-primary); padding: 0.5rem;">
+                    <div class="stat-name">PODIUM</div>
+                    <div class="stat-value" style="font-size: 1rem; color: var(--accent-gold);">${{cPodiums}}</div>
+                    <div class="sub" style="font-size: 0.6rem;">S: ${{sPodiums}}</div>
+                </div>
+                <div class="stat-item" style="background: var(--bg-primary); padding: 0.5rem;">
+                    <div class="stat-name">POLES</div>
+                    <div class="stat-value" style="font-size: 1rem; color: var(--accent-gold);">${{cPoles}}</div>
+                    <div class="sub" style="font-size: 0.6rem;">S: ${{sPoles}}</div>
                 </div>
             </div>
         </div>`;
     }}
 
-    // BOLID (Stan ogólny)
-    if (cs.lvlEngine || rd.car_parts) {{
-        const parts = ['Chassis', 'Engine', 'FWing', 'RWing', 'Underbody', 'Sidepods', 'Cooling', 'Gear', 'Brakes', 'Susp', 'Electronics'];
-        let totalWear = 0;
-        let criticalParts = 0;
+    // TABELA LIGOWA (League Table)
+    const standings = latest?.standings?.managers || [];
+    if (standings.length > 0) {{
+        const myName = dp.manName || dp.manager || dp.owner?.name || '';
+        const myIndex = standings.findIndex(m => m.name === myName);
 
-        parts.forEach(p => {{
-            const wear = cs['usa' + p] || rd.car_parts?.[p.toLowerCase()]?.finish_wear || 0;
-            totalWear += wear;
-            if (wear > 70) criticalParts++;
-        }});
+        // Wybierz kilka osób obok
+        let startIndex = Math.max(0, myIndex - 1);
+        let endIndex = Math.min(standings.length, startIndex + 3);
+        if (endIndex === standings.length) startIndex = Math.max(0, endIndex - 3);
 
-        const avgWear = Math.round(totalWear / parts.length);
+        const miniStandings = standings.slice(startIndex, endIndex);
 
         html += `
         <div class="summary-card">
-            <div class="label">BOLID</div>
-            <div class="value" style="color: ${{criticalParts > 0 ? 'var(--accent-red)' : 'var(--text-primary)'}}">
-                ${{avgWear}}%
-            </div>
-            <div class="sub">ŚREDNIE ZUŻYCIE</div>
-            <div class="sub" style="margin-top: 0.5rem;">${{criticalParts > 0 ? `<span style="color: var(--accent-red)">⚠ ${{criticalParts}} CZĘŚCI WYMAGA UWAGI</span>` : 'STAN DOBRY'}}</div>
+            <div class="label">TABELA LIGOWA</div>
             <div style="margin-top: 1rem;">
-                <button class="tab-btn" data-tab="car" style="padding: 0.5rem 1rem; border: 1px solid var(--accent-gold); font-size: 0.6rem; color: var(--accent-gold); height: auto; line-height: 1;">SZCZEGÓŁY BOLIDU &raquo;</button>
+                <table style="width: 100%; border-collapse: collapse; font-family: var(--font-mono); font-size: 0.75rem;">
+                    ${{miniStandings.map(m => `
+                        <tr style="${{m.name === myName ? 'color: var(--accent-gold); font-weight: 700;' : 'color: var(--text-secondary);'}}">
+                            <td style="padding: 0.25rem 0;">P${{m.pos}}</td>
+                            <td style="padding: 0.25rem 0; text-transform: uppercase;">${{m.name.split(' ')[0]}}</td>
+                            <td style="padding: 0.25rem 0; text-align: right;">${{m.pts}} PKT</td>
+                        </tr>
+                    `).join('')}}
+                </table>
+            </div>
+            <div style="margin-top: 1rem;">
+                <button class="tab-btn" data-tab="standings" style="padding: 0.5rem 1rem; border: 1px solid var(--accent-gold); font-size: 0.6rem; color: var(--accent-gold); height: auto; line-height: 1;">PEŁNA TABELA &raquo;</button>
             </div>
         </div>`;
     }}
@@ -1927,8 +1926,8 @@ function renderOverview() {{
     container.innerHTML = html;
 
     // Re-attach listener for the button inside overview
-    container.querySelector('[data-tab="car"]')?.addEventListener('click', () => {{
-        document.querySelector('.tab-btn[data-tab="car"]').click();
+    container.querySelector('[data-tab="standings"]')?.addEventListener('click', () => {{
+        document.querySelector('.tab-btn[data-tab="standings"]').click();
     }});
 }}
 
@@ -1948,7 +1947,7 @@ function renderSummary(latest) {{
     if (summary && summary.results && summary.results.length > 0) {{
         // Szukamy naszego wyniku - porównujemy nazwę managera z driver_profile
         const dp = latest.driver_profile || {{}};
-        const myName = dp.manName || dp.manager || '';
+        const myName = dp.manName || dp.manager || dp.owner?.name || '';
         let myResult = null;
         if (myName) {{
             myResult = summary.results.find(r => r.manager === myName);
@@ -1999,41 +1998,23 @@ function renderPrediction(container) {{
     const pred = PREDICTION_DATA;
     const predictionContext = resolvePredictionContext(pred);
     const nextRace = predictionContext.nextRace || pred.next_race || {{}};
-    const isStalePrediction = predictionContext.isStale;
-    const staleReason = predictionContext.staleReason || '';
+    const sequence = pred.sequence || [];
     const confidence = pred.confidence || 'unknown';
     const confidenceReason = pred.confidence_reason || '';
-    const driverMargin = pred.driver_margin || {{}};
-    const base = pred.base || {{}};
     const fuelStrategy = pred.fuel_strategy || {{}};
-    const tyreInfo = pred.tyres_info || {{}};
+    const tyreStrategy = pred.tyre_strategy || {{}};
     const notes = pred.notes || [];
-    const sessions = pred.sessions || {{}};
 
     let html = '';
 
-    if (isStalePrediction) {{
-        container.innerHTML = `
-            <div class="hero-section">
-                <span class="hero-subtitle">PLAN WYŚCIGOWY (NIEAKTUALNY)</span>
-                <h2>${{nextRace.track || 'Nieznany tor'}}</h2>
-                <div class="hero-meta">
-                    <span>📅 SEZON ${{nextRace.season || '?'}} R${{nextRace.race || '?'}}</span>
-                    <span>🏁 ${{nextRace.total_laps ? `${{nextRace.total_laps}} OKRĄŻEŃ` : '?'}}</span>
-                </div>
-                <div class="lap-instruction" style="margin-top: 1.5rem;">
-                    <div class="instruction">WYKRYTO NIEAKTUALNĄ PREDYKCJĘ</div>
-                    <div class="note">${{staleReason}}</div>
-                    <div class="note" style="margin-top: 0.5rem;">Uruchom <code>python predictor.py</code> aby odświeżyć.</div>
-                </div>
-            </div>`;
-        return;
-    }}
-
     // =============================================
-    // 1. NAGŁÓWEK (Lamborghini Impact)
+    // 1. NAGŁÓWEK
     // =============================================
     html += `
+    <div class="rec-header" style="text-align: center; border-bottom: 2px solid var(--accent-gold); padding-bottom: 3rem;">
+        <div class="rec-subtitle" style="font-size: 1rem; color: var(--accent-gold); margin-bottom: 1rem;">NASTĘPNE WYDARZENIA</div>
+        <h2 style="font-size: 5rem; line-height: 0.9; margin-bottom: 1.5rem;">${{nextRace.track || 'Nieznany tor'}}</h2>
+        <div class="rec-subtitle" style="font-size: 1.2rem; letter-spacing: 0.3em;">S${{nextRace.season}}R${{nextRace.race}} · ${{nextRace.total_laps || 72}} OKRĄŻEŃ</div>
     <div class="hero-section" style="text-align: center;">
         <span class="hero-subtitle">PLAN WYŚCIGOWY</span>
         <h2 style="font-size: 5rem;">${{nextRace.track || 'Nieznany tor'}}</h2>
@@ -2048,49 +2029,56 @@ function renderPrediction(container) {{
             </div>
             <div class="hero-subtitle" style="margin-top: 0.5rem; font-size: 0.7rem;">PEWNOŚĆ: ${{confidence.toUpperCase()}} — ${{confidenceReason}}</div>
         </div>
+
+        <div id="deployBtnContainer"></div>
     </div>`;
 
     // =============================================
-    // 2. SESJE: Practice, Q1, Q2, Race
+    // 2. SEKWENCJA ZDARZEŃ
     // =============================================
-    const sessionOrder = ['practice', 'q1', 'q2', 'race'];
-    const sessionNames = {{ practice: 'Practice', q1: 'Q1', q2: 'Q2', race: 'Race' }};
+    html += `<div class="step-container">`;
 
-    sessionOrder.forEach(sessionKey => {{
-        const session = sessions[sessionKey] || {{}};
-        if (!session.setup) return;
+    sequence.forEach(step => {{
+        const isCompleted = step.completed;
+        const isNext = step.is_next;
+        const statusClass = isCompleted ? 'completed' : (isNext ? 'next' : 'future');
+        const statusLabel = isCompleted ? 'UKOŃCZONE' : (isNext ? 'TWÓJ NASTĘPNY KROK' : 'W PRZYSZŁOŚCI');
 
-        const s = session.setup;
-        const sessionName = sessionNames[sessionKey];
-
-        html += `<div class="session-card ${{sessionKey}}">`;
-        html += `<div class="session-header">`;
-        html += `<h4>${{sessionName}}</h4>`;
-        html += `<span class="session-badge">${{session.tyres || '?'}} tyres</span>`;
+        html += `<div class="step-card ${{statusClass}}">`;
+        html += `<div class="step-header">`;
+        html += `<div class="step-title">${{step.id}}</div>`;
+        html += `<div class="step-status">${{statusLabel}}</div>`;
         html += `</div>`;
 
         html += `<div class="session-meta">`;
-        html += `<span>🌡️ ${{session.temp || '?'}}°C</span>`;
-        html += `<span>🌧️ ${{session.weather || 'dry'}}</span>`;
-        if (session.fuel_start) {{
-            html += `<span>⛽ ${{session.fuel_start}}L start</span>`;
+        html += `<span>🌡️ ${{step.temp || '?'}}°C</span>`;
+        html += `<span>🛞 ${{step.tyres || '?'}}</span>`;
+        if (step.id === 'Race' && step.fuel_strategy) {{
+             html += `<span>⛽ ${{step.fuel_strategy.pits}} PIT STOPS</span>`;
         }}
         html += `</div>`;
 
-        html += `<div class="session-setup">`;
-        ['fw', 'rw', 'eng', 'bra', 'gear', 'susp'].forEach(key => {{
-            html += `<div class="setup-part"><span class="label">${{key.toUpperCase()}}</span> <span class="value">${{s[key] || 0}}</span></div>`;
-        }});
-        html += `</div>`;
-
-        if (session.note) {{
-            html += `<div class="session-note">${{session.note}}</div>`;
+        if (step.setup) {{
+            html += `<div class="setup-display">`;
+            ['fw', 'rw', 'eng', 'bra', 'gear', 'susp'].forEach(k => {{
+                html += `<div class="setup-box"><div class="label">${{k.toUpperCase()}}</div><div class="value">${{step.setup[k] || '-'}}</div></div>`;
+            }});
+            html += `</div>`;
+        }} else {{
+            html += `<div style="padding: 2rem; text-align: center; color: #444; font-size: 0.8rem; border: 1px dashed #222; margin: 1rem 0;">PARAMETRY ZOSTANĄ WYGENEROWANE PO UKOŃCZENIU POPRZEDNIEGO KROKU</div>`;
         }}
 
-        // Fuel strategy for race
-        if (sessionKey === 'race' && session.fuel_strategy) {{
-            const fs = session.fuel_strategy;
-            html += `<div class="fuel-stint-bar">`;
+        if (step.feedback) {{
+            html += `<div class="feedback-box"><span>FEEDBACK:</span> ${{step.feedback}}</div>`;
+        }}
+
+        if (step.note) {{
+            html += `<div class="session-note" style="margin-top: 1rem; color: var(--accent-gold); font-weight: 700;">${{step.note}}</div>`;
+        }}
+
+        if (step.id === 'Race' && step.fuel_strategy) {{
+            const fs = step.fuel_strategy;
+            html += `<div class="fuel-stint-bar" style="margin-top: 1.5rem;">`;
             (fs.stints || []).forEach((fuel, i) => {{
                 if (i > 0) html += `<span class="arrow">→</span>`;
                 html += `<span class="stint">${{fuel}}L</span>`;
@@ -2098,274 +2086,43 @@ function renderPrediction(container) {{
             html += `<span class="arrow">→</span>`;
             html += `<span class="stint" style="background:var(--accent-blue)">META</span>`;
             html += `</div>`;
-            html += `<div class="session-meta" style="margin-top:0.25rem"><span>⛽ ${{fs.pits || 0}} pit stops</span></div>`;
         }}
 
         html += `</div>`;
     }});
 
-    // =============================================
-    // 3. STRATEGIA PALIWOWA & SETUP SUMMARY
-    // =============================================
-    html += `<div class="rec-grid" style="margin-top: 1rem;">`;
-
-    // SETUP Q2
-    html += `<div class="rec-card"><h3>SETUP Q2</h3>`;
-    html += `<div class="setup-values">`;
-    const q2 = pred.setup_q2 || {{}};
-    ['fw', 'rw', 'eng', 'bra', 'gear', 'susp'].forEach(key => {{
-        const val = q2[key] || 0;
-        const baseVal = (base.setup || base)[key] || 0;
-        const diff = val - baseVal;
-        const diffClass = diff > 0 ? 'positive' : (diff < 0 ? 'negative' : '');
-        const diffSign = diff > 0 ? '+' : '';
-        html += `
-        <div class="setup-item">
-            <div class="setup-label">${{key.toUpperCase()}}</div>
-            <div class="setup-val">${{val}}</div>
-            <span class="adjustment-badge ${{diffClass}}">${{diffSign}}${{diff}}</span>
-        </div>`;
-    }});
-    html += `</div>`;
-    html += `<div class="setup-meta" style="margin-top: 1rem;">Baza: ${{base.track || '?'}} (${{base.temp || '?'}}°C) → Q2: ${{q2.temp || '?'}}°C</div>`;
     html += `</div>`;
 
-    // SETUP RACE
-    html += `<div class="rec-card"><h3>SETUP RACE</h3>`;
-    html += `<div class="setup-values">`;
-    const race = pred.setup_race || {{}};
-    ['fw', 'rw', 'eng', 'bra', 'gear', 'susp'].forEach(key => {{
-        const val = race[key] || 0;
-        const baseVal = (base.setup || base)[key] || 0;
-        const diff = val - baseVal;
-        const diffClass = diff > 0 ? 'positive' : (diff < 0 ? 'negative' : '');
-        const diffSign = diff > 0 ? '+' : '';
-        html += `
-        <div class="setup-item">
-            <div class="setup-label">${{key.toUpperCase()}}</div>
-            <div class="setup-val" style="color: var(--accent-gold);">${{val}}</div>
-            <span class="adjustment-badge ${{diffClass}}">${{diffSign}}${{diff}}</span>
-        </div>`;
-    }});
-    html += `</div>`;
-    html += `<div class="setup-meta" style="margin-top: 1rem;">Race Temp: ${{race.temp || '?'}}°C</div>`;
+    // =============================================
+    // 3. PODSUMOWANIE STRATEGII
+    // =============================================
+    html += `<div class="rec-grid" style="margin-top: 2rem;">`;
+
+    // Paliwo
+    html += `<div class="rec-card"><h3>STRATEGIA PALIWOWA</h3>`;
+    html += `<div class="rec-row"><span class="rec-label">Zużycie</span><span class="rec-value">~${{fuelStrategy.fuel_per_lap || 0}} L/lap</span></div>`;
+    html += `<div class="rec-row"><span class="rec-label">Pit stopy</span><span class="rec-value">${{fuelStrategy.recommended?.pits || 0}}</span></div>`;
     html += `</div>`;
 
-    html += `</div>`; // zamknięcie rec-grid
-
-    html += `<div class="rec-grid" style="margin-top:1rem">`;
-
-    // =============================================
-    // 4. STRATEGIA PALIWOWA
-    // =============================================
-    html += `<div class="rec-card"><h3>Paliwo</h3>`;
-    const fuelPerLap = fuelStrategy.fuel_per_lap || 0;
-    const raceTotalLaps = nextRace.total_laps || 72;
-    const recommended = fuelStrategy.recommended || {{}};
-    const alternative = fuelStrategy.alternative || {{}};
-
-    html += `<div class="rec-row"><span class="rec-label">Zużycie</span><span class="rec-value">~${{fuelPerLap}} L/lap</span></div>`;
-    html += `<div class="rec-row"><span class="rec-label">Okrążenia</span><span>${{raceTotalLaps}}</span></div>`;
-    html += `<div class="rec-row"><span class="rec-label">Pit stopy</span><span class="rec-value">${{recommended.pits || 0}}</span></div>`;
-
-    // Rekomendowana strategia
-    if (recommended.stints && recommended.stints.length > 0) {{
-        html += `<div class="fuel-strategy">`;
-        html += `<div class="strategy-name">Rekomendowana:</div>`;
-        html += `<div class="strategy-visual">`;
-        recommended.stints.forEach((fuel, i) => {{
-            if (i > 0) html += `<span class="arrow">→</span>`;
-            html += `<div class="pit-stop">${{fuel}}L</div>`;
-        }});
-        html += `<span class="arrow">→</span>`;
-        html += `<div class="finish">META</div>`;
-        html += `</div>`;
-        html += `</div>`;
-    }}
-
-    // Alternatywna strategia
-    if (alternative.stints && alternative.stints.length > 0 && alternative.pits !== recommended.pits) {{
-        html += `<div class="fuel-strategy" style="margin-top:0.5rem">`;
-        html += `<div class="strategy-name">Alternatywa (${{alternative.pits}} pitty):</div>`;
-        html += `<div class="strategy-visual">`;
-        alternative.stints.forEach((fuel, i) => {{
-            if (i > 0) html += `<span class="arrow">→</span>`;
-            html += `<div class="pit-stop">${{fuel}}L</div>`;
-        }});
-        html += `<span class="arrow">→</span>`;
-        html += `<div class="finish">META</div>`;
-        html += `</div>`;
-        html += `</div>`;
-    }}
+    // Opony
+    html += `<div class="rec-card"><h3>STRATEGIA OPONOWA</h3>`;
+    html += `<div class="rec-row"><span class="rec-label">Żywotność</span><span class="rec-value">~${{tyreStrategy.est_tyre_life_laps || 0}} okr</span></div>`;
+    html += `<div class="rec-row"><span class="rec-label">Bottleneck</span><span class="rec-value">${{(tyreStrategy.bottleneck || '').toUpperCase()}}</span></div>`;
+    html += `</div>`;
 
     html += `</div>`;
 
     // =============================================
-    // 4.5. STRATEGIA OPONOWA
-    // =============================================
-    html += `<div class="rec-card"><h3>Opony</h3>`;
-    const tyreStrategy = pred.tyre_strategy || {{}};
-    const estTyreLife = tyreStrategy.est_tyre_life_laps || 0;
-    const lapsOnFuel = tyreStrategy.laps_on_fuel || 0;
-    const bottleneck = tyreStrategy.bottleneck || 'unknown';
-    const bottleneckExpl = tyreStrategy.bottleneck_explanation || '';
-
-    html += `<div class="rec-row"><span class="rec-label">Żywotność</span><span class="rec-value">~${{estTyreLife}} okr</span></div>`;
-    html += `<div class="rec-row"><span class="rec-label">Okrążeń na baku</span><span>~${{lapsOnFuel}}</span></div>`;
-    html += `<div class="rec-row"><span class="rec-label">Bottleneck</span><span class="rec-value">${{bottleneck.toUpperCase()}}</span></div>`;
-    html += `<p style="margin-top:0.5rem;font-size:0.8rem;color:var(--text-secondary)">${{bottleneckExpl}}</p>`;
-    html += `</div>`;
-
-    // =============================================
-    // 5. MARGINES KIEROWCY
-    // =============================================
-    html += `<div class="rec-card"><h3>Kierowca</h3>`;
-    const ma = driverMargin.MA || 0;
-    const halfMa = driverMargin.half_MA || 0;
-    const note = driverMargin.note || '';
-
-    html += `<div class="rec-row"><span class="rec-label">Margines</span><span class="rec-value">±${{halfMa}} pkt</span></div>`;
-    html += `<div class="rec-row"><span class="rec-label">MA</span><span>${{ma}}</span></div>`;
-    html += `<p style="margin-top:0.5rem;font-size:0.85rem;color:var(--text-secondary)">${{note}}</p>`;
-    html += `</div>`;
-
-    html += `</div>`; // zamknięcie rec-grid
-
-    // =============================================
-    // 6. PLAN TRENINGOWY (INTERAKTYWNY)
-    // =============================================
-    html += `<div class="rec-card" style="margin-top:1rem; border-left: 4px solid var(--accent-gold);"><h3>Plan treningowy (Interaktywny)</h3>`;
-    
-    const practiceSetup = pred.sessions?.practice?.setup || pred.setup_practice || {{}};
-    const practiceTemp = pred.sessions?.practice?.temp || pred.setup_practice?.temp || 20;
-    const practicePlan = pred.practice_plan || {{}};
-    const laps = practicePlan.laps || [];
-    const priorityNote = practicePlan.priority_note || '';
-    
-    let practiceState = {{ lapsCompleted: 0, comments: {{}} }};
-    try {{
-        const saved = localStorage.getItem('gpro_practice_state');
-        if (saved) practiceState = JSON.parse(saved);
-    }} catch (e) {{}}
-    
-    const lapsCompleted = practiceState.lapsCompleted || 0;
-    const comments = practiceState.comments || {{}};
-    const totalLaps = 8;
-    const currentLap = lapsCompleted + 1;
-    
-    let currentSetup = {{...practiceSetup}};
-    const satisfiedWords = ['satisfied', 'happy', 'perfect'];
-    const commentCorrections = {{
-        'grip': {{fw: 20, rw: 20}}, 'unstable': {{fw: 30, rw: 30}}, 'understeer': {{fw: 15}}, 'oversteer': {{rw: 15}},
-        'too much front': {{fw: -20}}, 'too much rear': {{rw: -20}}, 'engine power': {{eng: 20}}, 'engine feels weak': {{eng: 25}},
-        'rigid': {{susp: -20}}, 'too soft': {{susp: 20}}, 'not effective': {{bra: 20}}, 'top speed': {{gear: 15}}
-    }};
-    
-    for (let lapNum = 1; lapNum <= lapsCompleted; lapNum++) {{
-        const comment = (comments[lapNum] || '').toLowerCase();
-        if (!comment || satisfiedWords.some(w => comment.includes(w))) continue;
-        for (const [kw, corr] of Object.entries(commentCorrections)) {{
-            if (comment.includes(kw)) {{
-                for (const [s, v] of Object.entries(corr)) {{
-                    const mult = (driverMargin.half_MA || 50) > 60 ? 1.0 : 0.7;
-                    currentSetup[s] = Math.max(0, Math.min(999, (currentSetup[s] || 500) + Math.round(v * mult)));
-                }}
-            }}
-        }}
-    }}
-
-    html += `<div class="driver-stats-mini" style="margin-top: 1rem;">`;
-    html += `<div class="driver-stat-mini"><div class="label">Okrążenie</div><div class="value" style="color:var(--accent-gold)">${{currentLap}}/${{totalLaps}}</div></div>`;
-    html += `<div class="driver-stat-mini"><div class="label">Temp</div><div class="value">${{practiceTemp}}°C</div></div>`;
-    html += `<div class="driver-stat-mini"><div class="label">Opony</div><div class="value">${{pred.sessions?.practice?.tyres || 'medium'}}</div></div>`;
-    html += `</div>`;
-    
-    html += `<div class="practice-timeline">`;
-    ['P1','P2','P3','P4','P5','P6','P7','P8'].forEach((step, i) => {{
-        const lapNum = i + 1;
-        const status = lapNum < currentLap ? 'completed' : (lapNum === currentLap ? 'current' : '');
-        html += `<div class="timeline-step ${{status}}"><div class="timeline-dot">${{lapNum}}</div><div class="timeline-label">${{step}}</div></div>`;
-    }});
-    html += `</div>`;
-
-    if (lapsCompleted > 0 && comments[lapsCompleted]) {{
-        const prevComment = comments[lapsCompleted];
-        const isSatisfied = satisfiedWords.some(w => prevComment.toLowerCase().includes(w));
-        html += `<div class="lap-card current" style="margin-bottom:1rem"><div class="lap-header"><h3>Okrążenie ${{lapsCompleted}} - FEEDBACK</h3><span class="lap-badge ${{isSatisfied ? 'done' : 'next'}}">${{isSatisfied ? '✓ OK' : '⚠ Korekta'}}</span></div><div class="lap-instruction"><div class="instruction" style="font-size:0.9rem">${{prevComment}}</div></div></div>`;
-    }}
-
-    if (currentLap <= totalLaps) {{
-        const lap = laps.find(l => l.lap === currentLap) || {{ action: 'Test setup', note: 'Adjust based on feedback' }};
-        let suggestedSetup = {{...currentSetup}};
-        const halfMa = driverMargin.half_MA || 50;
-        if (currentLap === 2) {{ suggestedSetup.fw += halfMa; suggestedSetup.rw += halfMa; }}
-        else if (currentLap === 3) {{ suggestedSetup.fw += halfMa + Math.floor(halfMa/2); suggestedSetup.rw += halfMa + Math.floor(halfMa/2); }}
-        else if (currentLap === 4) {{ suggestedSetup.fw -= halfMa; suggestedSetup.rw -= halfMa; }}
-        else if (currentLap > 4) {{ const off = Math.floor(halfMa / (currentLap - 2)); suggestedSetup.fw = currentSetup.fw - halfMa + off; suggestedSetup.rw = currentSetup.rw - halfMa + off; }}
-
-        html += `<div class="lap-card current">`;
-        html += `<div class="lap-header"><h3>Lap ${{currentLap}} - SUGEROWANY SETUP</h3><span class="lap-badge next">▶ Teraz</span></div>`;
-        html += `<div class="lap-setup">`;
-        ['fw', 'rw', 'eng', 'bra', 'gear', 'susp'].forEach(k => {{ html += `<div class="setup-chip"><span class="label">${{k.toUpperCase()}}</span><span class="value">${{suggestedSetup[k] || 0}}</span></div>`; }});
-        html += `</div><div class="lap-instruction"><div class="instruction">${{lap.action}}</div><div class="note">${{lap.note}}</div></div>`;
-        html += `<div style="margin-top:1.5rem;padding:1rem;background:#181818;border:1px solid #333"><div style="font-size:0.7rem;color:var(--text-muted);margin-bottom:0.5rem">Wklej komentarz kierowcy:</div><input type="text" id="driverCommentInput" placeholder="np. Wings: I am missing a bit of grip" style="width:100%;padding:0.5rem;background:#000;color:#fff;border:1px solid #333;margin-bottom:0.5rem"><button onclick="completeLap()" style="background:#FFC000;color:#000;padding:0.5rem 1rem;border:none;cursor:pointer;font-weight:700">ZAPISZ KOMENTARZ &raquo;</button></div></div>`;
-    }}
-
-    html += `<p style="margin-top:0.75rem;font-size:0.8rem;color:var(--text-secondary)">${{priorityNote}}</p>`;
-    if (lapsCompleted > 0) html += `<button onclick="resetPractice()" style="margin-top: 1rem; background:transparent; color:var(--accent-red); border:1px solid var(--accent-red); padding:0.3rem 0.6rem; font-size:0.6rem; cursor:pointer; text-transform:uppercase;">Resetuj postęp praktyki</button>`;
-    html += `</div>`;
-
-    // =============================================
-    // 7. NOTATKI
+    // 4. NOTATKI
     // =============================================
     if (notes && notes.length > 0) {{
-        html += `<div class="rec-card" style="margin-top:1rem; background: var(--bg-card);"><h3>Notatki</h3>`;
-        html += `<div class="notes-list">`;
-        html += `<ul>`;
-        notes.forEach(note => {{
-            html += `<li>${{note}}</li>`;
-        }});
-        html += `</ul>`;
-        html += `</div>`;
-        html += `</div>`;
+        html += `<div class="rec-card" style="margin-top:1rem; background: var(--bg-card);"><h3>Wskazówki</h3>`;
+        html += `<div class="notes-list"><ul>`;
+        notes.forEach(note => {{ html += `<li>${{note}}</li>`; }});
+        html += `</ul></div></div>`;
     }}
 
     container.innerHTML = html;
-}}
-
-// ==========================================================
-// ZAKŁADKA: PRAKTYKA - Binary Search Setup
-// Mini-lekcja: Pokazuje rekomendowany setup per lap praktyki
-// zgodnie z binary search methodology z Calc.
-// ==========================================================
-function completeLap() {{
-    const input = document.getElementById('driverCommentInput');
-    const comment = input.value.trim();
-    
-    if (!comment) {{
-        alert('Wpisz komentarz kierowcy!');
-        return;
-    }}
-    
-    let practiceState = {{ lapsCompleted: 0, comments: {{}} }};
-    try {{
-        const saved = localStorage.getItem('gpro_practice_state');
-        if (saved) practiceState = JSON.parse(saved);
-    }} catch (e) {{}}
-    
-    const nextLap = practiceState.lapsCompleted + 1;
-    practiceState.comments[nextLap] = comment;
-    practiceState.lapsCompleted = nextLap;
-    
-    localStorage.setItem('gpro_practice_state', JSON.stringify(practiceState));
-    renderNextRace();
-}}
-
-function resetPractice() {{
-    if (confirm('Czy na pewno chcesz zresetować postęp praktyki?')) {{
-        localStorage.removeItem('gpro_practice_state');
-        renderNextRace();
-    }}
 }}
 
 function renderResults() {{
@@ -2376,7 +2133,7 @@ function renderResults() {{
     const positions = displayedData.map(d => {{
         const summary = d.race_summary;
         const dp = d.driver_profile || {{}};
-        const myName = dp.manName || dp.manager || '';
+        const myName = dp.manName || dp.manager || dp.owner?.name || '';
         let myResult = summary?.results?.find(r => r.manager === myName);
         if (!myResult) myResult = summary?.results?.find(r => r.gap === '' || r.gap === '0.000s' || r.gap === '+0.000s');
         return toInt(myResult?.position);
@@ -2393,7 +2150,7 @@ function renderResults() {{
             <span>🏆 NAJLEPSZE: P${{bestPos}}</span>
         </div>
     </div>
-    <div class="summary-grid" style="grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); margin: 0;">`;
+    <div class="data-grid">`;
 
     // Od najnowszego do najstarszego
     for (let i = displayedData.length - 1; i >= 0; i--) {{
@@ -2401,21 +2158,13 @@ function renderResults() {{
         const fin = rd.finances || {{}};
         const pits = rd.pits || [];
         const summary = displayedData[i].race_summary || {{}};
-
-        // Szukamy wyniku gracza
-        const dp = displayedData[i].driver_profile || {{}};
-        const myName = dp.manName || dp.manager || '';
-        let myResult = summary?.results?.find(r => r.manager === myName);
-        if (!myResult) myResult = summary?.results?.find(r => r.gap === '' || r.gap === '0.000s' || r.gap === '+0.000s');
-        if (!myResult) myResult = summary?.results?.[0] || {{}};
-
-        const tyreColor = rd.finish_tyres < 20 ? 'var(--accent-red)' : 'var(--accent-gold)';
+        const myResult = summary.results?.[0] || {{}};
 
         html += `
-        <div class="summary-card" style="border-left: 4px solid var(--accent-gold);">
-            <div class="session-header">
-                <h4 style="color: #fff;">${{rd.track || '?'}}</h4>
-                <span class="session-badge">S${{rd.season}}R${{rd.race}}</span>
+        <div class="data-card">
+            <div class="data-card-header">
+                <h3>${{rd.track || '?'}}</h3>
+                <div class="tag">S${{rd.season}}R${{rd.race}}</div>
             </div>
 
             <div class="data-row">
@@ -2435,12 +2184,12 @@ function renderResults() {{
                 <span class="value ${{(fin.total || 0) >= 0 ? 'val-positive' : 'val-negative'}}">${{formatMoney(fin.total)}}</span>
             </div>
 
-            <div style="height: 4px; background: #202020; margin-top: 1.5rem; position: relative;">
-                <div style="height: 100%; width: ${{rd.finish_tyres || 0}}%; background: ${{tyreColor}}; transition: width 1s;"></div>
+            <div class="progress-container" style="margin-top: 1rem;">
+                <div class="progress-bar" style="width: ${{rd.finish_tyres || 0}}%; background: ${{rd.finish_tyres < 20 ? 'var(--accent-red)' : 'var(--accent-gold)'}}"></div>
             </div>
             <div class="data-row" style="border: none; padding-top: 0.25rem;">
                 <span class="label">STAN OPON NA MECIE</span>
-                <span class="value" style="color: ${{tyreColor}};">${{rd.finish_tyres || 0}}%</span>
+                <span class="value">${{rd.finish_tyres || 0}}%</span>
             </div>
         </div>`;
     }}
@@ -2450,103 +2199,80 @@ function renderResults() {{
 }}
 
 // ==========================================================
-// ZAKŁADKA: BOLID (Car & Parts Upgrade Planning)
+// ZAKŁADKA: TABELA LIGOWA (Standings)
 // ==========================================================
-function renderCar() {{
-    const container = document.getElementById('tab-car');
+function renderStandings() {{
+    const container = document.getElementById('tab-standings');
     const latest = getLatestRace();
-    if (!latest) return;
+    if (!latest || !latest.standings) {{
+        container.innerHTML = '<div class="empty-state"><h2>Brak danych tabeli ligowej</h2></div>';
+        return;
+    }}
 
-    const cs = latest.car_status || {{}};
-    const rd = latest.race_data || {{}};
-
-    const parts = [
-        {{ key: 'Chassis', label: 'CHASSIS', options: cs.chassisOptions }},
-        {{ key: 'Engine', label: 'SILNIK', options: cs.engineOptions }},
-        {{ key: 'FWing', label: 'PRZEDNIE SKRZYDŁO', options: cs.fWingOptions }},
-        {{ key: 'RWing', label: 'TYLNE SKRZYDŁO', options: cs.rWingOptions }},
-        {{ key: 'Underbody', label: 'PODŁOGA', options: cs.underbodyOptions }},
-        {{ key: 'Sidepods', label: 'SEKCJE BOCZNE', options: cs.sidepodsOptions }},
-        {{ key: 'Cooling', label: 'CHŁODZENIE', options: cs.coolingOptions }},
-        {{ key: 'Gear', label: 'SKRZYNIA BIEGÓW', options: cs.gearOptions }},
-        {{ key: 'Brakes', label: 'HAMULCE', options: cs.brakesOptions }},
-        {{ key: 'Susp', label: 'ZAWIESZENIE', options: cs.suspOptions }},
-        {{ key: 'Electronics', label: 'ELEKTRONIKA', options: cs.electronicsOptions }},
-    ];
+    const s = latest.standings;
+    const managers = s.managers || [];
+    const dp = latest.driver_profile || {{}};
+    const myName = dp.manName || dp.manager || dp.owner?.name || '';
 
     let html = `
     <div class="hero-section">
-        <span class="hero-subtitle">RAPORT TECHNICZNY</span>
-        <h2>STAN BOLIDU</h2>
+        <span class="hero-subtitle">RANKING MANAGERÓW</span>
+        <h2>${{s.group || 'TABELA LIGOWA'}}</h2>
         <div class="hero-meta">
-            <span>🛠️ POZIOMY CZĘŚCI I ZUŻYCIE PO OSTATNIEJ RUNDZIE</span>
+            <span>📊 SEZON ${{getCurrentContext()?.season || '?'}}</span>
+            <span>👥 ${{managers.length}} UCZESTNIKÓW</span>
         </div>
     </div>
 
-    <div class="summary-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); margin-left: 0; margin-right: 0;">`;
+    <div class="data-card" style="padding: 0; overflow-x: auto;">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>POZ</th>
+                    <th>MANAGER</th>
+                    <th>OPONY</th>
+                    <th>PKT</th>
+                    <th>WYNIKI (1-17)</th>
+                </tr>
+            </thead>
+            <tbody>`;
 
-    parts.forEach(p => {{
-        const lvl = cs['lvl' + p.key] || 0;
-        const wear = cs['usa' + p.key] || 0;
-        const health = 100 - wear;
-        const color = wear > 85 ? 'var(--accent-red)' : (wear > 70 ? 'var(--accent-gold)' : 'var(--accent-cyan)');
-
-        // GPRO Analyzer-like logic: Estimate wear after next race
-        // Try to get average wear per lap from history
-        let wearPerLap = 0.3; // Default fallback
-        const trackRaces = RACE_DATA.filter(r => r.race_data?.track === rd.track);
-        const sourceRaces = trackRaces.length > 0 ? trackRaces : RACE_DATA.slice(-3);
-
-        if (sourceRaces.length > 0) {{
-            let totalWPL = 0;
-            let count = 0;
-            sourceRaces.forEach(r => {{
-                const partData = r.race_data?.car_parts?.[p.key.toLowerCase()] || r.race_data?.car_parts?.[p.key];
-                const laps = r.race_summary?.results?.[0]?.laps || 70;
-                if (partData && partData.finish_wear !== undefined && partData.start_wear !== undefined) {{
-                    totalWPL += (partData.finish_wear - partData.start_wear) / laps;
-                    count++;
-                }}
-            }});
-            if (count > 0) wearPerLap = totalWPL / count;
-        }}
-
-        const nextLaps = getCalendarNextRace()?.total_laps || 72;
-        const estRaceWear = Math.round(wearPerLap * nextLaps);
-        const estWear = wear + estRaceWear;
-        const needsUpgrade = estWear > 85;
-
+    managers.forEach(m => {{
+        const isMe = m.name === myName;
         html += `
-        <div class="summary-card" style="border-left: 4px solid ${{color}};">
-            <div class="session-header">
-                <h4 style="color: #fff;">${{p.label}}</h4>
-                <span class="session-badge">Lvl ${{lvl}}</span>
-            </div>
-            <div class="value" style="font-size: 1.5rem; color: ${{color}};">${{wear}}% <span style="font-size: 0.7rem; color: var(--text-muted);">ZUŻYCIA</span></div>
-
-            <div style="height: 4px; background: #333; margin: 1rem 0; position: relative;">
-                <div style="height: 100%; width: ${{health}}%; background: ${{color}}; transition: width 1s ease-out;"></div>
-            </div>
-
-            <div class="rec-note">
-                EST. PO NAST. WYŚCIGU: <span style="color: ${{needsUpgrade ? 'var(--accent-red)' : '#fff'}}">${{estWear}}%</span>
-            </div>
-
-            ${{needsUpgrade ? `
-            <div class="lap-instruction" style="margin-top: 1rem; padding: 0.5rem;">
-                <div class="instruction" style="font-size: 0.7rem; color: var(--accent-red);">⚠ WYMAGANA WYMIANA</div>
-            </div>` : ''}}
-
-            <div style="margin-top: 1rem;">
-                <select style="width: 100%; background: #000; color: var(--text-muted); border: 1px solid var(--border-color); padding: 0.4rem; font-size: 0.6rem; font-family: var(--font-mono);">
-                    <option>ZOBACZ OPCJE WYMIANY...</option>
-                    ${{(p.options || []).map(o => `<option>${{o.text}}</option>`).join('')}}
-                </select>
-            </div>
-        </div>`;
+            <tr style="${{isMe ? 'background: rgba(255,192,0,0.05);' : ''}}">
+                <td class="${{posClass(m.pos)}}">${{m.pos}}</td>
+                <td style="${{isMe ? 'color: var(--accent-gold); font-weight: 700;' : ''}}">${{m.name}}</td>
+                <td>${{m.tyre}}</td>
+                <td style="font-weight: 700;">${{m.pts}}</td>
+                <td>
+                    <div style="display: flex; gap: 4px;">
+                    ${{(m.results || []).map(r => `
+                        <div style="
+                            width: 18px;
+                            height: 18px;
+                            font-size: 0.6rem;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            background: ${{ r.pos === '-' ? '#111' : (toInt(r.pos) <= 3 ? 'var(--accent-gold)' : (toInt(r.pos) <= 10 ? '#444' : '#222')) }};
+                            color: ${{ toInt(r.pos) <= 3 ? '#000' : '#888' }};
+                            font-weight: ${{ toInt(r.pos) <= 10 ? '700' : '400' }};
+                            border: 1px solid #1a1a1a;
+                        ">
+                            ${{r.pos === '-' ? '' : r.pos}}
+                        </div>
+                    `).join('')}}
+                    </div>
+                </td>
+            </tr>`;
     }});
 
-    html += `</div>`;
+    html += `
+            </tbody>
+        </table>
+    </div>`;
+
     container.innerHTML = html;
 }}
 
@@ -2646,17 +2372,17 @@ function renderFuel() {{
             <span>🛞 TYPOWA ŻYWOTNOŚĆ: ~25 OKR</span>
         </div>
     </div>
-    <div class="summary-grid" style="grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); margin: 0;">`;
+    <div class="data-grid">`;
 
     for (let i = displayedData.length - 1; i >= 0; i--) {{
         const rd = displayedData[i].race_data || {{}};
         const pits = rd.pits || [];
 
         html += `
-        <div class="summary-card" style="border-left: 4px solid var(--accent-cyan);">
-            <div class="session-header">
-                <h4 style="color: #fff;">${{rd.track || '?'}}</h4>
-                <span class="session-badge">S${{rd.season}}R${{rd.race}}</span>
+        <div class="data-card">
+            <div class="data-card-header">
+                <h3>${{rd.track || '?'}}</h3>
+                <div class="tag">S${{rd.season}}R${{rd.race}}</div>
             </div>
 
             <div class="data-row">
@@ -2666,7 +2392,7 @@ function renderFuel() {{
 
         pits.forEach((pit, idx) => {{
             html += `
-            <div class="data-row" style="background: rgba(41, 171, 226, 0.03);">
+            <div class="data-row" style="background: rgba(255,192,0,0.03);">
                 <span class="label">PIT ${{idx + 1}} (OKR. ${{pit.lap}})</span>
                 <span class="value">${{pit.tyre_condition}}% 🛞 / ${{pit.refilled_to}}L ⛽</span>
             </div>`;
@@ -2678,12 +2404,12 @@ function renderFuel() {{
                 <span class="value">${{rd.finish_fuel || 0}}L PALIWA</span>
             </div>
 
-            <div style="height: 4px; background: #202020; margin-top: 1.5rem; position: relative;">
-                <div style="height: 100%; width: ${{rd.finish_tyres || 0}}%; background: var(--accent-gold);"></div>
+            <div class="progress-container" style="margin-top: 1rem; background: #331a00;">
+                <div class="progress-bar" style="width: ${{rd.finish_tyres || 0}}%; background: var(--accent-gold);"></div>
             </div>
             <div class="data-row" style="border: none; padding-top: 0.25rem;">
                 <span class="label">STAN OPON</span>
-                <span class="value" style="color: var(--accent-gold);">${{rd.finish_tyres || 0}}%</span>
+                <span class="value">${{rd.finish_tyres || 0}}%</span>
             </div>
         </div>`;
     }}
@@ -2707,7 +2433,7 @@ function renderFinances() {{
             <span>📈 ŚREDNI ZYSK: ${{formatMoney(Math.round(displayedData.reduce((acc, d) => acc + (d.race_data?.finances?.total || 0), 0) / displayedData.length))}}</span>
         </div>
     </div>
-    <div class="summary-grid" style="grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); margin: 0;">`;
+    <div class="data-grid">`;
 
     for (let i = displayedData.length - 1; i >= 0; i--) {{
         const rd = displayedData[i].race_data || {{}};
@@ -2718,10 +2444,10 @@ function renderFinances() {{
         const costs = txs.filter(t => t.amount < 0).reduce((s, t) => s + t.amount, 0);
 
         html += `
-        <div class="summary-card" style="border-left: 4px solid var(--accent-gold);">
-            <div class="session-header">
-                <h4 style="color: #fff;">${{rd.track || '?'}}</h4>
-                <span class="session-badge">S${{rd.season}}R${{rd.race}}</span>
+        <div class="data-card">
+            <div class="data-card-header">
+                <h3>${{rd.track || '?'}}</h3>
+                <div class="tag">S${{rd.season}}R${{rd.race}}</div>
             </div>
 
             <div class="data-row">
@@ -2809,9 +2535,46 @@ function renderDriver(latest) {{
     document.getElementById('tab-driver').innerHTML = html;
 }}
 
+// Funkcja generująca link do GitHub Actions
+function renderDeployButton() {{
+    const container = document.getElementById('deployBtnContainer');
+    if (!container) return;
+
+    // Próba wykrycia repozytorium z URL (format: https://username.github.io/repo/)
+    const pathParts = window.location.pathname.split('/').filter(p => p);
+    let repoUrl = 'https://github.com/';
+
+    if (window.location.hostname.includes('github.io')) {{
+        const user = window.location.hostname.split('.')[0];
+        const repo = pathParts[0] || '';
+        repoUrl += `${{user}}/${{repo}}`;
+    }} else {{
+        // Fallback dla lokalnego developmentu
+        repoUrl += 'user/repo';
+    }}
+
+    repoUrl += '/actions/workflows/fetch.yml';
+
+    container.innerHTML = `
+        <a href="${{repoUrl}}" target="_blank" class="deploy-btn">
+            <span>🚀 FETCH GPRO DATA & DEPLOY</span>
+        </a>`;
+}}
+
 // Start!
 window.onload = () => {{
     render();
+    renderDeployButton();
+
+    // Initial visibility state based on active tab
+    const activeBtn = document.querySelector('.tab-btn.active');
+    if (activeBtn) {{
+        const tabId = activeBtn.dataset.tab;
+        const mainSummary = document.getElementById('mainSummaryContainer');
+        if (['overview', 'nextrace', 'standings'].includes(tabId)) {{
+            mainSummary.style.display = 'none';
+        }}
+    }}
 }};
 </script>
 </body>

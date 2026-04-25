@@ -1,56 +1,21 @@
 {
-  "generated_at": "2026-04-24T17:20:24.673539Z",
+  "generated_at": "2026-04-25T08:52:03.864366Z",
   "next_race": {
-    "track": "Istanbul GP (Turcja)",
+    "track": "Rafaela Oval GP (Argentyna)",
     "season": 110,
-    "race": 5,
-    "total_laps": 72
+    "race": 6,
+    "total_laps": 72,
+    "track_id": "54"
   },
   "confidence": "low",
   "confidence_reason": "Fallback: domyślny setup medium downforce",
   "driver_margin": {
-    "MA": 126,
-    "half_MA": 63,
-    "note": "Setup ±63 od optimum da satisfied (MA=126, TI=21, EXP=25)"
-  },
-  "setup_practice": {
-    "fw": 504,
-    "rw": 504,
-    "eng": 595,
-    "bra": 606,
-    "gear": 495,
-    "susp": 594,
-    "temp": 21
-  },
-  "setup_q1": {
-    "fw": 508,
-    "rw": 508,
-    "eng": 590,
-    "bra": 612,
-    "gear": 490,
-    "susp": 589,
-    "temp": 22
-  },
-  "setup_q2": {
-    "fw": 525,
-    "rw": 525,
-    "eng": 570,
-    "bra": 635,
-    "gear": 470,
-    "susp": 567,
-    "temp": 26
-  },
-  "setup_race": {
-    "fw": 529,
-    "rw": 529,
-    "eng": 565,
-    "bra": 641,
-    "gear": 465,
-    "susp": 562,
-    "temp": 27
+    "MA": 125,
+    "half_MA": 62,
+    "note": "Setup ±62 od optimum da satisfied (MA=125, TI=22, EXP=26)"
   },
   "base": {
-    "track": "Istanbul GP (Turcja)",
+    "track": "Rafaela Oval GP (Argentyna)",
     "setup": {
       "fw": 500,
       "rw": 500,
@@ -61,53 +26,120 @@
     },
     "temp": 20
   },
-  "sessions": {
-    "practice": {
+  "sequence": [
+    {
+      "id": "Practice 1",
+      "type": "practice",
+      "completed": false,
       "setup": {
         "fw": 504,
         "rw": 504,
         "eng": 595,
         "bra": 606,
         "gear": 495,
-        "susp": 594
+        "susp": 594,
+        "temp": 21
       },
+      "feedback": "",
+      "tyres": "Hard",
       "temp": 21,
-      "weather": "dry",
-      "tyres": "medium",
-      "fuel_start": 80,
-      "note": "Medium tyres, test setup, find satisfied"
+      "note": "Sugerowany setup na podstawie poprzednich kroków",
+      "is_next": true
     },
-    "q1": {
-      "setup": {
-        "fw": 508,
-        "rw": 508,
-        "eng": 590,
-        "bra": 612,
-        "gear": 490,
-        "susp": 589
-      },
+    {
+      "id": "Practice 2",
+      "type": "practice",
+      "completed": false,
+      "setup": null,
+      "feedback": "",
+      "tyres": "Hard",
+      "temp": 21,
+      "note": ""
+    },
+    {
+      "id": "Practice 3",
+      "type": "practice",
+      "completed": false,
+      "setup": null,
+      "feedback": "",
+      "tyres": "Hard",
+      "temp": 21,
+      "note": ""
+    },
+    {
+      "id": "Practice 4",
+      "type": "practice",
+      "completed": false,
+      "setup": null,
+      "feedback": "",
+      "tyres": "Hard",
+      "temp": 21,
+      "note": ""
+    },
+    {
+      "id": "Practice 5",
+      "type": "practice",
+      "completed": false,
+      "setup": null,
+      "feedback": "",
+      "tyres": "Hard",
+      "temp": 21,
+      "note": ""
+    },
+    {
+      "id": "Practice 6",
+      "type": "practice",
+      "completed": false,
+      "setup": null,
+      "feedback": "",
+      "tyres": "Hard",
+      "temp": 21,
+      "note": ""
+    },
+    {
+      "id": "Practice 7",
+      "type": "practice",
+      "completed": false,
+      "setup": null,
+      "feedback": "",
+      "tyres": "Hard",
+      "temp": 21,
+      "note": ""
+    },
+    {
+      "id": "Practice 8",
+      "type": "practice",
+      "completed": false,
+      "setup": null,
+      "feedback": "",
+      "tyres": "Hard",
+      "temp": 21,
+      "note": ""
+    },
+    {
+      "id": "Qualify 1",
+      "type": "q1",
+      "completed": false,
+      "setup": null,
+      "feedback": "",
+      "tyres": "Hard",
       "temp": 22,
-      "weather": "dry",
-      "tyres": "soft",
-      "fuel_start": 40,
-      "note": "Soft tyres, push for time"
+      "note": "Push for time"
     },
-    "q2": {
-      "setup": {
-        "fw": 525,
-        "rw": 525,
-        "eng": 570,
-        "bra": 635,
-        "gear": 470,
-        "susp": 567
-      },
+    {
+      "id": "Qualify 2",
+      "type": "q2",
+      "completed": false,
+      "setup": null,
+      "feedback": "",
+      "tyres": "Hard",
       "temp": 26,
-      "weather": "dry",
-      "tyres": "soft",
-      "fuel_start": 40,
-      "note": "Soft tyres, qualify for race"
+      "note": "Qualify for race"
     },
-    "race": {
+    {
+      "id": "Race",
+      "type": "race",
+      "completed": false,
       "setup": {
         "fw": 529,
         "rw": 529,
@@ -116,105 +148,58 @@
         "gear": 465,
         "susp": 562
       },
+      "tyres": "Hard",
       "temp": 27,
-      "weather": "dry",
-      "tyres": "medium",
       "fuel_strategy": {
         "pits": 2,
         "stints": [
-          109,
-          109,
-          109
+          108,
+          108,
+          108
         ],
-        "total_fuel": 326
+        "total_fuel": 325
       },
-      "note": "Medium tyres, fuel strategy from analysis"
+      "note": "Final race strategy"
     }
-  },
+  ],
   "fuel_strategy": {
-    "fuel_per_lap": 4.53,
+    "fuel_per_lap": 4.51,
     "recommended": {
       "pits": 2,
       "stints": [
-        109,
-        109,
-        109
+        108,
+        108,
+        108
       ],
-      "total_fuel": 326
+      "total_fuel": 325
     },
     "alternative": {
       "pits": 3,
       "stints": [
-        109,
-        109,
-        109,
-        109
+        108,
+        108,
+        108,
+        108
       ],
-      "total_fuel": 436
+      "total_fuel": 432
     }
   },
   "tyre_strategy": {
-    "est_tyre_life_laps": 28,
+    "est_tyre_life_laps": 40,
     "laps_on_fuel": 39,
-    "bottleneck": "tyres",
-    "bottleneck_explanation": "Opony na ~28 okr, paliwo na ~39 okr → pit stopy wynikają z opon"
-  },
-  "practice_plan": {
-    "laps": [
-      {
-        "lap": 1,
-        "action": "Użyj rekomendowanego setupu",
-        "note": "Sprawdź czy satisfied"
-      },
-      {
-        "lap": 2,
-        "action": "Jeśli nie satisfied → zmień FW o +64",
-        "note": "Binary search"
-      },
-      {
-        "lap": 3,
-        "action": "Jeśli lap2 lepszy → kontynuuj w tym kierunku (+64)",
-        "note": "Szukamy optimum"
-      },
-      {
-        "lap": 4,
-        "action": "Jeśli lap2 gorszy → zmień FW o -64 od startu",
-        "note": "Zmień kierunek"
-      },
-      {
-        "lap": 5,
-        "action": "Zawęż zakres do ±32 od najlepszego",
-        "note": "Binary search step 2"
-      },
-      {
-        "lap": 6,
-        "action": "Zawęż zakres do ±16 od najlepszego",
-        "note": "Binary search step 3"
-      },
-      {
-        "lap": 7,
-        "action": "Powtórz dla ENG lub SUSP",
-        "note": "Drugie najważniejsze ustawienie"
-      },
-      {
-        "lap": 8,
-        "action": "Finalna weryfikacja najlepszego setupu",
-        "note": "Ten setup idzie do Q1"
-      }
-    ],
-    "priority_note": "FW/RW mają największy wpływ na czas. ENG i SUSP na drugim miejscu. BRA i GEAR zwykle trafiasz od razu."
+    "bottleneck": "fuel",
+    "bottleneck_explanation": "Paliwo na ~39 okr, opony na ~40 okr → pit stopy wynikają z paliwa"
   },
   "tyre_info": {
     "supplier": "Pipirelli",
-    "bottleneck": "tyres",
-    "est_tyre_life_laps": 28
+    "bottleneck": "fuel",
+    "est_tyre_life_laps": 40
   },
   "notes": [
-    "Predykcja oparta na 7 wyścigach w historii.",
-    "Confidence: low - Fallback: domyślny setup medium downforce",
-    "Kierowca: Noel Lavin (TI=21, EXP=25)",
-    "Margines kierowcy: ±63 od optimum.",
-    "Opony: ~28 okr, paliwo: ~39 okr",
-    "Uwaga: Pogoda jest przykładowa. Sprawdź prognozę przed wyścigiem."
+    "Predykcja oparta na 8 wyścigach w historii.",
+    "Pewność: low - Fallback: domyślny setup medium downforce",
+    "Kierowca: Noel Lavin (TI=22, EXP=26)",
+    "Margines kierowcy: ±62 od optimum.",
+    "Opony: ~40 okr, paliwo: ~39 okr"
   ]
 }
