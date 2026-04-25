@@ -230,7 +230,7 @@
       "total": 7928700,
       "balance": 38058229
     },
-    "fetched_at": "2026-04-24T20:04:43.612864Z"
+    "fetched_at": "2026-04-25T08:51:56.955280Z"
   },
   "race_summary": {
     "track": "Istanbul",
@@ -354,7 +354,7 @@
     "overall": 94,
     "driverFaceUpdated": 0,
     "driverFaceCost": 0.1,
-    "energy": 68,
+    "energy": 77,
     "concentration": 178,
     "talent": 106,
     "aggressiveness": 9,
@@ -419,7 +419,7 @@
     "privateOfferCost": 1000000,
     "setOfferCost": 500000,
     "setOfferType": "1",
-    "nextPriceIncrementIn": 219312,
+    "nextPriceIncrementIn": 173279,
     "offerPlaced": 0,
     "inShortList": 1,
     "oneRaceRenewFee": 184700,
@@ -441,7 +441,7 @@
     "setContractLengthExtend": "",
     "totalOffers": 0,
     "offersFrom": [],
-    "apiRequestsRemaining": 989
+    "apiRequestsRemaining": 983
   },
   "standings": {
     "loadingDataState": "1",
@@ -458,7 +458,7 @@
         "manPosChange": "0",
         "manBgColor": "#007700",
         "negative": 0,
-        "cash": 25856206,
+        "cash": 12394544,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -978,7 +978,7 @@
         "manPosChange": "-1",
         "manBgColor": "",
         "negative": 0,
-        "cash": 27198320,
+        "cash": 21070437,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -1186,7 +1186,7 @@
         "manPosChange": "+1",
         "manBgColor": "",
         "negative": 0,
-        "cash": 37365089,
+        "cash": 26532644,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -1498,7 +1498,7 @@
         "manPosChange": "+3",
         "manBgColor": "",
         "negative": 0,
-        "cash": 29094215,
+        "cash": 19056336,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -1602,7 +1602,7 @@
         "manPosChange": "-1",
         "manBgColor": "",
         "negative": 0,
-        "cash": 35717696,
+        "cash": 33234546,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -2122,7 +2122,7 @@
         "manPosChange": "0",
         "manBgColor": "",
         "negative": 1,
-        "cash": -3948838,
+        "cash": -4298838,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -2737,325 +2737,13 @@
         "pts": "0"
       },
       {
-        "name": "Mark Lavrynovych",
-        "pos": "23",
-        "tyre": "Pipirelli",
-        "natCode": "us",
-        "IDM": 1136503,
-        "manArrow": "down",
-        "manPosChange": "-1",
-        "manBgColor": "",
-        "negative": 0,
-        "cash": 30390160,
-        "retires": 0,
-        "goesRookie": 0,
-        "didSoftReset": 0,
-        "champs": "0",
-        "results": [
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          }
-        ],
-        "pts": "0"
-      },
-      {
-        "name": "Haricson Santos",
-        "pos": "24",
-        "tyre": "Pipirelli",
-        "natCode": "br",
-        "IDM": 372924,
-        "manArrow": "down",
-        "manPosChange": "-1",
-        "manBgColor": "",
-        "negative": 0,
-        "cash": 29312430,
-        "retires": 0,
-        "goesRookie": 0,
-        "didSoftReset": 0,
-        "champs": "0",
-        "results": [
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          }
-        ],
-        "pts": "0"
-      },
-      {
-        "name": "Pfzcbnm Zcbhn",
-        "pos": "25",
-        "tyre": "Pipirelli",
-        "natCode": "np",
-        "IDM": 1117880,
-        "manArrow": "equals",
-        "manPosChange": "0",
-        "manBgColor": "",
-        "negative": 0,
-        "cash": 27755020,
-        "retires": 0,
-        "goesRookie": 0,
-        "didSoftReset": 0,
-        "champs": "0",
-        "results": [
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          }
-        ],
-        "pts": "0"
-      },
-      {
         "name": "Bumper Sfcz",
-        "pos": "26",
+        "pos": "23",
         "tyre": "Pipirelli",
         "natCode": "fr",
         "IDM": 1135869,
-        "manArrow": "down",
-        "manPosChange": "-2",
+        "manArrow": "up",
+        "manPosChange": "+1",
         "manBgColor": "",
         "negative": 0,
         "cash": 27241990,
@@ -3154,12 +2842,12 @@
       },
       {
         "name": "Janez Krizan",
-        "pos": "27",
+        "pos": "24",
         "tyre": "Pipirelli",
         "natCode": "si",
         "IDM": 1142520,
         "manArrow": "up",
-        "manPosChange": "+13",
+        "manPosChange": "+16",
         "manBgColor": "",
         "negative": 0,
         "cash": 25000000,
@@ -3257,13 +2945,117 @@
         "pts": "0"
       },
       {
+        "name": "Lucherini Unknown",
+        "pos": "25",
+        "tyre": "Pipirelli",
+        "natCode": "br",
+        "IDM": 1142599,
+        "manArrow": "up",
+        "manPosChange": "+15",
+        "manBgColor": "",
+        "negative": 0,
+        "cash": 18686250,
+        "retires": 0,
+        "goesRookie": 0,
+        "didSoftReset": 0,
+        "champs": "0",
+        "results": [
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          }
+        ],
+        "pts": "0"
+      },
+      {
         "name": "Rodrigo Couto",
-        "pos": "28",
+        "pos": "26",
         "tyre": "Pipirelli",
         "natCode": "br",
         "IDM": 1142258,
-        "manArrow": "down",
-        "manPosChange": "-1",
+        "manArrow": "up",
+        "manPosChange": "+1",
         "manBgColor": "",
         "negative": 0,
         "cash": 17968645,
@@ -3362,12 +3154,12 @@
       },
       {
         "name": "&#1488;&#1491;&#1492;&#1501; &#1494;&#1493;&#1506;&#1489;&#1497;",
-        "pos": "29",
+        "pos": "27",
         "tyre": "Pipirelli",
         "natCode": "il",
         "IDM": 1141727,
-        "manArrow": "down",
-        "manPosChange": "-1",
+        "manArrow": "up",
+        "manPosChange": "+1",
         "manBgColor": "",
         "negative": 0,
         "cash": 27293000,
@@ -3466,12 +3258,12 @@
       },
       {
         "name": "Sisu X",
-        "pos": "30",
+        "pos": "28",
         "tyre": "Pipirelli",
         "natCode": "gt",
         "IDM": 1141028,
-        "manArrow": "down",
-        "manPosChange": "-1",
+        "manArrow": "up",
+        "manPosChange": "+1",
         "manBgColor": "",
         "negative": 0,
         "cash": 27283000,
@@ -3570,12 +3362,12 @@
       },
       {
         "name": "Isabel Leon Sanchez",
-        "pos": "31",
+        "pos": "29",
         "tyre": "Pipirelli",
         "natCode": "pe",
         "IDM": 1141103,
-        "manArrow": "down",
-        "manPosChange": "-1",
+        "manArrow": "up",
+        "manPosChange": "+1",
         "manBgColor": "",
         "negative": 0,
         "cash": 27195220,
@@ -3674,12 +3466,12 @@
       },
       {
         "name": "Maiquel Pereira",
-        "pos": "32",
+        "pos": "30",
         "tyre": "Pipirelli",
         "natCode": "br",
         "IDM": 1141613,
-        "manArrow": "down",
-        "manPosChange": "-1",
+        "manArrow": "up",
+        "manPosChange": "+1",
         "manBgColor": "",
         "negative": 0,
         "cash": 26568410,
@@ -3778,12 +3570,12 @@
       },
       {
         "name": "Juan Antonio Vargas",
-        "pos": "33",
+        "pos": "31",
         "tyre": "Pipirelli",
         "natCode": "ar",
         "IDM": 1141222,
-        "manArrow": "down",
-        "manPosChange": "-1",
+        "manArrow": "up",
+        "manPosChange": "+1",
         "manBgColor": "",
         "negative": 0,
         "cash": 26137820,
@@ -3882,12 +3674,12 @@
       },
       {
         "name": "Pol Sousa",
-        "pos": "34",
+        "pos": "32",
         "tyre": "Pipirelli",
         "natCode": "es",
         "IDM": 1140747,
-        "manArrow": "down",
-        "manPosChange": "-1",
+        "manArrow": "up",
+        "manPosChange": "+1",
         "manBgColor": "",
         "negative": 0,
         "cash": 28460800,
@@ -3986,12 +3778,12 @@
       },
       {
         "name": "Andr&#233;s Felipe Ortega Mesa",
-        "pos": "35",
+        "pos": "33",
         "tyre": "Pipirelli",
         "natCode": "ec",
         "IDM": 1140272,
-        "manArrow": "down",
-        "manPosChange": "-1",
+        "manArrow": "up",
+        "manPosChange": "+1",
         "manBgColor": "",
         "negative": 0,
         "cash": 27455198,
@@ -4090,12 +3882,12 @@
       },
       {
         "name": "Paulo Vitor",
-        "pos": "36",
+        "pos": "34",
         "tyre": "Pipirelli",
         "natCode": "br",
         "IDM": 1140166,
-        "manArrow": "down",
-        "manPosChange": "-1",
+        "manArrow": "up",
+        "manPosChange": "+1",
         "manBgColor": "",
         "negative": 0,
         "cash": 27120668,
@@ -4193,117 +3985,13 @@
         "pts": "0"
       },
       {
-        "name": "Tin Tintin",
-        "pos": "37",
-        "tyre": "Pipirelli",
-        "natCode": "us",
-        "IDM": 1139787,
-        "manArrow": "down",
-        "manPosChange": "-1",
-        "manBgColor": "",
-        "negative": 0,
-        "cash": 29663450,
-        "retires": 0,
-        "goesRookie": 0,
-        "didSoftReset": 0,
-        "champs": "0",
-        "results": [
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          }
-        ],
-        "pts": "0"
-      },
-      {
         "name": "Shirley Scales",
-        "pos": "38",
+        "pos": "35",
         "tyre": "Pipirelli",
         "natCode": "us",
         "IDM": 1140100,
-        "manArrow": "down",
-        "manPosChange": "-1",
+        "manArrow": "up",
+        "manPosChange": "+2",
         "manBgColor": "",
         "negative": 0,
         "cash": 29521546,
@@ -4402,12 +4090,12 @@
       },
       {
         "name": "&#1050;&#1086;&#1089;&#1090;&#1103; Unknown",
-        "pos": "39",
+        "pos": "36",
         "tyre": "Pipirelli",
         "natCode": "ru",
         "IDM": 1140094,
-        "manArrow": "down",
-        "manPosChange": "-1",
+        "manArrow": "up",
+        "manPosChange": "+2",
         "manBgColor": "",
         "negative": 0,
         "cash": 28196024,
@@ -4506,119 +4194,15 @@
       },
       {
         "name": "Matt Ng",
-        "pos": "40",
+        "pos": "37",
         "tyre": "Pipirelli",
         "natCode": "hk",
         "IDM": 1140117,
-        "manArrow": "down",
-        "manPosChange": "-1",
+        "manArrow": "up",
+        "manPosChange": "+2",
         "manBgColor": "",
         "negative": 0,
         "cash": 27977794,
-        "retires": 0,
-        "goesRookie": 0,
-        "didSoftReset": 0,
-        "champs": "0",
-        "results": [
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          }
-        ],
-        "pts": "0"
-      },
-      {
-        "name": "Thomas Cardozo",
-        "pos": "41",
-        "tyre": "Pipirelli",
-        "natCode": "co",
-        "IDM": 1139475,
-        "manArrow": "down",
-        "manPosChange": "-1",
-        "manBgColor": "",
-        "negative": 0,
-        "cash": 27549730,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -6186,38 +5770,38 @@
         },
         {
           "type": "line",
-          "name": "M. Lavrynovych",
+          "name": "",
           "color": "#FAAFBE",
           "data": [
-            24,
-            27,
-            26,
-            25,
-            23
+            null,
+            null,
+            null,
+            null,
+            null
           ]
         },
         {
           "type": "line",
-          "name": "H. Santos",
+          "name": "",
           "color": "#347235",
           "data": [
             null,
-            43,
-            30,
-            27,
-            24
+            null,
+            null,
+            null,
+            null
           ]
         },
         {
           "type": "line",
-          "name": "P. Zcbhn",
+          "name": "",
           "color": "#F52887",
           "data": [
             null,
-            48,
-            36,
-            32,
-            25
+            null,
+            null,
+            null,
+            null
           ]
         },
         {
@@ -6342,14 +5926,14 @@
         },
         {
           "type": "line",
-          "name": "T. Tintin",
+          "name": "",
           "color": "#F87431",
           "data": [
             null,
-            50,
-            41,
-            42,
-            36
+            null,
+            null,
+            null,
+            null
           ]
         },
         {
@@ -6386,18 +5970,6 @@
             44,
             45,
             39
-          ]
-        },
-        {
-          "type": "line",
-          "name": "T. Cardozo",
-          "color": "#F75D59",
-          "data": [
-            null,
-            54,
-            45,
-            46,
-            40
           ]
         }
       ]
@@ -7002,7 +6574,7 @@
         }
       ]
     },
-    "apiRequestsRemaining": 988
+    "apiRequestsRemaining": 982
   },
   "car_status": {
     "loadingDataState": "1",
@@ -7654,6 +7226,6 @@
     "showUndoAlertNoCredits": false,
     "credits": 0,
     "races": 8,
-    "apiRequestsRemaining": 987
+    "apiRequestsRemaining": 981
   }
 }
