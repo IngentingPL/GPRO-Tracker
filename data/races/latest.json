@@ -230,7 +230,7 @@
       "total": 7928700,
       "balance": 38058229
     },
-    "fetched_at": "2026-04-25T09:43:32.295583Z"
+    "fetched_at": "2026-04-25T14:12:27.126582Z"
   },
   "race_summary": {
     "track": "Istanbul",
@@ -244,7 +244,7 @@
     "isSupporter": 1,
     "driverNotFoundNote": true,
     "credits": 0,
-    "cash": 38658229,
+    "cash": 30596036,
     "natCode": "mx",
     "natName": "Meksyk",
     "face": "1",
@@ -354,18 +354,18 @@
     "overall": 94,
     "driverFaceUpdated": 0,
     "driverFaceCost": 0.1,
-    "energy": 78,
+    "energy": 81,
     "concentration": 178,
     "talent": 106,
     "aggressiveness": 9,
     "experience": 27,
     "experienceCapped": 27,
     "techInsight": 23,
-    "stamina": 104,
+    "stamina": 106,
     "charisma": 89,
-    "motivation": 177,
+    "motivation": 172,
     "reputation": 12,
-    "weight": 66,
+    "weight": 65,
     "age": 21,
     "retiring": 0,
     "ptsBonus": 0,
@@ -419,7 +419,7 @@
     "privateOfferCost": 1000000,
     "setOfferCost": 500000,
     "setOfferType": "1",
-    "nextPriceIncrementIn": 170184,
+    "nextPriceIncrementIn": 154048,
     "offerPlaced": 0,
     "inShortList": 1,
     "oneRaceRenewFee": 184700,
@@ -441,7 +441,7 @@
     "setContractLengthExtend": "",
     "totalOffers": 0,
     "offersFrom": [],
-    "apiRequestsRemaining": 977
+    "apiRequestsRemaining": 971
   },
   "standings": {
     "loadingDataState": "1",
@@ -562,7 +562,7 @@
         "manPosChange": "0",
         "manBgColor": "#007700",
         "negative": 0,
-        "cash": 38658229,
+        "cash": 30596036,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -2945,13 +2945,117 @@
         "pts": "0"
       },
       {
-        "name": "Lucherini Unknown",
+        "name": "Ali Unknown",
         "pos": "25",
+        "tyre": "Pipirelli",
+        "natCode": "om",
+        "IDM": 1142707,
+        "manArrow": "up",
+        "manPosChange": "+15",
+        "manBgColor": "",
+        "negative": 0,
+        "cash": 25000000,
+        "retires": 0,
+        "goesRookie": 0,
+        "didSoftReset": 0,
+        "champs": "0",
+        "results": [
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          }
+        ],
+        "pts": "0"
+      },
+      {
+        "name": "Lucherini Unknown",
+        "pos": "26",
         "tyre": "Pipirelli",
         "natCode": "br",
         "IDM": 1142599,
         "manArrow": "up",
-        "manPosChange": "+15",
+        "manPosChange": "+14",
         "manBgColor": "",
         "negative": 0,
         "cash": 18686250,
@@ -3050,12 +3154,12 @@
       },
       {
         "name": "Rodrigo Couto",
-        "pos": "26",
+        "pos": "27",
         "tyre": "Pipirelli",
         "natCode": "br",
         "IDM": 1142258,
-        "manArrow": "up",
-        "manPosChange": "+1",
+        "manArrow": "equals",
+        "manPosChange": "0",
         "manBgColor": "",
         "negative": 0,
         "cash": 17968645,
@@ -3154,12 +3258,12 @@
       },
       {
         "name": "&#1488;&#1491;&#1492;&#1501; &#1494;&#1493;&#1506;&#1489;&#1497;",
-        "pos": "27",
+        "pos": "28",
         "tyre": "Pipirelli",
         "natCode": "il",
         "IDM": 1141727,
-        "manArrow": "up",
-        "manPosChange": "+1",
+        "manArrow": "equals",
+        "manPosChange": "0",
         "manBgColor": "",
         "negative": 0,
         "cash": 27293000,
@@ -3258,12 +3362,12 @@
       },
       {
         "name": "Sisu X",
-        "pos": "28",
+        "pos": "29",
         "tyre": "Pipirelli",
         "natCode": "gt",
         "IDM": 1141028,
-        "manArrow": "up",
-        "manPosChange": "+1",
+        "manArrow": "equals",
+        "manPosChange": "0",
         "manBgColor": "",
         "negative": 0,
         "cash": 27283000,
@@ -3362,12 +3466,12 @@
       },
       {
         "name": "Isabel Leon Sanchez",
-        "pos": "29",
+        "pos": "30",
         "tyre": "Pipirelli",
         "natCode": "pe",
         "IDM": 1141103,
-        "manArrow": "up",
-        "manPosChange": "+1",
+        "manArrow": "equals",
+        "manPosChange": "0",
         "manBgColor": "",
         "negative": 0,
         "cash": 27195220,
@@ -3466,12 +3570,12 @@
       },
       {
         "name": "Maiquel Pereira",
-        "pos": "30",
+        "pos": "31",
         "tyre": "Pipirelli",
         "natCode": "br",
         "IDM": 1141613,
-        "manArrow": "up",
-        "manPosChange": "+1",
+        "manArrow": "equals",
+        "manPosChange": "0",
         "manBgColor": "",
         "negative": 0,
         "cash": 26568410,
@@ -3570,12 +3674,12 @@
       },
       {
         "name": "Juan Antonio Vargas",
-        "pos": "31",
+        "pos": "32",
         "tyre": "Pipirelli",
         "natCode": "ar",
         "IDM": 1141222,
-        "manArrow": "up",
-        "manPosChange": "+1",
+        "manArrow": "equals",
+        "manPosChange": "0",
         "manBgColor": "",
         "negative": 0,
         "cash": 26137820,
@@ -3674,12 +3778,12 @@
       },
       {
         "name": "Pol Sousa",
-        "pos": "32",
+        "pos": "33",
         "tyre": "Pipirelli",
         "natCode": "es",
         "IDM": 1140747,
-        "manArrow": "up",
-        "manPosChange": "+1",
+        "manArrow": "equals",
+        "manPosChange": "0",
         "manBgColor": "",
         "negative": 0,
         "cash": 28460800,
@@ -3778,12 +3882,12 @@
       },
       {
         "name": "Andr&#233;s Felipe Ortega Mesa",
-        "pos": "33",
+        "pos": "34",
         "tyre": "Pipirelli",
         "natCode": "ec",
         "IDM": 1140272,
-        "manArrow": "up",
-        "manPosChange": "+1",
+        "manArrow": "equals",
+        "manPosChange": "0",
         "manBgColor": "",
         "negative": 0,
         "cash": 27455198,
@@ -3882,12 +3986,12 @@
       },
       {
         "name": "Paulo Vitor",
-        "pos": "34",
+        "pos": "35",
         "tyre": "Pipirelli",
         "natCode": "br",
         "IDM": 1140166,
-        "manArrow": "up",
-        "manPosChange": "+1",
+        "manArrow": "equals",
+        "manPosChange": "0",
         "manBgColor": "",
         "negative": 0,
         "cash": 27120668,
@@ -3986,12 +4090,12 @@
       },
       {
         "name": "Shirley Scales",
-        "pos": "35",
+        "pos": "36",
         "tyre": "Pipirelli",
         "natCode": "us",
         "IDM": 1140100,
         "manArrow": "up",
-        "manPosChange": "+2",
+        "manPosChange": "+1",
         "manBgColor": "",
         "negative": 0,
         "cash": 29521546,
@@ -4090,12 +4194,12 @@
       },
       {
         "name": "&#1050;&#1086;&#1089;&#1090;&#1103; Unknown",
-        "pos": "36",
+        "pos": "37",
         "tyre": "Pipirelli",
         "natCode": "ru",
         "IDM": 1140094,
         "manArrow": "up",
-        "manPosChange": "+2",
+        "manPosChange": "+1",
         "manBgColor": "",
         "negative": 0,
         "cash": 28196024,
@@ -4194,12 +4298,12 @@
       },
       {
         "name": "Matt Ng",
-        "pos": "37",
+        "pos": "38",
         "tyre": "Pipirelli",
         "natCode": "hk",
         "IDM": 1140117,
         "manArrow": "up",
-        "manPosChange": "+2",
+        "manPosChange": "+1",
         "manBgColor": "",
         "negative": 0,
         "cash": 27977794,
@@ -6574,13 +6678,13 @@
         }
       ]
     },
-    "apiRequestsRemaining": 976
+    "apiRequestsRemaining": 970
   },
   "car_status": {
     "loadingDataState": "1",
-    "carPower": 30,
-    "carHandl": 31,
-    "carAccel": 29,
+    "carPower": 37,
+    "carHandl": 33,
+    "carAccel": 33,
     "testPowerPoints": 0,
     "testHandlPoints": 0,
     "testAccelPoints": 0,
@@ -6594,29 +6698,29 @@
     "tHandl": 4,
     "tAccel": 4,
     "lvlChassis": 2,
-    "lvlBrakes": 2,
+    "lvlBrakes": 3,
     "lvlCooling": 2,
-    "lvlElectronics": 1,
-    "lvlEngine": 2,
+    "lvlElectronics": 2,
+    "lvlEngine": 3,
     "lvlFWing": 2,
     "lvlRWing": 2,
     "lvlGear": 2,
     "lvlSidepods": 2,
     "lvlSusp": 2,
     "lvlUnderbody": 2,
-    "usaBrakes": 88,
+    "usaBrakes": 0,
     "usaChassis": 43,
     "usaCooling": 48,
-    "usaElectronics": 89,
-    "usaEngine": 85,
+    "usaElectronics": 0,
+    "usaEngine": 0,
     "usaFWing": 46,
     "usaGear": 49,
     "usaRWing": 46,
     "usaSidepods": 18,
     "usaSusp": 42,
     "usaUnderbody": 18,
-    "canRepair": 1,
-    "canUndo": 0,
+    "canRepair": 0,
+    "canUndo": 1,
     "endOfSeason": 0,
     "raceInProgress": 0,
     "updateInProgress": 0,
@@ -6678,8 +6782,8 @@
           "value": 0,
           "cost": 0
         },
-        "newLvl": "2",
-        "newWear": "85",
+        "newLvl": "3",
+        "newWear": "0",
         "disabled": "false",
         "text": "Nie wymieniaj"
       },
@@ -6715,13 +6819,33 @@
       },
       {
         "value": {
-          "value": -1,
+          "value": 4,
+          "cost": 6291350
+        },
+        "newLvl": "4",
+        "newWear": "0",
+        "disabled": "false",
+        "text": "Zamie&#324; na L4 ($6.291.350)"
+      },
+      {
+        "value": {
+          "value": -2,
           "cost": 0
         },
         "newLvl": "1",
-        "newWear": "72",
+        "newWear": "0",
         "disabled": "false",
-        "text": "Obni&#380; na L1 (Zu&#380;ycie: 72%)"
+        "text": "Obni&#380; na L1 (Zu&#380;ycie: 0%)"
+      },
+      {
+        "value": {
+          "value": -1,
+          "cost": 0
+        },
+        "newLvl": "2",
+        "newWear": "0",
+        "disabled": "false",
+        "text": "Obni&#380; na L2 (Zu&#380;ycie: 0%)"
       }
     ],
     "fWingOptions": [
@@ -7042,8 +7166,8 @@
           "value": 0,
           "cost": 0
         },
-        "newLvl": "2",
-        "newWear": "88",
+        "newLvl": "3",
+        "newWear": "0",
         "disabled": "false",
         "text": "Nie wymieniaj"
       },
@@ -7079,13 +7203,33 @@
       },
       {
         "value": {
-          "value": -1,
+          "value": 4,
+          "cost": 1325380
+        },
+        "newLvl": "4",
+        "newWear": "0",
+        "disabled": "false",
+        "text": "Zamie&#324; na L4 ($1.325.380)"
+      },
+      {
+        "value": {
+          "value": -2,
           "cost": 0
         },
         "newLvl": "1",
-        "newWear": "74",
+        "newWear": "0",
         "disabled": "false",
-        "text": "Obni&#380; na L1 (Zu&#380;ycie: 74%)"
+        "text": "Obni&#380; na L1 (Zu&#380;ycie: 0%)"
+      },
+      {
+        "value": {
+          "value": -1,
+          "cost": 0
+        },
+        "newLvl": "2",
+        "newWear": "0",
+        "disabled": "false",
+        "text": "Obni&#380; na L2 (Zu&#380;ycie: 0%)"
       }
     ],
     "suspOptions": [
@@ -7146,8 +7290,8 @@
           "value": 0,
           "cost": 0
         },
-        "newLvl": "1",
-        "newWear": "89",
+        "newLvl": "2",
+        "newWear": "0",
         "disabled": "false",
         "text": "Nie wymieniaj"
       },
@@ -7170,6 +7314,26 @@
         "newWear": "0",
         "disabled": "false",
         "text": "Zamie&#324; na L2 ($1.162.228)"
+      },
+      {
+        "value": {
+          "value": 3,
+          "cost": 1439420
+        },
+        "newLvl": "3",
+        "newWear": "0",
+        "disabled": "false",
+        "text": "Zamie&#324; na L3 ($1.439.420)"
+      },
+      {
+        "value": {
+          "value": -1,
+          "cost": 0
+        },
+        "newLvl": "1",
+        "newWear": "0",
+        "disabled": "false",
+        "text": "Obni&#380; na L1 (Zu&#380;ycie: 0%)"
       }
     ],
     "selectedBrakes": {
@@ -7219,13 +7383,13 @@
     "totalCosts": 0,
     "undoCompleted": 0,
     "carUpdated": 0,
-    "cash": 38658229,
+    "cash": 30596036,
     "showCarUpdateAlert": false,
     "showUndoAlert": false,
     "showUndoAlertCredits": false,
     "showUndoAlertNoCredits": false,
     "credits": 0,
     "races": 8,
-    "apiRequestsRemaining": 975
+    "apiRequestsRemaining": 969
   }
 }
