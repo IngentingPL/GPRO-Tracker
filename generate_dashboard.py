@@ -1181,51 +1181,6 @@ def generate_html(race_data, prediction_data, calendar_data, current_context_dat
             background: #ffcf33;
         }}
 
-        .session-summary {{
-            background: #000000;
-            border: 1px solid #202020;
-            border-left: 3px solid #FFC000;
-            padding: 1.25rem;
-            margin-top: 1px;
-        }}
-
-        .session-summary h3 {{
-            font-size: 0.7rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            color: #FFC000;
-            text-transform: uppercase;
-            letter-spacing: 0.12em;
-        }}
-
-        .next-up {{
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 0.75rem 1rem;
-            background: #181818;
-            border-left: 2px solid #FFC000;
-            margin-top: 0.75rem;
-        }}
-
-        .next-up .icon {{
-            font-size: 1.2rem;
-        }}
-
-        .next-up .label {{
-            font-size: 0.6rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-        }}
-
-        .next-up .value {{
-            font-weight: 700;
-            color: #FFC000;
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-            font-size: 0.82rem;
-        }}
 
         .driver-stats-mini {{
             display: flex;
@@ -1327,7 +1282,7 @@ document.querySelectorAll('.tab-btn').forEach(btn => {{
         const mainSummary = document.getElementById('mainSummaryContainer');
         mainSummary.style.display = 'block';
     }});
-}});
+}}
 
 // ==========================================================
 // FUNKCJE POMOCNICZE
@@ -1724,6 +1679,10 @@ function render() {{
     renderNextRace();
     renderStandings();
 
+    // Ensure main summary is visible
+    const mainSummary = document.getElementById('mainSummaryContainer');
+    if (mainSummary) mainSummary.style.display = 'block';
+
     const activeContext = getCurrentContext();
     const displayedData = getDisplayedRaceData();
 
@@ -1766,6 +1725,9 @@ function render() {{
 // ==========================================================
 function renderOverview() {{
     const container = document.getElementById('tab-overview');
+    if (!container) return;
+    container.innerHTML = ''; // Wyczyść stare napisy
+
     const latest = getLatestRace();
     const nextRace = getCalendarNextRace();
     const pred = PREDICTION_DATA;
@@ -1978,6 +1940,8 @@ function renderSummary(latest) {{
 // ==========================================================
 function renderNextRace() {{
     const container = document.getElementById('tab-nextrace');
+    if (!container) return;
+    container.innerHTML = ''; // WYCZYŚĆ STARE NAPISY (NASTĘPNE WYDARZENIA ITD.)
 
     // Jeśli mamy dane predykcji, używamy ich
     if (PREDICTION_DATA) {{
@@ -2023,7 +1987,7 @@ function renderPrediction(container) {{
             <span>🏁 ${{nextRace.total_laps || 72}} OKRĄŻEŃ</span>
         </div>
 
-        <div style="max-width: 600px; margin: 2rem auto 0 auto;">
+        <div style="max-width: 600px; margin: 2.5rem auto 0 auto;">
             <div class="confidence-bar" style="height: 4px;">
                 <div class="confidence-fill ${{confidence}}"></div>
             </div>
@@ -2562,6 +2526,9 @@ function renderDeployButton() {{
 }}
 
 // Start!
+setupTabs();
+render();
+
 window.onload = () => {{
     render();
     renderDeployButton();
