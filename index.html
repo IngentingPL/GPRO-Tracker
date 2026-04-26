@@ -1128,6 +1128,9 @@ function setupTabs() {
         if (navBtn) navBtn.classList.add('active');
         else btn.classList.add('active');
 
+        // Pokaż treść wybranej zakładki
+        targetContent.classList.add('active');
+
         // Main summary is now always visible in the new Lamborghini style
         const mainSummaryEl = document.getElementById('mainSummaryContainer');
         if (mainSummaryEl) mainSummaryEl.style.display = 'block';
