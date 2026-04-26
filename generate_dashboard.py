@@ -1691,8 +1691,8 @@ function render() {{
     renderStandings();
 
     // Ensure main summary is visible
-    const summaryContainer = document.getElementById('mainSummaryContainer');
-    if (summaryContainer) summaryContainer.style.display = 'block';
+    const mainSummary = document.getElementById('mainSummaryContainer');
+    if (mainSummary) mainSummary.style.display = 'block';
 
     const activeContext = getCurrentContext();
     const displayedData = getDisplayedRaceData();
