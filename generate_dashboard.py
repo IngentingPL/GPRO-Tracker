@@ -1286,9 +1286,12 @@ function setupTabs() {{
         if (navBtn) navBtn.classList.add('active');
         else btn.classList.add('active');
 
+        // Pokaż treść wybranej zakładki
+        targetContent.classList.add('active');
+
         // Main summary is now always visible in the new Lamborghini style
-        const mainSummary = document.getElementById('mainSummaryContainer');
-        mainSummary.style.display = 'block';
+        const mainSummaryEl = document.getElementById('mainSummaryContainer');
+        if (mainSummaryEl) mainSummaryEl.style.display = 'block';
     }});
 }}
 
@@ -1688,12 +1691,8 @@ function render() {{
     renderStandings();
 
     // Ensure main summary is visible
-    const mainSummary = document.getElementById('mainSummaryContainer');
-    if (mainSummary) mainSummary.style.display = 'block';
-
-    // Ensure main summary is visible
-    const mainSummary = document.getElementById('mainSummaryContainer');
-    if (mainSummary) mainSummary.style.display = 'block';
+    const summaryContainer = document.getElementById('mainSummaryContainer');
+    if (summaryContainer) summaryContainer.style.display = 'block';
 
     const activeContext = getCurrentContext();
     const displayedData = getDisplayedRaceData();
@@ -2550,9 +2549,9 @@ window.onload = () => {{
     const activeBtn = document.querySelector('.tab-btn.active');
     if (activeBtn) {{
         const tabId = activeBtn.dataset.tab;
-        const mainSummary = document.getElementById('mainSummaryContainer');
-        if (['overview', 'nextrace', 'standings'].includes(tabId)) {{
-            mainSummary.style.display = 'none';
+        const summaryEl = document.getElementById('mainSummaryContainer');
+        if (summaryEl && ['overview', 'nextrace', 'standings'].includes(tabId)) {{
+            summaryEl.style.display = 'none';
         }}
     }}
 }};
