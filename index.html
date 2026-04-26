@@ -212,6 +212,10 @@
             display: block;
         }
 
+        .tab-content.active .data-grid {
+            display: grid !important;
+        }
+
         /* ==========================================================
            TABELE — ostre krawędzie, złote akcenty
            ========================================================== */
@@ -261,8 +265,7 @@
         .setup-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 1px;
-            background: #202020;
+            gap: 24px;
         }
 
         .setup-card {
@@ -821,16 +824,17 @@
             VISUAL DATA CARDS (Zastępują tabele)
             ========================================================== */
         .data-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 1px;
-            background: #202020;
+            display: grid !important;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
             margin-bottom: 2rem;
+            width: 100%;
         }
 
         .data-card {
             background: #000000;
             padding: 1.5rem;
+            border: 1px solid #202020;
             transition: background 0.3s;
         }
 
@@ -1078,7 +1082,6 @@
     <button class="tab-btn" data-tab="standings">Tabela</button>
     <button class="tab-btn" data-tab="results">Wyniki</button>
     <button class="tab-btn" data-tab="setups">Setupy</button>
-    <button class="tab-btn" data-tab="fuel">Paliwo & Opony</button>
     <button class="tab-btn" data-tab="finances">Finanse</button>
     <button class="tab-btn" data-tab="driver">Kierowca</button>
 </div>
@@ -1089,7 +1092,6 @@
 <div class="tab-content" id="tab-standings"></div>
 <div class="tab-content" id="tab-results"></div>
 <div class="tab-content" id="tab-setups"></div>
-<div class="tab-content" id="tab-fuel"></div>
 <div class="tab-content" id="tab-finances"></div>
 <div class="tab-content" id="tab-driver"></div>
 
@@ -1255,7 +1257,6 @@ function renderPendingSeasonOverview(activeContext) {
 
     renderSeasonEmptyState('tab-results', 'Wyniki sezonu', activeContext, lastCompleted, 'Dane historyczne dla aktywnego sezonu pojawią się po ukończeniu pierwszego wyścigu.');
     renderSeasonEmptyState('tab-setups', 'Setupy sezonu', activeContext, lastCompleted, 'Setupy historyczne dla tego sezonu będą dostępne po zapisaniu pierwszego wyścigu przez fetcher.');
-    renderSeasonEmptyState('tab-fuel', 'Paliwo sezonu', activeContext, lastCompleted, 'Strategie paliwowe dla aktywnego sezonu pojawią się po zakończeniu pierwszego wyścigu.');
     renderSeasonEmptyState('tab-finances', 'Finanse sezonu', activeContext, lastCompleted, 'Finanse sezonu będą widoczne po pierwszym zapisanym wyścigu.');
     renderSeasonEmptyState('tab-driver', 'Kierowca sezonu', activeContext, lastCompleted, 'Profil kierowcy w panelu historycznym będzie zasilony po zapisaniu wyścigu sezonu.');
     renderSeasonEmptyState('tab-standings', 'Tabela sezonu', activeContext, lastCompleted, 'Tabela ligowa dla aktywnego sezonu pojawi się po pierwszym zapisanym wyścigu.');
@@ -1572,7 +1573,6 @@ function render() {
     // Pozostałe zakładki
     renderResults();
     renderSetups();
-    renderFuel();
     renderFinances();
     renderDriver(latest);
 }
@@ -1981,14 +1981,19 @@ function renderResults() {
     const displayedData = getDisplayedRaceData();
     if (displayedData.length === 0) return;
 
-    // Znajdź najlepszą pozycję gracza w sezonie
+    // Znajdź najlepszą pozycję gracza w sezonie - z standings
     const positions = displayedData.map(d => {
-        const summary = d.race_summary;
+        const standings = d.standings || {};
+        const managers = standings.managers || [];
         const dp = d.driver_profile || {};
         const myName = dp.manName || dp.manager || dp.owner?.name || '';
-        let myResult = summary?.results?.find(r => r.manager === myName);
-        if (!myResult) myResult = summary?.results?.find(r => r.gap === '' || r.gap === '0.000s' || r.gap === '+0.000s');
-        return toInt(myResult?.position);
+        const myManager = managers.find(m => m.name === myName);
+        if (myManager && myManager.results && myManager.results.length > 0) {
+            // Pobierz ostatni wynik (najnowszy wyścig)
+            const lastResult = myManager.results[myManager.results.length - 1];
+            return toInt(lastResult?.pos);
+        }
+        return null;
     }).filter(p => p !== null);
 
     const bestPos = positions.length > 0 ? Math.min(...positions) : '?';
@@ -2002,46 +2007,85 @@ function renderResults() {
             <span>🏆 NAJLEPSZE: P${bestPos}</span>
         </div>
     </div>
-    <div class="data-grid">`;
+    <div class="setup-grid">`;
 
     // Od najnowszego do najstarszego
     for (let i = displayedData.length - 1; i >= 0; i--) {
         const rd = displayedData[i].race_data || {};
         const fin = rd.finances || {};
         const pits = rd.pits || [];
-        const summary = displayedData[i].race_summary || {};
-        const myResult = summary.results?.[0] || {};
+        const standings = displayedData[i].standings || {};
+        const managers = standings.managers || [];
+        const dp = displayedData[i].driver_profile || {};
+        const myName = dp.manName || dp.manager || dp.owner?.name || '';
+        const myManager = managers.find(m => m.name === myName);
+        const myResult = (myManager && myManager.results && myManager.results.length > 0)
+            ? myManager.results[myManager.results.length - 1]
+            : {};
+
+        // Buduj sekcję pit stopów
+        let pitsHtml = '';
+        pits.forEach((pit, idx) => {
+            pitsHtml += `
+            <div class="data-row" style="background: rgba(255,192,0,0.03);">
+                <span class="label">PIT ${idx + 1} (OKR. ${pit.lap})</span>
+                <span class="value">${pit.tyre_condition}% 🛞 / ${pit.refilled_to}L ⛽</span>
+            </div>`;
+        });
 
         html += `
-        <div class="data-card">
-            <div class="data-card-header">
-                <h3>${rd.track || '?'}</h3>
-                <div class="tag">S${rd.season}R${rd.race}</div>
-            </div>
+        <div class="setup-card">
+            <h3>${rd.track || '?'} <span style="color: var(--text-muted); font-weight: 400;">· ${rd.country || ''}</span></h3>
+            <div class="tag" style="margin-bottom: 1rem;">S${rd.season}R${rd.race}</div>
 
+            <!-- Sekcja Wyniki -->
             <div class="data-row">
                 <span class="label">POZYCJA WYŚCIGU</span>
-                <span class="value ${posClass(myResult.position)}">P${myResult.position || '?'}</span>
+                <span class="value ${posClass(myResult.position)}">P${myResult.position || '-'}</span>
             </div>
             <div class="data-row">
                 <span class="label">KWALIFIKACJE (Q1 / Q2)</span>
-                <span class="value">P${rd.q1_pos || '?'} / P${rd.q2_pos || '?'}</span>
+                <span class="value">P${rd.q1_pos || '-'} / P${rd.q2_pos || '-'}</span>
             </div>
             <div class="data-row">
-                <span class="label">STRATEGIA</span>
-                <span class="value">${pits.length} PIT STOPS</span>
+                <span class="label">CZAS</span>
+                <span class="value">${myResult.gap || '-'}</span>
             </div>
             <div class="data-row">
-                <span class="label">BILANS WYŚCIGU</span>
-                <span class="value ${(fin.total || 0) >= 0 ? 'val-positive' : 'val-negative'}">${formatMoney(fin.total)}</span>
+                <span class="label">PUNKTY</span>
+                <span class="value">${myResult.points || '-'}</span>
             </div>
 
-            <div class="progress-container" style="margin-top: 1rem;">
+            <!-- Sekcja Paliwo & Opony -->
+            <div class="data-row" style="margin-top: 1rem; border-top: 1px solid var(--border-color); padding-top: 0.75rem;">
+                <span class="label" style="color: var(--accent-gold);">PALIWO & OPONY</span>
+                <span class="value"></span>
+            </div>
+            <div class="data-row">
+                <span class="label">PALIWO STARTOWE</span>
+                <span class="value">${rd.start_fuel || '-'} L</span>
+            </div>
+            ${pitsHtml}
+            <div class="data-row">
+                <span class="label">PALIWO NA MECIE</span>
+                <span class="value">${rd.finish_fuel || 0} L</span>
+            </div>
+            <div class="data-row">
+                <span class="label">TYP OPON</span>
+                <span class="value">${rd.tyres || (rd.setups && rd.setups[0] && rd.setups[0].tyres) || '-'}</span>
+            </div>
+
+            <div class="progress-container" style="margin-top: 0.75rem;">
                 <div class="progress-bar" style="width: ${rd.finish_tyres || 0}%; background: ${rd.finish_tyres < 20 ? 'var(--accent-red)' : 'var(--accent-gold)'}"></div>
             </div>
             <div class="data-row" style="border: none; padding-top: 0.25rem;">
-                <span class="label">STAN OPON NA MECIE</span>
+                <span class="label">ZUŻYCIE OPON</span>
                 <span class="value">${rd.finish_tyres || 0}%</span>
+            </div>
+
+            <!-- Stopka: sezon, temperatura, wilgotność -->
+            <div class="setup-meta">
+                SEZON ${rd.season || '-'} · TEMP: ${rd.weather && rd.weather.q1 && rd.weather.q1.temp ? rd.weather.q1.temp + '°C' : (rd.weather && rd.weather.race && rd.weather.race.temp_range ? rd.weather.race.temp_range[0] + '°C' : '-')} · WILGOTNOŚĆ: ${rd.weather && rd.weather.q1 && rd.weather.q1.humidity ? rd.weather.q1.humidity + '%' : (rd.weather && rd.weather.race && rd.weather.race.humidity_range ? rd.weather.race.humidity_range[0] + '%' : '-')}
             </div>
         </div>`;
     }
@@ -2209,65 +2253,6 @@ function renderSetups() {
 
     html += '</div>';
     document.getElementById('tab-setups').innerHTML = html;
-}
-
-function renderFuel() {
-    const displayedData = getDisplayedRaceData();
-    if (displayedData.length === 0) return;
-
-    let html = `
-    <div class="hero-section">
-        <span class="hero-subtitle">ANALIZA ZUŻYCIA</span>
-        <h2>PALIWO I OPONY</h2>
-        <div class="hero-meta">
-            <span>⛽ ŚREDNIE SPALANIE: ~4.5L</span>
-            <span>🛞 TYPOWA ŻYWOTNOŚĆ: ~25 OKR</span>
-        </div>
-    </div>
-    <div class="data-grid">`;
-
-    for (let i = displayedData.length - 1; i >= 0; i--) {
-        const rd = displayedData[i].race_data || {};
-        const pits = rd.pits || [];
-
-        html += `
-        <div class="data-card">
-            <div class="data-card-header">
-                <h3>${rd.track || '?'}</h3>
-                <div class="tag">S${rd.season}R${rd.race}</div>
-            </div>
-
-            <div class="data-row">
-                <span class="label">PALIWO STARTOWE</span>
-                <span class="value">${rd.start_fuel || '-'} L</span>
-            </div>`;
-
-        pits.forEach((pit, idx) => {
-            html += `
-            <div class="data-row" style="background: rgba(255,192,0,0.03);">
-                <span class="label">PIT ${idx + 1} (OKR. ${pit.lap})</span>
-                <span class="value">${pit.tyre_condition}% 🛞 / ${pit.refilled_to}L ⛽</span>
-            </div>`;
-        });
-
-        html += `
-            <div class="data-row">
-                <span class="label">KONIEC WYŚCIGU</span>
-                <span class="value">${rd.finish_fuel || 0}L PALIWA</span>
-            </div>
-
-            <div class="progress-container" style="margin-top: 1rem; background: #331a00;">
-                <div class="progress-bar" style="width: ${rd.finish_tyres || 0}%; background: var(--accent-gold);"></div>
-            </div>
-            <div class="data-row" style="border: none; padding-top: 0.25rem;">
-                <span class="label">STAN OPON</span>
-                <span class="value">${rd.finish_tyres || 0}%</span>
-            </div>
-        </div>`;
-    }
-
-    html += '</div>';
-    document.getElementById('tab-fuel').innerHTML = html;
 }
 
 function renderFinances() {
