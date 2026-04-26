@@ -246,21 +246,21 @@ def generate_html(race_data, prediction_data, calendar_data, current_context_dat
             letter-spacing: 0.1em;
         }}
 
-        /* ==========================================================
-           SUMMARY CARDS (Main Summary)
-           ========================================================== */
+/* ==========================================================
+            SUMMARY CARDS (Main Summary) — ujednolicony styl setup-card
+            ========================================================== */
         .summary-grid {{
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 1px;
             padding: 1px;
-            background: var(--border-color);
+            background: #202020;
             margin: 0;
-            border-bottom: 1px solid var(--border-color);
+            border-bottom: 1px solid #202020;
         }}
 
         .summary-card {{
-            background: var(--bg-primary);
+            background: #000000;
             padding: 1.5rem 2rem;
             transition: background 0.3s;
             position: relative;
@@ -279,16 +279,16 @@ def generate_html(race_data, prediction_data, calendar_data, current_context_dat
         }}
 
         .summary-card:hover {{
-            background: var(--bg-card);
+            background: #101010;
         }}
 
         .summary-card:hover::before {{
-            background: var(--accent-gold);
+            background: #FFC000;
         }}
 
         .summary-card .label {{
             font-size: 0.65rem;
-            color: var(--text-muted);
+            color: #7D7D7D;
             text-transform: uppercase;
             letter-spacing: 0.2em;
             margin-bottom: 0.5rem;
@@ -301,7 +301,7 @@ def generate_html(race_data, prediction_data, calendar_data, current_context_dat
             letter-spacing: 0.05em;
             text-transform: uppercase;
             line-height: 1;
-            color: var(--text-primary);
+            color: #FFC000;
         }}
 
         .summary-card .value-small {{
@@ -311,11 +311,12 @@ def generate_html(race_data, prediction_data, calendar_data, current_context_dat
             letter-spacing: 0.05em;
             text-transform: uppercase;
             line-height: 1;
+            color: #FFC000;
         }}
 
         .summary-card .sub {{
             font-size: 0.75rem;
-            color: var(--text-muted);
+            color: #7D7D7D;
             margin-top: 0.25rem;
             text-transform: uppercase;
             letter-spacing: 0.1em;
@@ -472,9 +473,9 @@ def generate_html(race_data, prediction_data, calendar_data, current_context_dat
             letter-spacing: 0.06em;
         }}
 
-        /* ==========================================================
-           SEKCJA KIEROWCY
-           ========================================================== */
+/* ==========================================================
+            SEKCJA KIEROWCY — ujednolicony styl setup-card
+            ========================================================== */
         .driver-stats {{
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
@@ -484,14 +485,13 @@ def generate_html(race_data, prediction_data, calendar_data, current_context_dat
 
         .stat-item {{
             background: #000000;
-            border: 1px solid #181818;
             padding: 1rem;
             text-align: center;
         }}
 
         .stat-item .stat-name {{
             font-size: 0.6rem;
-            color: var(--text-muted);
+            color: #7D7D7D;
             text-transform: uppercase;
             letter-spacing: 0.12em;
             margin-bottom: 0.5rem;
@@ -501,6 +501,7 @@ def generate_html(race_data, prediction_data, calendar_data, current_context_dat
             font-family: var(--font-mono);
             font-size: 1.5rem;
             font-weight: 700;
+            color: #FFC000;
         }}
 
         /* Kolory dla statystyk kierowcy */
@@ -508,9 +509,9 @@ def generate_html(race_data, prediction_data, calendar_data, current_context_dat
         .stat-ok {{ color: #FFCE3E; }}
         .stat-bad {{ color: var(--accent-red); }}
 
-        /* ==========================================================
-           SEKCJA FINANSÓW
-           ========================================================== */
+/* ==========================================================
+            SEKCJA FINANSÓW — ujednolicony styl setup-card
+            ========================================================== */
         .finance-bar {{
             display: flex;
             gap: 1px;
@@ -521,7 +522,8 @@ def generate_html(race_data, prediction_data, calendar_data, current_context_dat
 
         .finance-card {{
             background: #000000;
-            padding: 1.25rem 1.5rem;
+            padding: 1.5rem;
+        }}
             flex: 1;
             min-width: 180px;
         }}
@@ -628,18 +630,21 @@ def generate_html(race_data, prediction_data, calendar_data, current_context_dat
             margin-bottom: 1rem;
             padding-bottom: 0.5rem;
             border-bottom: 1px solid var(--border-color);
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
         }}
 
         .rec-card .rec-value {{
             font-family: var(--font-mono);
             font-size: 1.1rem;
             font-weight: 700;
-            color: var(--accent-blue);
+            color: #FFC000;
         }}
 
         .rec-card .rec-note {{
             font-size: 0.75rem;
-            color: var(--text-muted);
+            color: #7D7D7D;
             margin-top: 0.75rem;
         }}
 
@@ -967,28 +972,28 @@ def generate_html(race_data, prediction_data, calendar_data, current_context_dat
         ::-webkit-scrollbar-thumb {{ background: #202020; }}
         ::-webkit-scrollbar-thumb:hover {{ background: #7D7D7D; }}
 
-        /* ==========================================================
-           MODERN SEQUENTIAL UI
-           ========================================================== */
+/* ==========================================================
+            MODERN SEQUENTIAL UI — ujednolicony styl setup-card
+            ========================================================== */
         .step-container {{
-           VISUAL DATA CARDS (Zastępują tabele)
-           ========================================================== */
+            VISUAL DATA CARDS (Zastępują tabele)
+            ========================================================== */
         .data-grid {{
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
             gap: 1px;
-            background: var(--border-color);
+            background: #202020;
             margin-bottom: 2rem;
         }}
 
         .data-card {{
-            background: var(--bg-primary);
+            background: #000000;
             padding: 1.5rem;
             transition: background 0.3s;
         }}
 
         .data-card:hover {{
-            background: var(--bg-card);
+            background: #101010;
         }}
 
         .data-card-header {{
@@ -996,7 +1001,7 @@ def generate_html(race_data, prediction_data, calendar_data, current_context_dat
             justify-content: space-between;
             align-items: flex-start;
             margin-bottom: 1.5rem;
-            border-bottom: 1px solid var(--border-color);
+            border-bottom: 1px solid #202020;
             padding-bottom: 0.75rem;
         }}
 
@@ -1010,7 +1015,7 @@ def generate_html(race_data, prediction_data, calendar_data, current_context_dat
         .data-card-header .tag {{
             font-family: var(--font-mono);
             font-size: 0.7rem;
-            color: var(--text-muted);
+            color: #7D7D7D;
         }}
 
         .data-row {{
@@ -1025,8 +1030,8 @@ def generate_html(race_data, prediction_data, calendar_data, current_context_dat
 
         .data-row:last-child {{ border-bottom: none; }}
 
-        .data-row .label {{ color: var(--text-muted); font-size: 0.7rem; }}
-        .data-row .value {{ font-family: var(--font-mono); font-weight: 700; }}
+        .data-row .label {{ color: #7D7D7D; font-size: 0.7rem; }}
+        .data-row .value {{ font-family: var(--font-mono); font-weight: 700; color: #FFC000; }}
 
         .progress-container {{
             height: 4px;
@@ -2481,8 +2486,10 @@ function renderFinances() {{
 function renderDriver(latest) {{
     const rd = latest.race_data || {{}};
     const drv = rd.driver || {{}};
+    const dp = latest.driver_profile || {{}};
+    const driverAge = dp.age || drv.age || null;
 
-    if (!drv.name) {{
+    if (!drv.name && !dp.driName) {{
         document.getElementById('tab-driver').innerHTML =
             '<div class="empty-state"><h2>Brak danych kierowcy</h2></div>';
         return;
@@ -2502,10 +2509,10 @@ function renderDriver(latest) {{
     let html = `
     <div class="hero-section">
         <span class="hero-subtitle">PROFIL ZAWODNIKA</span>
-        <h2>${{drv.name}}</h2>
+        <h2>${{drv.name || dp.driName || '?'}}</h2>
         <div class="hero-meta">
-            <span>⭐ OVERALL: ${{drv.OA}}</span>
-            <span>🎂 WIEK: ${{drv.age || '?'}}</span>
+            <span>⭐ OVERALL: ${{drv.OA || dp.overall || '?'}}</span>
+            <span>🎂 WIEK: ${{driverAge !== null ? driverAge : '?'}}</span>
         </div>
     </div>`;
 
