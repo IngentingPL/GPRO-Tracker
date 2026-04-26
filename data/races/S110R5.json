@@ -230,7 +230,7 @@
       "total": 7928700,
       "balance": 38058229
     },
-    "fetched_at": "2026-04-26T07:36:54.288956Z"
+    "fetched_at": "2026-04-26T11:33:21.252748Z"
   },
   "race_summary": {
     "track": "Istanbul",
@@ -354,7 +354,7 @@
     "overall": 94,
     "driverFaceUpdated": 0,
     "driverFaceCost": 0.1,
-    "energy": 93,
+    "energy": 96,
     "concentration": 178,
     "talent": 106,
     "aggressiveness": 9,
@@ -419,7 +419,7 @@
     "privateOfferCost": 1000000,
     "setOfferCost": 500000,
     "setOfferType": "1",
-    "nextPriceIncrementIn": 91382,
+    "nextPriceIncrementIn": 77194,
     "offerPlaced": 0,
     "inShortList": 1,
     "oneRaceRenewFee": 184700,
@@ -441,7 +441,7 @@
     "setContractLengthExtend": "",
     "totalOffers": 0,
     "offersFrom": [],
-    "apiRequestsRemaining": 959
+    "apiRequestsRemaining": 953
   },
   "standings": {
     "loadingDataState": "1",
@@ -1602,7 +1602,7 @@
         "manPosChange": "-1",
         "manBgColor": "",
         "negative": 0,
-        "cash": 33234546,
+        "cash": 32634546,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -6886,7 +6886,7 @@
         }
       ]
     },
-    "apiRequestsRemaining": 958
+    "apiRequestsRemaining": 952
   },
   "car_status": {
     "loadingDataState": "1",
@@ -7598,6 +7598,6 @@
     "showUndoAlertNoCredits": false,
     "credits": 0,
     "races": 8,
-    "apiRequestsRemaining": 957
+    "apiRequestsRemaining": 951
   }
 }
