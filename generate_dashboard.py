@@ -1697,13 +1697,16 @@ function render() {{
     const activeContext = getCurrentContext();
     const displayedData = getDisplayedRaceData();
 
+    // ZAWSZE renderuj karty podsumowania (nawet gdy brak danych wyścigowych)
+    const latest = displayedData && displayedData.length > 0 ? displayedData[displayedData.length - 1] : null;
+    renderSummaryCards(latest, activeContext);
+
     if ((!displayedData || displayedData.length === 0) && activeContext && isPendingSeasonMode()) {{
         renderPendingSeasonOverview(activeContext);
         return;
     }}
 
     if (!displayedData || displayedData.length === 0) {{
-        document.getElementById('summaryGrid').innerHTML = '';
         document.getElementById('tab-results').innerHTML = `
             <div class="empty-state">
                 <h2>Brak danych</h2>
@@ -1713,15 +1716,11 @@ function render() {{
         return;
     }}
 
-    const latest = displayedData[displayedData.length - 1];
     const rd = latest.race_data || {{}};
 
     // Nagłówek
     document.getElementById('headerInfo').textContent =
         `Sezon ${{rd.season}} · Wyścig ${{rd.race}} · ${{rd.track}} · Dane sezonu: ${{displayedData.length}} wyścigów`;
-
-    // Karty podsumowania
-    renderSummary(latest);
 
     // Pozostałe zakładki
     renderResults();
@@ -1904,6 +1903,41 @@ function renderOverview() {{
     }});
 }}
 
+// NOWA FUNKCJA: renderuje karty ZAWSZE (nawet gdy brak danych wyścigowych)
+function renderSummaryCards(latest, activeContext) {{
+    //always render cards - use race data or fallback from context
+    const rd = latest?.race_data || {{}};
+    const fin = rd.finances || {{}};
+
+    const cards = [
+        {{ label: 'Pozycja Q', value: rd.q1_pos ? `P${{rd.q1_pos}}` : '—', sub: rd.q1_time || (activeContext ? `S${{activeContext.season}}R${{activeContext.race}}` : '') }},
+        {{ label: 'Pozycja wyścigu', value: '—', sub: 'Sprawdź zakładkę Wyniki' }},
+        {{ label: 'Bilans', value: formatMoney(fin.balance || activeContext?.cash || 0), sub: rd.finances ? `Wyścig: ${{formatMoney(fin.total)}}` : (activeContext ? 'Brak wyścigu' : '') }},
+        {{ label: 'Kierowca', value: rd.driver?.name || activeContext?.driver || '?', sub: `OA: ${{rd.driver?.OA || '?'}}` }},
+    ];
+
+    // Try to find race position from race_summary
+    const summary = latest?.race_summary;
+    if (summary && summary.results && summary.results.length > 0) {{
+        const dp = latest.driver_profile || {{}};
+        const myName = dp.manName || dp.manager || dp.owner?.name || '';
+        let myResult = myName ? summary.results.find(r => r.manager === myName) : null;
+        if (!myResult) myResult = summary.results.find(r => r.gap === '' || r.gap === '0.000s' || r.gap === '+0.000s');
+        if (myResult) {{
+            cards[1].value = `P${{myResult.position || '?'}}`;
+            cards[1].sub = myResult.race_time || '';
+        }}
+    }}
+
+    document.getElementById('summaryGrid').innerHTML = cards.map(c => `
+        <div class="summary-card">
+            <div class="label">${{c.label}}</div>
+            <div class="value">${{c.value}}</div>
+            <div class="sub">${{c.sub}}</div>
+        </div>
+    `).join('');
+}}
+
 function renderSummary(latest) {{
     const rd = latest.race_data || {{}};
     const fin = rd.finances || {{}};
@@ -1986,13 +2020,9 @@ function renderPrediction(container) {{
     // 1. NAGŁÓWEK
     // =============================================
     html += `
-    <div class="rec-header" style="text-align: center; border-bottom: 2px solid var(--accent-gold); padding-bottom: 3rem;">
-        <div class="rec-subtitle" style="font-size: 1rem; color: var(--accent-gold); margin-bottom: 1rem;">NASTĘPNE WYDARZENIA</div>
-        <h2 style="font-size: 5rem; line-height: 0.9; margin-bottom: 1.5rem;">${{nextRace.track || 'Nieznany tor'}}</h2>
-        <div class="rec-subtitle" style="font-size: 1.2rem; letter-spacing: 0.3em;">S${{nextRace.season}}R${{nextRace.race}} · ${{nextRace.total_laps || 72}} OKRĄŻEŃ</div>
     <div class="hero-section" style="text-align: center;">
         <span class="hero-subtitle">PLAN WYŚCIGOWY</span>
-        <h2 style="font-size: 5rem;">${{nextRace.track || 'Nieznany tor'}}</h2>
+        <h2>${{nextRace.track || 'Nieznany tor'}}</h2>
         <div class="hero-meta" style="justify-content: center;">
             <span>📅 SEZON ${{nextRace.season}} R${{nextRace.race}}</span>
             <span>🏁 ${{nextRace.total_laps || 72}} OKRĄŻEŃ</span>
@@ -2544,16 +2574,6 @@ window.onload = () => {{
     setupTabs();
     render();
     renderDeployButton();
-
-    // Initial visibility state based on active tab
-    const activeBtn = document.querySelector('.tab-btn.active');
-    if (activeBtn) {{
-        const tabId = activeBtn.dataset.tab;
-        const summaryEl = document.getElementById('mainSummaryContainer');
-        if (summaryEl && ['overview', 'nextrace', 'standings'].includes(tabId)) {{
-            summaryEl.style.display = 'none';
-        }}
-    }}
 }};
 </script>
 </body>
