@@ -15,6 +15,7 @@ import json
 import math
 import os
 import glob
+import html
 from datetime import datetime
 
 CURRENT_CONTEXT_FILE = "data/current_context.json"
@@ -446,6 +447,84 @@ def find_satisfied_setup(setups):
                 "gear": setup.get("gear", 0),
                 "susp": setup.get("susp", 0),
             }
+    return None
+
+
+# ============================================================
+# WYKRYWANIE WYKONANYCH SESJI (DLA PROGRESJI WYŚCIGU)
+# ============================================================
+
+def get_completed_sessions_from_race(race_data):
+    """
+    Wykrywa które sesje zostały wykonane w danym wyścigu.
+    Zwraca słownik: {session_name: {setup, feedback}}
+    
+    Mini-lekcja: Sesje w GPRO (polski): Trening 1-8, Kw1, Kw2, Wyścig
+    """
+    if not race_data:
+        return {}
+    
+    setups = race_data.get("setups", [])
+    completed = {}
+    
+    for setup in setups:
+        session = setup.get("session", "")
+        if not session:
+            continue
+            
+        # Dekoduj encje HTML (np. Wy&#347;cig -> Wyścig)
+        import html
+        session = html.unescape(session)
+        
+        # Mapuj polskie nazwy na nasze klucze
+        session_map = {
+            "Trening 1": "P1",
+            "Trening 2": "P2", 
+            "Trening 3": "P3",
+            "Trening 4": "P4",
+            "Trening 5": "P5",
+            "Trening 6": "P6",
+            "Trening 7": "P7",
+            "Trening 8": "P8",
+            "Kw1": "Q1",
+            "Kw2": "Q2",
+            "Wyścig": "RACE"
+        }
+        
+        key = session_map.get(session)
+        if key:
+            completed[key] = {
+                "setup": {
+                    "fw": normalize_int(setup.get("fw")),
+                    "rw": normalize_int(setup.get("rw")),
+                    "eng": normalize_int(setup.get("eng")),
+                    "bra": normalize_int(setup.get("bra")),
+                    "gear": normalize_int(setup.get("gear")),
+                    "susp": normalize_int(setup.get("susp"))
+                },
+                "feedback": setup.get("feedback", ""),
+                "tyres": setup.get("tyres", "")
+            }
+    
+    return completed
+
+
+def find_next_step(completed_sessions, sequence_order):
+    """
+    Znajduje następny niewykonany krok w kolejności P1->P2->...->RACE.
+    
+    Args:
+        completed_sessions: dict z wykonanymi sesjami
+        sequence_order: lista poprawna kroków ['P1', 'P2', ..., 'Q1', 'Q2', 'RACE']
+    
+    Returns:
+        Nazwa następnego kroku (np. 'P1', 'Q1', 'RACE') lub None
+    """
+    for step in sequence_order:
+        if step not in completed_sessions:
+            return step
+    
+    # Wszystkie wykonane - wyścig zakończony
     return None
 
 
@@ -1038,156 +1117,128 @@ def generate_prediction():
     print(f"   Aktualizacja strategii paliwowej o żywotność opon (~{tyre_strategy['est_tyre_life_laps']} okr)...")
     fuel_strategy = calculate_fuel_strategy(history, track_name, total_laps, tyre_strategy['est_tyre_life_laps'])
 
-    # 12. Budowanie sekwencji sesji
+    # 12. Budowanie sekwencji sesji - TYLOKO jeden następny krok
+    # ==================================================
+    # Logika: P1->P2->P3->P4->P5->P6->P7->P8->Q1->Q2->Race
+    # Znajdujemy pierwszą niewykonaną sesję w kolejności
     print(f"\n12. Budowanie sekwencji sesji...")
 
-    # Mapowanie sesji z API na nasze kroki
-    # Mini-lekcja: GPRO API zwraca nazwy sesji w zależności od wybranego języka w fetcherze.
-    # W naszym przypadku fetcher używa pl (polski), więc sesje to "Trening 1", "Kw1", "Kw2", "Wyścig".
-    import html
-    api_session_map = {}
-    for s in completed_setups:
-        raw_session = s.get("session", "")
-        # Odczytujemy nazwę sesji, dekodując encje HTML (np. Wy&#347;cig -> Wyścig)
-        decoded_session = html.unescape(raw_session)
-        api_session_map[decoded_session] = s
+    # PobierzCompleted sesje z najnowszego wyścigu (jeśli istnieją)
+    completed_sessions = {}
+    if active_data:
+        completed_sessions = get_completed_sessions_from_race(active_data.get("race_data", {}))
+        print(f"   Znaleziono {len(completed_sessions)} ukończonych sesji z aktualnego wyścigu")
 
-    # Generujemy listę wszystkich 11 kroków
+    # Kolejność sesji w wyścigu
+    SESSION_ORDER = [
+        "P1", "P2", "P3", "P4", "P5", "P6", "P7", "P8",
+        "Q1", "Q2", "RACE"
+    ]
+
+    # Mapowanie naszych kluczy na polskie nazwy API GPRO
+    SESSION_TO_API = {
+        "P1": "Trening 1", "P2": "Trening 2", "P3": "Trening 3",
+        "P4": "Trening 4", "P5": "Trening 5", "P6": "Trening 6",
+        "P7": "Trening 7", "P8": "Trening 8",
+        "Q1": "Kw1", "Q2": "Kw2", "RACE": "Wyścig"
+    }
+
+    # Znajdź następny krok
+    next_step_name = find_next_step(completed_sessions, SESSION_ORDER)
+    print(f"   Następny krok: {next_step_name}")
+
+    # Inicjalizuj bazowy setup dla progression
+    progression_setup = setup_practice.copy()
+    last_feedback = ""
+    correction_note = ""
+
+    # Zbuduj pełną sekwencję (dla archiwum), ale zaznacz tylko jeden jako is_next
     sequence = []
 
-    # Kroki treningowe (P1 - P8)
-    current_practice_setup = setup_practice.copy()
+    # Zbuduj mapęCompleted sesji z API (dla odczytu danych)
+    api_session_map = {}
+    if completed_setups:
+        for s in completed_setups:
+            raw_session = s.get("session", "")
+            decoded_session = html.unescape(raw_session)
+            api_session_map[decoded_session] = s
 
-    for i in range(1, 9):
-        # W API pl sesje to "Trening 1", "Trening 2", itd.
-        api_id = f"Trening {i}"
-        display_id = f"Practice {i}"
-        completed = api_session_map.get(api_id)
+    # Użyj poprzedniego wyścigu do pobrania komentarza (jeśli brak w aktualnym)
+    previous_race_comment = None
+    if not completed_sessions and len(history) > 0:
+        # Pobierz komentarz z poprzedniego wyścigu jako hint dla setupu
+        prev = history[-1]
+        # Szukamy setupu z komentarzem
+        # (handled by adjust_for_driver_comment)
+
+    # Generuj wszystkie kroki
+    for step_key in SESSION_ORDER:
+        is_completed = step_key in completed_sessions
+        is_next = (step_key == next_step_name)
+
+        # Konwertuj na nazwę wyświetlaną
+        if step_key.startswith("P"):
+            display_id = f"PRAKTYKA {step_key[1]}" if len(step_key) == 2 else "PRAKTYKA"
+            display_type = "practice"
+        elif step_key == "Q1":
+            display_id = "KWALIFIKACJE 1"
+            display_type = "q1"
+        elif step_key == "Q2":
+            display_id = "KWALIFIKACJE 2"
+            display_type = "q2"
+        else:
+            display_id = "WYŚCIG"
+            display_type = "race"
+
+        # Pobierz setup zCompleted sesji (jeśli jest)
+        completed_data = completed_sessions.get(step_key) or api_session_map.get(SESSION_TO_API.get(step_key))
 
         step_data = {
             "id": display_id,
-            "type": "practice",
-            "completed": completed is not None,
-            "setup": {},
-            "feedback": completed.get("feedback", "") if completed else "",
+            "type": display_type,
+            "completed": is_completed,
+            "is_next": is_next,
+            "setup": None,
+            "feedback": "",
             "tyres": selected_compound_name,
-            "temp": practice_temp,
-            "note": ""
+            "temp": practice_temp if step_key.startswith("P") else (q1_temp if step_key == "Q1" else (q2_temp if step_key == "Q2" else race_temp)),
+            "note": "",
+            "session_key": step_key
         }
 
-        if completed:
-            # Dane z API
-            step_data["setup"] = {
-                "fw": normalize_int(completed.get("fw")),
-                "rw": normalize_int(completed.get("rw")),
-                "eng": normalize_int(completed.get("eng")),
-                "bra": normalize_int(completed.get("bra")),
-                "gear": normalize_int(completed.get("gear")),
-                "susp": normalize_int(completed.get("susp"))
-            }
-            # Aktualizujemy setup roboczy na podstawie feedbacku z sesji zakończonej
-            current_practice_setup = adjust_for_driver_comment(step_data["setup"], step_data["feedback"], base["confidence"])
+        if is_completed and completed_data:
+            # Dane z Completed sesji
+            s = completed_data.get("setup", {})
+            step_data["setup"] = s
+            step_data["feedback"] = completed_data.get("feedback", "")
+            step_data["note"] = "Ukończona sesja"
+
+            # Zapamiętaj komentarz dla nastęnych korekcji
+            if step_data["feedback"]:
+                last_feedback = step_data["feedback"]
+                correction_note = f"Setup skorygowany o: {step_data['feedback'][:80]}..."
+
+        elif is_next:
+            # TEN krok jest następnym - pokaż pełny setup
+            step_data["setup"] = progression_setup.copy()
+            step_data["note"] = correction_note if correction_note else "Sugerowany setup na podstawie poprzednich sesji"
+
+            # Dla Race dodaj strategię paliwową
+            if step_key == "RACE":
+                step_data["fuel_strategy"] = fuel_strategy["recommended"]
         else:
-            # Sugestia dla sesji nieukończonej
-            already_has_next = any(s.get("is_next") or (not s["completed"]) for s in sequence)
-            if not already_has_next:
-                step_data["setup"] = current_practice_setup
-                step_data["is_next"] = True
-                step_data["note"] = "Sugerowany setup na podstawie poprzednich kroków"
-            else:
-                step_data["setup"] = None
+            # Przyszłe kroki - bez setupu
+            step_data["setup"] = None
+
+        # Aktualizuj progression_setup na podstawie komentarza z tej sesji (dla następnego kroku)
+        if is_completed and step_data["feedback"]:
+            progression_setup = adjust_for_driver_comment(
+                step_data["setup"] if step_data["setup"] else progression_setup,
+                step_data["feedback"],
+                base["confidence"]
+            )
 
         sequence.append(step_data)
-
-    # Qualify 1
-    q1_api = api_session_map.get("Kw1")
-    q1_step = {
-        "id": "Qualify 1",
-        "type": "q1",
-        "completed": q1_api is not None,
-        "setup": {},
-        "feedback": q1_api.get("feedback", "") if q1_api else "",
-        "tyres": selected_compound_name,
-        "temp": q1_temp,
-        "note": "Push for time"
-    }
-    if q1_api:
-        q1_step["setup"] = {
-            "fw": normalize_int(q1_api.get("fw")),
-            "rw": normalize_int(q1_api.get("rw")),
-            "eng": normalize_int(q1_api.get("eng")),
-            "bra": normalize_int(q1_api.get("bra")),
-            "gear": normalize_int(q1_api.get("gear")),
-            "susp": normalize_int(q1_api.get("susp"))
-        }
-    else:
-        is_next = not any(s.get("is_next") for s in sequence) and all(s["completed"] for s in sequence if s["type"] == "practice")
-        if is_next:
-            q1_step["setup"] = setup_q1
-            q1_step["is_next"] = True
-        else:
-            q1_step["setup"] = None
-    sequence.append(q1_step)
-
-    # Qualify 2
-    q2_api = api_session_map.get("Kw2")
-    q2_step = {
-        "id": "Qualify 2",
-        "type": "q2",
-        "completed": q2_api is not None,
-        "setup": {},
-        "feedback": q2_api.get("feedback", "") if q2_api else "",
-        "tyres": selected_compound_name,
-        "temp": q2_temp,
-        "note": "Qualify for race"
-    }
-    if q2_api:
-        q2_step["setup"] = {
-            "fw": normalize_int(q2_api.get("fw")),
-            "rw": normalize_int(q2_api.get("rw")),
-            "eng": normalize_int(q2_api.get("eng")),
-            "bra": normalize_int(q2_api.get("bra")),
-            "gear": normalize_int(q2_api.get("gear")),
-            "susp": normalize_int(q2_api.get("susp"))
-        }
-    else:
-        is_next = not any(s.get("is_next") for s in sequence) and q1_step["completed"]
-        if is_next:
-            q2_step["setup"] = setup_q2
-            q2_step["is_next"] = True
-        else:
-            q2_step["setup"] = None
-    sequence.append(q2_step)
-
-    # Race
-    # Wyścig w API pl to "Wyścig"
-    race_api = api_session_map.get("Wyścig")
-    race_completed = active_data is not None and active_data.get("race_summary") is not None
-    race_step = {
-        "id": "Race",
-        "type": "race",
-        "completed": race_completed,
-        "setup": setup_race if not race_completed else None,
-        "tyres": selected_compound_name,
-        "temp": race_temp,
-        "fuel_strategy": fuel_strategy["recommended"],
-        "note": "Final race strategy"
-    }
-    if not race_completed:
-        is_next = not any(s.get("is_next") for s in sequence) and q2_step["completed"]
-        if is_next:
-            race_step["is_next"] = True
-    else:
-        race_step["setup"] = {
-            "fw": normalize_int(race_api.get("fw")),
-            "rw": normalize_int(race_api.get("rw")),
-            "eng": normalize_int(race_api.get("eng")),
-            "bra": normalize_int(race_api.get("bra")),
-            "gear": normalize_int(race_api.get("gear")),
-            "susp": normalize_int(race_api.get("susp"))
-        } if race_api else None
-
-    sequence.append(race_step)
 
     # 13. Zbuduj predykcję
     prediction = {

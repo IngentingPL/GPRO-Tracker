@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-27T17:05:18.618669Z",
+  "generated_at": "2026-04-27T17:57:12.577249Z",
   "next_race": {
     "track": "Rafaela Oval GP (Argentyna)",
     "season": 110,
@@ -7,12 +7,12 @@
     "total_laps": 72,
     "track_id": "54"
   },
-  "confidence": "low",
-  "confidence_reason": "Fallback: domyślny setup medium downforce",
+  "confidence": "high",
+  "confidence_reason": "Historia: 110/6 na Rafaela Oval GP (Argentyna)",
   "driver_margin": {
-    "MA": 125,
-    "half_MA": 62,
-    "note": "Setup ±62 od optimum da satisfied (MA=125, TI=22, EXP=26)"
+    "MA": 135,
+    "half_MA": 67,
+    "note": "Setup ±67 od optimum da satisfied (MA=135, TI=0, EXP=0)"
   },
   "base": {
     "track": "Rafaela Oval GP (Argentyna)",
@@ -24,13 +24,14 @@
       "gear": 500,
       "susp": 600
     },
-    "temp": 20
+    "temp": 0
   },
   "sequence": [
     {
-      "id": "Practice 1",
+      "id": "PRAKTYKA 1",
       "type": "practice",
       "completed": false,
+      "is_next": true,
       "setup": {
         "fw": 504,
         "rw": 504,
@@ -38,168 +39,175 @@
         "bra": 606,
         "gear": 495,
         "susp": 594,
-        "temp": 21
+        "temp": 1
       },
       "feedback": "",
-      "tyres": "Hard",
-      "temp": 21,
-      "note": "Sugerowany setup na podstawie poprzednich kroków",
-      "is_next": true
+      "tyres": "Soft",
+      "temp": 1,
+      "note": "Sugerowany setup na podstawie poprzednich sesji",
+      "session_key": "P1"
     },
     {
-      "id": "Practice 2",
+      "id": "PRAKTYKA 2",
       "type": "practice",
       "completed": false,
+      "is_next": false,
       "setup": null,
       "feedback": "",
-      "tyres": "Hard",
-      "temp": 21,
-      "note": ""
+      "tyres": "Soft",
+      "temp": 1,
+      "note": "",
+      "session_key": "P2"
     },
     {
-      "id": "Practice 3",
+      "id": "PRAKTYKA 3",
       "type": "practice",
       "completed": false,
+      "is_next": false,
       "setup": null,
       "feedback": "",
-      "tyres": "Hard",
-      "temp": 21,
-      "note": ""
+      "tyres": "Soft",
+      "temp": 1,
+      "note": "",
+      "session_key": "P3"
     },
     {
-      "id": "Practice 4",
+      "id": "PRAKTYKA 4",
       "type": "practice",
       "completed": false,
+      "is_next": false,
       "setup": null,
       "feedback": "",
-      "tyres": "Hard",
-      "temp": 21,
-      "note": ""
+      "tyres": "Soft",
+      "temp": 1,
+      "note": "",
+      "session_key": "P4"
     },
     {
-      "id": "Practice 5",
+      "id": "PRAKTYKA 5",
       "type": "practice",
       "completed": false,
+      "is_next": false,
       "setup": null,
       "feedback": "",
-      "tyres": "Hard",
-      "temp": 21,
-      "note": ""
+      "tyres": "Soft",
+      "temp": 1,
+      "note": "",
+      "session_key": "P5"
     },
     {
-      "id": "Practice 6",
+      "id": "PRAKTYKA 6",
       "type": "practice",
       "completed": false,
+      "is_next": false,
       "setup": null,
       "feedback": "",
-      "tyres": "Hard",
-      "temp": 21,
-      "note": ""
+      "tyres": "Soft",
+      "temp": 1,
+      "note": "",
+      "session_key": "P6"
     },
     {
-      "id": "Practice 7",
+      "id": "PRAKTYKA 7",
       "type": "practice",
       "completed": false,
+      "is_next": false,
       "setup": null,
       "feedback": "",
-      "tyres": "Hard",
-      "temp": 21,
-      "note": ""
+      "tyres": "Soft",
+      "temp": 1,
+      "note": "",
+      "session_key": "P7"
     },
     {
-      "id": "Practice 8",
+      "id": "PRAKTYKA 8",
       "type": "practice",
       "completed": false,
+      "is_next": false,
       "setup": null,
       "feedback": "",
-      "tyres": "Hard",
-      "temp": 21,
-      "note": ""
+      "tyres": "Soft",
+      "temp": 1,
+      "note": "",
+      "session_key": "P8"
     },
     {
-      "id": "Qualify 1",
+      "id": "KWALIFIKACJE 1",
       "type": "q1",
       "completed": false,
+      "is_next": false,
       "setup": null,
       "feedback": "",
-      "tyres": "Hard",
-      "temp": 22,
-      "note": "Push for time"
+      "tyres": "Soft",
+      "temp": 2,
+      "note": "",
+      "session_key": "Q1"
     },
     {
-      "id": "Qualify 2",
+      "id": "KWALIFIKACJE 2",
       "type": "q2",
       "completed": false,
+      "is_next": false,
       "setup": null,
       "feedback": "",
-      "tyres": "Hard",
-      "temp": 26,
-      "note": "Qualify for race"
+      "tyres": "Soft",
+      "temp": 6,
+      "note": "",
+      "session_key": "Q2"
     },
     {
-      "id": "Race",
+      "id": "WYŚCIG",
       "type": "race",
       "completed": false,
-      "setup": {
-        "fw": 529,
-        "rw": 529,
-        "eng": 565,
-        "bra": 641,
-        "gear": 465,
-        "susp": 562
-      },
-      "tyres": "Hard",
-      "temp": 27,
-      "fuel_strategy": {
-        "pits": 2,
-        "stints": [
-          108,
-          108,
-          108
-        ],
-        "total_fuel": 325
-      },
-      "note": "Final race strategy"
+      "is_next": false,
+      "setup": null,
+      "feedback": "",
+      "tyres": "Soft",
+      "temp": 7,
+      "note": "",
+      "session_key": "RACE"
     }
   ],
   "fuel_strategy": {
     "fuel_per_lap": 4.51,
     "recommended": {
-      "pits": 2,
+      "pits": 3,
       "stints": [
-        108,
-        108,
-        108
+        81,
+        81,
+        81,
+        81
       ],
       "total_fuel": 325
     },
     "alternative": {
-      "pits": 3,
+      "pits": 4,
       "stints": [
-        108,
-        108,
-        108,
-        108
+        81,
+        81,
+        81,
+        81,
+        81
       ],
-      "total_fuel": 432
+      "total_fuel": 405
     }
   },
   "tyre_strategy": {
-    "est_tyre_life_laps": 40,
+    "est_tyre_life_laps": 20,
     "laps_on_fuel": 39,
-    "bottleneck": "fuel",
-    "bottleneck_explanation": "Paliwo na ~39 okr, opony na ~40 okr → pit stopy wynikają z paliwa"
+    "bottleneck": "tyres",
+    "bottleneck_explanation": "Opony na ~20 okr, paliwo na ~39 okr → pit stopy wynikają z opon"
   },
   "tyre_info": {
     "supplier": "Pipirelli",
-    "bottleneck": "fuel",
-    "est_tyre_life_laps": 40
+    "bottleneck": "tyres",
+    "est_tyre_life_laps": 20
   },
   "notes": [
-    "Predykcja oparta na 8 wyścigach w historii.",
-    "Pewność: low - Fallback: domyślny setup medium downforce",
-    "Kierowca: Noel Lavin (TI=22, EXP=26)",
-    "Margines kierowcy: ±62 od optimum.",
-    "Opony: ~40 okr, paliwo: ~39 okr"
+    "Predykcja oparta na 9 wyścigach w historii.",
+    "Pewność: high - Historia: 110/6 na Rafaela Oval GP (Argentyna)",
+    "Kierowca:  (TI=0, EXP=0)",
+    "Margines kierowcy: ±67 od optimum.",
+    "Opony: ~20 okr, paliwo: ~39 okr"
   ]
 }
