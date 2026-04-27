@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-27T17:57:12.577249Z",
+  "generated_at": "2026-04-27T18:03:43.563972Z",
   "next_race": {
     "track": "Rafaela Oval GP (Argentyna)",
     "season": 110,
@@ -7,12 +7,12 @@
     "total_laps": 72,
     "track_id": "54"
   },
-  "confidence": "high",
-  "confidence_reason": "Historia: 110/6 na Rafaela Oval GP (Argentyna)",
+  "confidence": "low",
+  "confidence_reason": "Fallback: domyślny setup medium downforce",
   "driver_margin": {
-    "MA": 135,
-    "half_MA": 67,
-    "note": "Setup ±67 od optimum da satisfied (MA=135, TI=0, EXP=0)"
+    "MA": 125,
+    "half_MA": 62,
+    "note": "Setup ±62 od optimum da satisfied (MA=125, TI=22, EXP=26)"
   },
   "base": {
     "track": "Rafaela Oval GP (Argentyna)",
@@ -24,7 +24,7 @@
       "gear": 500,
       "susp": 600
     },
-    "temp": 0
+    "temp": 20
   },
   "sequence": [
     {
@@ -39,11 +39,11 @@
         "bra": 606,
         "gear": 495,
         "susp": 594,
-        "temp": 1
+        "temp": 21
       },
       "feedback": "",
-      "tyres": "Soft",
-      "temp": 1,
+      "tyres": "Hard",
+      "temp": 21,
       "note": "Sugerowany setup na podstawie poprzednich sesji",
       "session_key": "P1"
     },
@@ -54,8 +54,8 @@
       "is_next": false,
       "setup": null,
       "feedback": "",
-      "tyres": "Soft",
-      "temp": 1,
+      "tyres": "Hard",
+      "temp": 21,
       "note": "",
       "session_key": "P2"
     },
@@ -66,8 +66,8 @@
       "is_next": false,
       "setup": null,
       "feedback": "",
-      "tyres": "Soft",
-      "temp": 1,
+      "tyres": "Hard",
+      "temp": 21,
       "note": "",
       "session_key": "P3"
     },
@@ -78,8 +78,8 @@
       "is_next": false,
       "setup": null,
       "feedback": "",
-      "tyres": "Soft",
-      "temp": 1,
+      "tyres": "Hard",
+      "temp": 21,
       "note": "",
       "session_key": "P4"
     },
@@ -90,8 +90,8 @@
       "is_next": false,
       "setup": null,
       "feedback": "",
-      "tyres": "Soft",
-      "temp": 1,
+      "tyres": "Hard",
+      "temp": 21,
       "note": "",
       "session_key": "P5"
     },
@@ -102,8 +102,8 @@
       "is_next": false,
       "setup": null,
       "feedback": "",
-      "tyres": "Soft",
-      "temp": 1,
+      "tyres": "Hard",
+      "temp": 21,
       "note": "",
       "session_key": "P6"
     },
@@ -114,8 +114,8 @@
       "is_next": false,
       "setup": null,
       "feedback": "",
-      "tyres": "Soft",
-      "temp": 1,
+      "tyres": "Hard",
+      "temp": 21,
       "note": "",
       "session_key": "P7"
     },
@@ -126,8 +126,8 @@
       "is_next": false,
       "setup": null,
       "feedback": "",
-      "tyres": "Soft",
-      "temp": 1,
+      "tyres": "Hard",
+      "temp": 21,
       "note": "",
       "session_key": "P8"
     },
@@ -138,8 +138,8 @@
       "is_next": false,
       "setup": null,
       "feedback": "",
-      "tyres": "Soft",
-      "temp": 2,
+      "tyres": "Hard",
+      "temp": 22,
       "note": "",
       "session_key": "Q1"
     },
@@ -150,8 +150,8 @@
       "is_next": false,
       "setup": null,
       "feedback": "",
-      "tyres": "Soft",
-      "temp": 6,
+      "tyres": "Hard",
+      "temp": 26,
       "note": "",
       "session_key": "Q2"
     },
@@ -162,8 +162,8 @@
       "is_next": false,
       "setup": null,
       "feedback": "",
-      "tyres": "Soft",
-      "temp": 7,
+      "tyres": "Hard",
+      "temp": 27,
       "note": "",
       "session_key": "RACE"
     }
@@ -171,43 +171,41 @@
   "fuel_strategy": {
     "fuel_per_lap": 4.51,
     "recommended": {
-      "pits": 3,
+      "pits": 2,
       "stints": [
-        81,
-        81,
-        81,
-        81
+        108,
+        108,
+        108
       ],
       "total_fuel": 325
     },
     "alternative": {
-      "pits": 4,
+      "pits": 3,
       "stints": [
-        81,
-        81,
-        81,
-        81,
-        81
+        108,
+        108,
+        108,
+        108
       ],
-      "total_fuel": 405
+      "total_fuel": 432
     }
   },
   "tyre_strategy": {
-    "est_tyre_life_laps": 20,
+    "est_tyre_life_laps": 40,
     "laps_on_fuel": 39,
-    "bottleneck": "tyres",
-    "bottleneck_explanation": "Opony na ~20 okr, paliwo na ~39 okr → pit stopy wynikają z opon"
+    "bottleneck": "fuel",
+    "bottleneck_explanation": "Paliwo na ~39 okr, opony na ~40 okr → pit stopy wynikają z paliwa"
   },
   "tyre_info": {
     "supplier": "Pipirelli",
-    "bottleneck": "tyres",
-    "est_tyre_life_laps": 20
+    "bottleneck": "fuel",
+    "est_tyre_life_laps": 40
   },
   "notes": [
-    "Predykcja oparta na 9 wyścigach w historii.",
-    "Pewność: high - Historia: 110/6 na Rafaela Oval GP (Argentyna)",
-    "Kierowca:  (TI=0, EXP=0)",
-    "Margines kierowcy: ±67 od optimum.",
-    "Opony: ~20 okr, paliwo: ~39 okr"
+    "Predykcja oparta na 8 wyścigach w historii.",
+    "Pewność: low - Fallback: domyślny setup medium downforce",
+    "Kierowca: Noel Lavin (TI=22, EXP=26)",
+    "Margines kierowcy: ±62 od optimum.",
+    "Opony: ~40 okr, paliwo: ~39 okr"
   ]
 }
