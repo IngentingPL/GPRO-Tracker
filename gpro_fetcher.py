@@ -169,6 +169,19 @@ def fetch_car():
     return api_get("UpdateCar")
 
 
+def fetch_practice():
+    """
+    Pobiera dane praktyk z bieżącego wyścigu (Practice endpoint).
+    
+    Mini-lekcja: Ten endpoint zwraca dane podczas trwania tygodnia wyścigowego,
+    gdy praktyki są w toku. Pozwala śledzić postępy między treningami.
+    Działa TYLKO gdy wyścig jest w fazie praktyk/kwalifikacji,
+    lub gdy jesteśmy zalogowani i mamy aktywny wyścig w toku.
+    """
+    print("  Pobieram dane praktyk (Practice)...")
+    return api_get("Practice")
+
+
 def fetch_track_profile(track_id):
     """
     Pobiera profil toru z API z cachowaniem.
@@ -406,6 +419,66 @@ def extract_summary_data(summary):
         "season": summary.get("selSeasonNb", ""),
         "race": summary.get("selRaceNb", ""),
         "results": results
+    }
+
+
+def extract_practice_data(practice):
+    """
+    Wyciąga dane setupów z praktyk/Q1 do kompaktowego formatu.
+    
+    Mini-lekcja: Ten endpoint zwraca dane w innym formacie niż RaceAnalysis.
+    Musimy znormalizować je do tego samego formatu co pliki wyścigowe.
+    """
+    if not practice:
+        return None
+    
+    # Sprawdź czy jesteśmy zalogowani (praktyka działa tylko gdy wyścig trwa)
+    if practice.get("loggedOut"):
+        return None
+    
+    # Wyciągamy dane setupów z praktyk
+    setups = []
+    for setup in practice.get("setups", []):
+        setups.append({
+            "session": setup.get("session", ""),
+            "fw": setup.get("setFWing", ""),
+            "rw": setup.get("setRWing", ""),
+            "eng": setup.get("setEng", ""),
+            "bra": setup.get("setBra", ""),
+            "gear": setup.get("setGear", ""),
+            "susp": setup.get("setSusp", ""),
+            "tyres": setup.get("setTyres", ""),
+            "feedback": setup.get("feedback", "")
+        })
+    
+    # Pobierz podstawowe info o wyścigu
+    season = practice.get("selSeasonNb") or practice.get("season")
+    race = practice.get("selRaceNb") or practice.get("race")
+    track = practice.get("trackName", "")
+    track_id = practice.get("trackId", "")
+    track_country = practice.get("trackCountry", "")
+    
+    # Pobierz pogodę
+    weather_data = practice.get("weather", {})
+    weather = {}
+    if weather_data:
+        weather = {
+            "q1": {
+                "condition": weather_data.get("q1Weather", ""),
+                "temp": weather_data.get("q1Temp"),
+                "humidity": weather_data.get("q1Hum")
+            }
+        }
+    
+    return {
+        "season": season,
+        "race": race,
+        "track": track,
+        "track_country": track_country,
+        "track_id": track_id,
+        "setups": setups,
+        "weather": weather,
+        "fetched_at": datetime.utcnow().isoformat() + "Z"
     }
 
 
@@ -823,5 +896,133 @@ def fetch_post_race():
     return race_file
 
 
+def fetch_current_week_data():
+    """
+    Pobiera dane z bieżącego tygodnia wyścigowego (praktyki, Q1).
+    
+    Mini-lekcja: Ten endpoint działa w trakcie tygodnia wyścigowego,
+    gdy praktyki są w toku. Pozwala aktualizować dane między treningami.
+    Jeśli wyścig jest po finale (brak praktyk), endpoint zwraca loggedOut=1.
+    """
+    print("=" * 60)
+    print("GPRO Current Week Data Fetcher")
+    print("=" * 60)
+    
+    if not API_TOKEN:
+        print("[BŁĄD] Brak tokenu API!")
+        print("Ustaw zmienną środowiskową GPRO_TOKEN lub GitHub Secret.")
+        return
+    
+    # 1. Pobierz Office żeby wiedzieć jaki jest bieżący wyścig
+    print("\n1. Pobieranie Office...")
+    office_raw = fetch_office()
+    
+    if not office_raw:
+        print("  [OSTRZEŻENIE] Nie udało się pobrać danych Office.")
+        return
+    
+    # Sprawdź czy jesteśmy zalogowani
+    if office_raw.get("loggedOut"):
+        print("  [INFO] Nie jesteś zalogowany do GPRO.")
+        return
+    
+    office_context = extract_office_context(office_raw)
+    season = office_context.get("season")
+    race = office_context.get("race")
+    
+    if not season or not race:
+        print("  [INFO] Brak aktywnego wyścigu w Office.")
+        return
+    
+    print(f"  Office wskazuje na: S{season}R{race}")
+    
+    # 2. Spróbuj pobrać dane praktyk
+    print("\n2. Pobieranie danych praktyk (Practice endpoint)...")
+    pause_between_requests()
+    practice_raw = fetch_practice()
+    
+    if not practice_raw:
+        print("  [OSTRZEŻENIE] Nie udało się pobrać danych praktyk.")
+        return
+    
+    # Sprawdź czy jesteśmy zalogowani (endpoint działa tylko gdy praktyki trwają)
+    if practice_raw.get("loggedOut"):
+        print("  [INFO] Praktyki nie są dostępne (wyścig zakończony lub przed startem).")
+        print("  Pomijam zapis danych praktyk.")
+        return
+    
+    # 3. Wyciągnij dane
+    print("\n3. Przetwarzanie danych praktyk...")
+    practice_data = extract_practice_data(practice_raw)
+    
+    if not practice_data:
+        print("  [OSTRZEŻENIE] Nie udało się przetworzyć danych praktyk.")
+        return
+    
+    s = practice_data.get("season")
+    r = practice_data.get("race")
+    track = practice_data.get("track", "")
+    setups_count = len(practice_data.get("setups", []))
+    
+    print(f"  Sezon: {s}, Wyścig: {r}, Tor: {track}")
+    print(f"  Znaleziono {setups_count} ukończonych sesji.")
+    
+    if setups_count == 0:
+        print("  [INFO] Brak ukończonych sesji - nic do zapisania.")
+        return
+    
+    # 4. Zapisz do pliku bieżącego wyścigu
+    practice_file = f"{DATA_DIR}/S{s}R{r}.json"
+    
+    # Jeśli plik już istnieje, wczytaj go żeby nie nadpisać innych danych
+    existing_data = load_json_safe(practice_file)
+    
+    if existing_data:
+        print(f"  Plik {practice_file} już istnieje - aktualizuję setups.")
+        # Zachowaj existing data ale zaktualizuj race_data.setups
+        existing_data.setdefault("race_data", {})
+        existing_data["race_data"]["setups"] = practice_data.get("setups", [])
+        existing_data["race_data"]["weather"] = practice_data.get("weather", {})
+        existing_data["race_data"]["track"] = track
+        existing_data["race_data"]["track_id"] = practice_data.get("track_id", "")
+        existing_data["race_data"]["track_country"] = practice_data.get("track_country", "")
+        combined = existing_data
+    else:
+        # Nowy plik - utwórz podstawową strukturę
+        combined = {
+            "race_data": {
+                "season": str(s),
+                "race": str(r),
+                "track": track,
+                "track_country": practice_data.get("track_country", ""),
+                "track_id": practice_data.get("track_id", ""),
+                "setups": practice_data.get("setups", []),
+                "weather": practice_data.get("weather", {}),
+                "fetched_at": practice_data.get("fetched_at", "")
+            },
+            "race_summary": None,
+            "driver_profile": None,
+            "standings": None,
+            "car_status": None
+        }
+    
+    # Zapisz
+    save_json(combined, practice_file)
+    print(f"  ✓ Zapisano dane praktyk do: {practice_file}")
+    
+    print("\n" + "=" * 60)
+    print(f"Gotowe! Dane praktyk zapisane do {practice_file}")
+    print("=" * 60)
+
+
 if __name__ == "__main__":
-    fetch_post_race()
+    import argparse
+    parser = argparse.ArgumentParser(description="GPRO Data Fetcher")
+    parser.add_argument("--mode", choices=["post-race", "current-week"], default="post-race",
+                        help="Tryb działania: post-race (po wyścigu) lub current-week (w trakcie tygodnia)")
+    args = parser.parse_args()
+    
+    if args.mode == "current-week":
+        fetch_current_week_data()
+    else:
+        fetch_post_race()
