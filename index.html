@@ -1070,11 +1070,6 @@
     <div class="header-info" id="headerInfo">Ładowanie...</div>
 </div>
 
-<!-- Karty podsumowania (Main) -->
-<div id="mainSummaryContainer">
-    <div class="summary-grid" id="summaryGrid"></div>
-</div>
-
 <!-- Zakładki -->
 <div class="tabs" id="tabsNav">
     <button class="tab-btn active" data-tab="overview">Przegląd</button>
@@ -1137,10 +1132,6 @@ function setupTabs() {
 
         // Pokaż treść wybranej zakładki
         targetContent.classList.add('active');
-
-        // Main summary is now always visible in the new Lamborghini style
-        const mainSummaryEl = document.getElementById('mainSummaryContainer');
-        if (mainSummaryEl) mainSummaryEl.style.display = 'block';
     });
 }
 
@@ -1210,56 +1201,6 @@ function getDisplayedRaceData() {
     const activeSeason = toInt(active?.season);
     if (activeSeason === null) return RACE_DATA;
     return RACE_DATA.filter(item => toInt(item?.race_data?.season) === activeSeason);
-}
-
-function isPendingSeasonMode() {
-    const active = getCurrentContext();
-    const latest = getLatestRace()?.race_data || {};
-    const activeSeason = toInt(active?.season);
-    const latestSeason = toInt(latest?.season);
-    if (activeSeason === null) return false;
-    if (latestSeason === null) return true;
-    if (activeSeason > latestSeason) return true;
-    return getDisplayedRaceData().length === 0;
-}
-
-function renderSeasonEmptyState(tabId, title, activeContext, lastCompleted, description) {
-    const container = document.getElementById(tabId);
-    if (!container) return;
-    const lastText = lastCompleted ? `Ostatni ukończony wyścig: S${lastCompleted.season || '?'}R${lastCompleted.race || '?'} · ${lastCompleted.track || 'Nieznany tor'}.` : '';
-    container.innerHTML = `
-        <div class="empty-state">
-            <h2>${title}</h2>
-            <p>Aktywny sezon z API: <strong>S${activeContext?.season || '?'}R${activeContext?.race || '?'} · ${activeContext?.track || 'Nieznany tor'}</strong></p>
-            <p style="margin-top:0.75rem">${description}</p>
-            <p style="margin-top:0.75rem;color:var(--text-secondary)">${lastText}</p>
-        </div>`;
-}
-
-function renderPendingSeasonOverview(activeContext) {
-    const lastCompleted = getLatestRace()?.race_data || null;
-    document.getElementById('headerInfo').textContent =
-        `Sezon ${activeContext?.season || '?'} · Wyścig ${activeContext?.race || '?'} · ${activeContext?.track || 'Nieznany tor'} · Oczekiwanie na pierwszy wyścig sezonu`;
-
-    const cards = [
-        { label: 'Aktywny sezon', value: `S${activeContext?.season || '?'}R${activeContext?.race || '?'}`, sub: activeContext?.track || 'Nieznany tor' },
-        { label: 'Status', value: 'Nowy sezon', sub: 'Kontekst pobrany z Office + Calendar API' },
-        { label: 'Ostatni ukończony', value: lastCompleted ? `S${lastCompleted.season || '?'}R${lastCompleted.race || '?'}` : 'Brak', sub: lastCompleted?.track || 'Brak danych' },
-        { label: 'Rekomendacje', value: PREDICTION_DATA ? 'Gotowe' : 'Brak', sub: 'Sprawdź zakładkę Następny wyścig' },
-    ];
-
-    document.getElementById('summaryGrid').innerHTML = cards.map(c => `
-        <div class="summary-card">
-            <div class="label">${c.label}</div>
-            <div class="value">${c.value}</div>
-            <div class="sub">${c.sub}</div>
-        </div>`).join('');
-
-    renderSeasonEmptyState('tab-results', 'Wyniki sezonu', activeContext, lastCompleted, 'Dane historyczne dla aktywnego sezonu pojawią się po ukończeniu pierwszego wyścigu.');
-    renderSeasonEmptyState('tab-setups', 'Setupy sezonu', activeContext, lastCompleted, 'Setupy historyczne dla tego sezonu będą dostępne po zapisaniu pierwszego wyścigu przez fetcher.');
-    renderSeasonEmptyState('tab-finances', 'Finanse sezonu', activeContext, lastCompleted, 'Finanse sezonu będą widoczne po pierwszym zapisanym wyścigu.');
-    renderSeasonEmptyState('tab-driver', 'Kierowca sezonu', activeContext, lastCompleted, 'Profil kierowcy w panelu historycznym będzie zasilony po zapisaniu wyścigu sezonu.');
-    renderSeasonEmptyState('tab-standings', 'Tabela sezonu', activeContext, lastCompleted, 'Tabela ligowa dla aktywnego sezonu pojawi się po pierwszym zapisanym wyścigu.');
 }
 
 function normalizeTrackName(name) {
@@ -1533,26 +1474,8 @@ function resolvePredictionContext(pred) {
 // ==========================================================
 
 function render() {
-    // Renderuj podstawowe zakładki
-    renderOverview();
-    renderNextRace();
-    renderStandings();
-
-    // Ensure main summary is visible
-    const mainSummary = document.getElementById('mainSummaryContainer');
-    if (mainSummary) mainSummary.style.display = 'block';
-
-    const activeContext = getCurrentContext();
     const displayedData = getDisplayedRaceData();
-
-    // ZAWSZE renderuj karty podsumowania (nawet gdy brak danych wyścigowych)
-    const latest = displayedData && displayedData.length > 0 ? displayedData[displayedData.length - 1] : null;
-    renderSummaryCards(latest, activeContext);
-
-    if ((!displayedData || displayedData.length === 0) && activeContext && isPendingSeasonMode()) {
-        renderPendingSeasonOverview(activeContext);
-        return;
-    }
+    const activeContext = getCurrentContext();
 
     if (!displayedData || displayedData.length === 0) {
         document.getElementById('tab-results').innerHTML = `
@@ -1564,13 +1487,17 @@ function render() {
         return;
     }
 
+    const latest = displayedData[displayedData.length - 1];
     const rd = latest.race_data || {};
 
     // Nagłówek
     document.getElementById('headerInfo').textContent =
         `Sezon ${rd.season} · Wyścig ${rd.race} · ${rd.track} · Dane sezonu: ${displayedData.length} wyścigów`;
 
-    // Pozostałe zakładki
+    // Renderuj wszystkie zakładki
+    renderOverview();
+    renderNextRace();
+    renderStandings();
     renderResults();
     renderSetups();
     renderFinances();
@@ -1748,81 +1675,6 @@ function renderOverview() {
     container.querySelector('[data-tab="standings"]')?.addEventListener('click', () => {
         document.querySelector('.tab-btn[data-tab="standings"]').click();
     });
-}
-
-// NOWA FUNKCJA: renderuje karty ZAWSZE (nawet gdy brak danych wyścigowych)
-function renderSummaryCards(latest, activeContext) {
-    //always render cards - use race data or fallback from context
-    const rd = latest?.race_data || {};
-    const fin = rd.finances || {};
-
-    const cards = [
-        { label: 'Pozycja Q', value: rd.q1_pos ? `P${rd.q1_pos}` : '—', sub: rd.q1_time || (activeContext ? `S${activeContext.season}R${activeContext.race}` : '') },
-        { label: 'Pozycja wyścigu', value: '—', sub: 'Sprawdź zakładkę Wyniki' },
-        { label: 'Bilans', value: formatMoney(fin.balance || activeContext?.cash || 0), sub: rd.finances ? `Wyścig: ${formatMoney(fin.total)}` : (activeContext ? 'Brak wyścigu' : '') },
-        { label: 'Kierowca', value: rd.driver?.name || activeContext?.driver || '?', sub: `OA: ${rd.driver?.OA || '?'}` },
-    ];
-
-    // Try to find race position from race_summary
-    const summary = latest?.race_summary;
-    if (summary && summary.results && summary.results.length > 0) {
-        const dp = latest.driver_profile || {};
-        const myName = dp.manName || dp.manager || dp.owner?.name || '';
-        let myResult = myName ? summary.results.find(r => r.manager === myName) : null;
-        if (!myResult) myResult = summary.results.find(r => r.gap === '' || r.gap === '0.000s' || r.gap === '+0.000s');
-        if (myResult) {
-            cards[1].value = `P${myResult.position || '?'}`;
-            cards[1].sub = myResult.race_time || '';
-        }
-    }
-
-    document.getElementById('summaryGrid').innerHTML = cards.map(c => `
-        <div class="summary-card">
-            <div class="label">${c.label}</div>
-            <div class="value">${c.value}</div>
-            <div class="sub">${c.sub}</div>
-        </div>
-    `).join('');
-}
-
-function renderSummary(latest) {
-    const rd = latest.race_data || {};
-    const fin = rd.finances || {};
-
-    const cards = [
-        { label: 'Pozycja Q', value: `P${rd.q1_pos || '?'}`, sub: rd.q1_time || '' },
-        { label: 'Pozycja wyścigu', value: `—`, sub: 'Sprawdź zakładkę Wyniki' },
-        { label: 'Bilans', value: formatMoney(fin.balance), sub: `Wyścig: ${formatMoney(fin.total)}` },
-        { label: 'Kierowca', value: (rd.driver || {}).name || '?', sub: `OA: ${(rd.driver || {}).OA || '?'}` },
-    ];
-
-    // Spróbuj znaleźć pozycję z race_summary
-    const summary = latest.race_summary;
-    if (summary && summary.results && summary.results.length > 0) {
-        // Szukamy naszego wyniku - porównujemy nazwę managera z driver_profile
-        const dp = latest.driver_profile || {};
-        const myName = dp.manName || dp.manager || dp.owner?.name || '';
-        let myResult = null;
-        if (myName) {
-            myResult = summary.results.find(r => r.manager === myName);
-        }
-        // Fallback: gracz z pozycją 1 lub gap 0.000s (lider nie ma luki)
-        if (!myResult) {
-            myResult = summary.results.find(r => r.gap === '' || r.gap === '0.000s' || r.gap === '+0.000s');
-        }
-        if (myResult) {
-            cards[1].value = `P${myResult.position || '?'}`;
-            cards[1].sub = myResult.race_time || '';
-        }
-    }
-
-    document.getElementById('summaryGrid').innerHTML = cards.map(c => `
-        <div class="summary-card">
-            <div class="label">${c.label}</div>
-            <div class="value">${c.value}</div>
-            <div class="sub">${c.sub}</div>
-        </div>
-    `).join('');
 }
 
 // ==========================================================
