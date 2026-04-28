@@ -1,21 +1,21 @@
 {
-  "generated_at": "2026-04-28T19:10:26.643436Z",
+  "generated_at": "2026-04-28T20:46:27.189927Z",
   "next_race": {
-    "track": "Rafaela Oval GP (Argentyna)",
+    "track": "Miami GP (USA)",
     "season": 110,
-    "race": 6,
+    "race": 7,
     "total_laps": 72,
-    "track_id": "54"
+    "track_id": "62"
   },
   "confidence": "low",
   "confidence_reason": "Fallback: domyślny setup medium downforce",
   "driver_margin": {
     "MA": 125,
     "half_MA": 62,
-    "note": "Setup ±62 od optimum da satisfied (MA=125, TI=22, EXP=26)"
+    "note": "Setup ±62 od optimum da satisfied (MA=125, TI=23, EXP=27)"
   },
   "base": {
-    "track": "Rafaela Oval GP (Argentyna)",
+    "track": "Miami GP (USA)",
     "setup": {
       "fw": 500,
       "rw": 500,
@@ -30,172 +30,117 @@
     {
       "id": "PRAKTYKA 1",
       "type": "practice",
-      "completed": true,
-      "is_next": false,
+      "completed": false,
+      "is_next": true,
       "setup": {
-        "fw": 250,
-        "rw": 220,
-        "eng": 780,
-        "bra": 120,
-        "gear": 640,
-        "susp": 500
+        "fw": 504,
+        "rw": 504,
+        "eng": 595,
+        "bra": 606,
+        "gear": 495,
+        "susp": 594,
+        "temp": 21
       },
-      "feedback": "Obroty silnika są za wysokie; Chciałbym balans odrobiną bardziej przesuniąty na prz&#243;d; Sztywnoś&#263; zawieszenia jest zbyt wysoka",
-      "tyres": "Hard",
+      "feedback": "",
+      "tyres": "Medium",
       "temp": 21,
-      "note": "Ukończona sesja",
+      "note": "Sugerowany setup na podstawie poprzednich sesji",
       "session_key": "P1"
     },
     {
       "id": "PRAKTYKA 2",
       "type": "practice",
-      "completed": true,
+      "completed": false,
       "is_next": false,
-      "setup": {
-        "fw": 250,
-        "rw": 220,
-        "eng": 600,
-        "bra": 250,
-        "gear": 640,
-        "susp": 400
-      },
-      "feedback": "Samoch&#243;d jest zbyt sztywny. Obni&#380; trochą sztywnoś&#263;",
-      "tyres": "Hard",
+      "setup": null,
+      "feedback": "",
+      "tyres": "Medium",
       "temp": 21,
-      "note": "Ukończona sesja",
+      "note": "",
       "session_key": "P2"
     },
     {
       "id": "PRAKTYKA 3",
       "type": "practice",
-      "completed": true,
+      "completed": false,
       "is_next": false,
-      "setup": {
-        "fw": 250,
-        "rw": 220,
-        "eng": 600,
-        "bra": 250,
-        "gear": 640,
-        "susp": 300
-      },
+      "setup": null,
       "feedback": "",
-      "tyres": "Hard",
+      "tyres": "Medium",
       "temp": 21,
-      "note": "Ukończona sesja",
+      "note": "",
       "session_key": "P3"
     },
     {
       "id": "PRAKTYKA 4",
       "type": "practice",
-      "completed": true,
+      "completed": false,
       "is_next": false,
-      "setup": {
-        "fw": 250,
-        "rw": 220,
-        "eng": 600,
-        "bra": 250,
-        "gear": 640,
-        "susp": 260
-      },
+      "setup": null,
       "feedback": "",
-      "tyres": "Hard",
+      "tyres": "Medium",
       "temp": 21,
-      "note": "Ukończona sesja",
+      "note": "",
       "session_key": "P4"
     },
     {
       "id": "PRAKTYKA 5",
       "type": "practice",
-      "completed": true,
+      "completed": false,
       "is_next": false,
-      "setup": {
-        "fw": 250,
-        "rw": 220,
-        "eng": 640,
-        "bra": 250,
-        "gear": 640,
-        "susp": 300
-      },
+      "setup": null,
       "feedback": "",
-      "tyres": "Hard",
+      "tyres": "Medium",
       "temp": 21,
-      "note": "Ukończona sesja",
+      "note": "",
       "session_key": "P5"
     },
     {
       "id": "PRAKTYKA 6",
       "type": "practice",
-      "completed": true,
+      "completed": false,
       "is_next": false,
-      "setup": {
-        "fw": 250,
-        "rw": 220,
-        "eng": 600,
-        "bra": 250,
-        "gear": 680,
-        "susp": 300
-      },
+      "setup": null,
       "feedback": "",
-      "tyres": "Hard",
+      "tyres": "Medium",
       "temp": 21,
-      "note": "Ukończona sesja",
+      "note": "",
       "session_key": "P6"
     },
     {
       "id": "PRAKTYKA 7",
       "type": "practice",
-      "completed": true,
+      "completed": false,
       "is_next": false,
-      "setup": {
-        "fw": 250,
-        "rw": 220,
-        "eng": 600,
-        "bra": 250,
-        "gear": 660,
-        "susp": 300
-      },
+      "setup": null,
       "feedback": "",
-      "tyres": "Hard",
+      "tyres": "Medium",
       "temp": 21,
-      "note": "Ukończona sesja",
+      "note": "",
       "session_key": "P7"
     },
     {
       "id": "PRAKTYKA 8",
       "type": "practice",
-      "completed": true,
+      "completed": false,
       "is_next": false,
-      "setup": {
-        "fw": 260,
-        "rw": 230,
-        "eng": 600,
-        "bra": 250,
-        "gear": 660,
-        "susp": 300
-      },
+      "setup": null,
       "feedback": "",
-      "tyres": "Hard",
+      "tyres": "Medium",
       "temp": 21,
-      "note": "Ukończona sesja",
+      "note": "",
       "session_key": "P8"
     },
     {
       "id": "KWALIFIKACJE 1",
       "type": "q1",
       "completed": false,
-      "is_next": true,
-      "setup": {
-        "fw": 250,
-        "rw": 220,
-        "eng": 600,
-        "bra": 250,
-        "gear": 640,
-        "susp": 400
-      },
+      "is_next": false,
+      "setup": null,
       "feedback": "",
-      "tyres": "Hard",
+      "tyres": "Medium",
       "temp": 22,
-      "note": "Setup skorygowany o: Samoch&#243;d jest zbyt sztywny. Obni&#380; trochą sztywnoś&#263;...",
+      "note": "",
       "session_key": "Q1"
     },
     {
@@ -212,7 +157,7 @@
         "susp": 567
       },
       "feedback": "",
-      "tyres": "Hard",
+      "tyres": "Medium",
       "temp": 26,
       "note": "Setup skorygowany dla Q2 (wyższa temperatura)",
       "session_key": "Q2"
@@ -231,59 +176,59 @@
         "susp": 562
       },
       "feedback": "",
-      "tyres": "Hard",
+      "tyres": "Medium",
       "temp": 27,
       "note": "Setup na wyścig (korekta temperatury)",
       "session_key": "RACE",
       "fuel_strategy": {
         "pits": 2,
         "stints": [
-          108,
-          108,
-          108
+          107,
+          107,
+          107
         ],
-        "total_fuel": 325
+        "total_fuel": 321
       }
     }
   ],
   "fuel_strategy": {
-    "fuel_per_lap": 4.51,
+    "fuel_per_lap": 4.46,
     "recommended": {
       "pits": 2,
       "stints": [
-        108,
-        108,
-        108
+        107,
+        107,
+        107
       ],
-      "total_fuel": 325
+      "total_fuel": 321
     },
     "alternative": {
       "pits": 3,
       "stints": [
-        108,
-        108,
-        108,
-        108
+        107,
+        107,
+        107,
+        107
       ],
-      "total_fuel": 432
+      "total_fuel": 428
     }
   },
   "tyre_strategy": {
-    "est_tyre_life_laps": 40,
-    "laps_on_fuel": 39,
+    "est_tyre_life_laps": 42,
+    "laps_on_fuel": 40,
     "bottleneck": "fuel",
-    "bottleneck_explanation": "Paliwo na ~39 okr, opony na ~40 okr → pit stopy wynikają z paliwa"
+    "bottleneck_explanation": "Paliwo na ~40 okr, opony na ~42 okr → pit stopy wynikają z paliwa"
   },
   "tyre_info": {
     "supplier": "Pipirelli",
     "bottleneck": "fuel",
-    "est_tyre_life_laps": 40
+    "est_tyre_life_laps": 42
   },
   "notes": [
-    "Predykcja oparta na 8 wyścigach w historii.",
+    "Predykcja oparta na 9 wyścigach w historii.",
     "Pewność: low - Fallback: domyślny setup medium downforce",
-    "Kierowca: Noel Lavin (TI=22, EXP=26)",
+    "Kierowca: Noel Lavin (TI=23, EXP=27)",
     "Margines kierowcy: ±62 od optimum.",
-    "Opony: ~40 okr, paliwo: ~39 okr"
+    "Opony: ~42 okr, paliwo: ~40 okr"
   ]
 }
