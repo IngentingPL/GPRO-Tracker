@@ -39,10 +39,19 @@ jobs:
         with:
           python-version: '3.11'
 
-      # 3. Pobierz dane z GPRO API
-      # Mini-lekcja: secrets.GPRO_TOKEN to "GitHub Secret" -
-      # bezpieczne miejsce na tokeny i hasła.
-      # Ustawiasz go w Settings → Secrets → Actions.
+      # 3a. Pobierz dane praktyk bieżącego wyścigu (PRZED zakończonym wyścigiem!)
+      # Mini-lekcja: --mode current-week pobiera dane z endpointu /Practice,
+      # który zwraca ukończone sesje treningowe. Musi być przed --mode post-race
+      # żeby plik S{season}R{race}.json był gotowy dla predictora.
+      - name: Fetch current week practice data
+        env:
+          GPRO_TOKEN: ${{ secrets.GPRO_TOKEN }}
+        run: python gpro_fetcher.py --mode current-week
+
+      # 3b. Pobierz dane zakończonego wyścigu (post-race)
+      # Mini-lekcja: Bez flagi --mode domyślnie uruchamia się fetch_post_race(),
+      # który pobiera pełną analizę zakończonego wyścigu (setupy, pit stopy,
+      # pogodę, finanse, stan auta).
       - name: Fetch race data
         env:
           GPRO_TOKEN: ${{ secrets.GPRO_TOKEN }}
