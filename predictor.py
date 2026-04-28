@@ -1226,8 +1226,21 @@ def generate_prediction():
             # Dla Race dodaj strategię paliwową
             if step_key == "RACE":
                 step_data["fuel_strategy"] = fuel_strategy["recommended"]
+        
+        # Nowa logika: Q2 i RACE zawsze pokazują setup (korekta temperatury)
+        # nawet jeśli to przyszłe kroki
+        elif step_key in ("Q2", "RACE") and step_data["setup"] is None:
+            if step_key == "Q2":
+                # Q2: korekta o q2_temp
+                step_data["setup"] = setup_q2.copy()
+                step_data["note"] = "Setup skorygowany dla Q2 (wyższa temperatura)"
+            elif step_key == "RACE":
+                # Race: korekta o race_temp + fuel_strategy
+                step_data["setup"] = setup_race.copy()
+                step_data["note"] = "Setup na wyścig (korekta temperatury)"
+                step_data["fuel_strategy"] = fuel_strategy["recommended"]
         else:
-            # Przyszłe kroki - bez setupu
+            # Przyszłe kroki (P1-P8, Q1) - bez setupu (oczekują na komentarz)
             step_data["setup"] = None
 
         # Aktualizuj progression_setup na podstawie komentarza z tej sesji (dla następnego kroku)
