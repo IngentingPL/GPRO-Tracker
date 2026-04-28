@@ -443,43 +443,61 @@ def extract_practice_data(practice, office_context=None):
     office_context = office_context or {}
     
     # Wyciągamy dane setupów z praktyk
+    # UWAGA: Dane są w lapsDone, nie w setups!
     setups = []
-    for setup in practice.get("setups", []):
+    for lap in practice.get("lapsDone", []):
+        # Nazwa sesji - zakładamy że to praktyka ( Training )
+        # W GPRO kolejne okrążenia = kolejne sesje praktyk
+        lap_idx = lap.get("idx", 0)
+        session_name = f"Trening {lap_idx}" if lap_idx else "Trening 1"
+        
+        # Wyciągnij setup z każdego lap (setFWing, setEngine, etc.)
+        # Każde to obiekt z {value, color, comment}
+        fw_data = lap.get("setFWing", {})
+        rw_data = lap.get("setRWing", {})
+        eng_data = lap.get("setEngine", {})
+        bra_data = lap.get("setBrakes", {})
+        gear_data = lap.get("setGear", {})
+        susp_data = lap.get("setSusp", {})
+        
+        # Zbuduj komentarz z driComments - połącz wszystkie komentarze
+        comments = []
+        for c in lap.get("driComments", []):
+            text = c.get("text", "")
+            if text:
+                # Dekoduj HTML entities
+                text = text.replace("&#281;", "ą").replace("&#347;", "ś")
+                text = text.replace("&#261;", "ą").replace("&#322;", "ł")
+                text = text.replace("&#281;", "ą")
+                comments.append(text)
+        feedback = "; ".join(comments) if comments else ""
+        
+        # Określ kolor (dla backwards compatibility)
+        # color: "lime" = green/satisfied, "yellow" = marginal, "red" = bad
+        tyre_count = practice.get("setDryTyres", "3")
+        
         setups.append({
-            "session": setup.get("session", ""),
-            "fw": setup.get("setFWing", ""),
-            "rw": setup.get("setRWing", ""),
-            "eng": setup.get("setEng", ""),
-            "bra": setup.get("setBra", ""),
-            "gear": setup.get("setGear", ""),
-            "susp": setup.get("setSusp", ""),
-            "tyres": setup.get("setTyres", ""),
-            "feedback": setup.get("feedback", "")
+            "session": session_name,
+            "fw": fw_data.get("value", 0),
+            "rw": rw_data.get("value", 0),
+            "eng": eng_data.get("value", 0),
+            "bra": bra_data.get("value", 0),
+            "gear": gear_data.get("value", 0),
+            "susp": susp_data.get("value", 0),
+            "tyres": tyre_count,
+            "feedback": feedback,
+            # Dodatkowe pola z API
+            "lap_time": lap.get("lapTime", ""),
+            "mistake_time": lap.get("misTime", "")
         })
     
     # Pobierz podstawowe info o wyścigu
-    # Próbuj różne klucze z API - Practice może zwracać w różnych formatach
-    season = (
-        practice.get("selSeasonNb") or 
-        practice.get("seasonNb") or 
-        practice.get("season") or
-        office_context.get("season")
-    )
-    race = (
-        practice.get("selRaceNb") or 
-        practice.get("raceNb") or 
-        practice.get("race") or
-        practice.get("raceNumber") or
-        office_context.get("race")
-    )
+    # Practice API NIE zwraca sezonu/wyścigu - używamy Office jako fallback
+    season = office_context.get("season")
+    race = office_context.get("race")
     track = practice.get("trackName", "")
     track_id = practice.get("trackId", "")
-    track_country = practice.get("trackCountry", "")
-    
-    # DEBUG: pokaż co znaleziono
-    import json
-    print(f"  [DEBUG] Season from Practice: {practice.get('selSeasonNb')}, {practice.get('seasonNb')}, fallback: {office_context.get('season')}")
-    print(f"  [DEBUG] Race from Practice: {practice.get('selRaceNb')}, {practice.get('raceNb')}, fallback: {office_context.get('race')}")
+    track_country = practice.get("trackNat", "")
     
     # Pobierz pogodę
     weather_data = practice.get("weather", {})
@@ -487,9 +505,14 @@ def extract_practice_data(practice, office_context=None):
     if weather_data:
         weather = {
             "q1": {
-                "condition": weather_data.get("q1Weather", ""),
+                "condition": weather_data.get("q1WeatherTransl") or weather_data.get("q1Weather", ""),
                 "temp": weather_data.get("q1Temp"),
                 "humidity": weather_data.get("q1Hum")
+            },
+            "q2": {
+                "condition": weather_data.get("q2WeatherTransl") or weather_data.get("q2Weather", ""),
+                "temp": weather_data.get("q2Temp"),
+                "humidity": weather_data.get("q2Hum")
             }
         }
     
@@ -967,12 +990,6 @@ def fetch_current_week_data():
     if not practice_raw:
         print("  [OSTRZEŻENIE] Nie udało się pobrać danych praktyk.")
         return
-    
-    # DEBUG: wydrukuj surową odpowiedź z API
-    import json
-    print("=== RAW PRACTICE API RESPONSE ===")
-    print(json.dumps(practice_raw, ensure_ascii=False, indent=2)[:3000])
-    print("=== END RAW RESPONSE ===")
     
     # Sprawdź czy jesteśmy zalogowani (endpoint działa tylko gdy praktyki trwają)
     if practice_raw.get("loggedOut"):
