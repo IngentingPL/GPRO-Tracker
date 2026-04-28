@@ -991,6 +991,12 @@ def fetch_current_week_data():
         print("  [OSTRZEŻENIE] Nie udało się pobrać danych praktyk.")
         return
     
+    # DEBUG: wydrukuj surową odpowiedź - szukaj Q1/Q2
+    import json
+    print("=== RAW PRACTICE API (full) ===")
+    print(json.dumps(practice_raw, ensure_ascii=False, indent=2)[:5000])
+    print("=== END ===")
+    
     # Sprawdź czy jesteśmy zalogowani (endpoint działa tylko gdy praktyki trwają)
     if practice_raw.get("loggedOut"):
         print("  [INFO] Praktyki nie są dostępne (wyścig zakończony lub przed startem).")
