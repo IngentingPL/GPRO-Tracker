@@ -1184,6 +1184,32 @@ function getLatestRace() {
     return RACE_DATA[RACE_DATA.length - 1];
 }
 
+// Znajduje pierwszy wyścig od końca z danymi kierowcy (driver_profile, standings)
+// Używane przez renderOverview() żeby pokazać statystyki nawet gdy ostatni plik jest pusty
+function getRaceWithProfileData() {
+    if (!RACE_DATA || RACE_DATA.length === 0) return null;
+    // Szukaj od końca - ostatni wyścig z danymi
+    for (let i = RACE_DATA.length - 1; i >= 0; i--) {
+        const race = RACE_DATA[i];
+        if (race?.driver_profile && Object.keys(race.driver_profile).length > 0) {
+            return race;
+        }
+    }
+    return RACE_DATA[RACE_DATA.length - 1]; // Fallback do ostatniego
+}
+
+// Znajduje wyścig z danymi klasyfikacji (standings)
+function getRaceWithStandingsData() {
+    if (!RACE_DATA || RACE_DATA.length === 0) return null;
+    for (let i = RACE_DATA.length - 1; i >= 0; i--) {
+        const race = RACE_DATA[i];
+        if (race?.standings?.managers && race.standings.managers.length > 0) {
+            return race;
+        }
+    }
+    return RACE_DATA[RACE_DATA.length - 1];
+}
+
 function getCurrentContext() {
     const current = CURRENT_CONTEXT_DATA || null;
     const predicted = PREDICTION_DATA?.next_race || null;
@@ -1522,18 +1548,29 @@ function renderOverview() {
     }
 
     const rd = latest?.race_data || {};
-    const dp = latest?.driver_profile || {};
-    const cs = latest?.car_status || {};
+    // Użyj wyścigu z danymi kierowcy dla statystyk
+    const raceWithProfile = getRaceWithProfileData();
+    const raceWithStandings = getRaceWithStandingsData();
+    const dp = raceWithProfile?.driver_profile || latest?.driver_profile || {};
+    const cs = raceWithProfile?.car_status || latest?.car_status || {};
+    // Użyj standings z wyścigu który je ma
+    const standingsData = raceWithStandings?.standings || latest?.standings || null;
 
     let html = '';
+
+    // Pobierz aktualny kontekst dla nagłówka (sezon, wyścig, tor)
+    const ctx = getCurrentContext();
+    const seasonLabel = ctx?.season ? "SEZON " + ctx.season : '';
+    const raceLabel = ctx?.race ? "R" + ctx.race : '';
+    const trackLabel = ctx?.track || '';
 
     // 1. Sekcja: Nagłówek Przeglądu (Hero)
     html += `
     <div class="hero-section">
-        <span class="hero-subtitle">CENTRUM DOWODZENIA</span>
-        <h2>PRZEGLĄD SEZONU</h2>
+        <span class="hero-subtitle">${seasonLabel} · ${raceLabel}</span>
+        <h2>${trackLabel || 'PRZEGLĄD SEZONU'}</h2>
         <div class="hero-meta">
-            <span>📊 STATUS TWOJEJ KARIERY GPRO</span>
+            <span>🏎️ STATUS TWOJEJ KARIERY GPRO</span>
         </div>
     </div>`;
 
@@ -1554,8 +1591,10 @@ function renderOverview() {
         </div>`;
     }
 
-    // FINANSE
-    const cash = dp.cash || rd.finances?.balance || 0;
+    // FINANSE - użyj danych z wyścigu z profilem (pełne dane)
+    const rdProfile = raceWithProfile?.race_data || latest?.race_data || {};
+    const finances = rdProfile?.finances || {};
+    const cash = dp.cash || finances?.balance || rdProfile?.finances?.balance || 0;
     html += `
     <div class="summary-card">
         <div class="label">FINANSE</div>
@@ -1563,13 +1602,16 @@ function renderOverview() {
             ${formatMoney(cash)}
         </div>
         <div class="sub">SALDO KONTA</div>
-        ${rd.finances ? `<div class="rec-row" style="margin-top: 1rem; border-top: 1px solid var(--border-color); padding-top: 0.5rem;"><span class="rec-label">Ostatni wyścig</span><span class="${rd.finances.total >= 0 ? 'val-positive' : 'val-negative'}">${formatMoney(rd.finances.total)}</span></div>` : ''}
+        ${finances && finances.total !== undefined ? `<div class="rec-row" style="margin-top: 1rem; border-top: 1px solid var(--border-color); padding-top: 0.5rem;"><span class="rec-label">Ostatni wyścig</span><span class="${finances.total >= 0 ? 'val-positive' : 'val-negative'}">${formatMoney(finances.total)}</span></div>` : ''}
     </div>`;
 
     // KIEROWCA
     if (rd.driver || dp.driName) {
-        const drvName = dp.driName || rd.driver.name;
-        const drvOA = dp.overall || rd.driver.OA;
+        const drvName = dp.driName || rd.driver?.name;
+        const drvOA = dp.overall || rd.driver?.OA;
+        // Pobierz overall z driver_profile (jeśli istnieje w profilu)
+        const drvOAFromProfile = dp.overallRating || dp.ti || null;
+        const finalOA = drvOAFromProfile || drvOA || '';
 
         // Kariera
         const cWins = dp.wins || 0;
@@ -1581,7 +1623,7 @@ function renderOverview() {
         const myName = dp.manName || dp.manager || dp.owner?.name || '';
 
         // Spróbuj pobrać statystyki sezonu z tabeli ligowej (najbardziej wiarygodne źródło dla pozycji)
-        const myStanding = latest?.standings?.managers?.find(m => m.name === myName);
+        const myStanding = standingsData?.managers?.find(m => m.name === myName);
         if (myStanding && myStanding.results) {
             myStanding.results.forEach(r => {
                 const pos = toInt(r.pos);
@@ -1612,7 +1654,7 @@ function renderOverview() {
         <div class="summary-card">
             <div class="label">KIEROWCA</div>
             <div class="value-small">${drvName}</div>
-            <div class="sub">OVERALL: ${drvOA}</div>
+            <div class="sub">OVERALL: ${finalOA}</div>
 
             <div class="rec-grid" style="grid-template-columns: 1fr 1fr 1fr; gap: 1px; margin-top: 1rem; background: var(--border-color); padding: 1px;">
                 <div class="stat-item" style="background: var(--bg-primary); padding: 0.5rem;">
@@ -1635,7 +1677,7 @@ function renderOverview() {
     }
 
     // TABELA LIGOWA (League Table)
-    const standings = latest?.standings?.managers || [];
+    const standings = standingsData?.managers || [];
     if (standings.length > 0) {
         const myName = dp.manName || dp.manager || dp.owner?.name || '';
         const myIndex = standings.findIndex(m => m.name === myName);
