@@ -373,6 +373,8 @@ def load_history():
             driver = race_data.get("driver", {})
             ti = int(driver.get("technical_insight", 0))
             exp = int(driver.get("experience", 0))
+            # Flaga: czy plik ma dane kierowcy (nie z fallback/practice-only)
+            has_driver = bool(driver.get("name")) and (ti > 0 or exp > 0)
 
             # Wyciągamy dane pogodowe
             weather = race_data.get("weather", {})
@@ -415,7 +417,8 @@ def load_history():
                 "finish_tyres": finish_tyres,
                 "driver_ti": ti,
                 "driver_exp": exp,
-                "driver_name": driver.get("name", "")
+                "driver_name": driver.get("name", ""),
+                "has_driver": has_driver  # Flag: czy ma pełne dane kierowcy
             })
 
         except Exception as e:
@@ -1056,12 +1059,24 @@ def generate_prediction():
 
     # 6. Oblicz margines kierowcy
     print(f"\n6. Obliczanie marginesu kierowcy...")
-    if history:
-        # Bierzemy dane kierowcy z ostatniego wyścigu
+    # Szukaj ostatniego wyścigu z pełnymi danymi kierowcy (nie z samego Practice)
+    last_race_with_driver = None
+    for h in reversed(history):
+        if h.get("has_driver"):
+            last_race_with_driver = h
+            break
+    
+    if last_race_with_driver:
+        # Użyj danych z wyścigu z pełnymi danymi kierowcy
+        ti = last_race_with_driver["driver_ti"]
+        exp = last_race_with_driver["driver_exp"]
+        driver_name = last_race_with_driver["driver_name"]
+    elif history:
+        # Fallback: użyj ostatniego wyścigu (nawet bez kierowcy)
         last_race = history[-1]
         ti = last_race["driver_ti"]
         exp = last_race["driver_exp"]
-        driver_name = last_race["driver_name"]
+        driver_name = last_race["driver_name"] if last_race["driver_name"] else "Nieznany (z pliku Practice)"
     else:
         # Fallback: średni kierowca
         ti = 100

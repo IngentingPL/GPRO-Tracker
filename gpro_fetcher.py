@@ -422,7 +422,7 @@ def extract_summary_data(summary):
     }
 
 
-def extract_practice_data(practice, office_context=None):
+def extract_practice_data(practice, office_context=None, driver_raw=None):
     """
     Wyciąga dane setupów z praktyk/Q1 do kompaktowego formatu.
     
@@ -432,6 +432,7 @@ def extract_practice_data(practice, office_context=None):
     Args:
         practice: Surowe dane z endpointu /Practice
         office_context: Słownik z season/race z Office API (fallback)
+        driver_raw: Surowe dane z endpointu DriProfile (dane kierowcy)
     """
     if not practice:
         return None
@@ -441,6 +442,7 @@ def extract_practice_data(practice, office_context=None):
         return None
     
     office_context = office_context or {}
+    driver_raw = driver_raw or {}
     
     # Wyciągamy dane setupów z praktyk
     # UWAGA: Dane są w lapsDone, nie w setups!
@@ -499,6 +501,24 @@ def extract_practice_data(practice, office_context=None):
     track_id = practice.get("trackId", "")
     track_country = practice.get("trackNat", "")
     
+    # Wyciągnij dane kierowcy z DriProfile
+    # Format zgodny z extract_race_data() - kluczowe pola dla predictora
+    driver = driver_raw.get("driver", driver_raw)
+    driver_info = {
+        "name": driver.get("name", ""),
+        "id": driver.get("id"),
+        "OA": driver.get("OA", ""),
+        "concentration": driver.get("con", ""),
+        "talent": driver.get("tal", ""),
+        "aggressiveness": driver.get("agr", ""),
+        "experience": driver.get("exp", ""),
+        "technical_insight": driver.get("tei", ""),
+        "stamina": driver.get("sta", ""),
+        "charisma": driver.get("cha", ""),
+        "motivation": driver.get("mot", ""),
+        "weight": driver.get("wei", "")
+    }
+    
     # Pobierz pogodę
     weather_data = practice.get("weather", {})
     weather = {}
@@ -524,6 +544,7 @@ def extract_practice_data(practice, office_context=None):
         "track_id": track_id,
         "setups": setups,
         "weather": weather,
+        "driver": driver_info,  # Dane kierowcy dla predictora
         "fetched_at": datetime.utcnow().isoformat() + "Z"
     }
 
@@ -991,11 +1012,10 @@ def fetch_current_week_data():
         print("  [OSTRZEŻENIE] Nie udało się pobrać danych praktyk.")
         return
     
-    # DEBUG: wydrukuj surową odpowiedź - szukaj Q1/Q2
-    import json
-    print("=== RAW PRACTICE API (full) ===")
-    print(json.dumps(practice_raw, ensure_ascii=False, indent=2)[:5000])
-    print("=== END ===")
+    # 2b. Pobierz dane kierowcy (potrzebne dla predictora)
+    print("\n2b. Pobieranie profilu kierowcy (DriProfile)...")
+    pause_between_requests()
+    driver_raw = fetch_driver_profile()
     
     # Sprawdź czy jesteśmy zalogowani (endpoint działa tylko gdy praktyki trwają)
     if practice_raw.get("loggedOut"):
@@ -1003,9 +1023,9 @@ def fetch_current_week_data():
         print("  Pomijam zapis danych praktyk.")
         return
     
-    # 3. Wyciągnij dane (przekaż office_context jako fallback)
+    # 3. Wyciągnij dane (przekaż office_context i driver_raw)
     print("\n3. Przetwarzanie danych praktyk...")
-    practice_data = extract_practice_data(practice_raw, office_context)
+    practice_data = extract_practice_data(practice_raw, office_context, driver_raw)
     
     if not practice_data:
         print("  [OSTRZEŻENIE] Nie udało się przetworzyć danych praktyk.")
@@ -1038,9 +1058,12 @@ def fetch_current_week_data():
         existing_data["race_data"]["track"] = track
         existing_data["race_data"]["track_id"] = practice_data.get("track_id", "")
         existing_data["race_data"]["track_country"] = practice_data.get("track_country", "")
+        # Zachowaj też driver jeśli już istnieje
+        if practice_data.get("driver") and not existing_data["race_data"].get("driver"):
+            existing_data["race_data"]["driver"] = practice_data.get("driver")
         combined = existing_data
     else:
-        # Nowy plik - utwórz podstawową strukturę
+        # Nowy plik - utwórz pełną strukturę z driverem
         combined = {
             "race_data": {
                 "season": str(s),
@@ -1050,6 +1073,7 @@ def fetch_current_week_data():
                 "track_id": practice_data.get("track_id", ""),
                 "setups": practice_data.get("setups", []),
                 "weather": practice_data.get("weather", {}),
+                "driver": practice_data.get("driver", {}),
                 "fetched_at": practice_data.get("fetched_at", "")
             },
             "race_summary": None,
