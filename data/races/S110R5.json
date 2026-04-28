@@ -230,7 +230,7 @@
       "total": 7928700,
       "balance": 38058229
     },
-    "fetched_at": "2026-04-28T11:19:17.269152Z"
+    "fetched_at": "2026-04-28T11:25:38.691551Z"
   },
   "race_summary": {
     "track": "Istanbul",
@@ -419,7 +419,7 @@
     "privateOfferCost": 1000000,
     "setOfferCost": 500000,
     "setOfferType": "1",
-    "nextPriceIncrementIn": 164438,
+    "nextPriceIncrementIn": 164057,
     "offerPlaced": 0,
     "inShortList": 1,
     "oneRaceRenewFee": 184700,
@@ -441,7 +441,7 @@
     "setContractLengthExtend": "",
     "totalOffers": 0,
     "offersFrom": [],
-    "apiRequestsRemaining": 893
+    "apiRequestsRemaining": 885
   },
   "standings": {
     "loadingDataState": "1",
@@ -6826,7 +6826,7 @@
         }
       ]
     },
-    "apiRequestsRemaining": 892
+    "apiRequestsRemaining": 884
   },
   "car_status": {
     "loadingDataState": "1",
@@ -7538,6 +7538,6 @@
     "showUndoAlertNoCredits": false,
     "credits": 0,
     "races": 8,
-    "apiRequestsRemaining": 891
+    "apiRequestsRemaining": 883
   }
 }

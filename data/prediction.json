@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-28T11:19:25.844007Z",
+  "generated_at": "2026-04-28T11:25:46.314383Z",
   "next_race": {
     "track": "Rafaela Oval GP (Argentyna)",
     "season": 110,
@@ -203,11 +203,18 @@
       "type": "q2",
       "completed": false,
       "is_next": false,
-      "setup": null,
+      "setup": {
+        "fw": 525,
+        "rw": 525,
+        "eng": 570,
+        "bra": 635,
+        "gear": 470,
+        "susp": 567
+      },
       "feedback": "",
       "tyres": "Hard",
       "temp": 26,
-      "note": "",
+      "note": "Setup skorygowany dla Q2 (wyższa temperatura)",
       "session_key": "Q2"
     },
     {
@@ -215,12 +222,28 @@
       "type": "race",
       "completed": false,
       "is_next": false,
-      "setup": null,
+      "setup": {
+        "fw": 529,
+        "rw": 529,
+        "eng": 565,
+        "bra": 641,
+        "gear": 465,
+        "susp": 562
+      },
       "feedback": "",
       "tyres": "Hard",
       "temp": 27,
-      "note": "",
-      "session_key": "RACE"
+      "note": "Setup na wyścig (korekta temperatury)",
+      "session_key": "RACE",
+      "fuel_strategy": {
+        "pits": 2,
+        "stints": [
+          108,
+          108,
+          108
+        ],
+        "total_fuel": 325
+      }
     }
   ],
   "fuel_strategy": {
