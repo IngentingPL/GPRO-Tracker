@@ -422,12 +422,16 @@ def extract_summary_data(summary):
     }
 
 
-def extract_practice_data(practice):
+def extract_practice_data(practice, office_context=None):
     """
     Wyciąga dane setupów z praktyk/Q1 do kompaktowego formatu.
     
     Mini-lekcja: Ten endpoint zwraca dane w innym formacie niż RaceAnalysis.
     Musimy znormalizować je do tego samego formatu co pliki wyścigowe.
+    
+    Args:
+        practice: Surowe dane z endpointu /Practice
+        office_context: Słownik z season/race z Office API (fallback)
     """
     if not practice:
         return None
@@ -435,6 +439,8 @@ def extract_practice_data(practice):
     # Sprawdź czy jesteśmy zalogowani (praktyka działa tylko gdy wyścig trwa)
     if practice.get("loggedOut"):
         return None
+    
+    office_context = office_context or {}
     
     # Wyciągamy dane setupów z praktyk
     setups = []
@@ -452,11 +458,28 @@ def extract_practice_data(practice):
         })
     
     # Pobierz podstawowe info o wyścigu
-    season = practice.get("selSeasonNb") or practice.get("season")
-    race = practice.get("selRaceNb") or practice.get("race")
+    # Próbuj różne klucze z API - Practice może zwracać w różnych formatach
+    season = (
+        practice.get("selSeasonNb") or 
+        practice.get("seasonNb") or 
+        practice.get("season") or
+        office_context.get("season")
+    )
+    race = (
+        practice.get("selRaceNb") or 
+        practice.get("raceNb") or 
+        practice.get("race") or
+        practice.get("raceNumber") or
+        office_context.get("race")
+    )
     track = practice.get("trackName", "")
     track_id = practice.get("trackId", "")
     track_country = practice.get("trackCountry", "")
+    
+    # DEBUG: pokaż co znaleziono
+    import json
+    print(f"  [DEBUG] Season from Practice: {practice.get('selSeasonNb')}, {practice.get('seasonNb')}, fallback: {office_context.get('season')}")
+    print(f"  [DEBUG] Race from Practice: {practice.get('selRaceNb')}, {practice.get('raceNb')}, fallback: {office_context.get('race')}")
     
     # Pobierz pogodę
     weather_data = practice.get("weather", {})
@@ -945,15 +968,21 @@ def fetch_current_week_data():
         print("  [OSTRZEŻENIE] Nie udało się pobrać danych praktyk.")
         return
     
+    # DEBUG: wydrukuj surową odpowiedź z API
+    import json
+    print("=== RAW PRACTICE API RESPONSE ===")
+    print(json.dumps(practice_raw, ensure_ascii=False, indent=2)[:3000])
+    print("=== END RAW RESPONSE ===")
+    
     # Sprawdź czy jesteśmy zalogowani (endpoint działa tylko gdy praktyki trwają)
     if practice_raw.get("loggedOut"):
         print("  [INFO] Praktyki nie są dostępne (wyścig zakończony lub przed startem).")
         print("  Pomijam zapis danych praktyk.")
         return
     
-    # 3. Wyciągnij dane
+    # 3. Wyciągnij dane (przekaż office_context jako fallback)
     print("\n3. Przetwarzanie danych praktyk...")
-    practice_data = extract_practice_data(practice_raw)
+    practice_data = extract_practice_data(practice_raw, office_context)
     
     if not practice_data:
         print("  [OSTRZEŻENIE] Nie udało się przetworzyć danych praktyk.")
