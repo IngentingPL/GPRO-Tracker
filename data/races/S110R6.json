@@ -1,0 +1,132 @@
+{
+  "race_data": {
+    "season": "110",
+    "race": "6",
+    "track": "Rafaela Oval",
+    "track_country": "ar",
+    "track_id": 54,
+    "setups": [
+      {
+        "session": "Trening 1",
+        "fw": 250,
+        "rw": 220,
+        "eng": 780,
+        "bra": 120,
+        "gear": 640,
+        "susp": 500,
+        "tyres": "3",
+        "feedback": "Obroty silnika są za wysokie; Chciałbym balans odrobiną bardziej przesuniąty na prz&#243;d; Sztywnoś&#263; zawieszenia jest zbyt wysoka",
+        "lap_time": "1:06.710",
+        "mistake_time": "0.294"
+      },
+      {
+        "session": "Trening 2",
+        "fw": 250,
+        "rw": 220,
+        "eng": 600,
+        "bra": 250,
+        "gear": 640,
+        "susp": 400,
+        "tyres": "3",
+        "feedback": "Samoch&#243;d jest zbyt sztywny. Obni&#380; trochą sztywnoś&#263;",
+        "lap_time": "1:06.939",
+        "mistake_time": "0.858"
+      },
+      {
+        "session": "Trening 3",
+        "fw": 250,
+        "rw": 220,
+        "eng": 600,
+        "bra": 250,
+        "gear": 640,
+        "susp": 300,
+        "tyres": "3",
+        "feedback": "",
+        "lap_time": "1:06.749",
+        "mistake_time": "0.710"
+      },
+      {
+        "session": "Trening 4",
+        "fw": 250,
+        "rw": 220,
+        "eng": 600,
+        "bra": 250,
+        "gear": 640,
+        "susp": 260,
+        "tyres": "3",
+        "feedback": "",
+        "lap_time": "1:06.502",
+        "mistake_time": "0.452"
+      },
+      {
+        "session": "Trening 5",
+        "fw": 250,
+        "rw": 220,
+        "eng": 640,
+        "bra": 250,
+        "gear": 640,
+        "susp": 300,
+        "tyres": "3",
+        "feedback": "",
+        "lap_time": "1:07.605",
+        "mistake_time": "1.550"
+      },
+      {
+        "session": "Trening 6",
+        "fw": 250,
+        "rw": 220,
+        "eng": 600,
+        "bra": 250,
+        "gear": 680,
+        "susp": 300,
+        "tyres": "3",
+        "feedback": "",
+        "lap_time": "1:06.403",
+        "mistake_time": "0.363"
+      },
+      {
+        "session": "Trening 7",
+        "fw": 250,
+        "rw": 220,
+        "eng": 600,
+        "bra": 250,
+        "gear": 660,
+        "susp": 300,
+        "tyres": "3",
+        "feedback": "",
+        "lap_time": "1:06.519",
+        "mistake_time": "0.488"
+      },
+      {
+        "session": "Trening 8",
+        "fw": 260,
+        "rw": 230,
+        "eng": 600,
+        "bra": 250,
+        "gear": 660,
+        "susp": 300,
+        "tyres": "3",
+        "feedback": "",
+        "lap_time": "1:07.000",
+        "mistake_time": "0.976"
+      }
+    ],
+    "weather": {
+      "q1": {
+        "condition": "Cz&#281;&#347;ciowe zachmurzenie",
+        "temp": 36,
+        "humidity": 42
+      },
+      "q2": {
+        "condition": "Pochmurno",
+        "temp": 34,
+        "humidity": 46
+      }
+    },
+    "fetched_at": "2026-04-28T11:19:13.177102Z"
+  },
+  "race_summary": null,
+  "driver_profile": null,
+  "standings": null,
+  "car_status": null
+}
