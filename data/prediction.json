@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-28T11:31:08.176938Z",
+  "generated_at": "2026-04-28T11:41:18.078485Z",
   "next_race": {
     "track": "Rafaela Oval GP (Argentyna)",
     "season": 110,
@@ -10,9 +10,9 @@
   "confidence": "low",
   "confidence_reason": "Fallback: domyślny setup medium downforce",
   "driver_margin": {
-    "MA": 135,
-    "half_MA": 67,
-    "note": "Setup ±67 od optimum da satisfied (MA=135, TI=0, EXP=0)"
+    "MA": 125,
+    "half_MA": 62,
+    "note": "Setup ±62 od optimum da satisfied (MA=125, TI=22, EXP=26)"
   },
   "base": {
     "track": "Rafaela Oval GP (Argentyna)",
@@ -280,10 +280,10 @@
     "est_tyre_life_laps": 40
   },
   "notes": [
-    "Predykcja oparta na 9 wyścigach w historii.",
+    "Predykcja oparta na 8 wyścigach w historii.",
     "Pewność: low - Fallback: domyślny setup medium downforce",
-    "Kierowca:  (TI=0, EXP=0)",
-    "Margines kierowcy: ±67 od optimum.",
+    "Kierowca: Noel Lavin (TI=22, EXP=26)",
+    "Margines kierowcy: ±62 od optimum.",
     "Opony: ~40 okr, paliwo: ~39 okr"
   ]
 }
