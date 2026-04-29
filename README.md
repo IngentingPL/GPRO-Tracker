@@ -2,10 +2,11 @@
 
 Automatyczny tracker danych wyścigowych z [GPRO (Grand Prix Racing Online)](https://gpro.net).
 
-Pobiera dane po każdym wyścigu przez GPRO API i generuje statyczny dashboard na GitHub Pages.
+Pobiera dane po każdym wyścigu oraz w trakcie tygodnia (sesje Practice) przez GPRO API i generuje statyczny dashboard na GitHub Pages.
 
 ## Funkcje
 
+- **Następny wyścig** — predykcje setupu na podstawie feedbacku kierowcy, śledzenie sesji treningowych (P1-P8, Q1, Q2)
 - **Setupy per tor** — historia setupów z pogodą i warunkami
 - **Paliwo & Opony** — zużycie per wyścig, pit stopy, strategia
 - **Wyniki** — pozycje kwalifikacji i wyścigu
@@ -44,8 +45,11 @@ Możesz też uruchomić ręcznie: Actions → Fetch GPRO Data & Deploy → Run w
 # Ustaw token
 export GPRO_TOKEN="twój_token"
 
-# Pobierz dane
+# Pobierz dane po wyścigu (standardowy tryb)
 python gpro_fetcher.py
+
+# Pobierz dane praktyk w trakcie tygodnia
+python gpro_fetcher.py --mode current-week
 
 # Wygeneruj dashboard
 python generate_dashboard.py
@@ -56,13 +60,18 @@ python generate_dashboard.py
 ```
 gpro-tracker/
 ├── gpro_fetcher.py          # Pobiera dane z GPRO API
+├── predictor.py             # Generuje predykcje setupów
 ├── generate_dashboard.py    # Generuje HTML dashboard
 ├── index.html               # Wygenerowany dashboard
+├── design.md                # Wytyczne projektowe dashboardu
+├── CHANGELOG.md             # Historia zmian
 ├── data/
-│   └── races/
-│       ├── S109R15.json     # Dane per wyścig
-│       ├── S109R16.json
-│       └── latest.json      # Zawsze ostatni wyścig
+│   ├── races/               # Dane historyczne wyścigów (JSON)
+│   ├── tracks/              # Informacje o torach
+│   ├── calendar.json        # Kalendarz sezonu
+│   ├── prediction.json      # Aktualne predykcje setupu
+│   └── latest.json          # Dane ostatniego wyścigu
+├── verification/            # Skrypty i screeny do testów UI
 ├── .github/
 │   └── workflows/
 │       └── fetch.yml        # GitHub Actions automatyzacja
