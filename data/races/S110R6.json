@@ -230,7 +230,7 @@
       "total": 7592900,
       "balance": 37588936
     },
-    "fetched_at": "2026-04-28T20:46:19.641982Z"
+    "fetched_at": "2026-04-29T06:18:09.193412Z"
   },
   "race_summary": {
     "track": "Rafaela Oval",
@@ -244,7 +244,7 @@
     "isSupporter": 1,
     "driverNotFoundNote": true,
     "credits": 0,
-    "cash": 37588936,
+    "cash": 36838936,
     "natCode": "mx",
     "natName": "Meksyk",
     "face": "1",
@@ -354,18 +354,18 @@
     "overall": 98,
     "driverFaceUpdated": 0,
     "driverFaceCost": 0.1,
-    "energy": 77,
+    "energy": 86,
     "concentration": 178,
     "talent": 106,
     "aggressiveness": 7,
     "experience": 28,
     "experienceCapped": 28,
     "techInsight": 24,
-    "stamina": 106,
+    "stamina": 108,
     "charisma": 90,
-    "motivation": 217,
+    "motivation": 210,
     "reputation": 13,
-    "weight": 65,
+    "weight": 64,
     "age": 21,
     "retiring": 0,
     "ptsBonus": 0,
@@ -419,7 +419,7 @@
     "privateOfferCost": 1000000,
     "setOfferCost": 500000,
     "setOfferType": "1",
-    "nextPriceIncrementIn": 130416,
+    "nextPriceIncrementIn": 96106,
     "offerPlaced": 0,
     "inShortList": 1,
     "oneRaceRenewFee": 184700,
@@ -441,7 +441,7 @@
     "setContractLengthExtend": "",
     "totalOffers": 0,
     "offersFrom": [],
-    "apiRequestsRemaining": 993
+    "apiRequestsRemaining": 983
   },
   "standings": {
     "loadingDataState": "1",
@@ -458,7 +458,7 @@
         "manPosChange": "0",
         "manBgColor": "#007700",
         "negative": 0,
-        "cash": 8336774,
+        "cash": 8286774,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -562,7 +562,7 @@
         "manPosChange": "0",
         "manBgColor": "#007700",
         "negative": 0,
-        "cash": 37588936,
+        "cash": 36838936,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -1706,7 +1706,7 @@
         "manPosChange": "0",
         "manBgColor": "",
         "negative": 0,
-        "cash": 33547727,
+        "cash": 16329702,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -2746,7 +2746,7 @@
         "manPosChange": "+6",
         "manBgColor": "",
         "negative": 0,
-        "cash": 23603932,
+        "cash": 5910846,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -7011,7 +7011,7 @@
         }
       ]
     },
-    "apiRequestsRemaining": 992
+    "apiRequestsRemaining": 982
   },
   "car_status": {
     "loadingDataState": "1",
@@ -7716,13 +7716,13 @@
     "totalCosts": 0,
     "undoCompleted": 0,
     "carUpdated": 0,
-    "cash": 37588936,
+    "cash": 36838936,
     "showCarUpdateAlert": false,
     "showUndoAlert": false,
     "showUndoAlertCredits": false,
     "showUndoAlertNoCredits": false,
     "credits": 0,
     "races": 9,
-    "apiRequestsRemaining": 991
+    "apiRequestsRemaining": 981
   }
 }
