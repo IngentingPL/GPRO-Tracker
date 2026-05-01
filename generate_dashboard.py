@@ -2363,9 +2363,10 @@ function renderFinances() {{
 }}
 
 function renderDriver(latest) {{
+    const raceWithProfile = getRaceWithProfileData();
     const rd = latest.race_data || {{}};
-    const drv = rd.driver || {{}};
-    const dp = latest.driver_profile || {{}};
+    const drv = raceWithProfile?.race_data?.driver || rd.driver || {{}};
+    const dp = raceWithProfile?.driver_profile || latest.driver_profile || {{}};
     const driverAge = dp.age || drv.age || null;
 
     if (!drv.name && !dp.driName) {{
