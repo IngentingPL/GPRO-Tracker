@@ -230,7 +230,7 @@
       "total": 7592900,
       "balance": 37588936
     },
-    "fetched_at": "2026-04-30T15:32:53.595192Z"
+    "fetched_at": "2026-05-01T08:51:39.313102Z"
   },
   "race_summary": {
     "track": "Rafaela Oval",
@@ -414,12 +414,12 @@
     "setRaces": "",
     "canOfferPrivate": 0,
     "canOfferTrophyBonus": 0,
-    "offerCost": 1375000,
-    "semiOfferCost": 1187500,
-    "privateOfferCost": 1437500,
-    "setOfferCost": 1375000,
+    "offerCost": 500000,
+    "semiOfferCost": 750000,
+    "privateOfferCost": 1000000,
+    "setOfferCost": 500000,
     "setOfferType": "1",
-    "nextPriceIncrementIn": 1623,
+    "nextPriceIncrementIn": 259696,
     "offerPlaced": 0,
     "inShortList": 1,
     "oneRaceRenewFee": 184700,
@@ -441,7 +441,7 @@
     "setContractLengthExtend": "",
     "totalOffers": 0,
     "offersFrom": [],
-    "apiRequestsRemaining": 974
+    "apiRequestsRemaining": 965
   },
   "standings": {
     "loadingDataState": "1",
@@ -458,7 +458,7 @@
         "manPosChange": "0",
         "manBgColor": "#007700",
         "negative": 0,
-        "cash": 7786774,
+        "cash": 7586774,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -874,7 +874,7 @@
         "manPosChange": "0",
         "manBgColor": "",
         "negative": 0,
-        "cash": 12709990,
+        "cash": 5392372,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -1186,7 +1186,7 @@
         "manPosChange": "0",
         "manBgColor": "",
         "negative": 0,
-        "cash": 32643164,
+        "cash": 25515281,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -2434,7 +2434,7 @@
         "manPosChange": "-1",
         "manBgColor": "",
         "negative": 0,
-        "cash": 22421707,
+        "cash": 19145582,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -3682,7 +3682,7 @@
         "manPosChange": "+8",
         "manBgColor": "",
         "negative": 0,
-        "cash": 24091780,
+        "cash": 22459780,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -6907,7 +6907,7 @@
         }
       ]
     },
-    "apiRequestsRemaining": 973
+    "apiRequestsRemaining": 964
   },
   "car_status": {
     "loadingDataState": "1",
@@ -7619,6 +7619,6 @@
     "showUndoAlertNoCredits": false,
     "credits": 0,
     "races": 9,
-    "apiRequestsRemaining": 972
+    "apiRequestsRemaining": 963
   }
 }
