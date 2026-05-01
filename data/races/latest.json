@@ -230,7 +230,7 @@
       "total": 7592900,
       "balance": 37588936
     },
-    "fetched_at": "2026-05-01T09:29:42.140997Z"
+    "fetched_at": "2026-05-01T17:01:53.266728Z"
   },
   "race_summary": {
     "track": "Rafaela Oval",
@@ -419,7 +419,7 @@
     "privateOfferCost": 1000000,
     "setOfferCost": 500000,
     "setOfferType": "1",
-    "nextPriceIncrementIn": 257414,
+    "nextPriceIncrementIn": 230282,
     "offerPlaced": 0,
     "inShortList": 1,
     "oneRaceRenewFee": 184700,
@@ -441,7 +441,7 @@
     "setContractLengthExtend": "",
     "totalOffers": 0,
     "offersFrom": [],
-    "apiRequestsRemaining": 956
+    "apiRequestsRemaining": 947
   },
   "standings": {
     "loadingDataState": "1",
@@ -770,7 +770,7 @@
         "manPosChange": "0",
         "manBgColor": "#007700",
         "negative": 0,
-        "cash": 57325714,
+        "cash": 52873203,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -978,7 +978,7 @@
         "manPosChange": "+1",
         "manBgColor": "",
         "negative": 0,
-        "cash": 15267935,
+        "cash": 7913631,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -1394,7 +1394,7 @@
         "manPosChange": "-1",
         "manBgColor": "",
         "negative": 0,
-        "cash": 21175975,
+        "cash": 14663012,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -1810,7 +1810,7 @@
         "manPosChange": "0",
         "manBgColor": "",
         "negative": 0,
-        "cash": 29861894,
+        "cash": 29511894,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -3985,221 +3985,13 @@
         "pts": "0"
       },
       {
-        "name": "Sisu X",
-        "pos": "35",
-        "tyre": "Pipirelli",
-        "natCode": "gt",
-        "IDM": 1141028,
-        "manArrow": "down",
-        "manPosChange": "-2",
-        "manBgColor": "",
-        "negative": 0,
-        "cash": 27424500,
-        "retires": 0,
-        "goesRookie": 0,
-        "didSoftReset": 0,
-        "champs": "0",
-        "results": [
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          }
-        ],
-        "pts": "0"
-      },
-      {
-        "name": "Isabel Leon Sanchez",
-        "pos": "36",
-        "tyre": "Pipirelli",
-        "natCode": "pe",
-        "IDM": 1141103,
-        "manArrow": "down",
-        "manPosChange": "-2",
-        "manBgColor": "",
-        "negative": 0,
-        "cash": 27298865,
-        "retires": 0,
-        "goesRookie": 0,
-        "didSoftReset": 0,
-        "champs": "0",
-        "results": [
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          }
-        ],
-        "pts": "0"
-      },
-      {
         "name": "Maiquel Pereira",
-        "pos": "37",
+        "pos": "35",
         "tyre": "Pipirelli",
         "natCode": "br",
         "IDM": 1141613,
-        "manArrow": "down",
-        "manPosChange": "-2",
+        "manArrow": "equals",
+        "manPosChange": "0",
         "manBgColor": "",
         "negative": 0,
         "cash": 26371430,
@@ -4298,12 +4090,12 @@
       },
       {
         "name": "Juan Antonio Vargas",
-        "pos": "38",
+        "pos": "36",
         "tyre": "Pipirelli",
         "natCode": "ar",
         "IDM": 1141222,
-        "manArrow": "down",
-        "manPosChange": "-2",
+        "manArrow": "equals",
+        "manPosChange": "0",
         "manBgColor": "",
         "negative": 0,
         "cash": 25746640,
@@ -4402,12 +4194,12 @@
       },
       {
         "name": "Paulo Vitor",
-        "pos": "39",
+        "pos": "37",
         "tyre": "Pipirelli",
         "natCode": "br",
         "IDM": 1140166,
-        "manArrow": "equals",
-        "manPosChange": "0",
+        "manArrow": "up",
+        "manPosChange": "+2",
         "manBgColor": "",
         "negative": 0,
         "cash": 26999804,
@@ -6143,28 +5935,28 @@
         },
         {
           "type": "line",
-          "name": "S. X",
+          "name": "",
           "color": "#00FFFF",
           "data": [
             null,
             null,
             null,
-            35,
-            29,
-            34
+            null,
+            null,
+            null
           ]
         },
         {
           "type": "line",
-          "name": "I. Leon Sanchez",
+          "name": "",
           "color": "#C48793",
           "data": [
             null,
             null,
             null,
-            36,
-            30,
-            35
+            null,
+            null,
+            null
           ]
         },
         {
@@ -6907,7 +6699,7 @@
         }
       ]
     },
-    "apiRequestsRemaining": 955
+    "apiRequestsRemaining": 946
   },
   "car_status": {
     "loadingDataState": "1",
@@ -6948,10 +6740,10 @@
     "usaSidepods": 35,
     "usaSusp": 72,
     "usaUnderbody": 44,
-    "canRepair": 1,
+    "canRepair": 0,
     "canUndo": 0,
     "endOfSeason": 0,
-    "raceInProgress": 0,
+    "raceInProgress": 1,
     "updateInProgress": 0,
     "chassisOptions": [
       {
@@ -7619,6 +7411,6 @@
     "showUndoAlertNoCredits": false,
     "credits": 0,
     "races": 9,
-    "apiRequestsRemaining": 954
+    "apiRequestsRemaining": 945
   }
 }
