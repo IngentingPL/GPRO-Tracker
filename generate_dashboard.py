@@ -2382,14 +2382,14 @@ function renderDriver(latest) {{
     }}
 
 const stats = [
-        {{ name: 'concentration', label: 'CONCENTRATION', value: drv.concentration }},
-        {{ name: 'talent', label: 'TALENT', value: drv.talent }},
-        {{ name: 'aggressiveness', label: 'AGGRESSION', value: drv.aggressiveness }},
-        {{ name: 'experience', label: 'EXPERIENCE', value: drv.experience }},
-        {{ name: 'technical_insight', label: 'TECHNICAL', value: drv.technical_insight }},
-        {{ name: 'stamina', label: 'STAMINA', value: drv.stamina }},
-        {{ name: 'charisma', label: 'CHARISMA', value: drv.charisma }},
-        {{ name: 'motivation', label: 'MOTIVATION', value: drv.motivation }},
+        {{ name: 'concentration', label: 'CONCENTRATION', value: drv.concentration || dp.concentration }},
+        {{ name: 'talent', label: 'TALENT', value: drv.talent || dp.talent }},
+        {{ name: 'aggressiveness', label: 'AGGRESSION', value: drv.aggressiveness || dp.aggressiveness }},
+        {{ name: 'experience', label: 'EXPERIENCE', value: drv.experience || dp.experience }},
+        {{ name: 'technical_insight', label: 'TECHNICAL', value: drv.technical_insight || dp.techInsight }},
+        {{ name: 'stamina', label: 'STAMINA', value: drv.stamina || dp.stamina }},
+        {{ name: 'charisma', label: 'CHARISMA', value: drv.charisma || dp.charisma }},
+        {{ name: 'motivation', label: 'MOTIVATION', value: drv.motivation || dp.motivation }},
     ];
 
     let html = `
