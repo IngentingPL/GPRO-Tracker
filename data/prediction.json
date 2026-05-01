@@ -1,21 +1,21 @@
 {
-  "generated_at": "2026-05-01T17:07:12.559195Z",
+  "generated_at": "2026-05-01T20:13:27.191472Z",
   "next_race": {
-    "track": "Miami GP (USA)",
+    "track": "Interlagos GP (Brazylia)",
     "season": 110,
-    "race": 7,
+    "race": 8,
     "total_laps": 72,
-    "track_id": "62"
+    "track_id": "1"
   },
   "confidence": "low",
   "confidence_reason": "Fallback: punkt startowy z danych toru (downforce)",
   "driver_margin": {
     "MA": 125,
     "half_MA": 62,
-    "note": "Setup ±62 od optimum da satisfied (MA=125, TI=23, EXP=27)"
+    "note": "Setup ±62 od optimum da satisfied (MA=125, TI=24, EXP=28)"
   },
   "base": {
-    "track": "Miami GP (USA)",
+    "track": "Interlagos GP (Brazylia)",
     "setup": {
       "fw": 512,
       "rw": 512,
@@ -30,172 +30,117 @@
     {
       "id": "PRAKTYKA 1",
       "type": "practice",
-      "completed": true,
-      "is_next": false,
+      "completed": false,
+      "is_next": true,
       "setup": {
-        "fw": 500,
-        "rw": 500,
-        "eng": 640,
-        "bra": 500,
-        "gear": 280,
-        "susp": 840
+        "fw": 516,
+        "rw": 516,
+        "eng": 507,
+        "bra": 518,
+        "gear": 507,
+        "susp": 506,
+        "temp": 21
       },
-      "feedback": "Postaraj sią odrobiną obni&#380;y&#263; obroty; Jestem bardzo cząsto na czerwonym. Zastosuj trochą dłu&#380;sze przeło&#380;enia; Samoch&#243;d jest zbyt sztywny. Obni&#380; trochą sztywnoś&#263;",
+      "feedback": "",
       "tyres": "Medium",
       "temp": 21,
-      "note": "Ukończona sesja",
+      "note": "Sugerowany setup na podstawie poprzednich sesji",
       "session_key": "P1"
     },
     {
       "id": "PRAKTYKA 2",
       "type": "practice",
-      "completed": true,
+      "completed": false,
       "is_next": false,
-      "setup": {
-        "fw": 500,
-        "rw": 500,
-        "eng": 500,
-        "bra": 500,
-        "gear": 400,
-        "susp": 700
-      },
+      "setup": null,
       "feedback": "",
       "tyres": "Medium",
       "temp": 21,
-      "note": "Ukończona sesja",
+      "note": "",
       "session_key": "P2"
     },
     {
       "id": "PRAKTYKA 3",
       "type": "practice",
-      "completed": true,
+      "completed": false,
       "is_next": false,
-      "setup": {
-        "fw": 500,
-        "rw": 500,
-        "eng": 500,
-        "bra": 500,
-        "gear": 360,
-        "susp": 700
-      },
+      "setup": null,
       "feedback": "",
       "tyres": "Medium",
       "temp": 21,
-      "note": "Ukończona sesja",
+      "note": "",
       "session_key": "P3"
     },
     {
       "id": "PRAKTYKA 4",
       "type": "practice",
-      "completed": true,
+      "completed": false,
       "is_next": false,
-      "setup": {
-        "fw": 500,
-        "rw": 500,
-        "eng": 500,
-        "bra": 500,
-        "gear": 440,
-        "susp": 700
-      },
+      "setup": null,
       "feedback": "",
       "tyres": "Medium",
       "temp": 21,
-      "note": "Ukończona sesja",
+      "note": "",
       "session_key": "P4"
     },
     {
       "id": "PRAKTYKA 5",
       "type": "practice",
-      "completed": true,
+      "completed": false,
       "is_next": false,
-      "setup": {
-        "fw": 500,
-        "rw": 500,
-        "eng": 540,
-        "bra": 500,
-        "gear": 400,
-        "susp": 700
-      },
+      "setup": null,
       "feedback": "",
       "tyres": "Medium",
       "temp": 21,
-      "note": "Ukończona sesja",
+      "note": "",
       "session_key": "P5"
     },
     {
       "id": "PRAKTYKA 6",
       "type": "practice",
-      "completed": true,
+      "completed": false,
       "is_next": false,
-      "setup": {
-        "fw": 500,
-        "rw": 500,
-        "eng": 560,
-        "bra": 500,
-        "gear": 400,
-        "susp": 700
-      },
+      "setup": null,
       "feedback": "",
       "tyres": "Medium",
       "temp": 21,
-      "note": "Ukończona sesja",
+      "note": "",
       "session_key": "P6"
     },
     {
       "id": "PRAKTYKA 7",
       "type": "practice",
-      "completed": true,
+      "completed": false,
       "is_next": false,
-      "setup": {
-        "fw": 500,
-        "rw": 500,
-        "eng": 580,
-        "bra": 500,
-        "gear": 400,
-        "susp": 700
-      },
+      "setup": null,
       "feedback": "",
       "tyres": "Medium",
       "temp": 21,
-      "note": "Ukończona sesja",
+      "note": "",
       "session_key": "P7"
     },
     {
       "id": "PRAKTYKA 8",
       "type": "practice",
-      "completed": true,
+      "completed": false,
       "is_next": false,
-      "setup": {
-        "fw": 500,
-        "rw": 500,
-        "eng": 560,
-        "bra": 500,
-        "gear": 400,
-        "susp": 720
-      },
+      "setup": null,
       "feedback": "",
       "tyres": "Medium",
       "temp": 21,
-      "note": "Ukończona sesja",
+      "note": "",
       "session_key": "P8"
     },
     {
       "id": "KWALIFIKACJE 1",
       "type": "q1",
       "completed": false,
-      "is_next": true,
-      "setup": {
-        "fw": 500,
-        "rw": 500,
-        "eng": 640,
-        "bra": 500,
-        "gear": 280,
-        "susp": 840
-      },
+      "is_next": false,
+      "setup": null,
       "feedback": "",
       "tyres": "Medium",
       "temp": 22,
-      "note": "Setup skorygowany o: Postaraj sią odrobiną obni&#380;y&#263; obroty; Jestem bardzo cząsto na czerwony...",
+      "note": "",
       "session_key": "Q1"
     },
     {
@@ -238,52 +183,52 @@
       "fuel_strategy": {
         "pits": 2,
         "stints": [
-          107,
-          107,
-          107
+          106,
+          106,
+          106
         ],
-        "total_fuel": 321
+        "total_fuel": 319
       }
     }
   ],
   "fuel_strategy": {
-    "fuel_per_lap": 4.46,
+    "fuel_per_lap": 4.43,
     "recommended": {
       "pits": 2,
       "stints": [
-        107,
-        107,
-        107
+        106,
+        106,
+        106
       ],
-      "total_fuel": 321
+      "total_fuel": 319
     },
     "alternative": {
       "pits": 3,
       "stints": [
-        107,
-        107,
-        107,
-        107
+        106,
+        106,
+        106,
+        106
       ],
-      "total_fuel": 428
+      "total_fuel": 424
     }
   },
   "tyre_strategy": {
-    "est_tyre_life_laps": 42,
+    "est_tyre_life_laps": 35,
     "laps_on_fuel": 40,
-    "bottleneck": "fuel",
-    "bottleneck_explanation": "Paliwo na ~40 okr, opony na ~42 okr → pit stopy wynikają z paliwa"
+    "bottleneck": "tyres",
+    "bottleneck_explanation": "Opony na ~35 okr, paliwo na ~40 okr → pit stopy wynikają z opon"
   },
   "tyre_info": {
     "supplier": "Pipirelli",
-    "bottleneck": "fuel",
-    "est_tyre_life_laps": 42
+    "bottleneck": "tyres",
+    "est_tyre_life_laps": 35
   },
   "notes": [
-    "Predykcja oparta na 9 wyścigach w historii.",
+    "Predykcja oparta na 10 wyścigach w historii.",
     "Pewność: low - Fallback: punkt startowy z danych toru (downforce)",
-    "Kierowca: Noel Lavin (TI=23, EXP=27)",
+    "Kierowca: Noel Lavin (TI=24, EXP=28)",
     "Margines kierowcy: ±62 od optimum.",
-    "Opony: ~42 okr, paliwo: ~40 okr"
+    "Opony: ~35 okr, paliwo: ~40 okr"
   ]
 }
