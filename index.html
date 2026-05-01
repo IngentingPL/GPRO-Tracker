@@ -2000,12 +2000,13 @@ function renderResults() {
 function renderStandings() {
     const container = document.getElementById('tab-standings');
     const latest = getLatestRace();
-    if (!latest || !latest.standings) {
+    const raceWithStandings = getRaceWithStandingsData();
+    if (!raceWithStandings || !raceWithStandings.standings) {
         container.innerHTML = '<div class="empty-state"><h2>No standings data</h2></div>';
         return;
     }
 
-    const s = latest.standings;
+    const s = raceWithStandings.standings;
     const managers = s.managers || [];
     const dp = latest.driver_profile || {};
     const myName = dp.manName || dp.manager || dp.owner?.name || '';
