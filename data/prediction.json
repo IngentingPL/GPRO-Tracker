@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-28T11:41:18.078485Z",
+  "generated_at": "2026-05-01T07:45:20.337196Z",
   "next_race": {
     "track": "Rafaela Oval GP (Argentyna)",
     "season": 110,
@@ -8,7 +8,7 @@
     "track_id": "54"
   },
   "confidence": "low",
-  "confidence_reason": "Fallback: domyślny setup medium downforce",
+  "confidence_reason": "Fallback: punkt startowy z danych toru (downforce)",
   "driver_margin": {
     "MA": 125,
     "half_MA": 62,
@@ -17,12 +17,12 @@
   "base": {
     "track": "Rafaela Oval GP (Argentyna)",
     "setup": {
-      "fw": 500,
-      "rw": 500,
-      "eng": 600,
-      "bra": 600,
-      "gear": 500,
-      "susp": 600
+      "fw": 256,
+      "rw": 256,
+      "eng": 256,
+      "bra": 256,
+      "gear": 256,
+      "susp": 256
     },
     "temp": 20
   },
@@ -204,12 +204,12 @@
       "completed": false,
       "is_next": false,
       "setup": {
-        "fw": 525,
-        "rw": 525,
-        "eng": 570,
-        "bra": 635,
-        "gear": 470,
-        "susp": 567
+        "fw": 281,
+        "rw": 281,
+        "eng": 226,
+        "bra": 291,
+        "gear": 226,
+        "susp": 223
       },
       "feedback": "",
       "tyres": "Hard",
@@ -223,12 +223,12 @@
       "completed": false,
       "is_next": false,
       "setup": {
-        "fw": 529,
-        "rw": 529,
-        "eng": 565,
-        "bra": 641,
-        "gear": 465,
-        "susp": 562
+        "fw": 285,
+        "rw": 285,
+        "eng": 221,
+        "bra": 297,
+        "gear": 221,
+        "susp": 218
       },
       "feedback": "",
       "tyres": "Hard",
@@ -281,7 +281,7 @@
   },
   "notes": [
     "Predykcja oparta na 8 wyścigach w historii.",
-    "Pewność: low - Fallback: domyślny setup medium downforce",
+    "Pewność: low - Fallback: punkt startowy z danych toru (downforce)",
     "Kierowca: Noel Lavin (TI=22, EXP=26)",
     "Margines kierowcy: ±62 od optimum.",
     "Opony: ~40 okr, paliwo: ~39 okr"
