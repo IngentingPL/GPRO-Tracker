@@ -504,19 +504,31 @@ def extract_practice_data(practice, office_context=None, driver_raw=None):
     # Wyciągnij dane kierowcy z DriProfile
     # Format zgodny z extract_race_data() - kluczowe pola dla predictora
     driver = driver_raw.get("driver", driver_raw)
+    driver_oa = driver.get("OA", "")
+    driver_con = driver.get("con", "")
+    driver_agr = driver.get("agr", "")
+    driver_exp = driver.get("exp", "")
+    driver_tei = driver.get("tei", "")
+    driver_sta = driver.get("sta", "")
+    driver_cha = driver.get("cha", "")
+    driver_mot = driver.get("mot", "")
+    driver_wei = driver.get("wei", "")
+    driver_agr_age = driver.get("age") or driver_raw.get("age")
+    driver_agr_overall = driver.get("overall") or driver_raw.get("overall") or driver_oa
     driver_info = {
         "name": driver.get("name", ""),
         "id": driver.get("id"),
-        "OA": driver.get("OA", ""),
-        "concentration": driver.get("con", ""),
+        "OA": driver_oa,
+        "age": driver_agr_age,
+        "concentration": driver_con,
         "talent": driver.get("tal", ""),
-        "aggressiveness": driver.get("agr", ""),
-        "experience": driver.get("exp", ""),
-        "technical_insight": driver.get("tei", ""),
-        "stamina": driver.get("sta", ""),
-        "charisma": driver.get("cha", ""),
-        "motivation": driver.get("mot", ""),
-        "weight": driver.get("wei", "")
+        "aggressiveness": driver_agr,
+        "experience": driver_exp,
+        "technical_insight": driver_tei,
+        "stamina": driver_sta,
+        "charisma": driver_cha,
+        "motivation": driver_mot,
+        "weight": driver_wei
     }
     
     # Pobierz pogodę
@@ -1049,6 +1061,9 @@ def fetch_current_week_data():
     # Jeśli plik już istnieje, wczytaj go żeby nie nadpisać innych danych
     existing_data = load_json_safe(practice_file)
     
+    # Pobierz driver_raw do zapisania jako driver_profile
+    driver_for_profile = driver_raw if driver_raw else None
+    
     if existing_data:
         print(f"  Plik {practice_file} już istnieje - aktualizuję setups.")
         # Zachowaj existing data ale zaktualizuj race_data.setups
@@ -1061,9 +1076,12 @@ def fetch_current_week_data():
         # Zachowaj też driver jeśli już istnieje
         if practice_data.get("driver") and not existing_data["race_data"].get("driver"):
             existing_data["race_data"]["driver"] = practice_data.get("driver")
+        # Zachowaj też driver_profile jeśli już istnieje
+        if driver_for_profile and not existing_data.get("driver_profile"):
+            existing_data["driver_profile"] = driver_for_profile
         combined = existing_data
     else:
-        # Nowy plik - utwórz pełną strukturę z driverem
+        # Nowy plik - utwórz pełną strukturę z driverem i driver_profile
         combined = {
             "race_data": {
                 "season": str(s),
@@ -1077,7 +1095,7 @@ def fetch_current_week_data():
                 "fetched_at": practice_data.get("fetched_at", "")
             },
             "race_summary": None,
-            "driver_profile": None,
+            "driver_profile": driver_for_profile,
             "standings": None,
             "car_status": None
         }
