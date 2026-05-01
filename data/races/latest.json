@@ -230,7 +230,7 @@
       "total": 7592900,
       "balance": 37588936
     },
-    "fetched_at": "2026-05-01T17:01:53.266728Z"
+    "fetched_at": "2026-05-01T17:07:05.525570Z"
   },
   "race_summary": {
     "track": "Rafaela Oval",
@@ -419,7 +419,7 @@
     "privateOfferCost": 1000000,
     "setOfferCost": 500000,
     "setOfferType": "1",
-    "nextPriceIncrementIn": 230282,
+    "nextPriceIncrementIn": 229970,
     "offerPlaced": 0,
     "inShortList": 1,
     "oneRaceRenewFee": 184700,
@@ -441,7 +441,7 @@
     "setContractLengthExtend": "",
     "totalOffers": 0,
     "offersFrom": [],
-    "apiRequestsRemaining": 947
+    "apiRequestsRemaining": 938
   },
   "standings": {
     "loadingDataState": "1",
@@ -6699,7 +6699,7 @@
         }
       ]
     },
-    "apiRequestsRemaining": 946
+    "apiRequestsRemaining": 937
   },
   "car_status": {
     "loadingDataState": "1",
@@ -7411,6 +7411,6 @@
     "showUndoAlertNoCredits": false,
     "credits": 0,
     "races": 9,
-    "apiRequestsRemaining": 945
+    "apiRequestsRemaining": 936
   }
 }
