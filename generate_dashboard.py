@@ -1225,18 +1225,18 @@ def generate_html(race_data, prediction_data, calendar_data, current_context_dat
 <!-- Nagłówek strony -->
 <div class="header">
     <h1><span>GPRO</span> Tracker</h1>
-    <div class="header-info" id="headerInfo">Ładowanie...</div>
+    <div class="header-info" id="headerInfo">Loading...</div>
 </div>
 
 <!-- Zakładki -->
 <div class="tabs" id="tabsNav">
-    <button class="tab-btn active" data-tab="overview">Przegląd</button>
-    <button class="tab-btn" data-tab="nextrace">Następny wyścig</button>
-    <button class="tab-btn" data-tab="standings">Tabela</button>
-    <button class="tab-btn" data-tab="results">Wyniki</button>
-    <button class="tab-btn" data-tab="setups">Setupy</button>
-    <button class="tab-btn" data-tab="finances">Finanse</button>
-    <button class="tab-btn" data-tab="driver">Kierowca</button>
+    <button class="tab-btn active" data-tab="overview">Overview</button>
+    <button class="tab-btn" data-tab="nextrace">Next Race</button>
+    <button class="tab-btn" data-tab="standings">Standings</button>
+    <button class="tab-btn" data-tab="results">Results</button>
+    <button class="tab-btn" data-tab="setups">Setups</button>
+    <button class="tab-btn" data-tab="finances">Finances</button>
+    <button class="tab-btn" data-tab="driver">Driver</button>
 </div>
 
 <!-- Zawartość zakładek -->
@@ -1641,8 +1641,8 @@ function resolvePredictionContext(pred) {{
             }};
             isStale = true;
             staleReason = 
-                `Prediction.json: ${{predTrack || 'Nieznany tor'}} (S${{predSeason ?? '?'}} R${{predRace ?? '?'}}) · ` +
-                `Aktualny: ${{ccTrack}} (S${{ccSeason}} R${{ccRace}})`;
+                `Prediction.json: ${{predTrack || 'Unknown track'}} (S${{predSeason ?? '?'}} R${{predRace ?? '?'}}) · ` +
+                `Current: ${{ccTrack}} (S${{ccSeason}} R${{ccRace}})`;
         }}
     }} else {{
         // Brak current_context - użyj predykcji bezpośrednio
@@ -1664,8 +1664,8 @@ function render() {{
     if (!displayedData || displayedData.length === 0) {{
         document.getElementById('tab-results').innerHTML = `
             <div class="empty-state">
-                <h2>Brak danych</h2>
-                <p>Uruchom fetcher po wyścigu, żeby zebrać dane:</p>
+                <h2>No data available</h2>
+                <p>Run fetcher after a race to collect data:</p>
                 <p style="margin-top:1rem"><code>python gpro_fetcher.py</code></p>
             </div>`;
         return;
@@ -1676,7 +1676,7 @@ function render() {{
 
     // Nagłówek
     document.getElementById('headerInfo').textContent =
-        `Sezon ${{rd.season}} · Wyścig ${{rd.race}} · ${{rd.track}} · Dane sezonu: ${{displayedData.length}} wyścigów`;
+        `Season ${{rd.season}} · Race ${{rd.race}} · ${{rd.track}} · Season data: ${{displayedData.length}} races`;
 
     // Renderuj wszystkie zakładki
     renderOverview();
@@ -1701,7 +1701,7 @@ function renderOverview() {{
     const pred = PREDICTION_DATA;
 
     if (!latest && !nextRace) {{
-        container.innerHTML = '<div class="empty-state"><h2>Brak danych do przeglądu</h2></div>';
+        container.innerHTML = '<div class="empty-state"><h2>No data for overview</h2></div>';
         return;
     }}
 
@@ -1726,9 +1726,9 @@ function renderOverview() {{
     html += `
     <div class="hero-section">
         <span class="hero-subtitle">${{seasonLabel}} · ${{raceLabel}}</span>
-        <h2>${{trackLabel || 'PRZEGLĄD SEZONU'}}</h2>
+        <h2>${{trackLabel || 'SEASON OVERVIEW'}}</h2>
         <div class="hero-meta">
-            <span>🏎️ STATUS TWOJEJ KARIERY GPRO</span>
+            <span>🏎️ YOUR GPRO CAREER STATUS</span>
         </div>
     </div>`;
 
@@ -1739,13 +1739,13 @@ function renderOverview() {{
     if (nextRace) {{
         html += `
         <div class="hero-section">
-            <span class="hero-subtitle">NASTĘPNY WYŚCIG</span>
-            <h2>${{nextRace.track || 'Nieznany tor'}}</h2>
+            <span class="hero-subtitle">NEXT RACE</span>
+            <h2>${{nextRace.track || 'Unknown track'}}</h2>
             <div class="hero-meta">
-                <span>📅 SEZON ${{nextRace.season}} R${{nextRace.race}}</span>
-                <span>🏁 ${{nextRace.total_laps || 72}} OKRĄŻEŃ</span>
+                <span>📅 SEASON ${{nextRace.season}} R${{nextRace.race}}</span>
+                <span>🏁 ${{nextRace.total_laps || 72}} LAPS</span>
             </div>
-            ${{pred ? `<div><span class="hero-badge">REKOMENDACJE GOTOWE</span></div>` : ''}}
+            ${{pred ? `<div><span class="hero-badge">RECOMMENDATIONS READY</span></div>` : ''}}
         </div>`;
     }}
 
@@ -1755,12 +1755,12 @@ function renderOverview() {{
     const cash = dp.cash || finances?.balance || rdProfile?.finances?.balance || 0;
     html += `
     <div class="summary-card">
-        <div class="label">FINANSE</div>
+        <div class="label">FINANCES</div>
         <div class="value" style="color: ${{cash >= 0 ? 'var(--accent-gold)' : 'var(--accent-red)'}}">
             ${{formatMoney(cash)}}
         </div>
-        <div class="sub">SALDO KONTA</div>
-        ${{finances && finances.total !== undefined ? `<div class="rec-row" style="margin-top: 1rem; border-top: 1px solid var(--border-color); padding-top: 0.5rem;"><span class="rec-label">Ostatni wyścig</span><span class="${{finances.total >= 0 ? 'val-positive' : 'val-negative'}}">${{formatMoney(finances.total)}}</span></div>` : ''}}
+        <div class="sub">ACCOUNT BALANCE</div>
+        ${{finances && finances.total !== undefined ? `<div class="rec-row" style="margin-top: 1rem; border-top: 1px solid var(--border-color); padding-top: 0.5rem;"><span class="rec-label">Last race</span><span class="${{finances.total >= 0 ? 'val-positive' : 'val-negative'}}">${{formatMoney(finances.total)}}</span></div>` : ''}}
     </div>`;
 
     // KIEROWCA
@@ -1810,7 +1810,7 @@ function renderOverview() {{
 
         html += `
         <div class="summary-card">
-            <div class="label">KIEROWCA</div>
+            <div class="label">DRIVER</div>
             <div class="value-small">${{drvName}}</div>
             <div class="sub">OVERALL: ${{finalOA}}</div>
 
@@ -1849,20 +1849,20 @@ function renderOverview() {{
 
         html += `
         <div class="summary-card">
-            <div class="label">TABELA LIGOWA</div>
+            <div class="label">LEAGUE TABLE</div>
             <div style="margin-top: 1rem;">
                 <table style="width: 100%; border-collapse: collapse; font-family: var(--font-mono); font-size: 0.75rem;">
                     ${{miniStandings.map(m => `
                         <tr style="${{m.name === myName ? 'color: var(--accent-gold); font-weight: 700;' : 'color: var(--text-secondary);'}}">
                             <td style="padding: 0.25rem 0;">P${{m.pos}}</td>
                             <td style="padding: 0.25rem 0; text-transform: uppercase;">${{m.name.split(' ')[0]}}</td>
-                            <td style="padding: 0.25rem 0; text-align: right;">${{m.pts}} PKT</td>
+                            <td style="padding: 0.25rem 0; text-align: right;">${{m.pts}} PTS</td>
                         </tr>
                     `).join('')}}
                 </table>
             </div>
             <div style="margin-top: 1rem;">
-                <button class="tab-btn" data-tab="standings" style="padding: 0.5rem 1rem; border: 1px solid var(--accent-gold); font-size: 0.6rem; color: var(--accent-gold); height: auto; line-height: 1;">PEŁNA TABELA &raquo;</button>
+                <button class="tab-btn" data-tab="standings" style="padding: 0.5rem 1rem; border: 1px solid var(--accent-gold); font-size: 0.6rem; color: var(--accent-gold); height: auto; line-height: 1;">FULL STANDINGS &raquo;</button>
             </div>
         </div>`;
     }}
@@ -1896,8 +1896,8 @@ function renderNextRace() {{
     // Fallback: jeśli brak predykcji, pokaż komunikat
     container.innerHTML = `
         <div class="empty-state">
-            <h2>Brak rekomendacji</h2>
-            <p>Uruchom predictor.py żeby wygenerować rekomendacje:</p>
+            <h2>No recommendations</h2>
+            <p>Run predictor.py to generate recommendations:</p>
             <p style="margin-top:1rem"><code>python predictor.py</code></p>
         </div>`;
 }}
@@ -1920,18 +1920,18 @@ function renderPrediction(container) {{
     // =============================================
     html += `
     <div class="hero-section" style="text-align: center;">
-        <span class="hero-subtitle">PLAN WYŚCIGOWY</span>
-        <h2>${{nextRace.track || 'Nieznany tor'}}</h2>
+        <span class="hero-subtitle">RACE PLAN</span>
+        <h2>${{nextRace.track || 'Unknown track'}}</h2>
         <div class="hero-meta" style="justify-content: center;">
-            <span>📅 SEZON ${{nextRace.season}} R${{nextRace.race}}</span>
-            <span>🏁 ${{nextRace.total_laps || 72}} OKRĄŻEŃ</span>
+            <span>📅 SEASON ${{nextRace.season}} R${{nextRace.race}}</span>
+            <span>🏁 ${{nextRace.total_laps || 72}} LAPS</span>
         </div>
 
         <div style="max-width: 600px; margin: 2.5rem auto 0 auto;">
             <div class="confidence-bar" style="height: 4px;">
                 <div class="confidence-fill ${{confidence}}"></div>
             </div>
-            <div class="hero-subtitle" style="margin-top: 0.5rem; font-size: 0.7rem;">PEWNOŚĆ: ${{confidence.toUpperCase()}} — ${{confidenceReason}}</div>
+            <div class="hero-subtitle" style="margin-top: 0.5rem; font-size: 0.7rem;">CONFIDENCE: ${{confidence.toUpperCase()}} — ${{confidenceReason}}</div>
         </div>
 
         <div id="deployBtnContainer"></div>
@@ -1946,7 +1946,7 @@ function renderPrediction(container) {{
         const isCompleted = step.completed;
         const isNext = step.is_next;
         const statusClass = isCompleted ? 'completed' : (isNext ? 'next' : 'future');
-        const statusLabel = isCompleted ? 'UKOŃCZONE' : (isNext ? 'TWÓJ NASTĘPNY KROK' : 'W PRZYSZŁOŚCI');
+        const statusLabel = isCompleted ? 'COMPLETED' : (isNext ? 'YOUR NEXT STEP' : 'FUTURE');
 
         html += `<div class="step-card ${{statusClass}}">`;
         html += `<div class="step-header">`;
@@ -1969,7 +1969,7 @@ function renderPrediction(container) {{
             }});
             html += `</div>`;
         }} else {{
-            html += `<div style="padding: 2rem; text-align: center; color: #444; font-size: 0.8rem; border: 1px dashed #222; margin: 1rem 0;">PARAMETRY ZOSTANĄ WYGENEROWANE PO UKOŃCZENIU POPRZEDNIEGO KROKU</div>`;
+            html += `<div style="padding: 2rem; text-align: center; color: #444; font-size: 0.8rem; border: 1px dashed #222; margin: 1rem 0;">PARAMETERS WILL BE GENERATED AFTER COMPLETING PREVIOUS STEP</div>`;
         }}
 
         if (step.feedback) {{
@@ -2002,10 +2002,16 @@ function renderPrediction(container) {{
     // =============================================
     html += `<div class="rec-grid" style="margin-top: 2rem;">`;
 
-    // Paliwo
-    html += `<div class="rec-card"><h3>STRATEGIA PALIWOWA</h3>`;
-    html += `<div class="rec-row"><span class="rec-label">Zużycie</span><span class="rec-value">~${{fuelStrategy.fuel_per_lap || 0}} L/lap</span></div>`;
-    html += `<div class="rec-row"><span class="rec-label">Pit stopy</span><span class="rec-value">${{fuelStrategy.recommended?.pits || 0}}</span></div>`;
+// Paliwo
+    html += `<div class="rec-card"><h3>FUEL STRATEGY</h3>`;
+    html += `<div class="rec-row"><span class="rec-label">Consumption</span><span class="rec-value">~${{fuelStrategy.fuel_per_lap || 0}} L/lap</span></div>`;
+    html += `<div class="rec-row"><span class="rec-label">Pit stops</span><span class="rec-value">${{fuelStrategy.recommended?.pits || 0}}</span></div>`;
+    html += `</div>`;
+
+    // Opony
+    html += `<div class="rec-card"><h3>TYRE STRATEGY</h3>`;
+    html += `<div class="rec-row"><span class="rec-label">Life</span><span class="rec-value">~${{ tyreStrategy.est_tyre_life_laps || 0}} laps</span></div>`;
+    html += `<div class="rec-row"><span class="rec-label">Bottleneck</span><span class="rec-value">${{( tyreStrategy.bottleneck || '').toUpperCase()}}</span></div>`;
     html += `</div>`;
 
     // Opony
@@ -2020,7 +2026,7 @@ function renderPrediction(container) {{
     // 4. NOTATKI
     // =============================================
     if (notes && notes.length > 0) {{
-        html += `<div class="rec-card" style="margin-top:1rem; background: var(--bg-card);"><h3>Wskazówki</h3>`;
+        html += `<div class="rec-card" style="margin-top:1rem; background: var(--bg-card);"><h3>Tips</h3>`;
         html += `<div class="notes-list"><ul>`;
         notes.forEach(note => {{ html += `<li>${{note}}</li>`; }});
         html += `</ul></div></div>`;
@@ -2052,11 +2058,11 @@ function renderResults() {{
 
     let html = `
     <div class="hero-section">
-        <span class="hero-subtitle">HISTORIA STARTÓW</span>
-        <h2>WYNIKI SEZONU</h2>
+        <span class="hero-subtitle">RACE HISTORY</span>
+        <h2>SEASON RESULTS</h2>
         <div class="hero-meta">
-            <span>🏁 ${{displayedData.length}} WYŚCIGÓW</span>
-            <span>🏆 NAJLEPSZE: P${{bestPos}}</span>
+            <span>🏁 ${{displayedData.length}} RACES</span>
+            <span>🏆 BEST: P${{bestPos}}</span>
         </div>
     </div>
     <div class="setup-grid">`;
@@ -2080,7 +2086,7 @@ function renderResults() {{
         pits.forEach((pit, idx) => {{
             pitsHtml += `
             <div class="data-row" style="background: rgba(255,192,0,0.03);">
-                <span class="label">PIT ${{idx + 1}} (OKR. ${{pit.lap}})</span>
+                <span class="label">PIT ${{idx + 1}} (LAP ${{pit.lap}})</span>
                 <span class="value">${{pit.tyre_condition}}% 🛞 / ${{pit.refilled_to}}L ⛽</span>
             </div>`;
         }});
@@ -2092,38 +2098,38 @@ function renderResults() {{
 
             <!-- Sekcja Wyniki -->
             <div class="data-row">
-                <span class="label">POZYCJA WYŚCIGU</span>
+                <span class="label">RACE POSITION</span>
                 <span class="value ${{posClass(myResult.position)}}">P${{myResult.position || '-'}}</span>
             </div>
             <div class="data-row">
-                <span class="label">KWALIFIKACJE (Q1 / Q2)</span>
+                <span class="label">QUALIFYING (Q1 / Q2)</span>
                 <span class="value">P${{rd.q1_pos || '-'}} / P${{rd.q2_pos || '-'}}</span>
             </div>
             <div class="data-row">
-                <span class="label">CZAS</span>
+                <span class="label">TIME</span>
                 <span class="value">${{myResult.gap || '-'}}</span>
             </div>
             <div class="data-row">
-                <span class="label">PUNKTY</span>
+                <span class="label">POINTS</span>
                 <span class="value">${{myResult.points || '-'}}</span>
             </div>
 
             <!-- Sekcja Paliwo & Opony -->
             <div class="data-row" style="margin-top: 1rem; border-top: 1px solid var(--border-color); padding-top: 0.75rem;">
-                <span class="label" style="color: var(--accent-gold);">PALIWO & OPONY</span>
+                <span class="label" style="color: var(--accent-gold);">FUEL & TYRES</span>
                 <span class="value"></span>
             </div>
             <div class="data-row">
-                <span class="label">PALIWO STARTOWE</span>
+                <span class="label">START FUEL</span>
                 <span class="value">${{rd.start_fuel || '-'}} L</span>
             </div>
             ${{pitsHtml}}
             <div class="data-row">
-                <span class="label">PALIWO NA MECIE</span>
+                <span class="label">FINISH FUEL</span>
                 <span class="value">${{rd.finish_fuel || 0}} L</span>
             </div>
             <div class="data-row">
-                <span class="label">TYP OPON</span>
+                <span class="label">TYRE TYPE</span>
                 <span class="value">${{rd.tyres || (rd.setups && rd.setups[0] && rd.setups[0].tyres) || '-'}}</span>
             </div>
 
@@ -2131,13 +2137,13 @@ function renderResults() {{
                 <div class="progress-bar" style="width: ${{rd.finish_tyres || 0}}%; background: ${{rd.finish_tyres < 20 ? 'var(--accent-red)' : 'var(--accent-gold)'}}"></div>
             </div>
             <div class="data-row" style="border: none; padding-top: 0.25rem;">
-                <span class="label">ZUŻYCIE OPON</span>
+                <span class="label">TYRE WEAR</span>
                 <span class="value">${{rd.finish_tyres || 0}}%</span>
             </div>
 
             <!-- Stopka: sezon, temperatura, wilgotność -->
             <div class="setup-meta">
-                SEZON ${{rd.season || '-'}} · TEMP: ${{rd.weather && rd.weather.q1 && rd.weather.q1.temp ? rd.weather.q1.temp + '°C' : (rd.weather && rd.weather.race && rd.weather.race.temp_range ? rd.weather.race.temp_range[0] + '°C' : '-')}} · WILGOTNOŚĆ: ${{rd.weather && rd.weather.q1 && rd.weather.q1.humidity ? rd.weather.q1.humidity + '%' : (rd.weather && rd.weather.race && rd.weather.race.humidity_range ? rd.weather.race.humidity_range[0] + '%' : '-')}}
+                SEASON ${{rd.season || '-'}} · TEMP: ${{rd.weather && rd.weather.q1 && rd.weather.q1.temp ? rd.weather.q1.temp + '°C' : (rd.weather && rd.weather.race && rd.weather.race.temp_range ? rd.weather.race.temp_range[0] + '°C' : '-')}} · HUMIDITY: ${{rd.weather && rd.weather.q1 && rd.weather.q1.humidity ? rd.weather.q1.humidity + '%' : (rd.weather && rd.weather.race && rd.weather.race.humidity_range ? rd.weather.race.humidity_range[0] + '%' : '-')}}
             </div>
         </div>`;
     }}
@@ -2153,7 +2159,7 @@ function renderStandings() {{
     const container = document.getElementById('tab-standings');
     const latest = getLatestRace();
     if (!latest || !latest.standings) {{
-        container.innerHTML = '<div class="empty-state"><h2>Brak danych tabeli ligowej</h2></div>';
+        container.innerHTML = '<div class="empty-state"><h2>No standings data</h2></div>';
         return;
     }}
 
@@ -2164,11 +2170,11 @@ function renderStandings() {{
 
     let html = `
     <div class="hero-section">
-        <span class="hero-subtitle">RANKING MANAGERÓW</span>
-        <h2>${{s.group || 'TABELA LIGOWA'}}</h2>
+        <span class="hero-subtitle">MANAGER RANKING</span>
+        <h2>${{s.group || 'LEAGUE STANDINGS'}}</h2>
         <div class="hero-meta">
-            <span>📊 SEZON ${{getCurrentContext()?.season || '?'}}</span>
-            <span>👥 ${{managers.length}} UCZESTNIKÓW</span>
+            <span>📊 SEASON ${{getCurrentContext()?.season || '?'}}</span>
+            <span>👥 ${{managers.length}} PARTICIPANTS</span>
         </div>
     </div>
 
@@ -2176,11 +2182,11 @@ function renderStandings() {{
         <table class="data-table">
             <thead>
                 <tr>
-                    <th>POZ</th>
+                    <th>POS</th>
                     <th>MANAGER</th>
-                    <th>OPONY</th>
-                    <th>PKT</th>
-                    <th>WYNIKI (1-17)</th>
+                    <th>TYRES</th>
+                    <th>PTS</th>
+                    <th>RESULTS (1-17)</th>
                 </tr>
             </thead>
             <tbody>`;
@@ -2253,10 +2259,10 @@ function renderSetups() {{
 
     let html = `
     <div class="hero-section">
-        <span class="hero-subtitle">ARCHIWUM USTAWIEŃ</span>
-        <h2>SETUPY WYŚCIGOWE</h2>
+        <span class="hero-subtitle">SETUP ARCHIVE</span>
+        <h2>RACE SETUPS</h2>
         <div class="hero-meta">
-            <span>🔧 ${{Object.keys(byTrack).length}} UNIKALNYCH TORÓW</span>
+            <span>🔧 ${{Object.keys(byTrack).length}} UNIQUE TRACKS</span>
         </div>
     </div>
     <div class="setup-grid">`;
@@ -2298,7 +2304,7 @@ function renderSetups() {{
             </div>
             <div class="setup-meta">
                 S${{latest.season}}R${{latest.race}} · ${{q1w.temp || '?'}}°C · ${{q1w.humidity || '?'}}%
-                ${{entries.length > 1 ? ' · ' + entries.length + ' WYŚCIGI NA TYM TORZE' : ''}}
+                ${{entries.length > 1 ? ' · ' + entries.length + ' RACES AT THIS TRACK' : ''}}
             </div>
         </div>`;
     }});
@@ -2315,11 +2321,11 @@ function renderFinances() {{
 
     let html = `
     <div class="hero-section">
-        <span class="hero-subtitle">KONTROLA BUDŻETU</span>
-        <h2>FINANSE SEZONU</h2>
+        <span class="hero-subtitle">BUDGET CONTROL</span>
+        <h2>SEASON FINANCES</h2>
         <div class="hero-meta">
-            <span>💰 SALDO: <b class="${{latestFin.balance >= 0 ? 'val-positive' : 'val-negative'}}">${{formatMoney(latestFin.balance)}}</b></span>
-            <span>📈 ŚREDNI ZYSK: ${{formatMoney(Math.round(displayedData.reduce((acc, d) => acc + (d.race_data?.finances?.total || 0), 0) / displayedData.length))}}</span>
+            <span>💰 BALANCE: <b class="${{latestFin.balance >= 0 ? 'val-positive' : 'val-negative'}}">${{formatMoney(latestFin.balance)}}</b></span>
+            <span>📈 AVG PROFIT: ${{formatMoney(Math.round(displayedData.reduce((acc, d) => acc + (d.race_data?.finances?.total || 0), 0) / displayedData.length))}}</span>
         </div>
     </div>
     <div class="data-grid">`;
@@ -2340,19 +2346,19 @@ function renderFinances() {{
             </div>
 
             <div class="data-row">
-                <span class="label">PRZYCHODY</span>
+                <span class="label">INCOME</span>
                 <span class="value val-positive">${{formatMoney(income)}}</span>
             </div>
             <div class="data-row">
-                <span class="label">KOSZTY</span>
+                <span class="label">COSTS</span>
                 <span class="value val-negative">${{formatMoney(costs)}}</span>
             </div>
             <div class="data-row" style="margin-top: 1rem; border-top: 1px solid var(--border-color); padding-top: 1rem;">
-                <span class="label">WYNIK WYŚCIGU</span>
+                <span class="label">RACE RESULT</span>
                 <span class="value ${{fin.total >= 0 ? 'val-positive' : 'val-negative'}}" style="font-size: 1.2rem;">${{formatMoney(fin.total)}}</span>
             </div>
             <div class="data-row">
-                <span class="label">STAN KONTA PO RUNDZIE</span>
+                <span class="label">BALANCE AFTER ROUND</span>
                 <span class="value">${{formatMoney(fin.balance)}}</span>
             </div>
         </div>`;
@@ -2371,28 +2377,28 @@ function renderDriver(latest) {{
 
     if (!drv.name && !dp.driName) {{
         document.getElementById('tab-driver').innerHTML =
-            '<div class="empty-state"><h2>Brak danych kierowcy</h2></div>';
+            '<div class="empty-state"><h2>No driver data</h2></div>';
         return;
     }}
 
-    const stats = [
-        {{ name: 'concentration', label: 'KONCENTRACJA', value: drv.concentration }},
+const stats = [
+        {{ name: 'concentration', label: 'CONCENTRATION', value: drv.concentration }},
         {{ name: 'talent', label: 'TALENT', value: drv.talent }},
-        {{ name: 'aggressiveness', label: 'AGRESJA', value: drv.aggressiveness }},
-        {{ name: 'experience', label: 'DOŚWIADCZENIE', value: drv.experience }},
-        {{ name: 'technical_insight', label: 'WGLĄD TECHN.', value: drv.technical_insight }},
+        {{ name: 'aggressiveness', label: 'AGGRESSION', value: drv.aggressiveness }},
+        {{ name: 'experience', label: 'EXPERIENCE', value: drv.experience }},
+        {{ name: 'technical_insight', label: 'TECHNICAL', value: drv.technical_insight }},
         {{ name: 'stamina', label: 'STAMINA', value: drv.stamina }},
-        {{ name: 'charisma', label: 'CHARYZMA', value: drv.charisma }},
-        {{ name: 'motivation', label: 'MOTYWACJA', value: drv.motivation }},
+        {{ name: 'charisma', label: 'CHARISMA', value: drv.charisma }},
+        {{ name: 'motivation', label: 'MOTIVATION', value: drv.motivation }},
     ];
 
     let html = `
     <div class="hero-section">
-        <span class="hero-subtitle">PROFIL ZAWODNIKA</span>
+        <span class="hero-subtitle">DRIVER PROFILE</span>
         <h2>${{drv.name || dp.driName || '?'}}</h2>
         <div class="hero-meta">
             <span>⭐ OVERALL: ${{drv.OA || dp.overall || '?'}}</span>
-            <span>🎂 WIEK: ${{driverAge !== null ? driverAge : '?'}}</span>
+            <span>🎂 AGE: ${{driverAge !== null ? driverAge : '?'}}</span>
         </div>
     </div>`;
 
@@ -2412,7 +2418,7 @@ function renderDriver(latest) {{
     if (ts.name) {{
         html += `
         <div class="hero-section" style="margin-top: 4rem; padding: 2rem 0;">
-            <span class="hero-subtitle">PARTNER TECHNICZNY</span>
+            <span class="hero-subtitle">TECHNICAL PARTNER</span>
             <h2 style="font-size: 2.5rem;">${{ts.name}}</h2>
         </div>
         <div class="driver-stats">
