@@ -230,7 +230,7 @@
       "total": 7928700,
       "balance": 38058229
     },
-    "fetched_at": "2026-04-28T11:41:10.289441Z"
+    "fetched_at": "2026-04-28T19:10:18.190031Z"
   },
   "race_summary": {
     "track": "Istanbul",
@@ -419,7 +419,7 @@
     "privateOfferCost": 1000000,
     "setOfferCost": 500000,
     "setOfferType": "1",
-    "nextPriceIncrementIn": 163125,
+    "nextPriceIncrementIn": 136177,
     "offerPlaced": 0,
     "inShortList": 1,
     "oneRaceRenewFee": 184700,
@@ -441,7 +441,7 @@
     "setContractLengthExtend": "",
     "totalOffers": 0,
     "offersFrom": [],
-    "apiRequestsRemaining": 868
+    "apiRequestsRemaining": 859
   },
   "standings": {
     "loadingDataState": "1",
@@ -1082,7 +1082,7 @@
         "manPosChange": "-1",
         "manBgColor": "",
         "negative": 0,
-        "cash": 19870414,
+        "cash": 8284335,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -1706,7 +1706,7 @@
         "manPosChange": "-1",
         "manBgColor": "",
         "negative": 0,
-        "cash": 26855842,
+        "cash": 26355842,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -6826,7 +6826,7 @@
         }
       ]
     },
-    "apiRequestsRemaining": 867
+    "apiRequestsRemaining": 858
   },
   "car_status": {
     "loadingDataState": "1",
@@ -6870,7 +6870,7 @@
     "canRepair": 0,
     "canUndo": 0,
     "endOfSeason": 0,
-    "raceInProgress": 0,
+    "raceInProgress": 1,
     "updateInProgress": 0,
     "chassisOptions": [
       {
@@ -7538,6 +7538,6 @@
     "showUndoAlertNoCredits": false,
     "credits": 0,
     "races": 8,
-    "apiRequestsRemaining": 866
+    "apiRequestsRemaining": 857
   }
 }
