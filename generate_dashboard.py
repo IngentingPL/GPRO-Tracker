@@ -1011,14 +1011,14 @@ def generate_html(race_data, prediction_data, calendar_data, current_context_dat
         }}
 
         .data-card {{
-            background: #000000;
+            background: #0f0f0f;
             padding: 1.5rem;
-            border: 1px solid #202020;
+            border: 1px solid #333333;
             transition: background 0.3s;
         }}
 
         .data-card:hover {{
-            background: #101010;
+            background: #1a1a1a;
         }}
 
         .data-card-header {{
