@@ -2098,8 +2098,9 @@ function renderResults() {{
         const dp = displayedData[i].driver_profile || {{}};
         const myName = dp.manName || dp.manager || dp.owner?.name || '';
         const myManager = managers.find(m => m.name === myName);
-        const myResult = (myManager && myManager.results && myManager.results.length > 0)
-            ? myManager.results[myManager.results.length - 1]
+        const raceIndex = toInt(rd.race) - 1;
+        const myResult = (myManager?.results && myManager.results[raceIndex])
+            ? myManager.results[raceIndex]
             : {{}};
 
         // Buduj sekcję pit stopów
@@ -2120,7 +2121,7 @@ function renderResults() {{
             <!-- Sekcja Wyniki -->
             <div class="data-row">
                 <span class="label">RACE POSITION</span>
-                <span class="value ${{posClass(myResult.position)}}">P${{myResult.position || '-'}}</span>
+                <span class="value ${{posClass(myResult.pos)}}">P${{myResult.pos || '-'}}</span>
             </div>
             <div class="data-row">
                 <span class="label">QUALIFYING (Q1 / Q2)</span>
@@ -2128,11 +2129,11 @@ function renderResults() {{
             </div>
             <div class="data-row">
                 <span class="label">TIME</span>
-                <span class="value">${{myResult.gap || '-'}}</span>
+                <span class="value">${{rd.q2_time || rd.q1_time || '-'}}</span>
             </div>
             <div class="data-row">
                 <span class="label">POINTS</span>
-                <span class="value">${{myResult.points || '-'}}</span>
+                <span class="value">${{myResult.pts || '-'}}</span>
             </div>
 
             <!-- Sekcja Paliwo & Opony -->
