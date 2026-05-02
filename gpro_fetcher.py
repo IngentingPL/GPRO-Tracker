@@ -451,7 +451,7 @@ def extract_practice_data(practice, office_context=None, driver_raw=None):
         # Nazwa sesji - zakładamy że to praktyka ( Training )
         # W GPRO kolejne okrążenia = kolejne sesje praktyk
         lap_idx = lap.get("idx", 0)
-        session_name = f"Trening {lap_idx}" if lap_idx else "Trening 1"
+        session_name = f"Practice {lap_idx}" if lap_idx else "Practice 1"
         
         # Wyciągnij setup z każdego lap (setFWing, setEngine, etc.)
         # Każde to obiekt z {value, color, comment}
@@ -473,6 +473,20 @@ def extract_practice_data(practice, office_context=None, driver_raw=None):
                 text = text.replace("&#281;", "ą")
                 comments.append(text)
         feedback = "; ".join(comments) if comments else ""
+        
+        # Tłumacz komentarze kierowcy na angielski (najczęstsze GPRO comments)
+        translation_map = {
+            "Skrzydła są w porządku": "Wings are fine",
+            "Zbyt duży opór": "Too much drag",
+            "Zbyt duże podsterowywanie": "Too much understeer",
+            "Zbyt duże nadsterowywanie": "Too much oversteer",
+            "Silnik jest w porządku": "Engine is fine",
+            "Stosunek przełożeń jest w porządku": "Gear ratio is fine",
+            "Zawieszenie jest w porządku": "Suspension is fine",
+            "Hamulce są w porządku": "Brakes are fine"
+        }
+        for polish, english in translation_map.items():
+            feedback = feedback.replace(polish, english)
         
         # Określ kolor (dla backwards compatibility)
         # color: "lime" = green/satisfied, "yellow" = marginal, "red" = bad

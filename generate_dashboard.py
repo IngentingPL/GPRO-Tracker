@@ -90,6 +90,9 @@ def load_prediction():
     Mini-lekcja: Predykcja to rekomendacje setupu na podstawie
     historii. Jeśli plik nie istnieje, zwracamy None - dashboard
     pokaże fallback message.
+    
+    Uwaga: Tłumaczymy stare polskie nazwy na angielskie dla kompatybilności
+    wstecznej z prediction.json wygenerowanym przed zmianami.
     """
     if not os.path.exists(PREDICTION_FILE):
         print(f"  Plik {PREDICTION_FILE} nie istnieje.")
@@ -97,7 +100,25 @@ def load_prediction():
 
     try:
         with open(PREDICTION_FILE, "r", encoding="utf-8") as f:
-            return json.load(f)
+            data = json.load(f)
+        
+        # Tłumacz polskie nazwy na angielskie w sekwencji (dla kompatybilności wstecznej)
+        if data and "sequence" in data:
+            polish_to_english = {
+                "PRAKTYKA": "PRACTICE",
+                "KWALIFIKACJE": "QUALIFYING", 
+                "WYŚCIG": "RACE",
+                "Ukończona sesja": "Completed session"
+            }
+            for step in data["sequence"]:
+                # Tłumacz ID step
+                for polish, english in polish_to_english.items():
+                    step["id"] = step["id"].replace(polish, english)
+                # Tłumacz notatkę
+                if step.get("note"):
+                    step["note"] = step["note"].replace("Ukończona sesja", "Completed session")
+        
+        return data
     except Exception as e:
         print(f"  [BŁĄD] Błąd wczytywania {PREDICTION_FILE}: {e}")
         return None

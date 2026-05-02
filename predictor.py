@@ -752,8 +752,21 @@ def get_completed_sessions_from_race(race_data):
         import html
         session = html.unescape(session)
         
-        # Mapuj polskie nazwy na nasze klucze
+        # Mapuj polskie i angielskie nazwy na nasze klucze
         session_map = {
+            # Angielskie nazwy (nowe dane z gpro_fetcher)
+            "Practice 1": "P1",
+            "Practice 2": "P2", 
+            "Practice 3": "P3",
+            "Practice 4": "P4",
+            "Practice 5": "P5",
+            "Practice 6": "P6",
+            "Practice 7": "P7",
+            "Practice 8": "P8",
+            "Qualifying 1": "Q1",
+            "Qualifying 2": "Q2",
+            "Race": "RACE",
+            # Polskie nazwy (stare dane)
             "Trening 1": "P1",
             "Trening 2": "P2", 
             "Trening 3": "P3",
@@ -1437,12 +1450,12 @@ def generate_prediction():
         "Q1", "Q2", "RACE"
     ]
 
-    # Mapowanie naszych kluczy na polskie nazwy API GPRO
+    # Mapowanie naszych kluczy na nazwy API GPRO (polskie i angielskie)
     SESSION_TO_API = {
-        "P1": "Trening 1", "P2": "Trening 2", "P3": "Trening 3",
-        "P4": "Trening 4", "P5": "Trening 5", "P6": "Trening 6",
-        "P7": "Trening 7", "P8": "Trening 8",
-        "Q1": "Kw1", "Q2": "Kw2", "RACE": "Wyścig"
+        "P1": "Practice 1", "P2": "Practice 2", "P3": "Practice 3",
+        "P4": "Practice 4", "P5": "Practice 5", "P6": "Practice 6",
+        "P7": "Practice 7", "P8": "Practice 8",
+        "Q1": "Qualifying 1", "Q2": "Qualifying 2", "RACE": "Race"
     }
 
     # Znajdź następny krok
@@ -1480,16 +1493,16 @@ def generate_prediction():
 
         # Konwertuj na nazwę wyświetlaną
         if step_key.startswith("P"):
-            display_id = f"PRAKTYKA {step_key[1]}" if len(step_key) == 2 else "PRAKTYKA"
+            display_id = f"PRACTICE {step_key[1]}" if len(step_key) == 2 else "PRACTICE"
             display_type = "practice"
         elif step_key == "Q1":
-            display_id = "KWALIFIKACJE 1"
+            display_id = "QUALIFYING 1"
             display_type = "q1"
         elif step_key == "Q2":
-            display_id = "KWALIFIKACJE 2"
+            display_id = "QUALIFYING 2"
             display_type = "q2"
         else:
-            display_id = "WYŚCIG"
+            display_id = "RACE"
             display_type = "race"
 
         # Pobierz setup zCompleted sesji (jeśli jest)
@@ -1513,7 +1526,7 @@ def generate_prediction():
             s = completed_data.get("setup", {})
             step_data["setup"] = s
             step_data["feedback"] = completed_data.get("feedback", "")
-            step_data["note"] = "Ukończona sesja"
+            step_data["note"] = "Completed session"
 
             # Zapamiętaj komentarz dla nastęnych korekcji
             if step_data["feedback"]:
