@@ -2335,6 +2335,52 @@ function renderSetups() {{
     document.getElementById('tab-setups').innerHTML = html;
 }}
 
+// Mapa polskich nazw krajów na angielskie
+const countryNameMap = {{
+    'Turcja': 'Turkey',
+    'Indie': 'India',
+    'Argentyna': 'Argentina',
+    'Japonia': 'Japan',
+    'Arabia Saudyjska': 'Saudi Arabia',
+    'Bahrajn': 'Bahrain',
+    'Wielka Brytania': 'UK',
+    'Niemcy': 'Germany',
+    'Włochy': 'Italy',
+    'Hiszpania': 'Spain',
+    'Francja': 'France',
+    'Belgia': 'Belgium',
+    'Holandia': 'Netherlands',
+    'Monako': 'Monaco',
+    'Austria': 'Austria',
+    'Węgry': 'Hungary',
+    'Czechy': 'Czech Republic',
+    'Portugalia': 'Portugal',
+    'Chiny': 'China',
+    'Malezja': 'Malaysia',
+    'Singapur': 'Singapore',
+    'Australia': 'Australia',
+    'Brazylia': 'Brazil',
+    'Meksyk': 'Mexico',
+    'Kanada': 'Canada',
+    'USA': 'USA',
+    'Rosja': 'Russia',
+    'Korea': 'South Korea',
+    'Abu Dhabi': 'UAE'
+}};
+
+function convertCountryToEnglish(trackName) {{
+    // Wyciągamy nazwę kraju z nawiasów i zamieniamy na angielską
+    const match = trackName.match(/\\(([^)]+)\\)$/);
+    if (match) {{
+        const country = match[1];
+        const englishCountry = countryNameMap[country];
+        if (englishCountry) {{
+            return trackName.replace(/\\([^)]+\\)$/, '(' + englishCountry + ')');
+        }}
+    }}
+    return trackName;
+}}
+
 function renderFinances() {{
     const displayedData = getDisplayedRaceData();
     if (displayedData.length === 0) return;
@@ -2363,7 +2409,7 @@ function renderFinances() {{
         html += `
         <div class="data-card">
             <div class="data-card-header">
-                <h3>${{rd.track || '?'}}</h3>
+                <h3>${{convertCountryToEnglish(rd.track || '?')}}</h3>
                 <div class="tag">S${{rd.season}}R${{rd.race}}</div>
             </div>
 
@@ -2375,7 +2421,7 @@ function renderFinances() {{
                 <span class="label">COSTS</span>
                 <span class="value val-negative">${{formatMoney(costs)}}</span>
             </div>
-            <div class="data-row" style="margin-top: 1rem; border-top: 1px solid var(--border-color); padding-top: 1rem;">
+            <div class="data-row">
                 <span class="label">RACE RESULT</span>
                 <span class="value ${{fin.total >= 0 ? 'val-positive' : 'val-negative'}}" style="font-size: 1.2rem;">${{formatMoney(fin.total)}}</span>
             </div>
