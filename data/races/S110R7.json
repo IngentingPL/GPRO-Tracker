@@ -230,7 +230,7 @@
       "total": 7692900,
       "balance": 43931836
     },
-    "fetched_at": "2026-05-02T08:43:35.166212Z"
+    "fetched_at": "2026-05-02T08:52:11.282632Z"
   },
   "race_summary": {
     "track": "Miami",
@@ -419,7 +419,7 @@
     "privateOfferCost": 1000000,
     "setOfferCost": 500000,
     "setOfferType": "1",
-    "nextPriceIncrementIn": 173781,
+    "nextPriceIncrementIn": 173264,
     "offerPlaced": 0,
     "inShortList": 1,
     "oneRaceRenewFee": 184700,
@@ -441,7 +441,7 @@
     "setContractLengthExtend": "",
     "totalOffers": 0,
     "offersFrom": [],
-    "apiRequestsRemaining": 83
+    "apiRequestsRemaining": 74
   },
   "standings": {
     "loadingDataState": "1",
@@ -6826,7 +6826,7 @@
         }
       ]
     },
-    "apiRequestsRemaining": 82
+    "apiRequestsRemaining": 73
   },
   "car_status": {
     "loadingDataState": "1",
@@ -7538,6 +7538,6 @@
     "showUndoAlertNoCredits": false,
     "credits": 0,
     "races": 10,
-    "apiRequestsRemaining": 81
+    "apiRequestsRemaining": 72
   }
 }

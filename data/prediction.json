@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-02T08:43:42.780958Z",
+  "generated_at": "2026-05-02T08:52:19.345176Z",
   "next_race": {
     "track": "Interlagos GP (Brazylia)",
     "season": 110,
@@ -28,7 +28,7 @@
   },
   "sequence": [
     {
-      "id": "PRAKTYKA 1",
+      "id": "PRACTICE 1",
       "type": "practice",
       "completed": false,
       "is_next": true,
@@ -48,7 +48,7 @@
       "session_key": "P1"
     },
     {
-      "id": "PRAKTYKA 2",
+      "id": "PRACTICE 2",
       "type": "practice",
       "completed": false,
       "is_next": false,
@@ -60,7 +60,7 @@
       "session_key": "P2"
     },
     {
-      "id": "PRAKTYKA 3",
+      "id": "PRACTICE 3",
       "type": "practice",
       "completed": false,
       "is_next": false,
@@ -72,7 +72,7 @@
       "session_key": "P3"
     },
     {
-      "id": "PRAKTYKA 4",
+      "id": "PRACTICE 4",
       "type": "practice",
       "completed": false,
       "is_next": false,
@@ -84,7 +84,7 @@
       "session_key": "P4"
     },
     {
-      "id": "PRAKTYKA 5",
+      "id": "PRACTICE 5",
       "type": "practice",
       "completed": false,
       "is_next": false,
@@ -96,7 +96,7 @@
       "session_key": "P5"
     },
     {
-      "id": "PRAKTYKA 6",
+      "id": "PRACTICE 6",
       "type": "practice",
       "completed": false,
       "is_next": false,
@@ -108,7 +108,7 @@
       "session_key": "P6"
     },
     {
-      "id": "PRAKTYKA 7",
+      "id": "PRACTICE 7",
       "type": "practice",
       "completed": false,
       "is_next": false,
@@ -120,7 +120,7 @@
       "session_key": "P7"
     },
     {
-      "id": "PRAKTYKA 8",
+      "id": "PRACTICE 8",
       "type": "practice",
       "completed": false,
       "is_next": false,
@@ -132,7 +132,7 @@
       "session_key": "P8"
     },
     {
-      "id": "KWALIFIKACJE 1",
+      "id": "QUALIFYING 1",
       "type": "q1",
       "completed": false,
       "is_next": false,
@@ -144,7 +144,7 @@
       "session_key": "Q1"
     },
     {
-      "id": "KWALIFIKACJE 2",
+      "id": "QUALIFYING 2",
       "type": "q2",
       "completed": false,
       "is_next": false,
@@ -163,7 +163,7 @@
       "session_key": "Q2"
     },
     {
-      "id": "WYŚCIG",
+      "id": "RACE",
       "type": "race",
       "completed": false,
       "is_next": false,
