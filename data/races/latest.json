@@ -1,147 +1,163 @@
 {
   "race_data": {
     "season": "110",
-    "race": "8",
+    "race": "9",
     "group": "Rookie - 64",
-    "track": "Interlagos (Brazylia)",
-    "track_country": "Brazylia",
-    "track_id": "1",
-    "q1_time": "1:32.243s",
+    "track": "Adelaide (Australia)",
+    "track_country": "Australia",
+    "track_id": "19",
+    "q1_time": "1:19.422s",
     "q1_pos": "1",
-    "q2_time": "1:35.437s",
-    "q2_pos": "2",
-    "start_fuel": 91,
-    "finish_tyres": 19,
-    "finish_fuel": 8,
-    "overtake_attempts": "20",
-    "overtakes": "4",
+    "q2_time": "1:20.664s",
+    "q2_pos": "1",
+    "start_fuel": 52,
+    "finish_tyres": 24,
+    "finish_fuel": 2,
+    "overtake_attempts": "5",
+    "overtakes": "2",
     "setups": [
       {
         "session": "Kw1",
-        "fw": "560",
-        "rw": "860",
-        "eng": "560",
-        "bra": "700",
-        "gear": "280",
-        "susp": "260",
-        "tyres": "Deszczowe",
+        "fw": "600",
+        "rw": "700",
+        "eng": "540",
+        "bra": "300",
+        "gear": "460",
+        "susp": "720",
+        "tyres": "Super mi&#281;kkie",
         "feedback": ""
       },
       {
         "session": "Kw2",
-        "fw": "560",
-        "rw": "860",
-        "eng": "560",
-        "bra": "700",
-        "gear": "280",
-        "susp": "260",
-        "tyres": "Deszczowe",
+        "fw": "600",
+        "rw": "700",
+        "eng": "540",
+        "bra": "300",
+        "gear": "460",
+        "susp": "720",
+        "tyres": "Super mi&#281;kkie",
         "feedback": ""
       },
       {
         "session": "Wy&#347;cig",
-        "fw": "560",
-        "rw": "860",
-        "eng": "560",
-        "bra": "700",
-        "gear": "280",
-        "susp": "260",
-        "tyres": "Deszczowe",
+        "fw": "600",
+        "rw": "700",
+        "eng": "540",
+        "bra": "300",
+        "gear": "460",
+        "susp": "720",
+        "tyres": "Super mi&#281;kkie",
         "feedback": ""
       }
     ],
     "pits": [
       {
-        "lap": 36,
+        "lap": 19,
         "reason": "Brak paliwa",
-        "tyre_condition": 23,
+        "tyre_condition": 26,
         "fuel_left": 1,
-        "refilled_to": 95,
-        "pit_time": "29.616"
+        "refilled_to": 56,
+        "pit_time": "22.796"
+      },
+      {
+        "lap": 39,
+        "reason": "Brak paliwa",
+        "tyre_condition": 21,
+        "fuel_left": 1,
+        "refilled_to": 56,
+        "pit_time": "22.367"
+      },
+      {
+        "lap": 59,
+        "reason": "Brak paliwa",
+        "tyre_condition": 25,
+        "fuel_left": 1,
+        "refilled_to": 56,
+        "pit_time": "20.785"
       }
     ],
     "weather": {
       "q1": {
-        "condition": "Rain",
-        "temp": 35,
-        "humidity": 99
+        "condition": "Sunny",
+        "temp": 15,
+        "humidity": 17
       },
       "q2": {
-        "condition": "Rain",
-        "temp": 41,
-        "humidity": 95
+        "condition": "Partially Cloudy",
+        "temp": 13,
+        "humidity": 27
       },
       "race": {
         "temp_range": [
-          39,
-          45
+          14,
+          15
         ],
         "humidity_range": [
-          91,
-          99
+          16,
+          25
         ]
       }
     },
     "car_parts": {
       "chassis": {
         "level": 3,
-        "start_wear": 0,
-        "finish_wear": 31
+        "start_wear": 31,
+        "finish_wear": 60
       },
       "engine": {
         "level": 4,
-        "start_wear": 0,
-        "finish_wear": 39
+        "start_wear": 39,
+        "finish_wear": 56
       },
       "FWing": {
         "level": 3,
-        "start_wear": 0,
-        "finish_wear": 25
+        "start_wear": 25,
+        "finish_wear": 56
       },
       "RWing": {
         "level": 3,
-        "start_wear": 0,
-        "finish_wear": 20
+        "start_wear": 20,
+        "finish_wear": 55
       },
       "underbody": {
-        "level": 2,
-        "start_wear": 59,
-        "finish_wear": 96
+        "level": 3,
+        "start_wear": 0,
+        "finish_wear": 33
       },
       "sidepods": {
         "level": 2,
-        "start_wear": 49,
-        "finish_wear": 70
+        "start_wear": 70,
+        "finish_wear": 93
       },
       "cooling": {
         "level": 3,
-        "start_wear": 0,
-        "finish_wear": 18
+        "start_wear": 18,
+        "finish_wear": 42
       },
       "gear": {
         "level": 3,
-        "start_wear": 0,
-        "finish_wear": 26
+        "start_wear": 26,
+        "finish_wear": 50
       },
       "brakes": {
-        "level": 3,
-        "start_wear": 45,
-        "finish_wear": 88
+        "level": 4,
+        "start_wear": 0,
+        "finish_wear": 20
       },
       "susp": {
         "level": 3,
-        "start_wear": 0,
-        "finish_wear": 31
+        "start_wear": 31,
+        "finish_wear": 46
       },
       "electronics": {
         "level": 2,
-        "start_wear": 28,
-        "finish_wear": 47
+        "start_wear": 47,
+        "finish_wear": 67
       }
     },
     "car_power": 48,
-    "car_handling": 43,
-    "car_acceleration": 44,
+    "car_handling": 46,
+    "car_acceleration": 45,
     "tyre_supplier": {
       "name": "Pipirelli",
       "peak_temp": 31,
@@ -153,16 +169,16 @@
     "driver": {
       "name": "Noel Lavin",
       "id": 38738,
-      "OA": "100",
+      "OA": "101",
       "concentration": "178",
       "talent": "106",
-      "aggressiveness": "5",
-      "experience": "29",
-      "technical_insight": "25",
-      "stamina": "110",
+      "aggressiveness": "3",
+      "experience": "30",
+      "technical_insight": "26",
+      "stamina": "112",
       "charisma": "90",
-      "motivation": "229",
-      "weight": "63"
+      "motivation": "242",
+      "weight": "62"
     },
     "risks": {
       "q1": "Utrzymuj samoch&#243;d na torze",
@@ -176,27 +192,31 @@
     },
     "energy": {
       "q1": {
-        "from": 100,
-        "to": 99
+        "from": 72,
+        "to": 72
       },
       "q2": {
-        "from": 99,
-        "to": 99
+        "from": 72,
+        "to": 72
       },
       "race": {
         "from": 100,
-        "to": 51
+        "to": 58
       }
     },
     "finances": {
       "transactions": [
         {
-          "description": "Pozycja w wy&#347;cigu (3)",
-          "amount": 7700000
+          "description": "Pozycja w wy&#347;cigu (1)",
+          "amount": 8000000
         },
         {
-          "description": "Pozycja w kwalifikacjach (2)",
-          "amount": 450000
+          "description": "Najszybsze okr&#261;&#380;enie wy&#347;cigu",
+          "amount": 1000000
+        },
+        {
+          "description": "Pozycja w kwalifikacjach (1)",
+          "amount": 500000
         },
         {
           "description": "Pieni&#261;dze od sponsora",
@@ -219,13 +239,13 @@
           "amount": -250000
         }
       ],
-      "total": 7642900,
-      "balance": 30002340
+      "total": 8992900,
+      "balance": 36137384
     },
-    "fetched_at": "2026-05-07T15:26:24.302764Z"
+    "fetched_at": "2026-05-08T20:31:59.327490Z"
   },
   "race_summary": {
-    "track": "Interlagos",
+    "track": "Adelaide",
     "season": "",
     "race": "",
     "results": []
@@ -236,7 +256,7 @@
     "isSupporter": 0,
     "driverNotFoundNote": true,
     "credits": 0,
-    "cash": 27144484,
+    "cash": 36137384,
     "natCode": "mx",
     "natName": "Meksyk",
     "face": "1",
@@ -325,12 +345,12 @@
     "initialContract": false,
     "noCrossGender": true,
     "trophies": 0,
-    "races": 10,
-    "wins": 2,
-    "podiums": 8,
-    "points": 70,
-    "poles": 3,
-    "fastLaps": 1,
+    "races": 11,
+    "wins": 3,
+    "podiums": 9,
+    "points": 80,
+    "poles": 4,
+    "fastLaps": 2,
     "favTrack1": {
       "name": "<span class=\"lime\">Interlagos</span>",
       "id": 1
@@ -343,20 +363,20 @@
       "name": "Baku City",
       "id": 58
     },
-    "overall": 101,
+    "overall": 102,
     "driverFaceUpdated": 0,
     "driverFaceCost": 0.1,
-    "energy": 100,
+    "energy": 67,
     "concentration": 178,
     "talent": 106,
-    "aggressiveness": 3,
-    "experience": 30,
-    "experienceCapped": 30,
-    "techInsight": 26,
+    "aggressiveness": 1,
+    "experience": 31,
+    "experienceCapped": 31,
+    "techInsight": 27,
     "stamina": 112,
     "charisma": 90,
-    "motivation": 242,
-    "reputation": 16,
+    "motivation": 250,
+    "reputation": 21,
     "weight": 62,
     "age": 21,
     "retiring": 0,
@@ -394,7 +414,7 @@
       "group": "Rookie - 64"
     },
     "salary": "738800",
-    "racesLeft": "7",
+    "racesLeft": "6",
     "errorMsg": "<font color=\"orange\">Kierowca ju&#380; podpisa&#322; z Tob&#261; kontrakt.</font>",
     "canMakeOffer": 0,
     "setSalary": 738800,
@@ -406,12 +426,12 @@
     "setRaces": "",
     "canOfferPrivate": 0,
     "canOfferTrophyBonus": 0,
-    "offerCost": 1375000,
-    "semiOfferCost": 1187500,
-    "privateOfferCost": 1437500,
-    "setOfferCost": 1375000,
+    "offerCost": 500000,
+    "semiOfferCost": 750000,
+    "privateOfferCost": 1000000,
+    "setOfferCost": 500000,
     "setOfferType": "1",
-    "nextPriceIncrementIn": 2011,
+    "nextPriceIncrementIn": 217677,
     "offerPlaced": 0,
     "inShortList": 1,
     "oneRaceRenewFee": 184700,
@@ -433,7 +453,7 @@
     "setContractLengthExtend": "",
     "totalOffers": 0,
     "offersFrom": [],
-    "apiRequestsRemaining": 83
+    "apiRequestsRemaining": 93
   },
   "standings": {
     "loadingDataState": "1",
@@ -450,7 +470,7 @@
         "manPosChange": "0",
         "manBgColor": "#007700",
         "negative": 0,
-        "cash": 21158206,
+        "cash": 20170763,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -497,9 +517,9 @@
             "grid": "3"
           },
           {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
+            "pos": "2",
+            "pts": "8",
+            "grid": "3"
           },
           {
             "pos": "-",
@@ -542,123 +562,19 @@
             "grid": "-"
           }
         ],
-        "pts": "64"
+        "pts": "72"
       },
       {
-        "name": "Tanja Arsovska",
+        "name": "Piotr Tkaczyk",
         "pos": "2",
         "tyre": "Pipirelli",
-        "natCode": "si",
-        "IDM": 901260,
+        "natCode": "pl",
+        "IDM": 1134029,
         "manArrow": "up",
         "manPosChange": "+1",
         "manBgColor": "#007700",
         "negative": 0,
-        "cash": 7187144,
-        "retires": 0,
-        "goesRookie": 0,
-        "didSoftReset": 0,
-        "champs": "0",
-        "results": [
-          {
-            "pos": "10",
-            "pts": "-",
-            "grid": "4"
-          },
-          {
-            "pos": "2",
-            "pts": "8",
-            "grid": "1"
-          },
-          {
-            "pos": "2",
-            "pts": "8",
-            "grid": "2"
-          },
-          {
-            "pos": "3",
-            "pts": "6",
-            "grid": "3"
-          },
-          {
-            "pos": "2",
-            "pts": "8",
-            "grid": "1"
-          },
-          {
-            "pos": "1",
-            "pts": "10",
-            "grid": "1"
-          },
-          {
-            "pos": "1",
-            "pts": "10",
-            "grid": "2"
-          },
-          {
-            "pos": "2",
-            "pts": "8",
-            "grid": "1"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          }
-        ],
-        "pts": "58"
-      },
-      {
-        "name": "Piotr Tkaczyk",
-        "pos": "3",
-        "tyre": "Pipirelli",
-        "natCode": "pl",
-        "IDM": 1134029,
-        "manArrow": "down",
-        "manPosChange": "-1",
-        "manBgColor": "#007700",
-        "negative": 0,
-        "cash": 27144484,
+        "cash": 36137384,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -705,9 +621,9 @@
             "grid": "2"
           },
           {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
+            "pos": "1",
+            "pts": "10",
+            "grid": "1"
           },
           {
             "pos": "-",
@@ -750,7 +666,111 @@
             "grid": "-"
           }
         ],
-        "pts": "57"
+        "pts": "67"
+      },
+      {
+        "name": "Tanja Arsovska",
+        "pos": "3",
+        "tyre": "Pipirelli",
+        "natCode": "si",
+        "IDM": 901260,
+        "manArrow": "down",
+        "manPosChange": "-1",
+        "manBgColor": "#007700",
+        "negative": 0,
+        "cash": 15100466,
+        "retires": 0,
+        "goesRookie": 0,
+        "didSoftReset": 0,
+        "champs": "0",
+        "results": [
+          {
+            "pos": "10",
+            "pts": "-",
+            "grid": "4"
+          },
+          {
+            "pos": "2",
+            "pts": "8",
+            "grid": "1"
+          },
+          {
+            "pos": "2",
+            "pts": "8",
+            "grid": "2"
+          },
+          {
+            "pos": "3",
+            "pts": "6",
+            "grid": "3"
+          },
+          {
+            "pos": "2",
+            "pts": "8",
+            "grid": "1"
+          },
+          {
+            "pos": "1",
+            "pts": "10",
+            "grid": "1"
+          },
+          {
+            "pos": "1",
+            "pts": "10",
+            "grid": "2"
+          },
+          {
+            "pos": "2",
+            "pts": "8",
+            "grid": "1"
+          },
+          {
+            "pos": "3",
+            "pts": "6",
+            "grid": "2"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          }
+        ],
+        "pts": "64"
       },
       {
         "name": "Jozef Lesay",
@@ -762,7 +782,7 @@
         "manPosChange": "0",
         "manBgColor": "#007700",
         "negative": 0,
-        "cash": 61520400,
+        "cash": 69329830,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -809,9 +829,9 @@
             "grid": "4"
           },
           {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
+            "pos": "7",
+            "pts": "2",
+            "grid": "10"
           },
           {
             "pos": "-",
@@ -854,7 +874,7 @@
             "grid": "-"
           }
         ],
-        "pts": "33"
+        "pts": "35"
       },
       {
         "name": "Nathan Taylor",
@@ -862,11 +882,11 @@
         "tyre": "Pipirelli",
         "natCode": "en",
         "IDM": 829263,
-        "manArrow": "up",
-        "manPosChange": "+1",
+        "manArrow": "equals",
+        "manPosChange": "0",
         "manBgColor": "",
-        "negative": 1,
-        "cash": -89864,
+        "negative": 0,
+        "cash": 7793747,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -913,9 +933,9 @@
             "grid": "5"
           },
           {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
+            "pos": "5",
+            "pts": "4",
+            "grid": "5"
           },
           {
             "pos": "-",
@@ -958,7 +978,7 @@
             "grid": "-"
           }
         ],
-        "pts": "22"
+        "pts": "26"
       },
       {
         "name": "Daniil Chebrov",
@@ -966,11 +986,11 @@
         "tyre": "Pipirelli",
         "natCode": "cz",
         "IDM": 1138145,
-        "manArrow": "down",
-        "manPosChange": "-1",
+        "manArrow": "equals",
+        "manPosChange": "0",
         "manBgColor": "",
         "negative": 0,
-        "cash": 14642131,
+        "cash": 13806381,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -1070,11 +1090,11 @@
         "tyre": "Pipirelli",
         "natCode": "cz",
         "IDM": 929059,
-        "manArrow": "up",
-        "manPosChange": "+1",
+        "manArrow": "equals",
+        "manPosChange": "0",
         "manBgColor": "",
         "negative": 0,
-        "cash": 33019755,
+        "cash": 27417361,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -1121,115 +1141,11 @@
             "grid": "15"
           },
           {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          }
-        ],
-        "pts": "11"
-      },
-      {
-        "name": "Roy Culver",
-        "pos": "8",
-        "tyre": "Pipirelli",
-        "natCode": "en",
-        "IDM": 107175,
-        "manArrow": "down",
-        "manPosChange": "-1",
-        "manBgColor": "",
-        "negative": 0,
-        "cash": 7479595,
-        "retires": 0,
-        "goesRookie": 0,
-        "didSoftReset": 0,
-        "champs": "0",
-        "results": [
-          {
-            "pos": "7",
-            "pts": "2",
-            "grid": "3"
-          },
-          {
             "pos": "4",
             "pts": "5",
             "grid": "6"
           },
           {
-            "pos": "6",
-            "pts": "3",
-            "grid": "6"
-          },
-          {
-            "pos": "9",
-            "pts": "-",
-            "grid": "11"
-          },
-          {
-            "pos": "9",
-            "pts": "-",
-            "grid": "8"
-          },
-          {
-            "pos": "11",
-            "pts": "-",
-            "grid": "16"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "11",
-            "pts": "-",
-            "grid": "7"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
             "pos": "-",
             "pts": "-",
             "grid": "-"
@@ -1270,19 +1186,19 @@
             "grid": "-"
           }
         ],
-        "pts": "10"
+        "pts": "16"
       },
       {
         "name": "Kiss Csaba",
-        "pos": "9",
+        "pos": "8",
         "tyre": "Pipirelli",
         "natCode": "hu",
         "IDM": 474355,
-        "manArrow": "equals",
-        "manPosChange": "0",
+        "manArrow": "up",
+        "manPosChange": "+1",
         "manBgColor": "",
         "negative": 0,
-        "cash": 20091310,
+        "cash": 12763475,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -1329,9 +1245,113 @@
             "grid": "11"
           },
           {
+            "pos": "8",
+            "pts": "1",
+            "grid": "7"
+          },
+          {
             "pos": "-",
             "pts": "-",
             "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          }
+        ],
+        "pts": "11"
+      },
+      {
+        "name": "Roy Culver",
+        "pos": "9",
+        "tyre": "Pipirelli",
+        "natCode": "en",
+        "IDM": 107175,
+        "manArrow": "down",
+        "manPosChange": "-1",
+        "manBgColor": "",
+        "negative": 0,
+        "cash": 14157125,
+        "retires": 0,
+        "goesRookie": 0,
+        "didSoftReset": 0,
+        "champs": "0",
+        "results": [
+          {
+            "pos": "7",
+            "pts": "2",
+            "grid": "3"
+          },
+          {
+            "pos": "4",
+            "pts": "5",
+            "grid": "6"
+          },
+          {
+            "pos": "6",
+            "pts": "3",
+            "grid": "6"
+          },
+          {
+            "pos": "9",
+            "pts": "-",
+            "grid": "11"
+          },
+          {
+            "pos": "9",
+            "pts": "-",
+            "grid": "8"
+          },
+          {
+            "pos": "11",
+            "pts": "-",
+            "grid": "16"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "11",
+            "pts": "-",
+            "grid": "7"
+          },
+          {
+            "pos": "13",
+            "pts": "-",
+            "grid": "14"
           },
           {
             "pos": "-",
@@ -1386,7 +1406,7 @@
         "manPosChange": "0",
         "manBgColor": "",
         "negative": 0,
-        "cash": 22296244,
+        "cash": 29596854,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -1433,9 +1453,9 @@
             "grid": "-"
           },
           {
-            "pos": "-",
+            "pos": "10",
             "pts": "-",
-            "grid": "-"
+            "grid": "9"
           },
           {
             "pos": "-",
@@ -1490,7 +1510,7 @@
         "manPosChange": "0",
         "manBgColor": "",
         "negative": 0,
-        "cash": 18995045,
+        "cash": 18203554,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -1537,9 +1557,9 @@
             "grid": "14"
           },
           {
-            "pos": "-",
+            "pos": "17",
             "pts": "-",
-            "grid": "-"
+            "grid": "11"
           },
           {
             "pos": "-",
@@ -1585,224 +1605,16 @@
         "pts": "7"
       },
       {
-        "name": "P&#225;l Gera",
-        "pos": "12",
-        "tyre": "Pipirelli",
-        "natCode": "hu",
-        "IDM": 223766,
-        "manArrow": "equals",
-        "manPosChange": "0",
-        "manBgColor": "",
-        "negative": 0,
-        "cash": 18416714,
-        "retires": 0,
-        "goesRookie": 0,
-        "didSoftReset": 0,
-        "champs": "0",
-        "results": [
-          {
-            "pos": "6",
-            "pts": "3",
-            "grid": "13"
-          },
-          {
-            "pos": "13",
-            "pts": "-",
-            "grid": "14"
-          },
-          {
-            "pos": "12",
-            "pts": "-",
-            "grid": "14"
-          },
-          {
-            "pos": "14",
-            "pts": "-",
-            "grid": "16"
-          },
-          {
-            "pos": "11",
-            "pts": "-",
-            "grid": "14"
-          },
-          {
-            "pos": "10",
-            "pts": "-",
-            "grid": "14"
-          },
-          {
-            "pos": "10",
-            "pts": "-",
-            "grid": "13"
-          },
-          {
-            "pos": "10",
-            "pts": "-",
-            "grid": "10"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          }
-        ],
-        "pts": "3"
-      },
-      {
-        "name": "Ivan Bravo",
-        "pos": "13",
-        "tyre": "Pipirelli",
-        "natCode": "uy",
-        "IDM": 1144618,
-        "manArrow": "up",
-        "manPosChange": "+15",
-        "manBgColor": "",
-        "negative": 0,
-        "cash": 24989088,
-        "retires": 0,
-        "goesRookie": 0,
-        "didSoftReset": 0,
-        "champs": "0",
-        "results": [
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "6",
-            "pts": "3",
-            "grid": "8"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          }
-        ],
-        "pts": "3"
-      },
-      {
         "name": "Duccio Pizzi",
-        "pos": "14",
+        "pos": "12",
         "tyre": "Pipirelli",
         "natCode": "it",
         "IDM": 881997,
-        "manArrow": "down",
-        "manPosChange": "-1",
+        "manArrow": "up",
+        "manPosChange": "+2",
         "manBgColor": "",
         "negative": 0,
-        "cash": 41238317,
+        "cash": 41028890,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -1849,9 +1661,9 @@
             "grid": "6"
           },
           {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
+            "pos": "6",
+            "pts": "3",
+            "grid": "4"
           },
           {
             "pos": "-",
@@ -1894,7 +1706,215 @@
             "grid": "-"
           }
         ],
-        "pts": "1"
+        "pts": "4"
+      },
+      {
+        "name": "P&#225;l Gera",
+        "pos": "13",
+        "tyre": "Pipirelli",
+        "natCode": "hu",
+        "IDM": 223766,
+        "manArrow": "down",
+        "manPosChange": "-1",
+        "manBgColor": "",
+        "negative": 0,
+        "cash": 25544219,
+        "retires": 0,
+        "goesRookie": 0,
+        "didSoftReset": 0,
+        "champs": "0",
+        "results": [
+          {
+            "pos": "6",
+            "pts": "3",
+            "grid": "13"
+          },
+          {
+            "pos": "13",
+            "pts": "-",
+            "grid": "14"
+          },
+          {
+            "pos": "12",
+            "pts": "-",
+            "grid": "14"
+          },
+          {
+            "pos": "14",
+            "pts": "-",
+            "grid": "16"
+          },
+          {
+            "pos": "11",
+            "pts": "-",
+            "grid": "14"
+          },
+          {
+            "pos": "10",
+            "pts": "-",
+            "grid": "14"
+          },
+          {
+            "pos": "10",
+            "pts": "-",
+            "grid": "13"
+          },
+          {
+            "pos": "10",
+            "pts": "-",
+            "grid": "10"
+          },
+          {
+            "pos": "11",
+            "pts": "-",
+            "grid": "12"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          }
+        ],
+        "pts": "3"
+      },
+      {
+        "name": "Ivan Bravo",
+        "pos": "14",
+        "tyre": "Pipirelli",
+        "natCode": "uy",
+        "IDM": 1144618,
+        "manArrow": "down",
+        "manPosChange": "-1",
+        "manBgColor": "",
+        "negative": 0,
+        "cash": 31545397,
+        "retires": 0,
+        "goesRookie": 0,
+        "didSoftReset": 0,
+        "champs": "0",
+        "results": [
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "6",
+            "pts": "3",
+            "grid": "8"
+          },
+          {
+            "pos": "16",
+            "pts": "-",
+            "grid": "15"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          }
+        ],
+        "pts": "3"
       },
       {
         "name": "Rian Sena",
@@ -1906,7 +1926,7 @@
         "manPosChange": "0",
         "manBgColor": "",
         "negative": 1,
-        "cash": -18822607,
+        "cash": -11550227,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -1953,9 +1973,9 @@
             "grid": "13"
           },
           {
-            "pos": "-",
+            "pos": "12",
             "pts": "-",
-            "grid": "-"
+            "grid": "16"
           },
           {
             "pos": "-",
@@ -2006,11 +2026,11 @@
         "tyre": "Pipirelli",
         "natCode": "en",
         "IDM": 1118317,
-        "manArrow": "down",
-        "manPosChange": "-2",
+        "manArrow": "equals",
+        "manPosChange": "0",
         "manBgColor": "",
         "negative": 0,
-        "cash": 33485409,
+        "cash": 32556619,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -2105,16 +2125,120 @@
         "pts": "0"
       },
       {
-        "name": "&#211;scar Rodr&#237;guez",
+        "name": "Joaquim Souto",
         "pos": "17",
+        "tyre": "Pipirelli",
+        "natCode": "br",
+        "IDM": 629628,
+        "manArrow": "up",
+        "manPosChange": "+3",
+        "manBgColor": "",
+        "negative": 0,
+        "cash": 30337238,
+        "retires": 0,
+        "goesRookie": 0,
+        "didSoftReset": 0,
+        "champs": "0",
+        "results": [
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "14",
+            "pts": "-",
+            "grid": "17"
+          },
+          {
+            "pos": "9",
+            "pts": "-",
+            "grid": "8"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          }
+        ],
+        "pts": "0"
+      },
+      {
+        "name": "&#211;scar Rodr&#237;guez",
+        "pos": "18",
         "tyre": "Pipirelli",
         "natCode": "es",
         "IDM": 1143952,
-        "manArrow": "up",
-        "manPosChange": "+12",
+        "manArrow": "down",
+        "manPosChange": "-1",
         "manBgColor": "",
         "negative": 0,
-        "cash": 14717097,
+        "cash": 21675137,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -2161,9 +2285,9 @@
             "grid": "12"
           },
           {
-            "pos": "-",
+            "pos": "14",
             "pts": "-",
-            "grid": "-"
+            "grid": "17"
           },
           {
             "pos": "-",
@@ -2210,15 +2334,15 @@
       },
       {
         "name": "Brc Gdt",
-        "pos": "18",
+        "pos": "19",
         "tyre": "Pipirelli",
         "natCode": "fr",
         "IDM": 1142851,
         "manArrow": "down",
-        "manPosChange": "-2",
+        "manPosChange": "-1",
         "manBgColor": "",
         "negative": 0,
-        "cash": 24317364,
+        "cash": 24052323,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -2314,15 +2438,15 @@
       },
       {
         "name": "Chuck Mcguire",
-        "pos": "19",
+        "pos": "20",
         "tyre": "Pipirelli",
         "natCode": "us",
         "IDM": 1143127,
-        "manArrow": "up",
-        "manPosChange": "+1",
+        "manArrow": "down",
+        "manPosChange": "-1",
         "manBgColor": "",
-        "negative": 1,
-        "cash": -2065030,
+        "negative": 0,
+        "cash": 4174596,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -2369,113 +2493,9 @@
             "grid": "9"
           },
           {
-            "pos": "-",
+            "pos": "15",
             "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          }
-        ],
-        "pts": "0"
-      },
-      {
-        "name": "Joaquim Souto",
-        "pos": "20",
-        "tyre": "Pipirelli",
-        "natCode": "br",
-        "IDM": 629628,
-        "manArrow": "up",
-        "manPosChange": "+4",
-        "manBgColor": "",
-        "negative": 0,
-        "cash": 26942958,
-        "retires": 0,
-        "goesRookie": 0,
-        "didSoftReset": 0,
-        "champs": "0",
-        "results": [
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "14",
-            "pts": "-",
-            "grid": "17"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
+            "grid": "13"
           },
           {
             "pos": "-",
@@ -2526,11 +2546,11 @@
         "tyre": "Pipirelli",
         "natCode": "en",
         "IDM": 1136262,
-        "manArrow": "down",
-        "manPosChange": "-3",
+        "manArrow": "equals",
+        "manPosChange": "0",
         "manBgColor": "",
         "negative": 0,
-        "cash": 24140002,
+        "cash": 23244282,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -2630,11 +2650,11 @@
         "tyre": "Pipirelli",
         "natCode": "br",
         "IDM": 1142599,
-        "manArrow": "down",
-        "manPosChange": "-3",
+        "manArrow": "equals",
+        "manPosChange": "0",
         "manBgColor": "",
         "negative": 0,
-        "cash": 24879864,
+        "cash": 24715782,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -2734,11 +2754,11 @@
         "tyre": "Pipirelli",
         "natCode": "us",
         "IDM": 1144368,
-        "manArrow": "up",
-        "manPosChange": "+7",
+        "manArrow": "equals",
+        "manPosChange": "0",
         "manBgColor": "",
         "negative": 0,
-        "cash": 22255235,
+        "cash": 22034006,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -2838,11 +2858,11 @@
         "tyre": "Pipirelli",
         "natCode": "gr",
         "IDM": 1143103,
-        "manArrow": "down",
-        "manPosChange": "-3",
+        "manArrow": "equals",
+        "manPosChange": "0",
         "manBgColor": "",
         "negative": 0,
-        "cash": 14292676,
+        "cash": 14439056,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -2942,11 +2962,11 @@
         "tyre": "Pipirelli",
         "natCode": "cz",
         "IDM": 967685,
-        "manArrow": "down",
-        "manPosChange": "-3",
+        "manArrow": "equals",
+        "manPosChange": "0",
         "manBgColor": "",
         "negative": 0,
-        "cash": 27624100,
+        "cash": 27281920,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -3046,11 +3066,11 @@
         "tyre": "Pipirelli",
         "natCode": "ua",
         "IDM": 1143082,
-        "manArrow": "down",
-        "manPosChange": "-3",
+        "manArrow": "equals",
+        "manPosChange": "0",
         "manBgColor": "",
         "negative": 0,
-        "cash": 30262310,
+        "cash": 30419430,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -3150,11 +3170,11 @@
         "tyre": "Pipirelli",
         "natCode": "za",
         "IDM": 1129519,
-        "manArrow": "down",
-        "manPosChange": "-2",
+        "manArrow": "equals",
+        "manPosChange": "0",
         "manBgColor": "",
         "negative": 0,
-        "cash": 22948625,
+        "cash": 22897250,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -3254,11 +3274,11 @@
         "tyre": "Pipirelli",
         "natCode": "hu",
         "IDM": 412585,
-        "manArrow": "down",
-        "manPosChange": "-2",
+        "manArrow": "equals",
+        "manPosChange": "0",
         "manBgColor": "",
         "negative": 0,
-        "cash": 24770516,
+        "cash": 24866268,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -3358,11 +3378,11 @@
         "tyre": "Pipirelli",
         "natCode": "ua",
         "IDM": 1144934,
-        "manArrow": "up",
-        "manPosChange": "+11",
+        "manArrow": "equals",
+        "manPosChange": "0",
         "manBgColor": "",
         "negative": 0,
-        "cash": 22000000,
+        "cash": 22151500,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -3462,11 +3482,11 @@
         "tyre": "Pipirelli",
         "natCode": "us",
         "IDM": 1144737,
-        "manArrow": "up",
-        "manPosChange": "+10",
+        "manArrow": "equals",
+        "manPosChange": "0",
         "manBgColor": "",
         "negative": 0,
-        "cash": 22000000,
+        "cash": 21962277,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -3566,11 +3586,11 @@
         "tyre": "Pipirelli",
         "natCode": "de",
         "IDM": 1144808,
-        "manArrow": "up",
-        "manPosChange": "+9",
+        "manArrow": "equals",
+        "manPosChange": "0",
         "manBgColor": "",
         "negative": 0,
-        "cash": 22000000,
+        "cash": 21777241,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -3670,11 +3690,11 @@
         "tyre": "Pipirelli",
         "natCode": "tr",
         "IDM": 1144226,
-        "manArrow": "down",
-        "manPosChange": "-5",
+        "manArrow": "equals",
+        "manPosChange": "0",
         "manBgColor": "",
         "negative": 0,
-        "cash": 22749384,
+        "cash": 22510838,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -3774,11 +3794,11 @@
         "tyre": "Pipirelli",
         "natCode": "mx",
         "IDM": 1143483,
-        "manArrow": "down",
-        "manPosChange": "-2",
+        "manArrow": "equals",
+        "manPosChange": "0",
         "manBgColor": "",
         "negative": 0,
-        "cash": 23544698,
+        "cash": 23328762,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -3878,11 +3898,11 @@
         "tyre": "Pipirelli",
         "natCode": "fr",
         "IDM": 1143088,
-        "manArrow": "down",
-        "manPosChange": "-2",
+        "manArrow": "equals",
+        "manPosChange": "0",
         "manBgColor": "",
         "negative": 0,
-        "cash": 25444380,
+        "cash": 25755760,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -3982,11 +4002,11 @@
         "tyre": "Pipirelli",
         "natCode": "si",
         "IDM": 1142520,
-        "manArrow": "down",
-        "manPosChange": "-2",
+        "manArrow": "equals",
+        "manPosChange": "0",
         "manBgColor": "",
         "negative": 0,
-        "cash": 24093480,
+        "cash": 23984380,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -4086,11 +4106,11 @@
         "tyre": "Pipirelli",
         "natCode": "om",
         "IDM": 1142707,
-        "manArrow": "down",
-        "manPosChange": "-2",
+        "manArrow": "equals",
+        "manPosChange": "0",
         "manBgColor": "",
         "negative": 0,
-        "cash": 24044560,
+        "cash": 23904480,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -4190,11 +4210,11 @@
         "tyre": "Pipirelli",
         "natCode": "it",
         "IDM": 1143181,
-        "manArrow": "down",
-        "manPosChange": "-2",
+        "manArrow": "equals",
+        "manPosChange": "0",
         "manBgColor": "",
         "negative": 0,
-        "cash": 21638010,
+        "cash": 21393100,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -4294,11 +4314,11 @@
         "tyre": "Pipirelli",
         "natCode": "br",
         "IDM": 1140166,
-        "manArrow": "down",
-        "manPosChange": "-1",
+        "manArrow": "equals",
+        "manPosChange": "0",
         "manBgColor": "",
         "negative": 0,
-        "cash": 24483636,
+        "cash": 23237622,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -5612,13 +5632,30 @@
             1,
             1,
             1,
+            1,
             1
           ]
         },
         {
           "type": "line",
-          "name": "T. Arsovska",
+          "name": "P. Tkaczyk",
           "color": "#15317E",
+          "data": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            3,
+            2
+          ]
+        },
+        {
+          "type": "line",
+          "name": "T. Arsovska",
+          "color": "#ECE5B6",
           "data": [
             10,
             4,
@@ -5627,20 +5664,6 @@
             3,
             3,
             3,
-            2
-          ]
-        },
-        {
-          "type": "line",
-          "name": "P. Tkaczyk",
-          "color": "#ECE5B6",
-          "data": [
-            2,
-            2,
-            2,
-            2,
-            2,
-            2,
             2,
             3
           ]
@@ -5652,6 +5675,7 @@
           "data": [
             3,
             3,
+            4,
             4,
             4,
             4,
@@ -5672,6 +5696,7 @@
             5,
             5,
             6,
+            5,
             5
           ]
         },
@@ -5687,6 +5712,7 @@
             7,
             6,
             5,
+            6,
             6
           ]
         },
@@ -5702,28 +5728,14 @@
             8,
             8,
             8,
+            7,
             7
           ]
         },
         {
           "type": "line",
-          "name": "R. Culver",
-          "color": "#F9B7FF",
-          "data": [
-            7,
-            5,
-            5,
-            5,
-            6,
-            7,
-            7,
-            8
-          ]
-        },
-        {
-          "type": "line",
           "name": "K. Csaba",
-          "color": "#667C26",
+          "color": "#F9B7FF",
           "data": [
             16,
             17,
@@ -5732,6 +5744,23 @@
             12,
             11,
             9,
+            9,
+            8
+          ]
+        },
+        {
+          "type": "line",
+          "name": "R. Culver",
+          "color": "#667C26",
+          "data": [
+            7,
+            5,
+            5,
+            5,
+            6,
+            7,
+            7,
+            8,
             9
           ]
         },
@@ -5746,6 +5775,7 @@
             14,
             11,
             9,
+            10,
             10,
             10
           ]
@@ -5762,43 +5792,14 @@
             9,
             10,
             11,
+            11,
             11
           ]
         },
         {
           "type": "line",
-          "name": "P. Gera",
-          "color": "#6C2DC7",
-          "data": [
-            6,
-            8,
-            11,
-            12,
-            13,
-            13,
-            13,
-            12
-          ]
-        },
-        {
-          "type": "line",
-          "name": "I. Bravo",
-          "color": "#FFF380",
-          "data": [
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            13
-          ]
-        },
-        {
-          "type": "line",
           "name": "D. Pizzi",
-          "color": "#6AFB92",
+          "color": "#6C2DC7",
           "data": [
             12,
             14,
@@ -5807,6 +5808,39 @@
             14,
             14,
             14,
+            14,
+            12
+          ]
+        },
+        {
+          "type": "line",
+          "name": "P. Gera",
+          "color": "#FFF380",
+          "data": [
+            6,
+            8,
+            11,
+            12,
+            13,
+            13,
+            13,
+            12,
+            13
+          ]
+        },
+        {
+          "type": "line",
+          "name": "I. Bravo",
+          "color": "#6AFB92",
+          "data": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            13,
             14
           ]
         },
@@ -5822,6 +5856,7 @@
             17,
             17,
             17,
+            15,
             15
           ]
         },
@@ -5837,12 +5872,13 @@
             15,
             15,
             15,
+            16,
             16
           ]
         },
         {
           "type": "line",
-          "name": "&#211;. Rodr&#237;guez",
+          "name": "J. Souto",
           "color": "#3090C7",
           "data": [
             null,
@@ -5852,13 +5888,30 @@
             null,
             null,
             null,
+            20,
             17
           ]
         },
         {
           "type": "line",
-          "name": "B. Gdt",
+          "name": "&#211;. Rodr&#237;guez",
           "color": "#EBDDE2",
+          "data": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            17,
+            18
+          ]
+        },
+        {
+          "type": "line",
+          "name": "B. Gdt",
+          "color": "#5EFB6E",
           "data": [
             null,
             null,
@@ -5867,13 +5920,14 @@
             null,
             18,
             18,
-            18
+            18,
+            19
           ]
         },
         {
           "type": "line",
           "name": "C. Mcguire",
-          "color": "#5EFB6E",
+          "color": "#C24641",
           "data": [
             null,
             null,
@@ -5882,43 +5936,14 @@
             null,
             23,
             22,
-            19
-          ]
-        },
-        {
-          "type": "line",
-          "name": "J. Souto",
-          "color": "#C24641",
-          "data": [
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
+            19,
             20
           ]
         },
         {
           "type": "line",
-          "name": "",
-          "color": "#C7A317",
-          "data": [
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null
-          ]
-        },
-        {
-          "type": "line",
           "name": "M. Lin",
-          "color": "#306EFF",
+          "color": "#C7A317",
           "data": [
             52,
             20,
@@ -5927,12 +5952,29 @@
             20,
             20,
             20,
-            22
+            22,
+            21
           ]
         },
         {
           "type": "line",
           "name": "L. Unknown",
+          "color": "#306EFF",
+          "data": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            21,
+            21,
+            23,
+            22
+          ]
+        },
+        {
+          "type": "line",
+          "name": "C. Caruso",
           "color": "#FAAFBE",
           "data": [
             null,
@@ -5940,30 +5982,16 @@
             null,
             null,
             null,
-            21,
-            21,
+            null,
+            null,
+            24,
             23
           ]
         },
         {
           "type": "line",
-          "name": "C. Caruso",
-          "color": "#347235",
-          "data": [
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            24
-          ]
-        },
-        {
-          "type": "line",
           "name": "K. Theod&#243;rou",
-          "color": "#F52887",
+          "color": "#347235",
           "data": [
             null,
             null,
@@ -5972,12 +6000,29 @@
             null,
             22,
             23,
-            25
+            25,
+            24
           ]
         },
         {
           "type": "line",
           "name": "V. Ukrainer",
+          "color": "#F52887",
+          "data": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            24,
+            24,
+            26,
+            25
+          ]
+        },
+        {
+          "type": "line",
+          "name": "&#1030;. Gugnyak",
           "color": "#E56717",
           "data": [
             null,
@@ -5985,14 +6030,15 @@
             null,
             null,
             null,
-            24,
-            24,
+            25,
+            25,
+            27,
             26
           ]
         },
         {
           "type": "line",
-          "name": "&#1030;. Gugnyak",
+          "name": "E. Coetzee",
           "color": "#8E35EF",
           "data": [
             null,
@@ -6000,30 +6046,16 @@
             null,
             null,
             null,
-            25,
-            25,
+            null,
+            null,
+            28,
             27
           ]
         },
         {
           "type": "line",
-          "name": "E. Coetzee",
-          "color": "#EDDA74",
-          "data": [
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            28
-          ]
-        },
-        {
-          "type": "line",
           "name": "Z. Luk&#225;cs",
-          "color": "#4CC417",
+          "color": "#EDDA74",
           "data": [
             23,
             29,
@@ -6032,14 +6064,32 @@
             null,
             26,
             26,
+            29,
+            28
+          ]
+        },
+        {
+          "type": "line",
+          "name": "W. Afton",
+          "color": "#4CC417",
+          "data": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
             29
           ]
         },
         {
           "type": "line",
-          "name": "A. Fsao&#287;jf",
+          "name": "M. De Riera",
           "color": "#E41B17",
           "data": [
+            null,
             null,
             null,
             null,
@@ -6052,7 +6102,7 @@
         },
         {
           "type": "line",
-          "name": "G. Perez Jimenez",
+          "name": "P. Paulsen",
           "color": "#FBB117",
           "data": [
             null,
@@ -6061,14 +6111,47 @@
             null,
             null,
             null,
-            28,
+            null,
+            null,
             31
           ]
         },
         {
           "type": "line",
-          "name": "T. Delaplanche",
+          "name": "A. Fsao&#287;jf",
           "color": "#3BB9FF",
+          "data": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            30,
+            32
+          ]
+        },
+        {
+          "type": "line",
+          "name": "G. Perez Jimenez",
+          "color": "#E7A1B0",
+          "data": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            28,
+            31,
+            33
+          ]
+        },
+        {
+          "type": "line",
+          "name": "T. Delaplanche",
+          "color": "#00FFFF",
           "data": [
             null,
             null,
@@ -6077,13 +6160,14 @@
             null,
             28,
             29,
-            32
+            32,
+            34
           ]
         },
         {
           "type": "line",
           "name": "J. Krizan",
-          "color": "#E7A1B0",
+          "color": "#C48793",
           "data": [
             null,
             null,
@@ -6092,13 +6176,14 @@
             null,
             29,
             30,
-            33
+            33,
+            35
           ]
         },
         {
           "type": "line",
           "name": "A. Unknown",
-          "color": "#00FFFF",
+          "color": "#F87431",
           "data": [
             null,
             null,
@@ -6107,13 +6192,14 @@
             null,
             30,
             31,
-            34
+            34,
+            36
           ]
         },
         {
           "type": "line",
           "name": "C. Chiarotti",
-          "color": "#C48793",
+          "color": "#BDEDFF",
           "data": [
             null,
             null,
@@ -6122,28 +6208,14 @@
             null,
             31,
             32,
-            35
-          ]
-        },
-        {
-          "type": "line",
-          "name": "",
-          "color": "#F87431",
-          "data": [
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null
+            35,
+            37
           ]
         },
         {
           "type": "line",
           "name": "P. Vitor",
-          "color": "#BDEDFF",
+          "color": "#810541",
           "data": [
             null,
             null,
@@ -6152,7 +6224,8 @@
             35,
             40,
             37,
-            37
+            37,
+            38
           ]
         }
       ]
@@ -6194,7 +6267,7 @@
         "enabled": false
       },
       "yAxis": {
-        "max": 80,
+        "max": 90,
         "min": 0,
         "startOnTick": false,
         "tickInterval": 1,
@@ -6515,27 +6588,13 @@
             44,
             52,
             60,
-            64
-          ]
-        },
-        {
-          "name": "T. Arsovska",
-          "color": "#15317E",
-          "data": [
-            0,
-            0,
-            8,
-            16,
-            22,
-            30,
-            40,
-            50,
-            58
+            64,
+            72
           ]
         },
         {
           "name": "P. Tkaczyk",
-          "color": "#ECE5B6",
+          "color": "#15317E",
           "data": [
             0,
             8,
@@ -6545,7 +6604,24 @@
             39,
             45,
             51,
-            57
+            57,
+            67
+          ]
+        },
+        {
+          "name": "T. Arsovska",
+          "color": "#ECE5B6",
+          "data": [
+            0,
+            0,
+            8,
+            16,
+            22,
+            30,
+            40,
+            50,
+            58,
+            64
           ]
         },
         {
@@ -6560,7 +6636,8 @@
             22,
             23,
             23,
-            33
+            33,
+            35
           ]
         },
         {
@@ -6575,7 +6652,8 @@
             12,
             16,
             17,
-            22
+            22,
+            26
           ]
         },
         {
@@ -6589,6 +6667,7 @@
             8,
             10,
             15,
+            20,
             20,
             20
           ]
@@ -6605,27 +6684,13 @@
             9,
             9,
             9,
-            11
-          ]
-        },
-        {
-          "name": "R. Culver",
-          "color": "#F9B7FF",
-          "data": [
-            0,
-            2,
-            7,
-            10,
-            10,
-            10,
-            10,
-            10,
-            10
+            11,
+            16
           ]
         },
         {
           "name": "K. Csaba",
-          "color": "#667C26",
+          "color": "#F9B7FF",
           "data": [
             0,
             0,
@@ -6635,6 +6700,23 @@
             3,
             5,
             9,
+            10,
+            11
+          ]
+        },
+        {
+          "name": "R. Culver",
+          "color": "#667C26",
+          "data": [
+            0,
+            2,
+            7,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
             10
           ]
         },
@@ -6649,6 +6731,7 @@
             0,
             3,
             6,
+            9,
             9,
             9
           ]
@@ -6665,14 +6748,32 @@
             5,
             5,
             7,
+            7,
             7
           ]
         },
         {
-          "name": "P. Gera",
+          "name": "D. Pizzi",
           "color": "#6C2DC7",
           "data": [
             0,
+            0,
+            0,
+            0,
+            1,
+            1,
+            1,
+            1,
+            1,
+            4
+          ]
+        },
+        {
+          "name": "P. Gera",
+          "color": "#FFF380",
+          "data": [
+            0,
+            3,
             3,
             3,
             3,
@@ -6685,38 +6786,25 @@
         },
         {
           "name": "I. Bravo",
-          "color": "#FFF380",
-          "data": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            3
-          ]
-        },
-        {
-          "name": "D. Pizzi",
           "color": "#6AFB92",
           "data": [
             0,
             0,
             0,
             0,
-            1,
-            1,
-            1,
-            1,
-            1
+            0,
+            0,
+            0,
+            0,
+            3,
+            3
           ]
         },
         {
           "name": "R. Sena",
           "color": "#C031C7",
           "data": [
+            0,
             0,
             0,
             0,
@@ -6740,13 +6828,31 @@
             0,
             0,
             0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "J. Souto",
+          "color": "#3090C7",
+          "data": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
             0
           ]
         },
         {
           "name": "&#211;. Rodr&#237;guez",
-          "color": "#3090C7",
+          "color": "#EBDDE2",
           "data": [
+            0,
             0,
             0,
             0,
@@ -6760,8 +6866,9 @@
         },
         {
           "name": "B. Gdt",
-          "color": "#EBDDE2",
+          "color": "#5EFB6E",
           "data": [
+            0,
             0,
             0,
             0,
@@ -6775,38 +6882,9 @@
         },
         {
           "name": "C. Mcguire",
-          "color": "#5EFB6E",
-          "data": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        {
-          "name": "J. Souto",
           "color": "#C24641",
           "data": [
             0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        {
-          "name": "",
-          "color": "#C7A317",
-          "data": [
             0,
             0,
             0,
@@ -6820,8 +6898,9 @@
         },
         {
           "name": "M. Lin",
-          "color": "#306EFF",
+          "color": "#C7A317",
           "data": [
+            0,
             0,
             0,
             0,
@@ -6835,8 +6914,9 @@
         },
         {
           "name": "L. Unknown",
-          "color": "#FAAFBE",
+          "color": "#306EFF",
           "data": [
+            0,
             0,
             0,
             0,
@@ -6850,8 +6930,9 @@
         },
         {
           "name": "C. Caruso",
-          "color": "#347235",
+          "color": "#FAAFBE",
           "data": [
+            0,
             0,
             0,
             0,
@@ -6865,8 +6946,9 @@
         },
         {
           "name": "K. Theod&#243;rou",
-          "color": "#F52887",
+          "color": "#347235",
           "data": [
+            0,
             0,
             0,
             0,
@@ -6880,8 +6962,9 @@
         },
         {
           "name": "V. Ukrainer",
-          "color": "#E56717",
+          "color": "#F52887",
           "data": [
+            0,
             0,
             0,
             0,
@@ -6895,8 +6978,9 @@
         },
         {
           "name": "&#1030;. Gugnyak",
-          "color": "#8E35EF",
+          "color": "#E56717",
           "data": [
+            0,
             0,
             0,
             0,
@@ -6910,7 +6994,7 @@
         }
       ]
     },
-    "apiRequestsRemaining": 82
+    "apiRequestsRemaining": 92
   },
   "car_status": {
     "loadingDataState": "1",
@@ -6940,18 +7024,18 @@
     "lvlSidepods": 2,
     "lvlSusp": 3,
     "lvlUnderbody": 3,
-    "usaBrakes": 0,
-    "usaChassis": 31,
-    "usaCooling": 18,
-    "usaElectronics": 47,
-    "usaEngine": 39,
-    "usaFWing": 25,
-    "usaGear": 26,
-    "usaRWing": 20,
-    "usaSidepods": 70,
-    "usaSusp": 31,
-    "usaUnderbody": 0,
-    "canRepair": 0,
+    "usaBrakes": 20,
+    "usaChassis": 60,
+    "usaCooling": 42,
+    "usaElectronics": 67,
+    "usaEngine": 56,
+    "usaFWing": 56,
+    "usaGear": 50,
+    "usaRWing": 55,
+    "usaSidepods": 93,
+    "usaSusp": 46,
+    "usaUnderbody": 33,
+    "canRepair": 1,
     "canUndo": 0,
     "endOfSeason": 0,
     "raceInProgress": 0,
@@ -6963,7 +7047,7 @@
           "cost": 0
         },
         "newLvl": "3",
-        "newWear": "31",
+        "newWear": "60",
         "disabled": "false",
         "text": "Nie wymieniaj"
       },
@@ -7013,9 +7097,9 @@
           "cost": 0
         },
         "newLvl": "1",
-        "newWear": "21",
+        "newWear": "42",
         "disabled": "false",
-        "text": "Obni&#380; na L1 (Zu&#380;ycie: 21%)"
+        "text": "Obni&#380; na L1 (Zu&#380;ycie: 42%)"
       },
       {
         "value": {
@@ -7023,9 +7107,9 @@
           "cost": 0
         },
         "newLvl": "2",
-        "newWear": "26",
+        "newWear": "51",
         "disabled": "false",
-        "text": "Obni&#380; na L2 (Zu&#380;ycie: 26%)"
+        "text": "Obni&#380; na L2 (Zu&#380;ycie: 51%)"
       }
     ],
     "engineOptions": [
@@ -7035,7 +7119,7 @@
           "cost": 0
         },
         "newLvl": "4",
-        "newWear": "39",
+        "newWear": "56",
         "disabled": "false",
         "text": "Nie wymieniaj"
       },
@@ -7095,9 +7179,9 @@
           "cost": 0
         },
         "newLvl": "1",
-        "newWear": "21",
+        "newWear": "30",
         "disabled": "false",
-        "text": "Obni&#380; na L1 (Zu&#380;ycie: 21%)"
+        "text": "Obni&#380; na L1 (Zu&#380;ycie: 30%)"
       },
       {
         "value": {
@@ -7105,9 +7189,9 @@
           "cost": 0
         },
         "newLvl": "2",
-        "newWear": "27",
+        "newWear": "39",
         "disabled": "false",
-        "text": "Obni&#380; na L2 (Zu&#380;ycie: 27%)"
+        "text": "Obni&#380; na L2 (Zu&#380;ycie: 39%)"
       },
       {
         "value": {
@@ -7115,9 +7199,9 @@
           "cost": 0
         },
         "newLvl": "3",
-        "newWear": "33",
+        "newWear": "47",
         "disabled": "false",
-        "text": "Obni&#380; na L3 (Zu&#380;ycie: 33%)"
+        "text": "Obni&#380; na L3 (Zu&#380;ycie: 47%)"
       }
     ],
     "fWingOptions": [
@@ -7127,7 +7211,7 @@
           "cost": 0
         },
         "newLvl": "3",
-        "newWear": "25",
+        "newWear": "56",
         "disabled": "false",
         "text": "Nie wymieniaj"
       },
@@ -7177,9 +7261,9 @@
           "cost": 0
         },
         "newLvl": "1",
-        "newWear": "17",
+        "newWear": "39",
         "disabled": "false",
-        "text": "Obni&#380; na L1 (Zu&#380;ycie: 17%)"
+        "text": "Obni&#380; na L1 (Zu&#380;ycie: 39%)"
       },
       {
         "value": {
@@ -7187,9 +7271,9 @@
           "cost": 0
         },
         "newLvl": "2",
-        "newWear": "21",
+        "newWear": "47",
         "disabled": "false",
-        "text": "Obni&#380; na L2 (Zu&#380;ycie: 21%)"
+        "text": "Obni&#380; na L2 (Zu&#380;ycie: 47%)"
       }
     ],
     "rWingOptions": [
@@ -7199,7 +7283,7 @@
           "cost": 0
         },
         "newLvl": "3",
-        "newWear": "20",
+        "newWear": "55",
         "disabled": "false",
         "text": "Nie wymieniaj"
       },
@@ -7249,9 +7333,9 @@
           "cost": 0
         },
         "newLvl": "1",
-        "newWear": "14",
+        "newWear": "38",
         "disabled": "false",
-        "text": "Obni&#380; na L1 (Zu&#380;ycie: 14%)"
+        "text": "Obni&#380; na L1 (Zu&#380;ycie: 38%)"
       },
       {
         "value": {
@@ -7259,9 +7343,9 @@
           "cost": 0
         },
         "newLvl": "2",
-        "newWear": "17",
+        "newWear": "46",
         "disabled": "false",
-        "text": "Obni&#380; na L2 (Zu&#380;ycie: 17%)"
+        "text": "Obni&#380; na L2 (Zu&#380;ycie: 46%)"
       }
     ],
     "underbodyOptions": [
@@ -7271,7 +7355,7 @@
           "cost": 0
         },
         "newLvl": "3",
-        "newWear": "0",
+        "newWear": "33",
         "disabled": "false",
         "text": "Nie wymieniaj"
       },
@@ -7321,9 +7405,9 @@
           "cost": 0
         },
         "newLvl": "1",
-        "newWear": "0",
+        "newWear": "23",
         "disabled": "false",
-        "text": "Obni&#380; na L1 (Zu&#380;ycie: 0%)"
+        "text": "Obni&#380; na L1 (Zu&#380;ycie: 23%)"
       },
       {
         "value": {
@@ -7331,9 +7415,9 @@
           "cost": 0
         },
         "newLvl": "2",
-        "newWear": "0",
+        "newWear": "28",
         "disabled": "false",
-        "text": "Obni&#380; na L2 (Zu&#380;ycie: 0%)"
+        "text": "Obni&#380; na L2 (Zu&#380;ycie: 28%)"
       }
     ],
     "sidepodsOptions": [
@@ -7343,7 +7427,7 @@
           "cost": 0
         },
         "newLvl": "2",
-        "newWear": "70",
+        "newWear": "93",
         "disabled": "false",
         "text": "Nie wymieniaj"
       },
@@ -7383,9 +7467,9 @@
           "cost": 0
         },
         "newLvl": "1",
-        "newWear": "59",
+        "newWear": "79",
         "disabled": "false",
-        "text": "Obni&#380; na L1 (Zu&#380;ycie: 59%)"
+        "text": "Obni&#380; na L1 (Zu&#380;ycie: 79%)"
       }
     ],
     "coolingOptions": [
@@ -7395,7 +7479,7 @@
           "cost": 0
         },
         "newLvl": "3",
-        "newWear": "18",
+        "newWear": "42",
         "disabled": "false",
         "text": "Nie wymieniaj"
       },
@@ -7445,9 +7529,9 @@
           "cost": 0
         },
         "newLvl": "1",
-        "newWear": "12",
+        "newWear": "29",
         "disabled": "false",
-        "text": "Obni&#380; na L1 (Zu&#380;ycie: 12%)"
+        "text": "Obni&#380; na L1 (Zu&#380;ycie: 29%)"
       },
       {
         "value": {
@@ -7455,9 +7539,9 @@
           "cost": 0
         },
         "newLvl": "2",
-        "newWear": "15",
+        "newWear": "35",
         "disabled": "false",
-        "text": "Obni&#380; na L2 (Zu&#380;ycie: 15%)"
+        "text": "Obni&#380; na L2 (Zu&#380;ycie: 35%)"
       }
     ],
     "gearOptions": [
@@ -7467,7 +7551,7 @@
           "cost": 0
         },
         "newLvl": "3",
-        "newWear": "26",
+        "newWear": "50",
         "disabled": "false",
         "text": "Nie wymieniaj"
       },
@@ -7517,9 +7601,9 @@
           "cost": 0
         },
         "newLvl": "1",
-        "newWear": "18",
+        "newWear": "35",
         "disabled": "false",
-        "text": "Obni&#380; na L1 (Zu&#380;ycie: 18%)"
+        "text": "Obni&#380; na L1 (Zu&#380;ycie: 35%)"
       },
       {
         "value": {
@@ -7527,9 +7611,9 @@
           "cost": 0
         },
         "newLvl": "2",
-        "newWear": "22",
+        "newWear": "42",
         "disabled": "false",
-        "text": "Obni&#380; na L2 (Zu&#380;ycie: 22%)"
+        "text": "Obni&#380; na L2 (Zu&#380;ycie: 42%)"
       }
     ],
     "brakesOptions": [
@@ -7539,7 +7623,7 @@
           "cost": 0
         },
         "newLvl": "4",
-        "newWear": "0",
+        "newWear": "20",
         "disabled": "false",
         "text": "Nie wymieniaj"
       },
@@ -7599,9 +7683,9 @@
           "cost": 0
         },
         "newLvl": "1",
-        "newWear": "0",
+        "newWear": "11",
         "disabled": "false",
-        "text": "Obni&#380; na L1 (Zu&#380;ycie: 0%)"
+        "text": "Obni&#380; na L1 (Zu&#380;ycie: 11%)"
       },
       {
         "value": {
@@ -7609,9 +7693,9 @@
           "cost": 0
         },
         "newLvl": "2",
-        "newWear": "0",
+        "newWear": "14",
         "disabled": "false",
-        "text": "Obni&#380; na L2 (Zu&#380;ycie: 0%)"
+        "text": "Obni&#380; na L2 (Zu&#380;ycie: 14%)"
       },
       {
         "value": {
@@ -7619,9 +7703,9 @@
           "cost": 0
         },
         "newLvl": "3",
-        "newWear": "0",
+        "newWear": "17",
         "disabled": "false",
-        "text": "Obni&#380; na L3 (Zu&#380;ycie: 0%)"
+        "text": "Obni&#380; na L3 (Zu&#380;ycie: 17%)"
       }
     ],
     "suspOptions": [
@@ -7631,7 +7715,7 @@
           "cost": 0
         },
         "newLvl": "3",
-        "newWear": "31",
+        "newWear": "46",
         "disabled": "false",
         "text": "Nie wymieniaj"
       },
@@ -7681,9 +7765,9 @@
           "cost": 0
         },
         "newLvl": "1",
-        "newWear": "21",
+        "newWear": "32",
         "disabled": "false",
-        "text": "Obni&#380; na L1 (Zu&#380;ycie: 21%)"
+        "text": "Obni&#380; na L1 (Zu&#380;ycie: 32%)"
       },
       {
         "value": {
@@ -7691,9 +7775,9 @@
           "cost": 0
         },
         "newLvl": "2",
-        "newWear": "26",
+        "newWear": "39",
         "disabled": "false",
-        "text": "Obni&#380; na L2 (Zu&#380;ycie: 26%)"
+        "text": "Obni&#380; na L2 (Zu&#380;ycie: 39%)"
       }
     ],
     "electronicsOptions": [
@@ -7703,7 +7787,7 @@
           "cost": 0
         },
         "newLvl": "2",
-        "newWear": "47",
+        "newWear": "67",
         "disabled": "false",
         "text": "Nie wymieniaj"
       },
@@ -7743,9 +7827,9 @@
           "cost": 0
         },
         "newLvl": "1",
-        "newWear": "39",
+        "newWear": "56",
         "disabled": "false",
-        "text": "Obni&#380; na L1 (Zu&#380;ycie: 39%)"
+        "text": "Obni&#380; na L1 (Zu&#380;ycie: 56%)"
       }
     ],
     "selectedBrakes": {
@@ -7795,13 +7879,13 @@
     "totalCosts": 0,
     "undoCompleted": 0,
     "carUpdated": 0,
-    "cash": 27144484,
+    "cash": 36137384,
     "showCarUpdateAlert": false,
     "showUndoAlert": false,
     "showUndoAlertCredits": false,
     "showUndoAlertNoCredits": false,
     "credits": 0,
-    "races": 11,
-    "apiRequestsRemaining": 81
+    "races": 12,
+    "apiRequestsRemaining": 91
   }
 }

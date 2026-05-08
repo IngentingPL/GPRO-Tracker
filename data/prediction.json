@@ -1,21 +1,21 @@
 {
-  "generated_at": "2026-05-07T15:26:32.100255Z",
+  "generated_at": "2026-05-08T20:32:07.270018Z",
   "next_race": {
-    "track": "Adelaide GP (Australia)",
+    "track": "Nurburgring GP (Niemcy)",
     "season": 110,
-    "race": 9,
+    "race": 10,
     "total_laps": 72,
-    "track_id": "19"
+    "track_id": "21"
   },
   "confidence": "low",
   "confidence_reason": "Fallback: punkt startowy z danych toru (downforce)",
   "driver_margin": {
     "MA": 124,
     "half_MA": 62,
-    "note": "Setup ±62 od optimum da satisfied (MA=124, TI=25, EXP=29)"
+    "note": "Setup ±62 od optimum da satisfied (MA=124, TI=26, EXP=30)"
   },
   "base": {
-    "track": "Adelaide GP (Australia)",
+    "track": "Nurburgring GP (Niemcy)",
     "setup": {
       "fw": 512,
       "rw": 512,
@@ -30,172 +30,117 @@
     {
       "id": "PRACTICE 1",
       "type": "practice",
-      "completed": true,
-      "is_next": false,
+      "completed": false,
+      "is_next": true,
       "setup": {
-        "fw": 480,
-        "rw": 560,
-        "eng": 620,
-        "bra": 620,
-        "gear": 460,
-        "susp": 720
+        "fw": 516,
+        "rw": 516,
+        "eng": 507,
+        "bra": 518,
+        "gear": 507,
+        "susp": 506,
+        "temp": 21
       },
-      "feedback": "Brakuje mi trochą przyczepności w zakrątach; Postaraj sią odrobiną obni&#380;y&#263; obroty; Proszą przesu&#324; balans du&#380;o bardziej do tyłu",
+      "feedback": "",
       "tyres": "Medium",
       "temp": 21,
-      "note": "Completed session",
+      "note": "Sugerowany setup na podstawie poprzednich sesji",
       "session_key": "P1"
     },
     {
       "id": "PRACTICE 2",
       "type": "practice",
-      "completed": true,
+      "completed": false,
       "is_next": false,
-      "setup": {
-        "fw": 600,
-        "rw": 700,
-        "eng": 500,
-        "bra": 500,
-        "gear": 460,
-        "susp": 720
-      },
-      "feedback": "Myślą, &#380;e efektywnoś&#263; hamulc&#243;w byłaby wiąksza, gdyby przesuną&#263; balans na tył",
+      "setup": null,
+      "feedback": "",
       "tyres": "Medium",
       "temp": 21,
-      "note": "Completed session",
+      "note": "",
       "session_key": "P2"
     },
     {
       "id": "PRACTICE 3",
       "type": "practice",
-      "completed": true,
+      "completed": false,
       "is_next": false,
-      "setup": {
-        "fw": 600,
-        "rw": 700,
-        "eng": 500,
-        "bra": 400,
-        "gear": 460,
-        "susp": 720
-      },
-      "feedback": "Przesu&#324; balans trochą do tyłu",
+      "setup": null,
+      "feedback": "",
       "tyres": "Medium",
       "temp": 21,
-      "note": "Completed session",
+      "note": "",
       "session_key": "P3"
     },
     {
       "id": "PRACTICE 4",
       "type": "practice",
-      "completed": true,
+      "completed": false,
       "is_next": false,
-      "setup": {
-        "fw": 600,
-        "rw": 700,
-        "eng": 500,
-        "bra": 300,
-        "gear": 460,
-        "susp": 720
-      },
+      "setup": null,
       "feedback": "",
       "tyres": "Medium",
       "temp": 21,
-      "note": "Completed session",
+      "note": "",
       "session_key": "P4"
     },
     {
       "id": "PRACTICE 5",
       "type": "practice",
-      "completed": true,
+      "completed": false,
       "is_next": false,
-      "setup": {
-        "fw": 620,
-        "rw": 720,
-        "eng": 500,
-        "bra": 300,
-        "gear": 460,
-        "susp": 720
-      },
+      "setup": null,
       "feedback": "",
       "tyres": "Medium",
       "temp": 21,
-      "note": "Completed session",
+      "note": "",
       "session_key": "P5"
     },
     {
       "id": "PRACTICE 6",
       "type": "practice",
-      "completed": true,
+      "completed": false,
       "is_next": false,
-      "setup": {
-        "fw": 600,
-        "rw": 700,
-        "eng": 540,
-        "bra": 300,
-        "gear": 460,
-        "susp": 720
-      },
+      "setup": null,
       "feedback": "",
       "tyres": "Medium",
       "temp": 21,
-      "note": "Completed session",
+      "note": "",
       "session_key": "P6"
     },
     {
       "id": "PRACTICE 7",
       "type": "practice",
-      "completed": true,
+      "completed": false,
       "is_next": false,
-      "setup": {
-        "fw": 600,
-        "rw": 700,
-        "eng": 580,
-        "bra": 300,
-        "gear": 460,
-        "susp": 720
-      },
+      "setup": null,
       "feedback": "",
       "tyres": "Medium",
       "temp": 21,
-      "note": "Completed session",
+      "note": "",
       "session_key": "P7"
     },
     {
       "id": "PRACTICE 8",
       "type": "practice",
-      "completed": true,
+      "completed": false,
       "is_next": false,
-      "setup": {
-        "fw": 600,
-        "rw": 700,
-        "eng": 540,
-        "bra": 300,
-        "gear": 460,
-        "susp": 680
-      },
+      "setup": null,
       "feedback": "",
       "tyres": "Medium",
       "temp": 21,
-      "note": "Completed session",
+      "note": "",
       "session_key": "P8"
     },
     {
       "id": "QUALIFYING 1",
       "type": "q1",
       "completed": false,
-      "is_next": true,
-      "setup": {
-        "fw": 600,
-        "rw": 700,
-        "eng": 500,
-        "bra": 400,
-        "gear": 460,
-        "susp": 720
-      },
+      "is_next": false,
+      "setup": null,
       "feedback": "",
       "tyres": "Medium",
       "temp": 22,
-      "note": "Setup skorygowany o: Przesu&#324; balans trochą do tyłu...",
+      "note": "",
       "session_key": "Q1"
     },
     {
@@ -238,52 +183,52 @@
       "fuel_strategy": {
         "pits": 2,
         "stints": [
-          102,
-          102,
-          102
+          99,
+          99,
+          99
         ],
-        "total_fuel": 307
+        "total_fuel": 297
       }
     }
   ],
   "fuel_strategy": {
-    "fuel_per_lap": 4.26,
+    "fuel_per_lap": 4.13,
     "recommended": {
       "pits": 2,
       "stints": [
-        102,
-        102,
-        102
+        99,
+        99,
+        99
       ],
-      "total_fuel": 307
+      "total_fuel": 297
     },
     "alternative": {
       "pits": 3,
       "stints": [
-        102,
-        102,
-        102,
-        102
+        99,
+        99,
+        99,
+        99
       ],
-      "total_fuel": 408
+      "total_fuel": 396
     }
   },
   "tyre_strategy": {
-    "est_tyre_life_laps": 35,
-    "laps_on_fuel": 42,
+    "est_tyre_life_laps": 42,
+    "laps_on_fuel": 43,
     "bottleneck": "tyres",
-    "bottleneck_explanation": "Opony na ~35 okr, paliwo na ~42 okr → pit stopy wynikają z opon"
+    "bottleneck_explanation": "Opony na ~42 okr, paliwo na ~43 okr → pit stopy wynikają z opon"
   },
   "tyre_info": {
     "supplier": "Pipirelli",
     "bottleneck": "tyres",
-    "est_tyre_life_laps": 35
+    "est_tyre_life_laps": 42
   },
   "notes": [
-    "Predykcja oparta na 11 wyścigach w historii.",
+    "Predykcja oparta na 12 wyścigach w historii.",
     "Pewność: low - Fallback: punkt startowy z danych toru (downforce)",
-    "Kierowca: Noel Lavin (TI=25, EXP=29)",
+    "Kierowca: Noel Lavin (TI=26, EXP=30)",
     "Margines kierowcy: ±62 od optimum.",
-    "Opony: ~35 okr, paliwo: ~42 okr"
+    "Opony: ~42 okr, paliwo: ~43 okr"
   ]
 }
