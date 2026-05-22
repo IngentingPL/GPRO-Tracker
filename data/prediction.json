@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-05-21T06:21:17.698625Z",
+  "generated_at": "2026-05-22T20:52:42.685572Z",
   "next_race": {
-    "track": "Montreal GP (Kanada)",
+    "track": "Zolder GP (Belgia)",
     "season": 110,
-    "race": 13,
+    "race": 14,
     "total_laps": 72,
-    "track_id": "6"
+    "track_id": "26"
   },
   "confidence": "low",
   "confidence_reason": "Fallback: punkt startowy z danych toru (downforce)",
@@ -15,7 +15,7 @@
     "note": "Setup ±62 od optimum da satisfied (MA=124, TI=26, EXP=30)"
   },
   "base": {
-    "track": "Montreal GP (Kanada)",
+    "track": "Zolder GP (Belgia)",
     "setup": {
       "fw": 512,
       "rw": 512,
@@ -183,41 +183,41 @@
       "fuel_strategy": {
         "pits": 2,
         "stints": [
-          125,
-          125,
-          125
+          122,
+          122,
+          122
         ],
-        "total_fuel": 375
+        "total_fuel": 367
       }
     }
   ],
   "fuel_strategy": {
-    "fuel_per_lap": 5.21,
+    "fuel_per_lap": 5.1,
     "recommended": {
       "pits": 2,
       "stints": [
-        125,
-        125,
-        125
+        122,
+        122,
+        122
       ],
-      "total_fuel": 375
+      "total_fuel": 367
     },
     "alternative": {
       "pits": 3,
       "stints": [
-        125,
-        125,
-        125,
-        125
+        122,
+        122,
+        122,
+        122
       ],
-      "total_fuel": 500
+      "total_fuel": 488
     }
   },
   "tyre_strategy": {
     "est_tyre_life_laps": 35,
-    "laps_on_fuel": 34,
+    "laps_on_fuel": 35,
     "bottleneck": "fuel",
-    "bottleneck_explanation": "Paliwo na ~34 okr, opony na ~35 okr → pit stopy wynikają z paliwa"
+    "bottleneck_explanation": "Paliwo na ~35 okr, opony na ~35 okr → pit stopy wynikają z paliwa"
   },
   "tyre_info": {
     "supplier": "Pipirelli",
@@ -225,10 +225,10 @@
     "est_tyre_life_laps": 35
   },
   "notes": [
-    "Predykcja oparta na 15 wyścigach w historii.",
+    "Predykcja oparta na 16 wyścigach w historii.",
     "Pewność: low - Fallback: punkt startowy z danych toru (downforce)",
     "Kierowca: Noel Lavin (TI=26, EXP=30)",
     "Margines kierowcy: ±62 od optimum.",
-    "Opony: ~35 okr, paliwo: ~34 okr"
+    "Opony: ~35 okr, paliwo: ~35 okr"
   ]
 }
