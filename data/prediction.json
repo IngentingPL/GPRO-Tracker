@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-05-26T21:09:24.811493Z",
+  "generated_at": "2026-05-29T21:19:28.244523Z",
   "next_race": {
-    "track": "Serres GP (Grecja)",
+    "track": "Silverstone GP (Wielka Brytania)",
     "season": 110,
-    "race": 15,
+    "race": 16,
     "total_laps": 72,
-    "track_id": "53"
+    "track_id": "8"
   },
   "confidence": "low",
   "confidence_reason": "Fallback: punkt startowy z danych toru (downforce)",
@@ -15,14 +15,14 @@
     "note": "Setup ±62 od optimum da satisfied (MA=124, TI=26, EXP=30)"
   },
   "base": {
-    "track": "Serres GP (Grecja)",
+    "track": "Silverstone GP (Wielka Brytania)",
     "setup": {
-      "fw": 768,
-      "rw": 768,
-      "eng": 768,
-      "bra": 768,
-      "gear": 768,
-      "susp": 768
+      "fw": 256,
+      "rw": 256,
+      "eng": 256,
+      "bra": 256,
+      "gear": 256,
+      "susp": 256
     },
     "temp": 20
   },
@@ -33,12 +33,12 @@
       "completed": false,
       "is_next": true,
       "setup": {
-        "fw": 772,
-        "rw": 772,
-        "eng": 763,
-        "bra": 774,
-        "gear": 763,
-        "susp": 762,
+        "fw": 260,
+        "rw": 260,
+        "eng": 251,
+        "bra": 262,
+        "gear": 251,
+        "susp": 250,
         "temp": 21
       },
       "feedback": "",
@@ -149,12 +149,12 @@
       "completed": false,
       "is_next": false,
       "setup": {
-        "fw": 793,
-        "rw": 793,
-        "eng": 738,
-        "bra": 803,
-        "gear": 738,
-        "susp": 735
+        "fw": 281,
+        "rw": 281,
+        "eng": 226,
+        "bra": 291,
+        "gear": 226,
+        "susp": 223
       },
       "feedback": "",
       "tyres": "Medium",
@@ -168,12 +168,12 @@
       "completed": false,
       "is_next": false,
       "setup": {
-        "fw": 797,
-        "rw": 797,
-        "eng": 733,
-        "bra": 809,
-        "gear": 733,
-        "susp": 730
+        "fw": 285,
+        "rw": 285,
+        "eng": 221,
+        "bra": 297,
+        "gear": 221,
+        "susp": 218
       },
       "feedback": "",
       "tyres": "Medium",
@@ -183,52 +183,52 @@
       "fuel_strategy": {
         "pits": 2,
         "stints": [
-          120,
-          120,
-          120
+          116,
+          116,
+          116
         ],
-        "total_fuel": 359
+        "total_fuel": 349
       }
     }
   ],
   "fuel_strategy": {
-    "fuel_per_lap": 4.99,
+    "fuel_per_lap": 4.85,
     "recommended": {
       "pits": 2,
       "stints": [
-        120,
-        120,
-        120
+        116,
+        116,
+        116
       ],
-      "total_fuel": 359
+      "total_fuel": 349
     },
     "alternative": {
       "pits": 3,
       "stints": [
-        120,
-        120,
-        120,
-        120
+        116,
+        116,
+        116,
+        116
       ],
-      "total_fuel": 480
+      "total_fuel": 464
     }
   },
   "tyre_strategy": {
-    "est_tyre_life_laps": 35,
-    "laps_on_fuel": 36,
-    "bottleneck": "tyres",
-    "bottleneck_explanation": "Opony na ~35 okr, paliwo na ~36 okr → pit stopy wynikają z opon"
+    "est_tyre_life_laps": 42,
+    "laps_on_fuel": 37,
+    "bottleneck": "fuel",
+    "bottleneck_explanation": "Paliwo na ~37 okr, opony na ~42 okr → pit stopy wynikają z paliwa"
   },
   "tyre_info": {
     "supplier": "Pipirelli",
-    "bottleneck": "tyres",
-    "est_tyre_life_laps": 35
+    "bottleneck": "fuel",
+    "est_tyre_life_laps": 42
   },
   "notes": [
-    "Predykcja oparta na 17 wyścigach w historii.",
+    "Predykcja oparta na 18 wyścigach w historii.",
     "Pewność: low - Fallback: punkt startowy z danych toru (downforce)",
     "Kierowca: Noel Lavin (TI=26, EXP=30)",
     "Margines kierowcy: ±62 od optimum.",
-    "Opony: ~35 okr, paliwo: ~36 okr"
+    "Opony: ~42 okr, paliwo: ~37 okr"
   ]
 }
