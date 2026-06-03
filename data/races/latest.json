@@ -230,7 +230,7 @@
       "total": 6718444,
       "balance": 21499811
     },
-    "fetched_at": "2026-06-02T22:05:43.149180Z"
+    "fetched_at": "2026-06-03T18:29:48.282251Z"
   },
   "race_summary": {
     "track": "Silverstone",
@@ -244,7 +244,7 @@
     "isSupporter": 0,
     "driverNotFoundNote": true,
     "credits": 0,
-    "cash": 21499811,
+    "cash": 18810391,
     "natCode": "mx",
     "natName": "Meksyk",
     "face": "1",
@@ -354,7 +354,7 @@
     "overall": 106,
     "driverFaceUpdated": 0,
     "driverFaceCost": 0.1,
-    "energy": 87,
+    "energy": 100,
     "concentration": 178,
     "talent": 106,
     "aggressiveness": 0,
@@ -419,7 +419,7 @@
     "privateOfferCost": 1000000,
     "setOfferCost": 500000,
     "setOfferType": "1",
-    "nextPriceIncrementIn": 125653,
+    "nextPriceIncrementIn": 52208,
     "offerPlaced": 0,
     "inShortList": 1,
     "oneRaceRenewFee": 206864,
@@ -441,7 +441,7 @@
     "setContractLengthExtend": "",
     "totalOffers": 0,
     "offersFrom": [],
-    "apiRequestsRemaining": 93
+    "apiRequestsRemaining": 83
   },
   "standings": {
     "loadingDataState": "1",
@@ -562,7 +562,7 @@
         "manPosChange": "0",
         "manBgColor": "#007700",
         "negative": 0,
-        "cash": 21499811,
+        "cash": 18810391,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -666,7 +666,7 @@
         "manPosChange": "-2",
         "manBgColor": "#007700",
         "negative": 0,
-        "cash": 8477142,
+        "cash": 7927142,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -770,7 +770,7 @@
         "manPosChange": "0",
         "manBgColor": "#007700",
         "negative": 0,
-        "cash": 71852352,
+        "cash": 63860006,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -874,7 +874,7 @@
         "manPosChange": "+1",
         "manBgColor": "",
         "negative": 0,
-        "cash": 5907563,
+        "cash": 4607563,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -1498,7 +1498,7 @@
         "manPosChange": "0",
         "manBgColor": "",
         "negative": 0,
-        "cash": 8479552,
+        "cash": 1649511,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -2538,7 +2538,7 @@
         "manPosChange": "+6",
         "manBgColor": "",
         "negative": 1,
-        "cash": -10528307,
+        "cash": -11128307,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -2954,7 +2954,7 @@
         "manPosChange": "-2",
         "manBgColor": "",
         "negative": 0,
-        "cash": 17333831,
+        "cash": 8937495,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -3161,8 +3161,8 @@
         "manArrow": "down",
         "manPosChange": "-3",
         "manBgColor": "",
-        "negative": 0,
-        "cash": 8130889,
+        "negative": 1,
+        "cash": -1218252,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -3266,7 +3266,7 @@
         "manPosChange": "+12",
         "manBgColor": "",
         "negative": 0,
-        "cash": 19066500,
+        "cash": 9729000,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -3361,13 +3361,117 @@
         "pts": "0"
       },
       {
-        "name": "Olle Pierik",
+        "name": "Ytauan Silva",
         "pos": "29",
+        "tyre": "Pipirelli",
+        "natCode": "br",
+        "IDM": 1104026,
+        "manArrow": "up",
+        "manPosChange": "+11",
+        "manBgColor": "",
+        "negative": 0,
+        "cash": 13900000,
+        "retires": 0,
+        "goesRookie": 0,
+        "didSoftReset": 0,
+        "champs": "0",
+        "results": [
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          }
+        ],
+        "pts": "0"
+      },
+      {
+        "name": "Olle Pierik",
+        "pos": "30",
         "tyre": "Pipirelli",
         "natCode": "nl",
         "IDM": 1148367,
         "manArrow": "down",
-        "manPosChange": "-7",
+        "manPosChange": "-8",
         "manBgColor": "",
         "negative": 0,
         "cash": 14905688,
@@ -3466,12 +3570,12 @@
       },
       {
         "name": "Filipe Pires",
-        "pos": "30",
+        "pos": "31",
         "tyre": "Pipirelli",
         "natCode": "pt",
         "IDM": 1148695,
         "manArrow": "up",
-        "manPosChange": "+10",
+        "manPosChange": "+9",
         "manBgColor": "",
         "negative": 0,
         "cash": 14180034,
@@ -3570,12 +3674,12 @@
       },
       {
         "name": "Leonardo Parra Sanchez",
-        "pos": "31",
+        "pos": "32",
         "tyre": "Pipirelli",
         "natCode": "it",
         "IDM": 1148018,
         "manArrow": "down",
-        "manPosChange": "-3",
+        "manPosChange": "-4",
         "manBgColor": "",
         "negative": 0,
         "cash": 492079,
@@ -3674,12 +3778,12 @@
       },
       {
         "name": "Jm Autoparts",
-        "pos": "32",
+        "pos": "33",
         "tyre": "Pipirelli",
         "natCode": "pa",
         "IDM": 1147832,
         "manArrow": "down",
-        "manPosChange": "-3",
+        "manPosChange": "-4",
         "manBgColor": "",
         "negative": 0,
         "cash": 17432840,
@@ -3778,12 +3882,12 @@
       },
       {
         "name": "Unai Murcia Gerbol&#233;s",
-        "pos": "33",
+        "pos": "34",
         "tyre": "Pipirelli",
         "natCode": "es",
         "IDM": 1147751,
         "manArrow": "down",
-        "manPosChange": "-3",
+        "manPosChange": "-4",
         "manBgColor": "",
         "negative": 0,
         "cash": 17413490,
@@ -3882,12 +3986,12 @@
       },
       {
         "name": "Rafael Oliveira",
-        "pos": "34",
+        "pos": "35",
         "tyre": "Pipirelli",
         "natCode": "us",
         "IDM": 1146646,
         "manArrow": "down",
-        "manPosChange": "-3",
+        "manPosChange": "-4",
         "manBgColor": "",
         "negative": 0,
         "cash": 18160255,
@@ -3986,12 +4090,12 @@
       },
       {
         "name": "&#1053;&#1080;&#1082;&#1086;&#1083;&#1072; &#1058;&#1088;&#1080;&#1087;&#1082;&#1086;&#1074;&#1080;&#1115;",
-        "pos": "35",
+        "pos": "36",
         "tyre": "Pipirelli",
         "natCode": "rs",
         "IDM": 1146278,
         "manArrow": "down",
-        "manPosChange": "-3",
+        "manPosChange": "-4",
         "manBgColor": "",
         "negative": 0,
         "cash": 16126168,
@@ -4090,12 +4194,12 @@
       },
       {
         "name": "Fahack Ty",
-        "pos": "36",
+        "pos": "37",
         "tyre": "Pipirelli",
         "natCode": "es",
         "IDM": 1145445,
         "manArrow": "down",
-        "manPosChange": "-3",
+        "manPosChange": "-4",
         "manBgColor": "",
         "negative": 0,
         "cash": 17742781,
@@ -7222,16 +7326,16 @@
         }
       ]
     },
-    "apiRequestsRemaining": 92
+    "apiRequestsRemaining": 82
   },
   "car_status": {
     "loadingDataState": "1",
-    "carPower": 47,
+    "carPower": 48,
     "carHandl": 71,
-    "carAccel": 53,
-    "testPowerPoints": 0,
-    "testHandlPoints": 0,
-    "testAccelPoints": 0,
+    "carAccel": 54,
+    "testPowerPoints": 12.6,
+    "testHandlPoints": 46.3,
+    "testAccelPoints": 12.6,
     "RDPowerPoints": 6.2,
     "RDHandlPoints": 49.5,
     "RDAccelPoints": 6.2,
@@ -7244,7 +7348,7 @@
     "lvlChassis": 5,
     "lvlBrakes": 4,
     "lvlCooling": 4,
-    "lvlElectronics": 2,
+    "lvlElectronics": 3,
     "lvlEngine": 3,
     "lvlFWing": 5,
     "lvlRWing": 5,
@@ -7252,18 +7356,18 @@
     "lvlSidepods": 4,
     "lvlSusp": 5,
     "lvlUnderbody": 5,
-    "usaBrakes": 34,
-    "usaChassis": 26,
-    "usaCooling": 79,
-    "usaElectronics": 89,
-    "usaEngine": 51,
-    "usaFWing": 25,
-    "usaGear": 39,
-    "usaRWing": 28,
-    "usaSidepods": 81,
-    "usaSusp": 55,
-    "usaUnderbody": 29,
-    "canRepair": 1,
+    "usaBrakes": 55,
+    "usaChassis": 38,
+    "usaCooling": 89,
+    "usaElectronics": 6,
+    "usaEngine": 72,
+    "usaFWing": 38,
+    "usaGear": 57,
+    "usaRWing": 40,
+    "usaSidepods": 91,
+    "usaSusp": 71,
+    "usaUnderbody": 42,
+    "canRepair": 0,
     "canUndo": 0,
     "endOfSeason": 0,
     "raceInProgress": 0,
@@ -7275,7 +7379,7 @@
           "cost": 0
         },
         "newLvl": "5",
-        "newWear": "26",
+        "newWear": "38",
         "disabled": "false",
         "text": "Nie wymieniaj"
       },
@@ -7345,9 +7449,9 @@
           "cost": 0
         },
         "newLvl": "1",
-        "newWear": "10",
+        "newWear": "15",
         "disabled": "false",
-        "text": "Obni&#380; na L1 (Zu&#380;ycie: 10%)"
+        "text": "Obni&#380; na L1 (Zu&#380;ycie: 15%)"
       },
       {
         "value": {
@@ -7355,9 +7459,9 @@
           "cost": 0
         },
         "newLvl": "2",
-        "newWear": "14",
+        "newWear": "20",
         "disabled": "false",
-        "text": "Obni&#380; na L2 (Zu&#380;ycie: 14%)"
+        "text": "Obni&#380; na L2 (Zu&#380;ycie: 20%)"
       },
       {
         "value": {
@@ -7365,9 +7469,9 @@
           "cost": 0
         },
         "newLvl": "3",
-        "newWear": "18",
+        "newWear": "26",
         "disabled": "false",
-        "text": "Obni&#380; na L3 (Zu&#380;ycie: 18%)"
+        "text": "Obni&#380; na L3 (Zu&#380;ycie: 26%)"
       },
       {
         "value": {
@@ -7375,9 +7479,9 @@
           "cost": 0
         },
         "newLvl": "4",
-        "newWear": "22",
+        "newWear": "32",
         "disabled": "false",
-        "text": "Obni&#380; na L4 (Zu&#380;ycie: 22%)"
+        "text": "Obni&#380; na L4 (Zu&#380;ycie: 32%)"
       }
     ],
     "engineOptions": [
@@ -7387,7 +7491,7 @@
           "cost": 0
         },
         "newLvl": "3",
-        "newWear": "51",
+        "newWear": "72",
         "disabled": "false",
         "text": "Nie wymieniaj"
       },
@@ -7437,9 +7541,9 @@
           "cost": 0
         },
         "newLvl": "1",
-        "newWear": "35",
+        "newWear": "50",
         "disabled": "false",
-        "text": "Obni&#380; na L1 (Zu&#380;ycie: 35%)"
+        "text": "Obni&#380; na L1 (Zu&#380;ycie: 50%)"
       },
       {
         "value": {
@@ -7447,9 +7551,9 @@
           "cost": 0
         },
         "newLvl": "2",
-        "newWear": "43",
+        "newWear": "61",
         "disabled": "false",
-        "text": "Obni&#380; na L2 (Zu&#380;ycie: 43%)"
+        "text": "Obni&#380; na L2 (Zu&#380;ycie: 61%)"
       }
     ],
     "fWingOptions": [
@@ -7459,7 +7563,7 @@
           "cost": 0
         },
         "newLvl": "5",
-        "newWear": "25",
+        "newWear": "38",
         "disabled": "false",
         "text": "Nie wymieniaj"
       },
@@ -7529,9 +7633,9 @@
           "cost": 0
         },
         "newLvl": "1",
-        "newWear": "10",
+        "newWear": "15",
         "disabled": "false",
-        "text": "Obni&#380; na L1 (Zu&#380;ycie: 10%)"
+        "text": "Obni&#380; na L1 (Zu&#380;ycie: 15%)"
       },
       {
         "value": {
@@ -7539,9 +7643,9 @@
           "cost": 0
         },
         "newLvl": "2",
-        "newWear": "13",
+        "newWear": "20",
         "disabled": "false",
-        "text": "Obni&#380; na L2 (Zu&#380;ycie: 13%)"
+        "text": "Obni&#380; na L2 (Zu&#380;ycie: 20%)"
       },
       {
         "value": {
@@ -7549,9 +7653,9 @@
           "cost": 0
         },
         "newLvl": "3",
-        "newWear": "17",
+        "newWear": "26",
         "disabled": "false",
-        "text": "Obni&#380; na L3 (Zu&#380;ycie: 17%)"
+        "text": "Obni&#380; na L3 (Zu&#380;ycie: 26%)"
       },
       {
         "value": {
@@ -7559,9 +7663,9 @@
           "cost": 0
         },
         "newLvl": "4",
-        "newWear": "21",
+        "newWear": "32",
         "disabled": "false",
-        "text": "Obni&#380; na L4 (Zu&#380;ycie: 21%)"
+        "text": "Obni&#380; na L4 (Zu&#380;ycie: 32%)"
       }
     ],
     "rWingOptions": [
@@ -7571,7 +7675,7 @@
           "cost": 0
         },
         "newLvl": "5",
-        "newWear": "28",
+        "newWear": "40",
         "disabled": "false",
         "text": "Nie wymieniaj"
       },
@@ -7641,9 +7745,9 @@
           "cost": 0
         },
         "newLvl": "1",
-        "newWear": "11",
+        "newWear": "16",
         "disabled": "false",
-        "text": "Obni&#380; na L1 (Zu&#380;ycie: 11%)"
+        "text": "Obni&#380; na L1 (Zu&#380;ycie: 16%)"
       },
       {
         "value": {
@@ -7651,9 +7755,9 @@
           "cost": 0
         },
         "newLvl": "2",
-        "newWear": "15",
+        "newWear": "22",
         "disabled": "false",
-        "text": "Obni&#380; na L2 (Zu&#380;ycie: 15%)"
+        "text": "Obni&#380; na L2 (Zu&#380;ycie: 22%)"
       },
       {
         "value": {
@@ -7661,9 +7765,9 @@
           "cost": 0
         },
         "newLvl": "3",
-        "newWear": "19",
+        "newWear": "28",
         "disabled": "false",
-        "text": "Obni&#380; na L3 (Zu&#380;ycie: 19%)"
+        "text": "Obni&#380; na L3 (Zu&#380;ycie: 28%)"
       },
       {
         "value": {
@@ -7671,9 +7775,9 @@
           "cost": 0
         },
         "newLvl": "4",
-        "newWear": "23",
+        "newWear": "34",
         "disabled": "false",
-        "text": "Obni&#380; na L4 (Zu&#380;ycie: 23%)"
+        "text": "Obni&#380; na L4 (Zu&#380;ycie: 34%)"
       }
     ],
     "underbodyOptions": [
@@ -7683,7 +7787,7 @@
           "cost": 0
         },
         "newLvl": "5",
-        "newWear": "29",
+        "newWear": "42",
         "disabled": "false",
         "text": "Nie wymieniaj"
       },
@@ -7753,9 +7857,9 @@
           "cost": 0
         },
         "newLvl": "1",
-        "newWear": "11",
+        "newWear": "16",
         "disabled": "false",
-        "text": "Obni&#380; na L1 (Zu&#380;ycie: 11%)"
+        "text": "Obni&#380; na L1 (Zu&#380;ycie: 16%)"
       },
       {
         "value": {
@@ -7763,9 +7867,9 @@
           "cost": 0
         },
         "newLvl": "2",
-        "newWear": "15",
+        "newWear": "23",
         "disabled": "false",
-        "text": "Obni&#380; na L2 (Zu&#380;ycie: 15%)"
+        "text": "Obni&#380; na L2 (Zu&#380;ycie: 23%)"
       },
       {
         "value": {
@@ -7773,9 +7877,9 @@
           "cost": 0
         },
         "newLvl": "3",
-        "newWear": "20",
+        "newWear": "29",
         "disabled": "false",
-        "text": "Obni&#380; na L3 (Zu&#380;ycie: 20%)"
+        "text": "Obni&#380; na L3 (Zu&#380;ycie: 29%)"
       },
       {
         "value": {
@@ -7783,9 +7887,9 @@
           "cost": 0
         },
         "newLvl": "4",
-        "newWear": "24",
+        "newWear": "35",
         "disabled": "false",
-        "text": "Obni&#380; na L4 (Zu&#380;ycie: 24%)"
+        "text": "Obni&#380; na L4 (Zu&#380;ycie: 35%)"
       }
     ],
     "sidepodsOptions": [
@@ -7795,7 +7899,7 @@
           "cost": 0
         },
         "newLvl": "4",
-        "newWear": "81",
+        "newWear": "91",
         "disabled": "false",
         "text": "Nie wymieniaj"
       },
@@ -7855,9 +7959,9 @@
           "cost": 0
         },
         "newLvl": "1",
-        "newWear": "44",
+        "newWear": "50",
         "disabled": "false",
-        "text": "Obni&#380; na L1 (Zu&#380;ycie: 44%)"
+        "text": "Obni&#380; na L1 (Zu&#380;ycie: 50%)"
       },
       {
         "value": {
@@ -7865,9 +7969,9 @@
           "cost": 0
         },
         "newLvl": "2",
-        "newWear": "56",
+        "newWear": "63",
         "disabled": "false",
-        "text": "Obni&#380; na L2 (Zu&#380;ycie: 56%)"
+        "text": "Obni&#380; na L2 (Zu&#380;ycie: 63%)"
       },
       {
         "value": {
@@ -7875,9 +7979,9 @@
           "cost": 0
         },
         "newLvl": "3",
-        "newWear": "68",
+        "newWear": "77",
         "disabled": "false",
-        "text": "Obni&#380; na L3 (Zu&#380;ycie: 68%)"
+        "text": "Obni&#380; na L3 (Zu&#380;ycie: 77%)"
       }
     ],
     "coolingOptions": [
@@ -7887,7 +7991,7 @@
           "cost": 0
         },
         "newLvl": "4",
-        "newWear": "79",
+        "newWear": "89",
         "disabled": "false",
         "text": "Nie wymieniaj"
       },
@@ -7947,9 +8051,9 @@
           "cost": 0
         },
         "newLvl": "1",
-        "newWear": "43",
+        "newWear": "48",
         "disabled": "false",
-        "text": "Obni&#380; na L1 (Zu&#380;ycie: 43%)"
+        "text": "Obni&#380; na L1 (Zu&#380;ycie: 48%)"
       },
       {
         "value": {
@@ -7957,9 +8061,9 @@
           "cost": 0
         },
         "newLvl": "2",
-        "newWear": "55",
+        "newWear": "62",
         "disabled": "false",
-        "text": "Obni&#380; na L2 (Zu&#380;ycie: 55%)"
+        "text": "Obni&#380; na L2 (Zu&#380;ycie: 62%)"
       },
       {
         "value": {
@@ -7967,9 +8071,9 @@
           "cost": 0
         },
         "newLvl": "3",
-        "newWear": "67",
+        "newWear": "75",
         "disabled": "false",
-        "text": "Obni&#380; na L3 (Zu&#380;ycie: 67%)"
+        "text": "Obni&#380; na L3 (Zu&#380;ycie: 75%)"
       }
     ],
     "gearOptions": [
@@ -7979,7 +8083,7 @@
           "cost": 0
         },
         "newLvl": "3",
-        "newWear": "39",
+        "newWear": "57",
         "disabled": "false",
         "text": "Nie wymieniaj"
       },
@@ -8029,9 +8133,9 @@
           "cost": 0
         },
         "newLvl": "1",
-        "newWear": "27",
+        "newWear": "39",
         "disabled": "false",
-        "text": "Obni&#380; na L1 (Zu&#380;ycie: 27%)"
+        "text": "Obni&#380; na L1 (Zu&#380;ycie: 39%)"
       },
       {
         "value": {
@@ -8039,9 +8143,9 @@
           "cost": 0
         },
         "newLvl": "2",
-        "newWear": "33",
+        "newWear": "48",
         "disabled": "false",
-        "text": "Obni&#380; na L2 (Zu&#380;ycie: 33%)"
+        "text": "Obni&#380; na L2 (Zu&#380;ycie: 48%)"
       }
     ],
     "brakesOptions": [
@@ -8051,7 +8155,7 @@
           "cost": 0
         },
         "newLvl": "4",
-        "newWear": "34",
+        "newWear": "55",
         "disabled": "false",
         "text": "Nie wymieniaj"
       },
@@ -8111,9 +8215,9 @@
           "cost": 0
         },
         "newLvl": "1",
-        "newWear": "18",
+        "newWear": "30",
         "disabled": "false",
-        "text": "Obni&#380; na L1 (Zu&#380;ycie: 18%)"
+        "text": "Obni&#380; na L1 (Zu&#380;ycie: 30%)"
       },
       {
         "value": {
@@ -8121,9 +8225,9 @@
           "cost": 0
         },
         "newLvl": "2",
-        "newWear": "23",
+        "newWear": "38",
         "disabled": "false",
-        "text": "Obni&#380; na L2 (Zu&#380;ycie: 23%)"
+        "text": "Obni&#380; na L2 (Zu&#380;ycie: 38%)"
       },
       {
         "value": {
@@ -8131,9 +8235,9 @@
           "cost": 0
         },
         "newLvl": "3",
-        "newWear": "28",
+        "newWear": "46",
         "disabled": "false",
-        "text": "Obni&#380; na L3 (Zu&#380;ycie: 28%)"
+        "text": "Obni&#380; na L3 (Zu&#380;ycie: 46%)"
       }
     ],
     "suspOptions": [
@@ -8143,7 +8247,7 @@
           "cost": 0
         },
         "newLvl": "5",
-        "newWear": "55",
+        "newWear": "71",
         "disabled": "false",
         "text": "Nie wymieniaj"
       },
@@ -8213,9 +8317,9 @@
           "cost": 0
         },
         "newLvl": "1",
-        "newWear": "22",
+        "newWear": "28",
         "disabled": "false",
-        "text": "Obni&#380; na L1 (Zu&#380;ycie: 22%)"
+        "text": "Obni&#380; na L1 (Zu&#380;ycie: 28%)"
       },
       {
         "value": {
@@ -8223,9 +8327,9 @@
           "cost": 0
         },
         "newLvl": "2",
-        "newWear": "30",
+        "newWear": "39",
         "disabled": "false",
-        "text": "Obni&#380; na L2 (Zu&#380;ycie: 30%)"
+        "text": "Obni&#380; na L2 (Zu&#380;ycie: 39%)"
       },
       {
         "value": {
@@ -8233,9 +8337,9 @@
           "cost": 0
         },
         "newLvl": "3",
-        "newWear": "38",
+        "newWear": "49",
         "disabled": "false",
-        "text": "Obni&#380; na L3 (Zu&#380;ycie: 38%)"
+        "text": "Obni&#380; na L3 (Zu&#380;ycie: 49%)"
       },
       {
         "value": {
@@ -8243,9 +8347,9 @@
           "cost": 0
         },
         "newLvl": "4",
-        "newWear": "46",
+        "newWear": "60",
         "disabled": "false",
-        "text": "Obni&#380; na L4 (Zu&#380;ycie: 46%)"
+        "text": "Obni&#380; na L4 (Zu&#380;ycie: 60%)"
       }
     ],
     "electronicsOptions": [
@@ -8254,8 +8358,8 @@
           "value": 0,
           "cost": 0
         },
-        "newLvl": "2",
-        "newWear": "89",
+        "newLvl": "3",
+        "newWear": "6",
         "disabled": "false",
         "text": "Nie wymieniaj"
       },
@@ -8291,13 +8395,33 @@
       },
       {
         "value": {
-          "value": -1,
+          "value": 4,
+          "cost": 1782721
+        },
+        "newLvl": "4",
+        "newWear": "0",
+        "disabled": "false",
+        "text": "Zamie&#324; na L4 ($1.782.721)"
+      },
+      {
+        "value": {
+          "value": -2,
           "cost": 0
         },
         "newLvl": "1",
-        "newWear": "75",
+        "newWear": "4",
         "disabled": "false",
-        "text": "Obni&#380; na L1 (Zu&#380;ycie: 75%)"
+        "text": "Obni&#380; na L1 (Zu&#380;ycie: 4%)"
+      },
+      {
+        "value": {
+          "value": -1,
+          "cost": 0
+        },
+        "newLvl": "2",
+        "newWear": "5",
+        "disabled": "false",
+        "text": "Obni&#380; na L2 (Zu&#380;ycie: 5%)"
       }
     ],
     "selectedBrakes": {
@@ -8347,13 +8471,13 @@
     "totalCosts": 0,
     "undoCompleted": 0,
     "carUpdated": 0,
-    "cash": 21499811,
+    "cash": 18810391,
     "showCarUpdateAlert": false,
     "showUndoAlert": false,
     "showUndoAlertCredits": false,
     "showUndoAlertNoCredits": false,
     "credits": 0,
     "races": 19,
-    "apiRequestsRemaining": 91
+    "apiRequestsRemaining": 81
   }
 }

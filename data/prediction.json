@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-02T22:05:50.704917Z",
+  "generated_at": "2026-06-03T18:29:55.591813Z",
   "next_race": {
     "track": "Monte Carlo GP (Monako)",
     "season": 110,
@@ -30,6 +30,25 @@
     {
       "id": "PRACTICE 1",
       "type": "practice",
+      "completed": true,
+      "is_next": false,
+      "setup": {
+        "fw": 989,
+        "rw": 999,
+        "eng": 344,
+        "bra": 552,
+        "gear": 316,
+        "susp": 481
+      },
+      "feedback": "",
+      "tyres": "Medium",
+      "temp": 21,
+      "note": "Completed session",
+      "session_key": "P1"
+    },
+    {
+      "id": "PRACTICE 2",
+      "type": "practice",
       "completed": false,
       "is_next": true,
       "setup": {
@@ -45,18 +64,6 @@
       "tyres": "Medium",
       "temp": 21,
       "note": "Sugerowany setup na podstawie poprzednich sesji",
-      "session_key": "P1"
-    },
-    {
-      "id": "PRACTICE 2",
-      "type": "practice",
-      "completed": false,
-      "is_next": false,
-      "setup": null,
-      "feedback": "",
-      "tyres": "Medium",
-      "temp": 21,
-      "note": "",
       "session_key": "P2"
     },
     {
