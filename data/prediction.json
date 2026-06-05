@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-06-03T18:29:55.591813Z",
+  "generated_at": "2026-06-05T21:00:34.246989Z",
   "next_race": {
-    "track": "Monte Carlo GP (Monako)",
+    "track": "Sakhir GP (Bahrajn)",
     "season": 110,
-    "race": 17,
+    "race": 1,
     "total_laps": 72,
-    "track_id": "4"
+    "track_id": "29"
   },
   "confidence": "low",
   "confidence_reason": "Fallback: punkt startowy z danych toru (downforce)",
@@ -15,14 +15,14 @@
     "note": "Setup ±62 od optimum da satisfied (MA=124, TI=26, EXP=30)"
   },
   "base": {
-    "track": "Monte Carlo GP (Monako)",
+    "track": "Sakhir GP (Bahrajn)",
     "setup": {
-      "fw": 768,
-      "rw": 768,
-      "eng": 768,
-      "bra": 768,
-      "gear": 768,
-      "susp": 768
+      "fw": 256,
+      "rw": 256,
+      "eng": 256,
+      "bra": 256,
+      "gear": 256,
+      "susp": 256
     },
     "temp": 20
   },
@@ -30,40 +30,33 @@
     {
       "id": "PRACTICE 1",
       "type": "practice",
-      "completed": true,
-      "is_next": false,
-      "setup": {
-        "fw": 989,
-        "rw": 999,
-        "eng": 344,
-        "bra": 552,
-        "gear": 316,
-        "susp": 481
-      },
-      "feedback": "",
-      "tyres": "Medium",
-      "temp": 21,
-      "note": "Completed session",
-      "session_key": "P1"
-    },
-    {
-      "id": "PRACTICE 2",
-      "type": "practice",
       "completed": false,
       "is_next": true,
       "setup": {
-        "fw": 772,
-        "rw": 772,
-        "eng": 763,
-        "bra": 774,
-        "gear": 763,
-        "susp": 762,
+        "fw": 260,
+        "rw": 260,
+        "eng": 251,
+        "bra": 262,
+        "gear": 251,
+        "susp": 250,
         "temp": 21
       },
       "feedback": "",
       "tyres": "Medium",
       "temp": 21,
       "note": "Sugerowany setup na podstawie poprzednich sesji",
+      "session_key": "P1"
+    },
+    {
+      "id": "PRACTICE 2",
+      "type": "practice",
+      "completed": false,
+      "is_next": false,
+      "setup": null,
+      "feedback": "",
+      "tyres": "Medium",
+      "temp": 21,
+      "note": "",
       "session_key": "P2"
     },
     {
@@ -141,90 +134,88 @@
     {
       "id": "QUALIFYING 1",
       "type": "q1",
-      "completed": false,
+      "completed": true,
       "is_next": false,
-      "setup": null,
+      "setup": {
+        "fw": 200,
+        "rw": 350,
+        "eng": 350,
+        "bra": 800,
+        "gear": 655,
+        "susp": 285
+      },
       "feedback": "",
       "tyres": "Medium",
       "temp": 22,
-      "note": "",
+      "note": "Completed session",
       "session_key": "Q1"
     },
     {
       "id": "QUALIFYING 2",
       "type": "q2",
-      "completed": false,
+      "completed": true,
       "is_next": false,
       "setup": {
-        "fw": 793,
-        "rw": 793,
-        "eng": 738,
-        "bra": 803,
-        "gear": 738,
-        "susp": 735
+        "fw": 200,
+        "rw": 350,
+        "eng": 350,
+        "bra": 800,
+        "gear": 655,
+        "susp": 285
       },
       "feedback": "",
       "tyres": "Medium",
       "temp": 26,
-      "note": "Setup skorygowany dla Q2 (wyższa temperatura)",
+      "note": "Completed session",
       "session_key": "Q2"
     },
     {
       "id": "RACE",
       "type": "race",
-      "completed": false,
+      "completed": true,
       "is_next": false,
       "setup": {
-        "fw": 797,
-        "rw": 797,
-        "eng": 733,
-        "bra": 809,
-        "gear": 733,
-        "susp": 730
+        "fw": 200,
+        "rw": 350,
+        "eng": 350,
+        "bra": 800,
+        "gear": 655,
+        "susp": 285
       },
       "feedback": "",
       "tyres": "Medium",
       "temp": 27,
-      "note": "Setup na wyścig (korekta temperatury)",
-      "session_key": "RACE",
-      "fuel_strategy": {
-        "pits": 2,
-        "stints": [
-          115,
-          115,
-          115
-        ],
-        "total_fuel": 346
-      }
+      "note": "Completed session",
+      "session_key": "RACE"
     }
   ],
   "fuel_strategy": {
-    "fuel_per_lap": 4.81,
+    "fuel_per_lap": 4.7,
     "recommended": {
       "pits": 2,
       "stints": [
-        115,
-        115,
-        115
+        113,
+        113,
+        113
       ],
-      "total_fuel": 346
+      "total_fuel": 338
     },
     "alternative": {
       "pits": 3,
       "stints": [
-        115,
-        115,
-        115,
-        115
+        113,
+        113,
+        113,
+        113
       ],
-      "total_fuel": 460
+      "total_fuel": 452
     }
   },
   "tyre_strategy": {
     "est_tyre_life_laps": 35,
-    "laps_on_fuel": 37,
+    "laps_on_fuel": 38,
     "bottleneck": "tyres",
-    "bottleneck_explanation": "Opony na ~35 okr, paliwo na ~37 okr → pit stopy wynikają z opon"
+    "bottleneck_explanation": "Opony na ~35 okr, paliwo na ~38 okr → pit stopy wynikają z opon"
   },
   "tyre_info": {
     "supplier": "Pipirelli",
@@ -232,10 +223,10 @@
     "est_tyre_life_laps": 35
   },
   "notes": [
-    "Predykcja oparta na 19 wyścigach w historii.",
+    "Predykcja oparta na 20 wyścigach w historii.",
     "Pewność: low - Fallback: punkt startowy z danych toru (downforce)",
     "Kierowca: Noel Lavin (TI=26, EXP=30)",
     "Margines kierowcy: ±62 od optimum.",
-    "Opony: ~35 okr, paliwo: ~37 okr"
+    "Opony: ~35 okr, paliwo: ~38 okr"
   ]
 }

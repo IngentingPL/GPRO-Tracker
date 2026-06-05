@@ -1,155 +1,171 @@
 {
   "race_data": {
     "season": "110",
-    "race": "16",
+    "race": "17",
     "group": "Rookie - 64",
-    "track": "Silverstone (Wielka Brytania)",
-    "track_country": "Wielka Brytania",
-    "track_id": "8",
-    "q1_time": "1:31.372s",
+    "track": "Monte Carlo (Monako)",
+    "track_country": "Monako",
+    "track_id": "4",
+    "q1_time": "1:24.994s",
     "q1_pos": "1",
-    "q2_time": "1:33.508s",
+    "q2_time": "1:24.524s",
     "q2_pos": "1",
-    "start_fuel": 82,
-    "finish_tyres": 15,
-    "finish_fuel": 2,
-    "overtake_attempts": "0",
-    "overtakes": "0",
+    "start_fuel": 16,
+    "finish_tyres": 32,
+    "finish_fuel": 19,
+    "overtake_attempts": "8",
+    "overtakes": "9",
     "setups": [
       {
         "session": "Kw1",
-        "fw": "350",
-        "rw": "450",
-        "eng": "750",
-        "bra": "580",
-        "gear": "750",
-        "susp": "460",
+        "fw": "989",
+        "rw": "999",
+        "eng": "344",
+        "bra": "552",
+        "gear": "316",
+        "susp": "481",
         "tyres": "Super mi&#281;kkie",
         "feedback": ""
       },
       {
         "session": "Kw2",
-        "fw": "350",
-        "rw": "450",
-        "eng": "750",
-        "bra": "580",
-        "gear": "750",
-        "susp": "460",
+        "fw": "999",
+        "rw": "999",
+        "eng": "337",
+        "bra": "564",
+        "gear": "308",
+        "susp": "469",
         "tyres": "Super mi&#281;kkie",
         "feedback": ""
       },
       {
         "session": "Wy&#347;cig",
-        "fw": "350",
-        "rw": "450",
-        "eng": "750",
-        "bra": "580",
-        "gear": "750",
-        "susp": "460",
+        "fw": "999",
+        "rw": "999",
+        "eng": "251",
+        "bra": "604",
+        "gear": "197",
+        "susp": "377",
         "tyres": "Super mi&#281;kkie",
         "feedback": ""
       }
     ],
     "pits": [
       {
-        "lap": 20,
+        "lap": 6,
         "reason": "Brak paliwa",
-        "tyre_condition": 10,
+        "tyre_condition": 77,
         "fuel_left": 0,
-        "refilled_to": 83,
-        "pit_time": "26.239"
+        "refilled_to": 74,
+        "pit_time": "23.502"
       },
       {
-        "lap": 40,
+        "lap": 8,
+        "reason": "Zmiana opon ze wzgl&#281;du na zmian&#281; pogody",
+        "tyre_condition": 97,
+        "fuel_left": 39,
+        "refilled_to": 0,
+        "pit_time": "20.012"
+      },
+      {
+        "lap": 47,
         "reason": "Brak paliwa",
-        "tyre_condition": 11,
-        "fuel_left": 1,
-        "refilled_to": 84,
-        "pit_time": "24.851"
+        "tyre_condition": 53,
+        "fuel_left": 0,
+        "refilled_to": 63,
+        "pit_time": "23.282"
+      },
+      {
+        "lap": 60,
+        "reason": "Zmiana opon ze wzgl&#281;du na zmian&#281; pogody",
+        "tyre_condition": 75,
+        "fuel_left": 21,
+        "refilled_to": 63,
+        "pit_time": "20.019"
       }
     ],
     "weather": {
       "q1": {
-        "condition": "Partially Cloudy",
-        "temp": 17,
-        "humidity": 28
+        "condition": "Cloudy",
+        "temp": 28,
+        "humidity": 61
       },
       "q2": {
-        "condition": "Partially Cloudy",
-        "temp": 17,
-        "humidity": 24
+        "condition": "Cloudy",
+        "temp": 30,
+        "humidity": 63
       },
       "race": {
         "temp_range": [
-          16,
-          17
+          28,
+          31
         ],
         "humidity_range": [
-          22,
-          31
+          64,
+          76
         ]
       }
     },
     "car_parts": {
       "chassis": {
         "level": 5,
-        "start_wear": 7,
-        "finish_wear": 26
+        "start_wear": 38,
+        "finish_wear": 52
       },
       "engine": {
         "level": 3,
-        "start_wear": 14,
-        "finish_wear": 51
+        "start_wear": 72,
+        "finish_wear": 89
       },
       "FWing": {
         "level": 5,
-        "start_wear": 8,
-        "finish_wear": 25
+        "start_wear": 38,
+        "finish_wear": 77
       },
       "RWing": {
         "level": 5,
-        "start_wear": 8,
-        "finish_wear": 28
+        "start_wear": 40,
+        "finish_wear": 80
       },
       "underbody": {
         "level": 5,
-        "start_wear": 8,
-        "finish_wear": 29
+        "start_wear": 42,
+        "finish_wear": 65
       },
       "sidepods": {
         "level": 4,
-        "start_wear": 67,
-        "finish_wear": 81
+        "start_wear": 91,
+        "finish_wear": 100
       },
       "cooling": {
         "level": 4,
-        "start_wear": 65,
-        "finish_wear": 79
+        "start_wear": 89,
+        "finish_wear": 100
       },
       "gear": {
         "level": 3,
-        "start_wear": 12,
-        "finish_wear": 39
+        "start_wear": 57,
+        "finish_wear": 81
       },
       "brakes": {
         "level": 4,
-        "start_wear": 14,
-        "finish_wear": 34
+        "start_wear": 55,
+        "finish_wear": 91
       },
       "susp": {
         "level": 5,
-        "start_wear": 38,
-        "finish_wear": 55
+        "start_wear": 71,
+        "finish_wear": 100
       },
       "electronics": {
-        "level": 2,
-        "start_wear": 78,
-        "finish_wear": 89
+        "level": 3,
+        "start_wear": 6,
+        "finish_wear": 19
       }
     },
-    "car_power": 47,
-    "car_handling": 64,
-    "car_acceleration": 53,
+    "car_power": 48,
+    "car_handling": 71,
+    "car_acceleration": 54,
     "tyre_supplier": {
       "name": "Pipirelli",
       "peak_temp": 31,
@@ -161,46 +177,46 @@
     "driver": {
       "name": "Noel Lavin",
       "id": 38738,
-      "OA": "105",
+      "OA": "106",
       "concentration": "178",
       "talent": "106",
       "aggressiveness": "0",
-      "experience": "38",
-      "technical_insight": "33",
-      "stamina": "128",
+      "experience": "39",
+      "technical_insight": "35",
+      "stamina": "130",
       "charisma": "92",
-      "motivation": "245",
+      "motivation": "250",
       "weight": "55"
     },
     "risks": {
       "q1": "Utrzymuj samoch&#243;d na torze",
-      "q2": "Utrzymuj samoch&#243;d na torze",
+      "q2": "Jed&#378; na granicy ryzyka",
       "start": "Przebijaj si&#281; do przodu",
       "overtake": "20",
       "defend": "20",
-      "clear_dry": "10",
-      "clear_wet": "10",
-      "problem": "0"
+      "clear_dry": "20",
+      "clear_wet": "20",
+      "problem": "20"
     },
     "energy": {
       "q1": {
-        "from": 100,
-        "to": 99
+        "from": 97,
+        "to": 97
       },
       "q2": {
-        "from": 99,
-        "to": 99
+        "from": 97,
+        "to": 93
       },
       "race": {
         "from": 100,
-        "to": 79
+        "to": 41
       }
     },
     "finances": {
       "transactions": [
         {
-          "description": "Pozycja w wy&#347;cigu (2)",
-          "amount": 7800000
+          "description": "Pozycja w wy&#347;cigu (3)",
+          "amount": 7700000
         },
         {
           "description": "Pozycja w kwalifikacjach (1)",
@@ -227,13 +243,13 @@
           "amount": -250000
         }
       ],
-      "total": 6718444,
-      "balance": 21499811
+      "total": 6618444,
+      "balance": 25428835
     },
-    "fetched_at": "2026-06-03T18:29:48.282251Z"
+    "fetched_at": "2026-06-05T21:00:22.850392Z"
   },
   "race_summary": {
-    "track": "Silverstone",
+    "track": "Monte Carlo",
     "season": "",
     "race": "",
     "results": []
@@ -244,7 +260,7 @@
     "isSupporter": 0,
     "driverNotFoundNote": true,
     "credits": 0,
-    "cash": 18810391,
+    "cash": 30428835,
     "natCode": "mx",
     "natName": "Meksyk",
     "face": "1",
@@ -333,11 +349,11 @@
     "initialContract": false,
     "noCrossGender": true,
     "trophies": 0,
-    "races": 18,
+    "races": 19,
     "wins": 5,
-    "podiums": 15,
-    "points": 132,
-    "poles": 9,
+    "podiums": 16,
+    "points": 138,
+    "poles": 10,
     "fastLaps": 3,
     "favTrack1": {
       "name": "<span class=\"lime\">Interlagos</span>",
@@ -351,20 +367,20 @@
       "name": "Baku City",
       "id": 58
     },
-    "overall": 106,
+    "overall": 107,
     "driverFaceUpdated": 0,
     "driverFaceCost": 0.1,
-    "energy": 100,
+    "energy": 51,
     "concentration": 178,
     "talent": 106,
     "aggressiveness": 0,
-    "experience": 39,
-    "experienceCapped": 39,
-    "techInsight": 35,
-    "stamina": 130,
+    "experience": 40,
+    "experienceCapped": 40,
+    "techInsight": 37,
+    "stamina": 131,
     "charisma": 92,
     "motivation": 250,
-    "reputation": 36,
+    "reputation": 38,
     "weight": 55,
     "age": 21,
     "retiring": 0,
@@ -402,7 +418,7 @@
       "group": "Rookie - 64"
     },
     "salary": "827456",
-    "racesLeft": "16",
+    "racesLeft": "15",
     "errorMsg": "<font color=\"orange\">Kierowca ju&#380; podpisa&#322; z Tob&#261; kontrakt.</font>",
     "canMakeOffer": 0,
     "setSalary": 827456,
@@ -419,7 +435,7 @@
     "privateOfferCost": 1000000,
     "setOfferCost": 500000,
     "setOfferType": "1",
-    "nextPriceIncrementIn": 52208,
+    "nextPriceIncrementIn": -3,
     "offerPlaced": 0,
     "inShortList": 1,
     "oneRaceRenewFee": 206864,
@@ -436,12 +452,12 @@
     "tenRaceRenewSalary": 959849,
     "thirteenRaceRenewSalary": 943300,
     "seventeenRaceRenewSalary": 926751,
-    "errorMsgExtend": "Og&#243;lny Wsp&#243;&#322;czynnik Twojego kierowcy przekracza dopuszczalny limit dla grupy Rookie",
+    "errorMsgExtend": "Nie mo&#380;esz przed&#322;u&#380;y&#263; kontraktu w trakcie trwania przerwy mi&#281;dzy sezonami",
     "errorMsgExtendColor": "orange",
     "setContractLengthExtend": "",
     "totalOffers": 0,
     "offersFrom": [],
-    "apiRequestsRemaining": 83
+    "apiRequestsRemaining": 95
   },
   "standings": {
     "loadingDataState": "1",
@@ -449,29 +465,34 @@
     "group": "Rookie - 64",
     "managers": [
       {
-        "name": "Tanja Arsovska",
+        "name": "Jeff Motsinger",
         "pos": "1",
         "tyre": "Pipirelli",
-        "natCode": "si",
-        "IDM": 901260,
+        "natCode": "us",
+        "IDM": 799797,
         "manArrow": "up",
         "manPosChange": "+2",
         "manBgColor": "#007700",
-        "negative": 0,
-        "cash": 5672811,
+        "negative": 1,
+        "cash": -8456461,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
         "champs": "0",
         "results": [
           {
-            "pos": "10",
-            "pts": "-",
-            "grid": "4"
+            "pos": "1",
+            "pts": "10",
+            "grid": "1"
           },
           {
-            "pos": "2",
-            "pts": "8",
+            "pos": "1",
+            "pts": "10",
+            "grid": "2"
+          },
+          {
+            "pos": "1",
+            "pts": "10",
             "grid": "1"
           },
           {
@@ -487,70 +508,65 @@
           {
             "pos": "2",
             "pts": "8",
-            "grid": "1"
-          },
-          {
-            "pos": "1",
-            "pts": "10",
-            "grid": "1"
-          },
-          {
-            "pos": "1",
-            "pts": "10",
-            "grid": "2"
+            "grid": "5"
           },
           {
             "pos": "2",
             "pts": "8",
-            "grid": "1"
+            "grid": "3"
           },
           {
-            "pos": "3",
-            "pts": "6",
-            "grid": "2"
+            "pos": "5",
+            "pts": "4",
+            "grid": "3"
           },
           {
-            "pos": "1",
-            "pts": "10",
-            "grid": "1"
+            "pos": "2",
+            "pts": "8",
+            "grid": "3"
           },
           {
-            "pos": "1",
-            "pts": "10",
-            "grid": "1"
+            "pos": "2",
+            "pts": "8",
+            "grid": "3"
           },
           {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
+            "pos": "4",
+            "pts": "5",
+            "grid": "3"
           },
           {
-            "pos": "1",
-            "pts": "10",
-            "grid": "2"
-          },
-          {
-            "pos": "1",
-            "pts": "10",
+            "pos": "2",
+            "pts": "8",
             "grid": "2"
           },
           {
             "pos": "3",
             "pts": "6",
-            "grid": "2"
+            "grid": "3"
           },
           {
-            "pos": "1",
-            "pts": "10",
-            "grid": "2"
+            "pos": "3",
+            "pts": "6",
+            "grid": "3"
           },
           {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
+            "pos": "2",
+            "pts": "8",
+            "grid": "3"
+          },
+          {
+            "pos": "3",
+            "pts": "6",
+            "grid": "3"
+          },
+          {
+            "pos": "2",
+            "pts": "8",
+            "grid": "5"
           }
         ],
-        "pts": "120"
+        "pts": "127"
       },
       {
         "name": "Piotr Tkaczyk",
@@ -562,7 +578,7 @@
         "manPosChange": "0",
         "manBgColor": "#007700",
         "negative": 0,
-        "cash": 18810391,
+        "cash": 30428835,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -649,42 +665,37 @@
             "grid": "1"
           },
           {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
+            "pos": "3",
+            "pts": "6",
+            "grid": "1"
           }
         ],
-        "pts": "119"
+        "pts": "125"
       },
       {
-        "name": "Jeff Motsinger",
+        "name": "Tanja Arsovska",
         "pos": "3",
         "tyre": "Pipirelli",
-        "natCode": "us",
-        "IDM": 799797,
+        "natCode": "si",
+        "IDM": 901260,
         "manArrow": "down",
         "manPosChange": "-2",
         "manBgColor": "#007700",
         "negative": 0,
-        "cash": 7927142,
+        "cash": 12125436,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
         "champs": "0",
         "results": [
           {
-            "pos": "1",
-            "pts": "10",
-            "grid": "1"
+            "pos": "10",
+            "pts": "-",
+            "grid": "4"
           },
           {
-            "pos": "1",
-            "pts": "10",
-            "grid": "2"
-          },
-          {
-            "pos": "1",
-            "pts": "10",
+            "pos": "2",
+            "pts": "8",
             "grid": "1"
           },
           {
@@ -700,65 +711,70 @@
           {
             "pos": "2",
             "pts": "8",
-            "grid": "5"
+            "grid": "1"
           },
           {
-            "pos": "2",
-            "pts": "8",
-            "grid": "3"
+            "pos": "1",
+            "pts": "10",
+            "grid": "1"
           },
           {
-            "pos": "5",
-            "pts": "4",
-            "grid": "3"
-          },
-          {
-            "pos": "2",
-            "pts": "8",
-            "grid": "3"
-          },
-          {
-            "pos": "2",
-            "pts": "8",
-            "grid": "3"
-          },
-          {
-            "pos": "4",
-            "pts": "5",
-            "grid": "3"
-          },
-          {
-            "pos": "2",
-            "pts": "8",
+            "pos": "1",
+            "pts": "10",
             "grid": "2"
           },
           {
-            "pos": "3",
-            "pts": "6",
-            "grid": "3"
-          },
-          {
-            "pos": "3",
-            "pts": "6",
-            "grid": "3"
-          },
-          {
             "pos": "2",
             "pts": "8",
-            "grid": "3"
+            "grid": "1"
           },
           {
             "pos": "3",
             "pts": "6",
-            "grid": "3"
+            "grid": "2"
+          },
+          {
+            "pos": "1",
+            "pts": "10",
+            "grid": "1"
+          },
+          {
+            "pos": "1",
+            "pts": "10",
+            "grid": "1"
           },
           {
             "pos": "-",
             "pts": "-",
             "grid": "-"
+          },
+          {
+            "pos": "1",
+            "pts": "10",
+            "grid": "2"
+          },
+          {
+            "pos": "1",
+            "pts": "10",
+            "grid": "2"
+          },
+          {
+            "pos": "3",
+            "pts": "6",
+            "grid": "2"
+          },
+          {
+            "pos": "1",
+            "pts": "10",
+            "grid": "2"
+          },
+          {
+            "pos": "16",
+            "pts": "-",
+            "grid": "15"
           }
         ],
-        "pts": "119"
+        "pts": "120"
       },
       {
         "name": "Jozef Lesay",
@@ -770,7 +786,7 @@
         "manPosChange": "0",
         "manBgColor": "#007700",
         "negative": 0,
-        "cash": 63860006,
+        "cash": 75398188,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -857,12 +873,12 @@
             "grid": "5"
           },
           {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
+            "pos": "1",
+            "pts": "10",
+            "grid": "2"
           }
         ],
-        "pts": "68"
+        "pts": "78"
       },
       {
         "name": "Kiss Csaba",
@@ -870,11 +886,11 @@
         "tyre": "Pipirelli",
         "natCode": "hu",
         "IDM": 474355,
-        "manArrow": "up",
-        "manPosChange": "+1",
+        "manArrow": "equals",
+        "manPosChange": "0",
         "manBgColor": "",
         "negative": 0,
-        "cash": 4607563,
+        "cash": 14170473,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -961,12 +977,12 @@
             "grid": "7"
           },
           {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
+            "pos": "5",
+            "pts": "4",
+            "grid": "4"
           }
         ],
-        "pts": "37"
+        "pts": "41"
       },
       {
         "name": "Nathan Taylor",
@@ -974,11 +990,11 @@
         "tyre": "Pipirelli",
         "natCode": "en",
         "IDM": 829263,
-        "manArrow": "down",
-        "manPosChange": "-1",
+        "manArrow": "equals",
+        "manPosChange": "0",
         "manBgColor": "",
         "negative": 0,
-        "cash": 11915344,
+        "cash": 8814756,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -1065,12 +1081,12 @@
             "grid": "6"
           },
           {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
+            "pos": "4",
+            "pts": "5",
+            "grid": "7"
           }
         ],
-        "pts": "35"
+        "pts": "40"
       },
       {
         "name": "Lubo&#353; Nov&#225;k",
@@ -1082,7 +1098,7 @@
         "manPosChange": "0",
         "manBgColor": "",
         "negative": 0,
-        "cash": 22324976,
+        "cash": 8666080,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -1182,11 +1198,11 @@
         "tyre": "Pipirelli",
         "natCode": "it",
         "IDM": 881997,
-        "manArrow": "up",
-        "manPosChange": "+1",
+        "manArrow": "equals",
+        "manPosChange": "0",
         "manBgColor": "",
-        "negative": 0,
-        "cash": 7770963,
+        "negative": 1,
+        "cash": -6066056,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -1273,9 +1289,9 @@
             "grid": "10"
           },
           {
-            "pos": "-",
+            "pos": "11",
             "pts": "-",
-            "grid": "-"
+            "grid": "8"
           }
         ],
         "pts": "16"
@@ -1286,11 +1302,11 @@
         "tyre": "Pipirelli",
         "natCode": "en",
         "IDM": 107175,
-        "manArrow": "down",
-        "manPosChange": "-1",
+        "manArrow": "equals",
+        "manPosChange": "0",
         "manBgColor": "",
-        "negative": 0,
-        "cash": 5153260,
+        "negative": 1,
+        "cash": -6733274,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -1377,9 +1393,9 @@
             "grid": "14"
           },
           {
-            "pos": "-",
+            "pos": "9",
             "pts": "-",
-            "grid": "-"
+            "grid": "3"
           }
         ],
         "pts": "14"
@@ -1394,7 +1410,7 @@
         "manPosChange": "0",
         "manBgColor": "",
         "negative": 0,
-        "cash": 11575965,
+        "cash": 10759575,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -1498,7 +1514,7 @@
         "manPosChange": "0",
         "manBgColor": "",
         "negative": 0,
-        "cash": 1649511,
+        "cash": 7961686,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -1585,9 +1601,9 @@
             "grid": "-"
           },
           {
-            "pos": "-",
+            "pos": "10",
             "pts": "-",
-            "grid": "-"
+            "grid": "9"
           }
         ],
         "pts": "8"
@@ -1602,7 +1618,7 @@
         "manPosChange": "0",
         "manBgColor": "",
         "negative": 0,
-        "cash": 6993692,
+        "cash": 6829212,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -1689,24 +1705,128 @@
             "grid": "-"
           },
           {
-            "pos": "-",
+            "pos": "15",
             "pts": "-",
-            "grid": "-"
+            "grid": "6"
           }
         ],
         "pts": "7"
       },
       {
-        "name": "Artur Martinez",
+        "name": "&#1055;&#1088;&#1086;&#1092;&#1080; &#1048;&#1075;&#1088;&#1099;",
         "pos": "13",
+        "tyre": "Pipirelli",
+        "natCode": "bh",
+        "IDM": 1148876,
+        "manArrow": "up",
+        "manPosChange": "+18",
+        "manBgColor": "",
+        "negative": 0,
+        "cash": 8571780,
+        "retires": 0,
+        "goesRookie": 0,
+        "didSoftReset": 0,
+        "champs": "0",
+        "results": [
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "6",
+            "pts": "3",
+            "grid": "13"
+          }
+        ],
+        "pts": "3"
+      },
+      {
+        "name": "Artur Martinez",
+        "pos": "14",
         "tyre": "Pipirelli",
         "natCode": "es",
         "IDM": 1147352,
-        "manArrow": "equals",
-        "manPosChange": "0",
+        "manArrow": "down",
+        "manPosChange": "-1",
         "manBgColor": "",
         "negative": 0,
-        "cash": 9852381,
+        "cash": 9853392,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -1793,24 +1913,128 @@
             "grid": "11"
           },
           {
+            "pos": "8",
+            "pts": "1",
+            "grid": "10"
+          }
+        ],
+        "pts": "3"
+      },
+      {
+        "name": "&#33487; Unknown",
+        "pos": "15",
+        "tyre": "Pipirelli",
+        "natCode": "us",
+        "IDM": 1148668,
+        "manArrow": "up",
+        "manPosChange": "+6",
+        "manBgColor": "",
+        "negative": 1,
+        "cash": -3979115,
+        "retires": 0,
+        "goesRookie": 0,
+        "didSoftReset": 0,
+        "champs": "0",
+        "results": [
+          {
             "pos": "-",
             "pts": "-",
             "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "12",
+            "pts": "-",
+            "grid": "19"
+          },
+          {
+            "pos": "7",
+            "pts": "2",
+            "grid": "17"
           }
         ],
         "pts": "2"
       },
       {
         "name": "Rian Sena",
-        "pos": "14",
+        "pos": "16",
         "tyre": "Pipirelli",
         "natCode": "br",
         "IDM": 1098216,
-        "manArrow": "equals",
-        "manPosChange": "0",
+        "manArrow": "down",
+        "manPosChange": "-2",
         "manBgColor": "",
-        "negative": 1,
-        "cash": -126167,
+        "negative": 0,
+        "cash": 5284433,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -1897,24 +2121,24 @@
             "grid": "20"
           },
           {
-            "pos": "-",
+            "pos": "20",
             "pts": "-",
-            "grid": "-"
+            "grid": "18"
           }
         ],
         "pts": "0"
       },
       {
         "name": "Alex Weeks",
-        "pos": "15",
+        "pos": "17",
         "tyre": "Pipirelli",
         "natCode": "us",
         "IDM": 1148611,
-        "manArrow": "up",
-        "manPosChange": "+10",
+        "manArrow": "down",
+        "manPosChange": "-2",
         "manBgColor": "",
         "negative": 0,
-        "cash": 6885873,
+        "cash": 6996005,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -2010,15 +2234,15 @@
       },
       {
         "name": "Jean Eude",
-        "pos": "16",
+        "pos": "18",
         "tyre": "Pipirelli",
         "natCode": "fr",
         "IDM": 1148727,
-        "manArrow": "up",
-        "manPosChange": "+24",
+        "manArrow": "down",
+        "manPosChange": "-2",
         "manBgColor": "",
         "negative": 0,
-        "cash": 21580333,
+        "cash": 21538476,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -2114,7 +2338,7 @@
       },
       {
         "name": "Alexander Krams",
-        "pos": "17",
+        "pos": "19",
         "tyre": "Pipirelli",
         "natCode": "de",
         "IDM": 1147910,
@@ -2122,7 +2346,7 @@
         "manPosChange": "-2",
         "manBgColor": "",
         "negative": 0,
-        "cash": 9412995,
+        "cash": 9404093,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -2218,7 +2442,7 @@
       },
       {
         "name": "Thiago Guedes",
-        "pos": "18",
+        "pos": "20",
         "tyre": "Pipirelli",
         "natCode": "br",
         "IDM": 1147199,
@@ -2226,7 +2450,7 @@
         "manPosChange": "-2",
         "manBgColor": "",
         "negative": 0,
-        "cash": 23771660,
+        "cash": 23955550,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -2322,7 +2546,7 @@
       },
       {
         "name": "&#211;scar Rodr&#237;guez",
-        "pos": "19",
+        "pos": "21",
         "tyre": "Pipirelli",
         "natCode": "es",
         "IDM": 1143952,
@@ -2330,7 +2554,7 @@
         "manPosChange": "-2",
         "manBgColor": "",
         "negative": 0,
-        "cash": 14700631,
+        "cash": 13854881,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -2426,7 +2650,7 @@
       },
       {
         "name": "Florian Waldherr",
-        "pos": "20",
+        "pos": "22",
         "tyre": "Pipirelli",
         "natCode": "de",
         "IDM": 404424,
@@ -2434,7 +2658,7 @@
         "manPosChange": "-2",
         "manBgColor": "",
         "negative": 0,
-        "cash": 34431050,
+        "cash": 33625060,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -2529,16 +2753,16 @@
         "pts": "0"
       },
       {
-        "name": "&#33487; Unknown",
-        "pos": "21",
+        "name": "David Lleshi",
+        "pos": "23",
         "tyre": "Pipirelli",
-        "natCode": "us",
-        "IDM": 1148668,
+        "natCode": "gr",
+        "IDM": 1148699,
         "manArrow": "up",
-        "manPosChange": "+6",
+        "manPosChange": "+5",
         "manBgColor": "",
-        "negative": 1,
-        "cash": -11128307,
+        "negative": 0,
+        "cash": 16699010,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -2620,29 +2844,29 @@
             "grid": "-"
           },
           {
-            "pos": "12",
+            "pos": "20",
             "pts": "-",
-            "grid": "19"
+            "grid": "12"
           },
           {
-            "pos": "-",
+            "pos": "12",
             "pts": "-",
-            "grid": "-"
+            "grid": "14"
           }
         ],
         "pts": "0"
       },
       {
         "name": "Dustin Kraus",
-        "pos": "22",
+        "pos": "24",
         "tyre": "Pipirelli",
         "natCode": "de",
         "IDM": 1146791,
         "manArrow": "down",
-        "manPosChange": "-3",
+        "manPosChange": "-2",
         "manBgColor": "",
         "negative": 0,
-        "cash": 23461945,
+        "cash": 22371000,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -2738,15 +2962,15 @@
       },
       {
         "name": "Giuseppe Bellotto",
-        "pos": "23",
+        "pos": "25",
         "tyre": "Pipirelli",
         "natCode": "br",
         "IDM": 1147488,
         "manArrow": "down",
-        "manPosChange": "-3",
+        "manPosChange": "-2",
         "manBgColor": "",
         "negative": 0,
-        "cash": 6939049,
+        "cash": 6428115,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -2833,16 +3057,120 @@
             "grid": "15"
           },
           {
+            "pos": "18",
+            "pts": "-",
+            "grid": "11"
+          }
+        ],
+        "pts": "0"
+      },
+      {
+        "name": "Levi Athan",
+        "pos": "26",
+        "tyre": "Pipirelli",
+        "natCode": "br",
+        "IDM": 1148554,
+        "manArrow": "up",
+        "manPosChange": "+1",
+        "manBgColor": "",
+        "negative": 0,
+        "cash": 5890318,
+        "retires": 0,
+        "goesRookie": 0,
+        "didSoftReset": 0,
+        "champs": "0",
+        "results": [
+          {
             "pos": "-",
             "pts": "-",
             "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "19",
+            "pts": "-",
+            "grid": "16"
+          },
+          {
+            "pos": "13",
+            "pts": "-",
+            "grid": "16"
           }
         ],
         "pts": "0"
       },
       {
         "name": "Art Mayer",
-        "pos": "24",
+        "pos": "27",
         "tyre": "Pipirelli",
         "natCode": "py",
         "IDM": 1147641,
@@ -2850,7 +3178,7 @@
         "manPosChange": "-3",
         "manBgColor": "",
         "negative": 0,
-        "cash": 6553416,
+        "cash": 6504576,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -2946,15 +3274,15 @@
       },
       {
         "name": "Antonio Mellino",
-        "pos": "25",
+        "pos": "28",
         "tyre": "Pipirelli",
         "natCode": "it",
         "IDM": 1148675,
         "manArrow": "down",
-        "manPosChange": "-2",
+        "manPosChange": "-3",
         "manBgColor": "",
         "negative": 0,
-        "cash": 8937495,
+        "cash": 15891515,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -3041,24 +3369,24 @@
             "grid": "9"
           },
           {
-            "pos": "-",
+            "pos": "14",
             "pts": "-",
-            "grid": "-"
+            "grid": "12"
           }
         ],
         "pts": "0"
       },
       {
         "name": "Tatiana Siarenou",
-        "pos": "26",
+        "pos": "29",
         "tyre": "Pipirelli",
         "natCode": "gr",
         "IDM": 1148266,
-        "manArrow": "equals",
-        "manPosChange": "0",
+        "manArrow": "down",
+        "manPosChange": "-3",
         "manBgColor": "",
         "negative": 0,
-        "cash": 5933641,
+        "cash": 9730801,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -3145,232 +3473,128 @@
             "grid": "21"
           },
           {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          }
-        ],
-        "pts": "0"
-      },
-      {
-        "name": "Levi Athan",
-        "pos": "27",
-        "tyre": "Pipirelli",
-        "natCode": "br",
-        "IDM": 1148554,
-        "manArrow": "down",
-        "manPosChange": "-3",
-        "manBgColor": "",
-        "negative": 1,
-        "cash": -1218252,
-        "retires": 0,
-        "goesRookie": 0,
-        "didSoftReset": 0,
-        "champs": "0",
-        "results": [
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
             "pos": "19",
             "pts": "-",
-            "grid": "16"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          }
-        ],
-        "pts": "0"
-      },
-      {
-        "name": "David Lleshi",
-        "pos": "28",
-        "tyre": "Pipirelli",
-        "natCode": "gr",
-        "IDM": 1148699,
-        "manArrow": "up",
-        "manPosChange": "+12",
-        "manBgColor": "",
-        "negative": 0,
-        "cash": 9729000,
-        "retires": 0,
-        "goesRookie": 0,
-        "didSoftReset": 0,
-        "champs": "0",
-        "results": [
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
-          },
-          {
-            "pos": "20",
-            "pts": "-",
-            "grid": "12"
-          },
-          {
-            "pos": "-",
-            "pts": "-",
-            "grid": "-"
+            "grid": "19"
           }
         ],
         "pts": "0"
       },
       {
         "name": "Ytauan Silva",
-        "pos": "29",
+        "pos": "30",
         "tyre": "Pipirelli",
         "natCode": "br",
         "IDM": 1104026,
-        "manArrow": "up",
-        "manPosChange": "+11",
+        "manArrow": "down",
+        "manPosChange": "-1",
         "manBgColor": "",
         "negative": 0,
-        "cash": 13900000,
+        "cash": 20408219,
+        "retires": 0,
+        "goesRookie": 0,
+        "didSoftReset": 0,
+        "champs": "0",
+        "results": [
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "-",
+            "pts": "-",
+            "grid": "-"
+          },
+          {
+            "pos": "17",
+            "pts": "-",
+            "grid": "20"
+          }
+        ],
+        "pts": "0"
+      },
+      {
+        "name": "Leo Decool",
+        "pos": "31",
+        "tyre": "Pipirelli",
+        "natCode": "fr",
+        "IDM": 1149004,
+        "manArrow": "down",
+        "manPosChange": "-1",
+        "manBgColor": "",
+        "negative": 0,
+        "cash": 12987126,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -3466,15 +3690,15 @@
       },
       {
         "name": "Olle Pierik",
-        "pos": "30",
+        "pos": "32",
         "tyre": "Pipirelli",
         "natCode": "nl",
         "IDM": 1148367,
-        "manArrow": "down",
-        "manPosChange": "-8",
+        "manArrow": "equals",
+        "manPosChange": "0",
         "manBgColor": "",
         "negative": 0,
-        "cash": 14905688,
+        "cash": 14823446,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -3570,15 +3794,15 @@
       },
       {
         "name": "Filipe Pires",
-        "pos": "31",
+        "pos": "33",
         "tyre": "Pipirelli",
         "natCode": "pt",
         "IDM": 1148695,
-        "manArrow": "up",
-        "manPosChange": "+9",
+        "manArrow": "equals",
+        "manPosChange": "0",
         "manBgColor": "",
         "negative": 0,
-        "cash": 14180034,
+        "cash": 14264328,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -3674,15 +3898,15 @@
       },
       {
         "name": "Leonardo Parra Sanchez",
-        "pos": "32",
+        "pos": "34",
         "tyre": "Pipirelli",
         "natCode": "it",
         "IDM": 1148018,
-        "manArrow": "down",
-        "manPosChange": "-4",
+        "manArrow": "equals",
+        "manPosChange": "0",
         "manBgColor": "",
         "negative": 0,
-        "cash": 492079,
+        "cash": 606389,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -3778,15 +4002,15 @@
       },
       {
         "name": "Jm Autoparts",
-        "pos": "33",
+        "pos": "35",
         "tyre": "Pipirelli",
         "natCode": "pa",
         "IDM": 1147832,
-        "manArrow": "down",
-        "manPosChange": "-4",
+        "manArrow": "equals",
+        "manPosChange": "0",
         "manBgColor": "",
         "negative": 0,
-        "cash": 17432840,
+        "cash": 17739900,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -3882,15 +4106,15 @@
       },
       {
         "name": "Unai Murcia Gerbol&#233;s",
-        "pos": "34",
+        "pos": "36",
         "tyre": "Pipirelli",
         "natCode": "es",
         "IDM": 1147751,
-        "manArrow": "down",
-        "manPosChange": "-4",
+        "manArrow": "equals",
+        "manPosChange": "0",
         "manBgColor": "",
         "negative": 0,
-        "cash": 17413490,
+        "cash": 17713390,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -3986,15 +4210,15 @@
       },
       {
         "name": "Rafael Oliveira",
-        "pos": "35",
+        "pos": "37",
         "tyre": "Pipirelli",
         "natCode": "us",
         "IDM": 1146646,
-        "manArrow": "down",
-        "manPosChange": "-4",
+        "manArrow": "equals",
+        "manPosChange": "0",
         "manBgColor": "",
         "negative": 0,
-        "cash": 18160255,
+        "cash": 17168696,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -4090,15 +4314,15 @@
       },
       {
         "name": "&#1053;&#1080;&#1082;&#1086;&#1083;&#1072; &#1058;&#1088;&#1080;&#1087;&#1082;&#1086;&#1074;&#1080;&#1115;",
-        "pos": "36",
+        "pos": "38",
         "tyre": "Pipirelli",
         "natCode": "rs",
         "IDM": 1146278,
-        "manArrow": "down",
-        "manPosChange": "-4",
+        "manArrow": "equals",
+        "manPosChange": "0",
         "manBgColor": "",
         "negative": 0,
-        "cash": 16126168,
+        "cash": 14800341,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -4194,15 +4418,15 @@
       },
       {
         "name": "Fahack Ty",
-        "pos": "37",
+        "pos": "39",
         "tyre": "Pipirelli",
         "natCode": "es",
         "IDM": 1145445,
-        "manArrow": "down",
-        "manPosChange": "-4",
+        "manArrow": "equals",
+        "manPosChange": "0",
         "manBgColor": "",
         "negative": 0,
-        "cash": 17742781,
+        "cash": 16695764,
         "retires": 0,
         "goesRookie": 0,
         "didSoftReset": 0,
@@ -5506,23 +5730,24 @@
       "series": [
         {
           "type": "line",
-          "name": "T. Arsovska",
+          "name": "J. Motsinger",
           "color": "#F88017",
           "data": [
-            10,
-            4,
-            3,
-            3,
-            3,
-            3,
-            3,
-            2,
-            3,
-            2,
-            2,
-            3,
-            2,
-            2,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
             3,
             1
           ]
@@ -5547,28 +5772,30 @@
             3,
             3,
             2,
+            2,
             2
           ]
         },
         {
           "type": "line",
-          "name": "J. Motsinger",
+          "name": "T. Arsovska",
           "color": "#ECE5B6",
           "data": [
-            1,
-            1,
-            1,
-            1,
-            1,
-            1,
-            1,
-            1,
-            1,
-            1,
-            1,
-            1,
-            1,
-            1,
+            10,
+            4,
+            3,
+            3,
+            3,
+            3,
+            3,
+            2,
+            3,
+            2,
+            2,
+            3,
+            2,
+            2,
+            3,
             1,
             3
           ]
@@ -5580,6 +5807,7 @@
           "data": [
             3,
             3,
+            4,
             4,
             4,
             4,
@@ -5616,6 +5844,7 @@
             6,
             6,
             6,
+            5,
             5
           ]
         },
@@ -5639,6 +5868,7 @@
             5,
             5,
             5,
+            6,
             6
           ]
         },
@@ -5659,6 +5889,7 @@
             7,
             7,
             6,
+            7,
             7,
             7,
             7,
@@ -5685,6 +5916,7 @@
             10,
             9,
             10,
+            8,
             8
           ]
         },
@@ -5707,6 +5939,7 @@
             9,
             9,
             10,
+            9,
             9,
             9
           ]
@@ -5731,6 +5964,7 @@
             15,
             15,
             12,
+            10,
             10
           ]
         },
@@ -5754,6 +5988,7 @@
             12,
             12,
             13,
+            11,
             11
           ]
         },
@@ -5777,13 +6012,38 @@
             13,
             13,
             14,
+            12,
             12
           ]
         },
         {
           "type": "line",
-          "name": "A. Martinez",
+          "name": "&#1055;. &#1048;&#1075;&#1088;&#1099;",
           "color": "#FFF380",
+          "data": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            13
+          ]
+        },
+        {
+          "type": "line",
+          "name": "A. Martinez",
+          "color": "#6AFB92",
           "data": [
             null,
             null,
@@ -5800,35 +6060,13 @@
             null,
             21,
             16,
-            13
-          ]
-        },
-        {
-          "type": "line",
-          "name": "R. Sena",
-          "color": "#6AFB92",
-          "data": [
-            15,
-            19,
-            17,
-            17,
-            17,
-            17,
-            17,
-            15,
-            15,
-            16,
-            16,
-            16,
-            16,
-            16,
-            17,
+            13,
             14
           ]
         },
         {
           "type": "line",
-          "name": "A. Weeks",
+          "name": "&#33487;. Unknown",
           "color": "#C031C7",
           "data": [
             null,
@@ -5846,35 +6084,37 @@
             null,
             null,
             null,
+            21,
             15
           ]
         },
         {
           "type": "line",
-          "name": "J. Eude",
+          "name": "R. Sena",
           "color": "#FFFF00",
           "data": [
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
+            15,
+            19,
+            17,
+            17,
+            17,
+            17,
+            17,
+            15,
+            15,
+            16,
+            16,
+            16,
+            16,
+            16,
+            17,
+            14,
             16
           ]
         },
         {
           "type": "line",
-          "name": "A. Krams",
+          "name": "A. Weeks",
           "color": "#3090C7",
           "data": [
             null,
@@ -5891,14 +6131,63 @@
             null,
             null,
             null,
-            18,
+            null,
+            15,
             17
           ]
         },
         {
           "type": "line",
-          "name": "T. Guedes",
+          "name": "J. Eude",
           "color": "#EBDDE2",
+          "data": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            16,
+            18
+          ]
+        },
+        {
+          "type": "line",
+          "name": "A. Krams",
+          "color": "#5EFB6E",
+          "data": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            18,
+            17,
+            19
+          ]
+        },
+        {
+          "type": "line",
+          "name": "T. Guedes",
+          "color": "#C24641",
           "data": [
             null,
             null,
@@ -5915,13 +6204,14 @@
             18,
             18,
             19,
-            18
+            18,
+            20
           ]
         },
         {
           "type": "line",
           "name": "&#211;. Rodr&#237;guez",
-          "color": "#5EFB6E",
+          "color": "#C7A317",
           "data": [
             null,
             null,
@@ -5938,13 +6228,14 @@
             19,
             19,
             20,
-            19
+            19,
+            21
           ]
         },
         {
           "type": "line",
           "name": "F. Waldherr",
-          "color": "#C24641",
+          "color": "#306EFF",
           "data": [
             55,
             51,
@@ -5961,13 +6252,14 @@
             20,
             20,
             21,
-            20
+            20,
+            22
           ]
         },
         {
           "type": "line",
-          "name": "&#33487;. Unknown",
-          "color": "#C7A317",
+          "name": "D. Lleshi",
+          "color": "#FAAFBE",
           "data": [
             null,
             null,
@@ -5984,13 +6276,14 @@
             null,
             null,
             null,
-            21
+            28,
+            23
           ]
         },
         {
           "type": "line",
           "name": "D. Kraus",
-          "color": "#306EFF",
+          "color": "#347235",
           "data": [
             null,
             null,
@@ -6007,13 +6300,14 @@
             21,
             22,
             22,
-            22
+            22,
+            24
           ]
         },
         {
           "type": "line",
           "name": "G. Bellotto",
-          "color": "#FAAFBE",
+          "color": "#F52887",
           "data": [
             null,
             null,
@@ -6030,58 +6324,13 @@
             null,
             24,
             23,
-            23
-          ]
-        },
-        {
-          "type": "line",
-          "name": "A. Mayer",
-          "color": "#347235",
-          "data": [
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            26,
-            24,
-            24
-          ]
-        },
-        {
-          "type": "line",
-          "name": "A. Mellino",
-          "color": "#F52887",
-          "data": [
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
+            23,
             25
           ]
         },
         {
           "type": "line",
-          "name": "T. Siarenou",
+          "name": "L. Athan",
           "color": "#E56717",
           "data": [
             null,
@@ -6099,12 +6348,13 @@
             null,
             null,
             null,
+            27,
             26
           ]
         },
         {
           "type": "line",
-          "name": "L. Athan",
+          "name": "A. Mayer",
           "color": "#8E35EF",
           "data": [
             null,
@@ -6120,14 +6370,15 @@
             null,
             null,
             null,
-            null,
-            null,
+            26,
+            24,
+            24,
             27
           ]
         },
         {
           "type": "line",
-          "name": "D. Lleshi",
+          "name": "A. Mellino",
           "color": "#EDDA74",
           "data": [
             null,
@@ -6145,12 +6396,13 @@
             null,
             null,
             null,
+            25,
             28
           ]
         },
         {
           "type": "line",
-          "name": "O. Pierik",
+          "name": "T. Siarenou",
           "color": "#4CC417",
           "data": [
             null,
@@ -6168,14 +6420,16 @@
             null,
             null,
             null,
+            26,
             29
           ]
         },
         {
           "type": "line",
-          "name": "F. Pires",
+          "name": "Y. Silva",
           "color": "#E41B17",
           "data": [
+            null,
             null,
             null,
             null,
@@ -6196,7 +6450,7 @@
         },
         {
           "type": "line",
-          "name": "L. Parra Sanchez",
+          "name": "L. Decool",
           "color": "#FBB117",
           "data": [
             null,
@@ -6213,14 +6467,87 @@
             null,
             null,
             null,
-            26,
+            null,
+            null,
             31
           ]
         },
         {
           "type": "line",
-          "name": "J. Autoparts",
+          "name": "O. Pierik",
           "color": "#3BB9FF",
+          "data": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            29,
+            32
+          ]
+        },
+        {
+          "type": "line",
+          "name": "F. Pires",
+          "color": "#E7A1B0",
+          "data": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            30,
+            33
+          ]
+        },
+        {
+          "type": "line",
+          "name": "L. Parra Sanchez",
+          "color": "#00FFFF",
+          "data": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            26,
+            31,
+            34
+          ]
+        },
+        {
+          "type": "line",
+          "name": "J. Autoparts",
+          "color": "#C48793",
           "data": [
             null,
             null,
@@ -6237,13 +6564,14 @@
             null,
             28,
             27,
-            32
+            32,
+            35
           ]
         },
         {
           "type": "line",
           "name": "U. Murcia Gerbol&#233;s",
-          "color": "#E7A1B0",
+          "color": "#F87431",
           "data": [
             null,
             null,
@@ -6260,13 +6588,14 @@
             null,
             29,
             28,
-            33
+            33,
+            36
           ]
         },
         {
           "type": "line",
           "name": "R. Oliveira",
-          "color": "#00FFFF",
+          "color": "#BDEDFF",
           "data": [
             null,
             null,
@@ -6283,13 +6612,14 @@
             26,
             30,
             29,
-            34
+            34,
+            37
           ]
         },
         {
           "type": "line",
           "name": "&#1053;. &#1058;&#1088;&#1080;&#1087;&#1082;&#1086;&#1074;&#1080;&#1115;",
-          "color": "#C48793",
+          "color": "#810541",
           "data": [
             null,
             null,
@@ -6306,13 +6636,14 @@
             31,
             35,
             34,
-            35
+            35,
+            38
           ]
         },
         {
           "type": "line",
           "name": "F. Ty",
-          "color": "#F87431",
+          "color": "#9AFEFF",
           "data": [
             null,
             null,
@@ -6329,7 +6660,8 @@
             33,
             37,
             36,
-            36
+            36,
+            39
           ]
         }
       ]
@@ -6371,7 +6703,7 @@
         "enabled": false
       },
       "yAxis": {
-        "max": 160,
+        "max": 170,
         "min": 0,
         "startOnTick": false,
         "tickInterval": 1,
@@ -6681,26 +7013,27 @@
       },
       "series": [
         {
-          "name": "T. Arsovska",
+          "name": "J. Motsinger",
           "color": "#F88017",
           "data": [
             0,
-            0,
-            8,
-            16,
-            22,
+            10,
+            20,
             30,
-            40,
-            50,
-            58,
+            38,
+            44,
+            52,
+            60,
             64,
-            74,
-            84,
-            84,
-            94,
-            104,
-            110,
-            120
+            72,
+            80,
+            85,
+            93,
+            99,
+            105,
+            113,
+            119,
+            127
           ]
         },
         {
@@ -6723,30 +7056,32 @@
             93,
             101,
             111,
-            119
+            119,
+            125
           ]
         },
         {
-          "name": "J. Motsinger",
+          "name": "T. Arsovska",
           "color": "#ECE5B6",
           "data": [
             0,
-            10,
-            20,
+            0,
+            8,
+            16,
+            22,
             30,
-            38,
-            44,
-            52,
-            60,
+            40,
+            50,
+            58,
             64,
-            72,
-            80,
-            85,
-            93,
-            99,
-            105,
-            113,
-            119
+            74,
+            84,
+            84,
+            94,
+            104,
+            110,
+            120,
+            120
           ]
         },
         {
@@ -6769,7 +7104,8 @@
             54,
             59,
             64,
-            68
+            68,
+            78
           ]
         },
         {
@@ -6792,7 +7128,8 @@
             27,
             31,
             34,
-            37
+            37,
+            41
           ]
         },
         {
@@ -6815,7 +7152,8 @@
             33,
             34,
             34,
-            35
+            35,
+            40
           ]
         },
         {
@@ -6836,6 +7174,7 @@
             20,
             25,
             25,
+            27,
             27,
             27,
             27
@@ -6861,6 +7200,7 @@
             11,
             14,
             14,
+            16,
             16
           ]
         },
@@ -6883,6 +7223,7 @@
             12,
             13,
             13,
+            14,
             14,
             14
           ]
@@ -6907,6 +7248,7 @@
             4,
             4,
             8,
+            13,
             13
           ]
         },
@@ -6927,6 +7269,7 @@
             3,
             3,
             6,
+            8,
             8,
             8,
             8,
@@ -6953,11 +7296,12 @@
             7,
             7,
             7,
+            7,
             7
           ]
         },
         {
-          "name": "A. Martinez",
+          "name": "&#1055;. &#1048;&#1075;&#1088;&#1099;",
           "color": "#FFF380",
           "data": [
             0,
@@ -6975,14 +7319,64 @@
             0,
             0,
             0,
+            0,
+            0,
+            3
+          ]
+        },
+        {
+          "name": "A. Martinez",
+          "color": "#6AFB92",
+          "data": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
             2,
+            2,
+            3
+          ]
+        },
+        {
+          "name": "&#33487;. Unknown",
+          "color": "#C031C7",
+          "data": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
             2
           ]
         },
         {
           "name": "R. Sena",
-          "color": "#6AFB92",
+          "color": "#FFFF00",
           "data": [
+            0,
             0,
             0,
             0,
@@ -7004,8 +7398,9 @@
         },
         {
           "name": "A. Weeks",
-          "color": "#C031C7",
+          "color": "#3090C7",
           "data": [
+            0,
             0,
             0,
             0,
@@ -7027,8 +7422,9 @@
         },
         {
           "name": "J. Eude",
-          "color": "#FFFF00",
+          "color": "#EBDDE2",
           "data": [
+            0,
             0,
             0,
             0,
@@ -7050,8 +7446,9 @@
         },
         {
           "name": "A. Krams",
-          "color": "#3090C7",
+          "color": "#5EFB6E",
           "data": [
+            0,
             0,
             0,
             0,
@@ -7073,8 +7470,9 @@
         },
         {
           "name": "T. Guedes",
-          "color": "#EBDDE2",
+          "color": "#C24641",
           "data": [
+            0,
             0,
             0,
             0,
@@ -7096,8 +7494,9 @@
         },
         {
           "name": "&#211;. Rodr&#237;guez",
-          "color": "#5EFB6E",
+          "color": "#C7A317",
           "data": [
+            0,
             0,
             0,
             0,
@@ -7119,169 +7518,9 @@
         },
         {
           "name": "F. Waldherr",
-          "color": "#C24641",
-          "data": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        {
-          "name": "&#33487;. Unknown",
-          "color": "#C7A317",
-          "data": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        {
-          "name": "D. Kraus",
           "color": "#306EFF",
           "data": [
             0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        {
-          "name": "G. Bellotto",
-          "color": "#FAAFBE",
-          "data": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        {
-          "name": "A. Mayer",
-          "color": "#347235",
-          "data": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        {
-          "name": "A. Mellino",
-          "color": "#F52887",
-          "data": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        {
-          "name": "T. Siarenou",
-          "color": "#E56717",
-          "data": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        {
-          "name": "L. Athan",
-          "color": "#8E35EF",
-          "data": [
             0,
             0,
             0,
@@ -7303,8 +7542,177 @@
         },
         {
           "name": "D. Lleshi",
+          "color": "#FAAFBE",
+          "data": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "D. Kraus",
+          "color": "#347235",
+          "data": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "G. Bellotto",
+          "color": "#F52887",
+          "data": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "L. Athan",
+          "color": "#E56717",
+          "data": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "A. Mayer",
+          "color": "#8E35EF",
+          "data": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "A. Mellino",
           "color": "#EDDA74",
           "data": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "T. Siarenou",
+          "color": "#4CC417",
+          "data": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Y. Silva",
+          "color": "#E41B17",
+          "data": [
+            0,
             0,
             0,
             0,
@@ -7326,24 +7734,24 @@
         }
       ]
     },
-    "apiRequestsRemaining": 82
+    "apiRequestsRemaining": 94
   },
   "car_status": {
     "loadingDataState": "1",
     "carPower": 48,
-    "carHandl": 71,
+    "carHandl": 70,
     "carAccel": 54,
-    "testPowerPoints": 12.6,
-    "testHandlPoints": 46.3,
-    "testAccelPoints": 12.6,
-    "RDPowerPoints": 6.2,
-    "RDHandlPoints": 49.5,
-    "RDAccelPoints": 6.2,
-    "engPowerPoints": 0,
-    "engHandlPoints": 0,
-    "engAccelPoints": 0,
+    "testPowerPoints": 0,
+    "testHandlPoints": 0,
+    "testAccelPoints": 0,
+    "RDPowerPoints": 11,
+    "RDHandlPoints": 40,
+    "RDAccelPoints": 11,
+    "engPowerPoints": 4.7,
+    "engHandlPoints": 37.1,
+    "engAccelPoints": 4.7,
     "tPower": 3,
-    "tHandl": 10,
+    "tHandl": 9,
     "tAccel": 3,
     "lvlChassis": 5,
     "lvlBrakes": 4,
@@ -7356,20 +7764,20 @@
     "lvlSidepods": 4,
     "lvlSusp": 5,
     "lvlUnderbody": 5,
-    "usaBrakes": 55,
-    "usaChassis": 38,
-    "usaCooling": 89,
-    "usaElectronics": 6,
-    "usaEngine": 72,
-    "usaFWing": 38,
-    "usaGear": 57,
-    "usaRWing": 40,
-    "usaSidepods": 91,
-    "usaSusp": 71,
-    "usaUnderbody": 42,
+    "usaBrakes": 91,
+    "usaChassis": 52,
+    "usaCooling": 100,
+    "usaElectronics": 19,
+    "usaEngine": 89,
+    "usaFWing": 77,
+    "usaGear": 81,
+    "usaRWing": 80,
+    "usaSidepods": 100,
+    "usaSusp": 100,
+    "usaUnderbody": 65,
     "canRepair": 0,
     "canUndo": 0,
-    "endOfSeason": 0,
+    "endOfSeason": 1,
     "raceInProgress": 0,
     "updateInProgress": 0,
     "chassisOptions": [
@@ -7379,7 +7787,7 @@
           "cost": 0
         },
         "newLvl": "5",
-        "newWear": "38",
+        "newWear": "52",
         "disabled": "false",
         "text": "Nie wymieniaj"
       },
@@ -7449,9 +7857,9 @@
           "cost": 0
         },
         "newLvl": "1",
-        "newWear": "15",
+        "newWear": "20",
         "disabled": "false",
-        "text": "Obni&#380; na L1 (Zu&#380;ycie: 15%)"
+        "text": "Obni&#380; na L1 (Zu&#380;ycie: 20%)"
       },
       {
         "value": {
@@ -7459,9 +7867,9 @@
           "cost": 0
         },
         "newLvl": "2",
-        "newWear": "20",
+        "newWear": "28",
         "disabled": "false",
-        "text": "Obni&#380; na L2 (Zu&#380;ycie: 20%)"
+        "text": "Obni&#380; na L2 (Zu&#380;ycie: 28%)"
       },
       {
         "value": {
@@ -7469,9 +7877,9 @@
           "cost": 0
         },
         "newLvl": "3",
-        "newWear": "26",
+        "newWear": "36",
         "disabled": "false",
-        "text": "Obni&#380; na L3 (Zu&#380;ycie: 26%)"
+        "text": "Obni&#380; na L3 (Zu&#380;ycie: 36%)"
       },
       {
         "value": {
@@ -7479,9 +7887,9 @@
           "cost": 0
         },
         "newLvl": "4",
-        "newWear": "32",
+        "newWear": "44",
         "disabled": "false",
-        "text": "Obni&#380; na L4 (Zu&#380;ycie: 32%)"
+        "text": "Obni&#380; na L4 (Zu&#380;ycie: 44%)"
       }
     ],
     "engineOptions": [
@@ -7491,7 +7899,7 @@
           "cost": 0
         },
         "newLvl": "3",
-        "newWear": "72",
+        "newWear": "89",
         "disabled": "false",
         "text": "Nie wymieniaj"
       },
@@ -7541,9 +7949,9 @@
           "cost": 0
         },
         "newLvl": "1",
-        "newWear": "50",
+        "newWear": "62",
         "disabled": "false",
-        "text": "Obni&#380; na L1 (Zu&#380;ycie: 50%)"
+        "text": "Obni&#380; na L1 (Zu&#380;ycie: 62%)"
       },
       {
         "value": {
@@ -7551,9 +7959,9 @@
           "cost": 0
         },
         "newLvl": "2",
-        "newWear": "61",
+        "newWear": "75",
         "disabled": "false",
-        "text": "Obni&#380; na L2 (Zu&#380;ycie: 61%)"
+        "text": "Obni&#380; na L2 (Zu&#380;ycie: 75%)"
       }
     ],
     "fWingOptions": [
@@ -7563,7 +7971,7 @@
           "cost": 0
         },
         "newLvl": "5",
-        "newWear": "38",
+        "newWear": "77",
         "disabled": "false",
         "text": "Nie wymieniaj"
       },
@@ -7633,9 +8041,9 @@
           "cost": 0
         },
         "newLvl": "1",
-        "newWear": "15",
+        "newWear": "30",
         "disabled": "false",
-        "text": "Obni&#380; na L1 (Zu&#380;ycie: 15%)"
+        "text": "Obni&#380; na L1 (Zu&#380;ycie: 30%)"
       },
       {
         "value": {
@@ -7643,9 +8051,9 @@
           "cost": 0
         },
         "newLvl": "2",
-        "newWear": "20",
+        "newWear": "42",
         "disabled": "false",
-        "text": "Obni&#380; na L2 (Zu&#380;ycie: 20%)"
+        "text": "Obni&#380; na L2 (Zu&#380;ycie: 42%)"
       },
       {
         "value": {
@@ -7653,9 +8061,9 @@
           "cost": 0
         },
         "newLvl": "3",
-        "newWear": "26",
+        "newWear": "53",
         "disabled": "false",
-        "text": "Obni&#380; na L3 (Zu&#380;ycie: 26%)"
+        "text": "Obni&#380; na L3 (Zu&#380;ycie: 53%)"
       },
       {
         "value": {
@@ -7663,9 +8071,9 @@
           "cost": 0
         },
         "newLvl": "4",
-        "newWear": "32",
+        "newWear": "65",
         "disabled": "false",
-        "text": "Obni&#380; na L4 (Zu&#380;ycie: 32%)"
+        "text": "Obni&#380; na L4 (Zu&#380;ycie: 65%)"
       }
     ],
     "rWingOptions": [
@@ -7675,7 +8083,7 @@
           "cost": 0
         },
         "newLvl": "5",
-        "newWear": "40",
+        "newWear": "80",
         "disabled": "false",
         "text": "Nie wymieniaj"
       },
@@ -7745,9 +8153,9 @@
           "cost": 0
         },
         "newLvl": "1",
-        "newWear": "16",
+        "newWear": "32",
         "disabled": "false",
-        "text": "Obni&#380; na L1 (Zu&#380;ycie: 16%)"
+        "text": "Obni&#380; na L1 (Zu&#380;ycie: 32%)"
       },
       {
         "value": {
@@ -7755,9 +8163,9 @@
           "cost": 0
         },
         "newLvl": "2",
-        "newWear": "22",
+        "newWear": "44",
         "disabled": "false",
-        "text": "Obni&#380; na L2 (Zu&#380;ycie: 22%)"
+        "text": "Obni&#380; na L2 (Zu&#380;ycie: 44%)"
       },
       {
         "value": {
@@ -7765,9 +8173,9 @@
           "cost": 0
         },
         "newLvl": "3",
-        "newWear": "28",
+        "newWear": "56",
         "disabled": "false",
-        "text": "Obni&#380; na L3 (Zu&#380;ycie: 28%)"
+        "text": "Obni&#380; na L3 (Zu&#380;ycie: 56%)"
       },
       {
         "value": {
@@ -7775,9 +8183,9 @@
           "cost": 0
         },
         "newLvl": "4",
-        "newWear": "34",
+        "newWear": "68",
         "disabled": "false",
-        "text": "Obni&#380; na L4 (Zu&#380;ycie: 34%)"
+        "text": "Obni&#380; na L4 (Zu&#380;ycie: 68%)"
       }
     ],
     "underbodyOptions": [
@@ -7787,7 +8195,7 @@
           "cost": 0
         },
         "newLvl": "5",
-        "newWear": "42",
+        "newWear": "65",
         "disabled": "false",
         "text": "Nie wymieniaj"
       },
@@ -7857,9 +8265,9 @@
           "cost": 0
         },
         "newLvl": "1",
-        "newWear": "16",
+        "newWear": "26",
         "disabled": "false",
-        "text": "Obni&#380; na L1 (Zu&#380;ycie: 16%)"
+        "text": "Obni&#380; na L1 (Zu&#380;ycie: 26%)"
       },
       {
         "value": {
@@ -7867,9 +8275,9 @@
           "cost": 0
         },
         "newLvl": "2",
-        "newWear": "23",
+        "newWear": "35",
         "disabled": "false",
-        "text": "Obni&#380; na L2 (Zu&#380;ycie: 23%)"
+        "text": "Obni&#380; na L2 (Zu&#380;ycie: 35%)"
       },
       {
         "value": {
@@ -7877,9 +8285,9 @@
           "cost": 0
         },
         "newLvl": "3",
-        "newWear": "29",
+        "newWear": "45",
         "disabled": "false",
-        "text": "Obni&#380; na L3 (Zu&#380;ycie: 29%)"
+        "text": "Obni&#380; na L3 (Zu&#380;ycie: 45%)"
       },
       {
         "value": {
@@ -7887,9 +8295,9 @@
           "cost": 0
         },
         "newLvl": "4",
-        "newWear": "35",
+        "newWear": "55",
         "disabled": "false",
-        "text": "Obni&#380; na L4 (Zu&#380;ycie: 35%)"
+        "text": "Obni&#380; na L4 (Zu&#380;ycie: 55%)"
       }
     ],
     "sidepodsOptions": [
@@ -7899,7 +8307,7 @@
           "cost": 0
         },
         "newLvl": "4",
-        "newWear": "91",
+        "newWear": "100",
         "disabled": "false",
         "text": "Nie wymieniaj"
       },
@@ -7959,9 +8367,9 @@
           "cost": 0
         },
         "newLvl": "1",
-        "newWear": "50",
+        "newWear": "55",
         "disabled": "false",
-        "text": "Obni&#380; na L1 (Zu&#380;ycie: 50%)"
+        "text": "Obni&#380; na L1 (Zu&#380;ycie: 55%)"
       },
       {
         "value": {
@@ -7969,9 +8377,9 @@
           "cost": 0
         },
         "newLvl": "2",
-        "newWear": "63",
+        "newWear": "70",
         "disabled": "false",
-        "text": "Obni&#380; na L2 (Zu&#380;ycie: 63%)"
+        "text": "Obni&#380; na L2 (Zu&#380;ycie: 70%)"
       },
       {
         "value": {
@@ -7979,9 +8387,9 @@
           "cost": 0
         },
         "newLvl": "3",
-        "newWear": "77",
+        "newWear": "85",
         "disabled": "false",
-        "text": "Obni&#380; na L3 (Zu&#380;ycie: 77%)"
+        "text": "Obni&#380; na L3 (Zu&#380;ycie: 85%)"
       }
     ],
     "coolingOptions": [
@@ -7991,7 +8399,7 @@
           "cost": 0
         },
         "newLvl": "4",
-        "newWear": "89",
+        "newWear": "100",
         "disabled": "false",
         "text": "Nie wymieniaj"
       },
@@ -8051,9 +8459,9 @@
           "cost": 0
         },
         "newLvl": "1",
-        "newWear": "48",
+        "newWear": "55",
         "disabled": "false",
-        "text": "Obni&#380; na L1 (Zu&#380;ycie: 48%)"
+        "text": "Obni&#380; na L1 (Zu&#380;ycie: 55%)"
       },
       {
         "value": {
@@ -8061,9 +8469,9 @@
           "cost": 0
         },
         "newLvl": "2",
-        "newWear": "62",
+        "newWear": "70",
         "disabled": "false",
-        "text": "Obni&#380; na L2 (Zu&#380;ycie: 62%)"
+        "text": "Obni&#380; na L2 (Zu&#380;ycie: 70%)"
       },
       {
         "value": {
@@ -8071,9 +8479,9 @@
           "cost": 0
         },
         "newLvl": "3",
-        "newWear": "75",
+        "newWear": "85",
         "disabled": "false",
-        "text": "Obni&#380; na L3 (Zu&#380;ycie: 75%)"
+        "text": "Obni&#380; na L3 (Zu&#380;ycie: 85%)"
       }
     ],
     "gearOptions": [
@@ -8083,7 +8491,7 @@
           "cost": 0
         },
         "newLvl": "3",
-        "newWear": "57",
+        "newWear": "81",
         "disabled": "false",
         "text": "Nie wymieniaj"
       },
@@ -8133,9 +8541,9 @@
           "cost": 0
         },
         "newLvl": "1",
-        "newWear": "39",
+        "newWear": "56",
         "disabled": "false",
-        "text": "Obni&#380; na L1 (Zu&#380;ycie: 39%)"
+        "text": "Obni&#380; na L1 (Zu&#380;ycie: 56%)"
       },
       {
         "value": {
@@ -8143,9 +8551,9 @@
           "cost": 0
         },
         "newLvl": "2",
-        "newWear": "48",
+        "newWear": "68",
         "disabled": "false",
-        "text": "Obni&#380; na L2 (Zu&#380;ycie: 48%)"
+        "text": "Obni&#380; na L2 (Zu&#380;ycie: 68%)"
       }
     ],
     "brakesOptions": [
@@ -8155,7 +8563,7 @@
           "cost": 0
         },
         "newLvl": "4",
-        "newWear": "55",
+        "newWear": "91",
         "disabled": "false",
         "text": "Nie wymieniaj"
       },
@@ -8215,9 +8623,9 @@
           "cost": 0
         },
         "newLvl": "1",
-        "newWear": "30",
+        "newWear": "50",
         "disabled": "false",
-        "text": "Obni&#380; na L1 (Zu&#380;ycie: 30%)"
+        "text": "Obni&#380; na L1 (Zu&#380;ycie: 50%)"
       },
       {
         "value": {
@@ -8225,9 +8633,9 @@
           "cost": 0
         },
         "newLvl": "2",
-        "newWear": "38",
+        "newWear": "63",
         "disabled": "false",
-        "text": "Obni&#380; na L2 (Zu&#380;ycie: 38%)"
+        "text": "Obni&#380; na L2 (Zu&#380;ycie: 63%)"
       },
       {
         "value": {
@@ -8235,9 +8643,9 @@
           "cost": 0
         },
         "newLvl": "3",
-        "newWear": "46",
+        "newWear": "77",
         "disabled": "false",
-        "text": "Obni&#380; na L3 (Zu&#380;ycie: 46%)"
+        "text": "Obni&#380; na L3 (Zu&#380;ycie: 77%)"
       }
     ],
     "suspOptions": [
@@ -8247,7 +8655,7 @@
           "cost": 0
         },
         "newLvl": "5",
-        "newWear": "71",
+        "newWear": "100",
         "disabled": "false",
         "text": "Nie wymieniaj"
       },
@@ -8317,9 +8725,9 @@
           "cost": 0
         },
         "newLvl": "1",
-        "newWear": "28",
+        "newWear": "40",
         "disabled": "false",
-        "text": "Obni&#380; na L1 (Zu&#380;ycie: 28%)"
+        "text": "Obni&#380; na L1 (Zu&#380;ycie: 40%)"
       },
       {
         "value": {
@@ -8327,9 +8735,9 @@
           "cost": 0
         },
         "newLvl": "2",
-        "newWear": "39",
+        "newWear": "55",
         "disabled": "false",
-        "text": "Obni&#380; na L2 (Zu&#380;ycie: 39%)"
+        "text": "Obni&#380; na L2 (Zu&#380;ycie: 55%)"
       },
       {
         "value": {
@@ -8337,9 +8745,9 @@
           "cost": 0
         },
         "newLvl": "3",
-        "newWear": "49",
+        "newWear": "70",
         "disabled": "false",
-        "text": "Obni&#380; na L3 (Zu&#380;ycie: 49%)"
+        "text": "Obni&#380; na L3 (Zu&#380;ycie: 70%)"
       },
       {
         "value": {
@@ -8347,9 +8755,9 @@
           "cost": 0
         },
         "newLvl": "4",
-        "newWear": "60",
+        "newWear": "85",
         "disabled": "false",
-        "text": "Obni&#380; na L4 (Zu&#380;ycie: 60%)"
+        "text": "Obni&#380; na L4 (Zu&#380;ycie: 85%)"
       }
     ],
     "electronicsOptions": [
@@ -8359,7 +8767,7 @@
           "cost": 0
         },
         "newLvl": "3",
-        "newWear": "6",
+        "newWear": "19",
         "disabled": "false",
         "text": "Nie wymieniaj"
       },
@@ -8409,9 +8817,9 @@
           "cost": 0
         },
         "newLvl": "1",
-        "newWear": "4",
+        "newWear": "13",
         "disabled": "false",
-        "text": "Obni&#380; na L1 (Zu&#380;ycie: 4%)"
+        "text": "Obni&#380; na L1 (Zu&#380;ycie: 13%)"
       },
       {
         "value": {
@@ -8419,9 +8827,9 @@
           "cost": 0
         },
         "newLvl": "2",
-        "newWear": "5",
+        "newWear": "16",
         "disabled": "false",
-        "text": "Obni&#380; na L2 (Zu&#380;ycie: 5%)"
+        "text": "Obni&#380; na L2 (Zu&#380;ycie: 16%)"
       }
     ],
     "selectedBrakes": {
@@ -8471,13 +8879,13 @@
     "totalCosts": 0,
     "undoCompleted": 0,
     "carUpdated": 0,
-    "cash": 18810391,
+    "cash": 30428835,
     "showCarUpdateAlert": false,
     "showUndoAlert": false,
     "showUndoAlertCredits": false,
     "showUndoAlertNoCredits": false,
     "credits": 0,
-    "races": 19,
-    "apiRequestsRemaining": 81
+    "races": 20,
+    "apiRequestsRemaining": 93
   }
 }
