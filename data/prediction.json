@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-06-05T21:00:34.246989Z",
+  "generated_at": "2026-06-09T21:17:18.342914Z",
   "next_race": {
-    "track": "Sakhir GP (Bahrajn)",
-    "season": 110,
+    "track": "Barcelona GP (Hiszpania)",
+    "season": 111,
     "race": 1,
     "total_laps": 72,
-    "track_id": "29"
+    "track_id": "5"
   },
   "confidence": "low",
   "confidence_reason": "Fallback: punkt startowy z danych toru (downforce)",
@@ -15,14 +15,14 @@
     "note": "Setup ±62 od optimum da satisfied (MA=124, TI=26, EXP=30)"
   },
   "base": {
-    "track": "Sakhir GP (Bahrajn)",
+    "track": "Barcelona GP (Hiszpania)",
     "setup": {
-      "fw": 256,
-      "rw": 256,
-      "eng": 256,
-      "bra": 256,
-      "gear": 256,
-      "susp": 256
+      "fw": 512,
+      "rw": 512,
+      "eng": 512,
+      "bra": 512,
+      "gear": 512,
+      "susp": 512
     },
     "temp": 20
   },
@@ -33,12 +33,12 @@
       "completed": false,
       "is_next": true,
       "setup": {
-        "fw": 260,
-        "rw": 260,
-        "eng": 251,
-        "bra": 262,
-        "gear": 251,
-        "susp": 250,
+        "fw": 516,
+        "rw": 516,
+        "eng": 507,
+        "bra": 518,
+        "gear": 507,
+        "susp": 506,
         "temp": 21
       },
       "feedback": "",
@@ -134,59 +134,61 @@
     {
       "id": "QUALIFYING 1",
       "type": "q1",
-      "completed": true,
+      "completed": false,
       "is_next": false,
-      "setup": {
-        "fw": 200,
-        "rw": 350,
-        "eng": 350,
-        "bra": 800,
-        "gear": 655,
-        "susp": 285
-      },
+      "setup": null,
       "feedback": "",
       "tyres": "Medium",
       "temp": 22,
-      "note": "Completed session",
+      "note": "",
       "session_key": "Q1"
     },
     {
       "id": "QUALIFYING 2",
       "type": "q2",
-      "completed": true,
+      "completed": false,
       "is_next": false,
       "setup": {
-        "fw": 200,
-        "rw": 350,
-        "eng": 350,
-        "bra": 800,
-        "gear": 655,
-        "susp": 285
+        "fw": 537,
+        "rw": 537,
+        "eng": 482,
+        "bra": 547,
+        "gear": 482,
+        "susp": 479
       },
       "feedback": "",
       "tyres": "Medium",
       "temp": 26,
-      "note": "Completed session",
+      "note": "Setup skorygowany dla Q2 (wyższa temperatura)",
       "session_key": "Q2"
     },
     {
       "id": "RACE",
       "type": "race",
-      "completed": true,
+      "completed": false,
       "is_next": false,
       "setup": {
-        "fw": 200,
-        "rw": 350,
-        "eng": 350,
-        "bra": 800,
-        "gear": 655,
-        "susp": 285
+        "fw": 541,
+        "rw": 541,
+        "eng": 477,
+        "bra": 553,
+        "gear": 477,
+        "susp": 474
       },
       "feedback": "",
       "tyres": "Medium",
       "temp": 27,
-      "note": "Completed session",
-      "session_key": "RACE"
+      "note": "Setup na wyścig (korekta temperatury)",
+      "session_key": "RACE",
+      "fuel_strategy": {
+        "pits": 2,
+        "stints": [
+          113,
+          113,
+          113
+        ],
+        "total_fuel": 338
+      }
     }
   ],
   "fuel_strategy": {
