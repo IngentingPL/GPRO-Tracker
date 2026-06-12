@@ -1,17 +1,17 @@
 {
   "season": 111,
-  "race": 1,
-  "track": "Barcelona GP (Hiszpania)",
-  "track_id": "5",
+  "race": 2,
+  "track": "Ahvenisto GP (Finlandia)",
+  "track_id": "47",
   "total_laps": 72,
-  "is_current": true,
+  "is_current": false,
   "phase": "upcoming",
   "latest_completed": {
-    "season": "110",
-    "race": "17",
-    "track": "Monte Carlo (Monako)"
+    "season": "111",
+    "race": "1",
+    "track": "Barcelona (Hiszpania)"
   },
   "office_season": 111,
   "office_race": 1,
-  "fetched_at": "2026-06-09T21:17:16.623019Z"
+  "fetched_at": "2026-06-12T21:10:10.900441Z"
 }
