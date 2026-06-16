@@ -1,17 +1,17 @@
 {
   "season": 111,
-  "race": 2,
-  "track": "Ahvenisto GP (Finlandia)",
-  "track_id": "47",
+  "race": 3,
+  "track": "Magny Cours GP (Francja)",
+  "track_id": "7",
   "total_laps": 72,
   "is_current": false,
   "phase": "upcoming",
   "latest_completed": {
     "season": "111",
-    "race": "1",
-    "track": "Barcelona (Hiszpania)"
+    "race": "2",
+    "track": "Ahvenisto (Finlandia)"
   },
   "office_season": 111,
   "office_race": 1,
-  "fetched_at": "2026-06-12T21:10:10.900441Z"
+  "fetched_at": "2026-06-16T21:59:11.218842Z"
 }
