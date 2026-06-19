@@ -1,21 +1,21 @@
 {
-  "generated_at": "2026-06-16T21:59:13.318218Z",
+  "generated_at": "2026-06-19T20:50:06.016069Z",
   "next_race": {
-    "track": "Magny Cours GP (Francja)",
+    "track": "Poznan GP (Polska)",
     "season": 111,
-    "race": 3,
+    "race": 4,
     "total_laps": 72,
-    "track_id": "7"
+    "track_id": "42"
   },
   "confidence": "low",
   "confidence_reason": "Fallback: punkt startowy z danych toru (downforce)",
   "driver_margin": {
-    "MA": 119,
+    "MA": 118,
     "half_MA": 59,
-    "note": "Setup ±59 od optimum da satisfied (MA=119, TI=39, EXP=41)"
+    "note": "Setup ±59 od optimum da satisfied (MA=118, TI=41, EXP=43)"
   },
   "base": {
-    "track": "Magny Cours GP (Francja)",
+    "track": "Poznan GP (Polska)",
     "setup": {
       "fw": 512,
       "rw": 512,
@@ -183,41 +183,41 @@
       "fuel_strategy": {
         "pits": 2,
         "stints": [
-          109,
-          109,
-          109
+          107,
+          107,
+          107
         ],
-        "total_fuel": 326
+        "total_fuel": 322
       }
     }
   ],
   "fuel_strategy": {
-    "fuel_per_lap": 4.53,
+    "fuel_per_lap": 4.47,
     "recommended": {
       "pits": 2,
       "stints": [
-        109,
-        109,
-        109
+        107,
+        107,
+        107
       ],
-      "total_fuel": 326
+      "total_fuel": 322
     },
     "alternative": {
       "pits": 3,
       "stints": [
-        109,
-        109,
-        109,
-        109
+        107,
+        107,
+        107,
+        107
       ],
-      "total_fuel": 436
+      "total_fuel": 428
     }
   },
   "tyre_strategy": {
     "est_tyre_life_laps": 35,
-    "laps_on_fuel": 39,
+    "laps_on_fuel": 40,
     "bottleneck": "tyres",
-    "bottleneck_explanation": "Opony na ~35 okr, paliwo na ~39 okr → pit stopy wynikają z opon"
+    "bottleneck_explanation": "Opony na ~35 okr, paliwo na ~40 okr → pit stopy wynikają z opon"
   },
   "tyre_info": {
     "supplier": "Pipirelli",
@@ -225,10 +225,10 @@
     "est_tyre_life_laps": 35
   },
   "notes": [
-    "Predykcja oparta na 22 wyścigach w historii.",
+    "Predykcja oparta na 23 wyścigach w historii.",
     "Pewność: low - Fallback: punkt startowy z danych toru (downforce)",
-    "Kierowca: Noel Lavin (TI=39, EXP=41)",
+    "Kierowca: Noel Lavin (TI=41, EXP=43)",
     "Margines kierowcy: ±59 od optimum.",
-    "Opony: ~35 okr, paliwo: ~39 okr"
+    "Opony: ~35 okr, paliwo: ~40 okr"
   ]
 }
