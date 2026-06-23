@@ -1,28 +1,28 @@
 {
-  "generated_at": "2026-06-19T20:50:06.016069Z",
+  "generated_at": "2026-06-23T21:13:05.333396Z",
   "next_race": {
-    "track": "Poznan GP (Polska)",
+    "track": "A1-Ring GP (Austria)",
     "season": 111,
-    "race": 4,
+    "race": 5,
     "total_laps": 72,
-    "track_id": "42"
+    "track_id": "12"
   },
   "confidence": "low",
   "confidence_reason": "Fallback: punkt startowy z danych toru (downforce)",
   "driver_margin": {
     "MA": 118,
     "half_MA": 59,
-    "note": "Setup ±59 od optimum da satisfied (MA=118, TI=41, EXP=43)"
+    "note": "Setup ±59 od optimum da satisfied (MA=118, TI=42, EXP=44)"
   },
   "base": {
-    "track": "Poznan GP (Polska)",
+    "track": "A1-Ring GP (Austria)",
     "setup": {
-      "fw": 512,
-      "rw": 512,
-      "eng": 512,
-      "bra": 512,
-      "gear": 512,
-      "susp": 512
+      "fw": 256,
+      "rw": 256,
+      "eng": 256,
+      "bra": 256,
+      "gear": 256,
+      "susp": 256
     },
     "temp": 20
   },
@@ -33,12 +33,12 @@
       "completed": false,
       "is_next": true,
       "setup": {
-        "fw": 516,
-        "rw": 516,
-        "eng": 507,
-        "bra": 518,
-        "gear": 507,
-        "susp": 506,
+        "fw": 260,
+        "rw": 260,
+        "eng": 251,
+        "bra": 262,
+        "gear": 251,
+        "susp": 250,
         "temp": 21
       },
       "feedback": "",
@@ -149,12 +149,12 @@
       "completed": false,
       "is_next": false,
       "setup": {
-        "fw": 537,
-        "rw": 537,
-        "eng": 482,
-        "bra": 547,
-        "gear": 482,
-        "susp": 479
+        "fw": 281,
+        "rw": 281,
+        "eng": 226,
+        "bra": 291,
+        "gear": 226,
+        "susp": 223
       },
       "feedback": "",
       "tyres": "Medium",
@@ -168,12 +168,12 @@
       "completed": false,
       "is_next": false,
       "setup": {
-        "fw": 541,
-        "rw": 541,
-        "eng": 477,
-        "bra": 553,
-        "gear": 477,
-        "susp": 474
+        "fw": 285,
+        "rw": 285,
+        "eng": 221,
+        "bra": 297,
+        "gear": 221,
+        "susp": 218
       },
       "feedback": "",
       "tyres": "Medium",
@@ -183,34 +183,34 @@
       "fuel_strategy": {
         "pits": 2,
         "stints": [
-          107,
-          107,
-          107
+          106,
+          106,
+          106
         ],
-        "total_fuel": 322
+        "total_fuel": 317
       }
     }
   ],
   "fuel_strategy": {
-    "fuel_per_lap": 4.47,
+    "fuel_per_lap": 4.41,
     "recommended": {
       "pits": 2,
       "stints": [
-        107,
-        107,
-        107
+        106,
+        106,
+        106
       ],
-      "total_fuel": 322
+      "total_fuel": 317
     },
     "alternative": {
       "pits": 3,
       "stints": [
-        107,
-        107,
-        107,
-        107
+        106,
+        106,
+        106,
+        106
       ],
-      "total_fuel": 428
+      "total_fuel": 424
     }
   },
   "tyre_strategy": {
@@ -225,9 +225,9 @@
     "est_tyre_life_laps": 35
   },
   "notes": [
-    "Predykcja oparta na 23 wyścigach w historii.",
+    "Predykcja oparta na 24 wyścigach w historii.",
     "Pewność: low - Fallback: punkt startowy z danych toru (downforce)",
-    "Kierowca: Noel Lavin (TI=41, EXP=43)",
+    "Kierowca: Noel Lavin (TI=42, EXP=44)",
     "Margines kierowcy: ±59 od optimum.",
     "Opony: ~35 okr, paliwo: ~40 okr"
   ]
