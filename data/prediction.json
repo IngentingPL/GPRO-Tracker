@@ -1,28 +1,28 @@
 {
-  "generated_at": "2026-06-26T21:01:29.456482Z",
+  "generated_at": "2026-06-30T21:13:07.348059Z",
   "next_race": {
-    "track": "Jyllands-Ringen GP (Dania)",
+    "track": "Silverstone GP (Wielka Brytania)",
     "season": 111,
-    "race": 6,
+    "race": 7,
     "total_laps": 72,
-    "track_id": "60"
+    "track_id": "8"
   },
   "confidence": "low",
   "confidence_reason": "Fallback: punkt startowy z danych toru (downforce)",
   "driver_margin": {
     "MA": 117,
     "half_MA": 58,
-    "note": "Setup ±58 od optimum da satisfied (MA=117, TI=43, EXP=45)"
+    "note": "Setup ±58 od optimum da satisfied (MA=117, TI=44, EXP=46)"
   },
   "base": {
-    "track": "Jyllands-Ringen GP (Dania)",
+    "track": "Silverstone GP (Wielka Brytania)",
     "setup": {
-      "fw": 768,
-      "rw": 768,
-      "eng": 768,
-      "bra": 768,
-      "gear": 768,
-      "susp": 768
+      "fw": 256,
+      "rw": 256,
+      "eng": 256,
+      "bra": 256,
+      "gear": 256,
+      "susp": 256
     },
     "temp": 20
   },
@@ -33,16 +33,16 @@
       "completed": false,
       "is_next": true,
       "setup": {
-        "fw": 772,
-        "rw": 772,
-        "eng": 763,
-        "bra": 774,
-        "gear": 763,
-        "susp": 762,
+        "fw": 260,
+        "rw": 260,
+        "eng": 251,
+        "bra": 262,
+        "gear": 251,
+        "susp": 250,
         "temp": 21
       },
       "feedback": "",
-      "tyres": "Hard",
+      "tyres": "Medium",
       "temp": 21,
       "note": "Sugerowany setup na podstawie poprzednich sesji",
       "session_key": "P1"
@@ -54,7 +54,7 @@
       "is_next": false,
       "setup": null,
       "feedback": "",
-      "tyres": "Hard",
+      "tyres": "Medium",
       "temp": 21,
       "note": "",
       "session_key": "P2"
@@ -66,7 +66,7 @@
       "is_next": false,
       "setup": null,
       "feedback": "",
-      "tyres": "Hard",
+      "tyres": "Medium",
       "temp": 21,
       "note": "",
       "session_key": "P3"
@@ -78,7 +78,7 @@
       "is_next": false,
       "setup": null,
       "feedback": "",
-      "tyres": "Hard",
+      "tyres": "Medium",
       "temp": 21,
       "note": "",
       "session_key": "P4"
@@ -90,7 +90,7 @@
       "is_next": false,
       "setup": null,
       "feedback": "",
-      "tyres": "Hard",
+      "tyres": "Medium",
       "temp": 21,
       "note": "",
       "session_key": "P5"
@@ -102,7 +102,7 @@
       "is_next": false,
       "setup": null,
       "feedback": "",
-      "tyres": "Hard",
+      "tyres": "Medium",
       "temp": 21,
       "note": "",
       "session_key": "P6"
@@ -114,7 +114,7 @@
       "is_next": false,
       "setup": null,
       "feedback": "",
-      "tyres": "Hard",
+      "tyres": "Medium",
       "temp": 21,
       "note": "",
       "session_key": "P7"
@@ -126,7 +126,7 @@
       "is_next": false,
       "setup": null,
       "feedback": "",
-      "tyres": "Hard",
+      "tyres": "Medium",
       "temp": 21,
       "note": "",
       "session_key": "P8"
@@ -138,7 +138,7 @@
       "is_next": false,
       "setup": null,
       "feedback": "",
-      "tyres": "Hard",
+      "tyres": "Medium",
       "temp": 22,
       "note": "",
       "session_key": "Q1"
@@ -149,15 +149,15 @@
       "completed": false,
       "is_next": false,
       "setup": {
-        "fw": 793,
-        "rw": 793,
-        "eng": 738,
-        "bra": 803,
-        "gear": 738,
-        "susp": 735
+        "fw": 281,
+        "rw": 281,
+        "eng": 226,
+        "bra": 291,
+        "gear": 226,
+        "susp": 223
       },
       "feedback": "",
-      "tyres": "Hard",
+      "tyres": "Medium",
       "temp": 26,
       "note": "Setup skorygowany dla Q2 (wyższa temperatura)",
       "session_key": "Q2"
@@ -168,67 +168,67 @@
       "completed": false,
       "is_next": false,
       "setup": {
-        "fw": 797,
-        "rw": 797,
-        "eng": 733,
-        "bra": 809,
-        "gear": 733,
-        "susp": 730
+        "fw": 285,
+        "rw": 285,
+        "eng": 221,
+        "bra": 297,
+        "gear": 221,
+        "susp": 218
       },
       "feedback": "",
-      "tyres": "Hard",
+      "tyres": "Medium",
       "temp": 27,
       "note": "Setup na wyścig (korekta temperatury)",
       "session_key": "RACE",
       "fuel_strategy": {
         "pits": 2,
         "stints": [
-          105,
-          105,
-          105
+          102,
+          102,
+          102
         ],
-        "total_fuel": 315
+        "total_fuel": 307
       }
     }
   ],
   "fuel_strategy": {
-    "fuel_per_lap": 4.37,
+    "fuel_per_lap": 4.27,
     "recommended": {
       "pits": 2,
       "stints": [
-        105,
-        105,
-        105
+        102,
+        102,
+        102
       ],
-      "total_fuel": 315
+      "total_fuel": 307
     },
     "alternative": {
       "pits": 3,
       "stints": [
-        105,
-        105,
-        105,
-        105
+        102,
+        102,
+        102,
+        102
       ],
-      "total_fuel": 420
+      "total_fuel": 408
     }
   },
   "tyre_strategy": {
-    "est_tyre_life_laps": 40,
-    "laps_on_fuel": 41,
-    "bottleneck": "tyres",
-    "bottleneck_explanation": "Opony na ~40 okr, paliwo na ~41 okr → pit stopy wynikają z opon"
+    "est_tyre_life_laps": 42,
+    "laps_on_fuel": 42,
+    "bottleneck": "fuel",
+    "bottleneck_explanation": "Paliwo na ~42 okr, opony na ~42 okr → pit stopy wynikają z paliwa"
   },
   "tyre_info": {
     "supplier": "Pipirelli",
-    "bottleneck": "tyres",
-    "est_tyre_life_laps": 40
+    "bottleneck": "fuel",
+    "est_tyre_life_laps": 42
   },
   "notes": [
-    "Predykcja oparta na 25 wyścigach w historii.",
+    "Predykcja oparta na 26 wyścigach w historii.",
     "Pewność: low - Fallback: punkt startowy z danych toru (downforce)",
-    "Kierowca: Noel Lavin (TI=43, EXP=45)",
+    "Kierowca: Noel Lavin (TI=44, EXP=46)",
     "Margines kierowcy: ±58 od optimum.",
-    "Opony: ~40 okr, paliwo: ~41 okr"
+    "Opony: ~42 okr, paliwo: ~42 okr"
   ]
 }
