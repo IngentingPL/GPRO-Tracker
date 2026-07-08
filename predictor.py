@@ -49,18 +49,17 @@ WINGS_INCREASE = {
 
 # WINGS - DECREASE (zmniejsz skrzydła = mniej docisku)
 WINGS_DECREASE = {
+    # -1 (step * -0.33)
+    "missing a bit of grip on the curves": -0.33,
     # -2 (step * -0.67)
     "very unstable in many corners": -0.67,
     # -3 (step * -1.0)
     "cannot drive the car, there is no grip": -1.0,
-    # -1 (step * -0.33)
-    "missing a bit of grip on the curves": -0.33,
 }
 
 # ENGINE - INCREASE (zwiększ silnik = niższe obroty)
 ENGINE_INCREASE = {
     # +3 (step * 1.0)
-    "no no no": 1.0,
     "favor a lot more the low revs": 1.0,
     # +2 (step * 0.67)
     "engine revs are too high": 0.67,
@@ -71,7 +70,6 @@ ENGINE_INCREASE = {
 # ENGINE - DECREASE (zmniejsz silnik = wyższe obroty)
 ENGINE_DECREASE = {
     # -1 (step * -0.33)
-    "not sufficient": -0.33,
     "not enough engine power": -0.33,
     # -2 (step * -0.67)
     "engine power on the straights is not sufficient": -0.67,
@@ -85,7 +83,6 @@ BRAKES_INCREASE = {
     "balance a lot more to the back": 1.0,
     # +2 (step * 0.67)
     "balance to the back": 0.67,
-    "effectiveness higher": 0.67,
     # +1 (step * 0.33)
     "balance a bit more to the back": 0.33,
 }
@@ -291,7 +288,7 @@ def calculate_binary_step(lap_index):
     return round(step)
 
 
-def apply_binary_correction(setup, directions, step, comment=""):
+def apply_binary_correction(setup, directions, step, comment="", session_name=""):
     """
     Stosuje binarną korektę setupu na podstawie kierunków z komentarza (logika Inget).
     
@@ -300,11 +297,13 @@ def apply_binary_correction(setup, directions, step, comment=""):
         directions: Słownik z kierunkami (wings, engine, brakes, gear, suspension)
         step: Aktualny krok binarny (np. 256, 128, 64...)
         comment: Oryginalny komentarz kierowcy (do wyciągnięcia wag)
+        session_name: Nazwa sesji do logowania (np. "P1", "P2")
     
     Returns:
         Skorygowany setup
     """
     adjusted = setup.copy()
+    prefix = f"{session_name} " if session_name else ""
     
     # WINGS: FW + RW razem (komentarz dotyczy sumy)
     wings_dir = directions.get("wings", "ok")
@@ -313,6 +312,9 @@ def apply_binary_correction(setup, directions, step, comment=""):
         adjustment = round(step * weight)
         adjusted["fw"] = min(999, max(0, adjusted["fw"] + adjustment))
         adjusted["rw"] = min(999, max(0, adjusted["rw"] + adjustment))
+        # Log: "P[N] feedback: [param] [+/-][value]"
+        sign = "+" if adjustment > 0 else ""
+        print(f"   {prefix}feedback: FW {sign}{adjustment}")
     
     # ENGINE
     eng_dir = directions.get("engine", "ok")
@@ -320,6 +322,8 @@ def apply_binary_correction(setup, directions, step, comment=""):
         _, weight = get_comment_weight(comment, "engine")
         adjustment = round(step * weight)
         adjusted["eng"] = min(999, max(0, adjusted["eng"] + adjustment))
+        sign = "+" if adjustment > 0 else ""
+        print(f"   {prefix}feedback: ENG {sign}{adjustment}")
     
     # BRAKES
     bra_dir = directions.get("brakes", "ok")
@@ -327,6 +331,8 @@ def apply_binary_correction(setup, directions, step, comment=""):
         _, weight = get_comment_weight(comment, "brakes")
         adjustment = round(step * weight)
         adjusted["bra"] = min(999, max(0, adjusted["bra"] + adjustment))
+        sign = "+" if adjustment > 0 else ""
+        print(f"   {prefix}feedback: BRA {sign}{adjustment}")
     
     # GEAR
     gear_dir = directions.get("gear", "ok")
@@ -334,6 +340,8 @@ def apply_binary_correction(setup, directions, step, comment=""):
         _, weight = get_comment_weight(comment, "gear")
         adjustment = round(step * weight)
         adjusted["gear"] = min(999, max(0, adjusted["gear"] + adjustment))
+        sign = "+" if adjustment > 0 else ""
+        print(f"   {prefix}feedback: GEAR {sign}{adjustment}")
     
     # SUSPENSION
     susp_dir = directions.get("suspension", "ok")
@@ -341,12 +349,14 @@ def apply_binary_correction(setup, directions, step, comment=""):
         _, weight = get_comment_weight(comment, "suspension")
         adjustment = round(step * weight)
         adjusted["susp"] = min(999, max(0, adjusted["susp"] + adjustment))
+        sign = "+" if adjustment > 0 else ""
+        print(f"   {prefix}feedback: SUSP {sign}{adjustment}")
     
     return adjusted
 
 
 # Zachowujemy starą funkcję dla kompatybilności (używaną gdzie indziej)
-def adjust_for_driver_comment(base_setup, comment, confidence="medium"):
+def adjust_for_driver_comment(base_setup, comment, confidence="medium", session_name=""):
     """
     Korektuje setup na podstawie komentarza kierowcy (tryb binarny).
     
@@ -354,6 +364,7 @@ def adjust_for_driver_comment(base_setup, comment, confidence="medium"):
         base_setup: Bazowy setup (słownik z fw, rw, eng, bra, gear, susp)
         comment: Komentarz kierowcy
         confidence: Poziom pewności (używany do określenia numeru sesji)
+        session_name: Nazwa sesji do logowania (np. "P1", "P2")
     
     Returns:
         Skorygowany setup (słownik)
@@ -368,7 +379,7 @@ def adjust_for_driver_comment(base_setup, comment, confidence="medium"):
     
     step = calculate_binary_step(session_number)
     
-    return apply_binary_correction(base_setup, directions, step, comment)
+    return apply_binary_correction(base_setup, directions, step, comment, session_name)
 
 
 # ============================================================
@@ -1714,16 +1725,14 @@ def generate_prediction():
             step_size = calculate_binary_step(lap_index)
             directions = interpret_driver_comment_binary(step_data["feedback"])
             
-            # Oblicz korektę dla wings
-            _, wings_weight = get_comment_weight(step_data["feedback"], "wings")
-            wings_adjustment = round(step_size * wings_weight) if wings_weight != 0 else 0
-            
-            print(f"   Practice {step_key[1] if step_key.startswith('P') else step_key} feedback: {step_data['feedback'][:50]}... → FW: {wings_adjustment:+d}")
+            # Przygotuj nazwę sesji do logowania
+            session_display = step_key if step_key.startswith("P") else step_key
             
             progression_setup = adjust_for_driver_comment(
                 step_data["setup"] if step_data["setup"] else progression_setup,
                 step_data["feedback"],
-                base["confidence"]
+                base["confidence"],
+                session_display
             )
 
         sequence.append(step_data)
