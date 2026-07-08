@@ -1,21 +1,21 @@
 {
-  "generated_at": "2026-07-07T21:04:03.368130Z",
+  "generated_at": "2026-07-04T11:32:48.058562Z",
   "next_race": {
-    "track": "Austin GP (USA)",
-    "season": 111,
-    "race": 9,
+    "track": "Interlagos GP (Brazylia)",
+    "season": 110,
+    "race": 8,
     "total_laps": 72,
-    "track_id": "51"
+    "track_id": "1"
   },
   "confidence": "low",
   "confidence_reason": "Fallback: punkt startowy z danych toru (downforce)",
   "driver_margin": {
-    "MA": 116,
-    "half_MA": 58,
-    "note": "Setup ±58 od optimum da satisfied (MA=116, TI=47, EXP=48)"
+    "MA": 125,
+    "half_MA": 62,
+    "note": "Setup ±62 od optimum da satisfied (MA=125, TI=24, EXP=28)"
   },
   "base": {
-    "track": "Austin GP (USA)",
+    "track": "Interlagos GP (Brazylia)",
     "setup": {
       "fw": 512,
       "rw": 512,
@@ -33,17 +33,17 @@
       "completed": false,
       "is_next": true,
       "setup": {
-        "fw": 516,
-        "rw": 516,
-        "eng": 507,
-        "bra": 518,
-        "gear": 507,
-        "susp": 506,
-        "temp": 21
+        "fw": 512,
+        "rw": 512,
+        "eng": 512,
+        "bra": 512,
+        "gear": 512,
+        "susp": 512,
+        "temp": 20
       },
       "feedback": "",
       "tyres": "Medium",
-      "temp": 21,
+      "temp": 20,
       "note": "Sugerowany setup na podstawie poprzednich sesji",
       "session_key": "P1"
     },
@@ -55,7 +55,7 @@
       "setup": null,
       "feedback": "",
       "tyres": "Medium",
-      "temp": 21,
+      "temp": 20,
       "note": "",
       "session_key": "P2"
     },
@@ -67,7 +67,7 @@
       "setup": null,
       "feedback": "",
       "tyres": "Medium",
-      "temp": 21,
+      "temp": 20,
       "note": "",
       "session_key": "P3"
     },
@@ -79,7 +79,7 @@
       "setup": null,
       "feedback": "",
       "tyres": "Medium",
-      "temp": 21,
+      "temp": 20,
       "note": "",
       "session_key": "P4"
     },
@@ -91,7 +91,7 @@
       "setup": null,
       "feedback": "",
       "tyres": "Medium",
-      "temp": 21,
+      "temp": 20,
       "note": "",
       "session_key": "P5"
     },
@@ -103,7 +103,7 @@
       "setup": null,
       "feedback": "",
       "tyres": "Medium",
-      "temp": 21,
+      "temp": 20,
       "note": "",
       "session_key": "P6"
     },
@@ -115,7 +115,7 @@
       "setup": null,
       "feedback": "",
       "tyres": "Medium",
-      "temp": 21,
+      "temp": 20,
       "note": "",
       "session_key": "P7"
     },
@@ -127,7 +127,7 @@
       "setup": null,
       "feedback": "",
       "tyres": "Medium",
-      "temp": 21,
+      "temp": 20,
       "note": "",
       "session_key": "P8"
     },
@@ -183,41 +183,41 @@
       "fuel_strategy": {
         "pits": 2,
         "stints": [
-          101,
-          101,
-          101
+          106,
+          106,
+          106
         ],
-        "total_fuel": 304
+        "total_fuel": 319
       }
     }
   ],
   "fuel_strategy": {
-    "fuel_per_lap": 4.22,
+    "fuel_per_lap": 4.43,
     "recommended": {
       "pits": 2,
       "stints": [
-        101,
-        101,
-        101
+        106,
+        106,
+        106
       ],
-      "total_fuel": 304
+      "total_fuel": 319
     },
     "alternative": {
       "pits": 3,
       "stints": [
-        101,
-        101,
-        101,
-        101
+        106,
+        106,
+        106,
+        106
       ],
-      "total_fuel": 404
+      "total_fuel": 424
     }
   },
   "tyre_strategy": {
     "est_tyre_life_laps": 35,
-    "laps_on_fuel": 42,
+    "laps_on_fuel": 40,
     "bottleneck": "tyres",
-    "bottleneck_explanation": "Opony na ~35 okr, paliwo na ~42 okr → pit stopy wynikają z opon"
+    "bottleneck_explanation": "Opony na ~35 okr, paliwo na ~40 okr → pit stopy wynikają z opon"
   },
   "tyre_info": {
     "supplier": "Pipirelli",
@@ -225,10 +225,10 @@
     "est_tyre_life_laps": 35
   },
   "notes": [
-    "Predykcja oparta na 28 wyścigach w historii.",
+    "Predykcja oparta na 10 wyścigach w historii.",
     "Pewność: low - Fallback: punkt startowy z danych toru (downforce)",
-    "Kierowca: Noel Lavin (TI=47, EXP=48)",
-    "Margines kierowcy: ±58 od optimum.",
-    "Opony: ~35 okr, paliwo: ~42 okr"
+    "Kierowca: Noel Lavin (TI=24, EXP=28)",
+    "Margines kierowcy: ±62 od optimum.",
+    "Opony: ~35 okr, paliwo: ~40 okr"
   ]
 }

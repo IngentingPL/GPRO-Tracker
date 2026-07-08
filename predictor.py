@@ -549,23 +549,32 @@ def get_downforce_level(track_data):
     return DOWNFORCE_MAP.get(downforce_lower)
 
 
-def get_starting_point(track_data):
+def get_starting_point(track_downforce):
     """
     Zwraca punkt startowy setupu na podstawie downforce toru.
     
+    Nowa logika:
+    - Low downforce → base = 256
+    - Medium downforce → base = 512
+    - High downforce → base = 768
+    - FW = RW = ENG = BRA = GEAR = SUSP = base
+    
     Zwraca słownik z wartościami startowymi dla wszystkich parametrów.
     """
-    downforce = get_downforce_level(track_data)
+    # Normalizuj wartość downforce (może być z różnymi wielkościami liter)
+    downforce_lower = str(track_downforce).lower() if track_downforce else "medium"
     
-    if downforce and downforce in DOWNFORCE_START:
-        base_value = DOWNFORCE_START[downforce]
-        # Log wymagany przez weryfikację: "Base setup from downforce: [Low/Medium/High] → [256/512/768]"
-        downforce_display = downforce.capitalize() if downforce else "Medium"
-        print(f"   Base setup from downforce: {downforce_display} → {base_value}")
+    if downforce_lower == "low":
+        base_value = 256
+    elif downforce_lower == "high":
+        base_value = 768
     else:
         # Fallback: medium
-        base_value = DOWNFORCE_START["medium"]
-        print(f"   Base setup from downforce: Medium → {base_value} (fallback)")
+        base_value = 512
+    
+    # Log wymagany przez weryfikację
+    downforce_display = downforce_lower.capitalize() if downforce_lower else "Medium"
+    print(f"   Base setup from downforce: {downforce_display} → {base_value}")
     
     return {
         "fw": base_value,
@@ -868,7 +877,7 @@ def find_next_step(completed_sessions, sequence_order):
 # ZNAJDOWANIE BAZOWEGO SETUPU
 # ============================================================
 
-def find_base_setup(track_name, history, track_data=None):
+def find_base_setup(track_name, history, track_downforce="Medium"):
     """
     Znajduje bazowy setup dla danego toru z historii.
 
@@ -901,7 +910,7 @@ def find_base_setup(track_name, history, track_data=None):
     # Brak danych z tego toru → używamy punkt startowy z get_starting_point
     # Mini-lekcja: Punkt startowy zależy od poziomu downforce toru
     # Low → 256, Medium → 512, High → 768
-    starting_setup = get_starting_point(track_data)
+    starting_setup = get_starting_point(track_downforce)
 
     return {
         "setup": starting_setup,
@@ -915,23 +924,46 @@ def find_base_setup(track_name, history, track_data=None):
 # KOREKTA SETUPU
 # ============================================================
 
-def adjust_for_temperature(base_setup, base_temp, target_temp):
+def adjust_for_temperature(base_setup, base_temp, target_temp, session_name=""):
     """
     Korektuje setup dla innej temperatury.
 
-    Mini-lekcja: Używamy liniowej ekstrapolacji.
-    delta_temp * TEMP_COEFFICIENTS = nowa wartość setupu.
-    Ograniczamy wynik do zakresu 0-999.
+    Nowa logika (zgodna ze specyfikacją):
+    delta = session_temp - p1_temp
+    FW   += delta * 4.17
+    RW   += delta * 4.17
+    ENG  += delta * -5.00
+    BRA  += delta * 5.83
+    GEAR += delta * -5.00
+    SUSP += delta * -5.50
+
+    Log: "Base: [value] | Temp delta: [X]°C | FW after correction: [Y]"
     """
     adjusted = {}
     delta = target_temp - base_temp
 
+    # Nowe współczynniki temperaturowe
+    COEFFICIENTS = {
+        "fw": 4.17,
+        "rw": 4.17,
+        "eng": -5.00,
+        "bra": 5.83,
+        "gear": -5.00,
+        "susp": -5.50
+    }
+
     for setting in ["fw", "rw", "eng", "bra", "gear", "susp"]:
-        coefficient = TEMP_COEFFICIENTS[setting]
+        coefficient = COEFFICIENTS[setting]
         change = coefficient * delta
         new_value = float(base_setup[setting]) + change
         # Ograniczamy do zakresu 0-999 i zaokrąglamy
         adjusted[setting] = max(0, min(999, round(new_value)))
+
+    # Logowanie korekty temperatury
+    base_fw = base_setup.get("fw", 0)
+    fw_after = adjusted.get("fw", 0)
+    session_label = f"[{session_name}] " if session_name else ""
+    print(f"   {session_label}Base: {base_fw} | Temp delta: {delta:+.1f}°C | FW after correction: {fw_after}")
 
     return adjusted
 
@@ -1357,28 +1389,16 @@ def generate_prediction():
     # Pobierz dane toru (dla downforce)
     track_data = load_track_data(track_id) if track_id else {}
 
-    # 3. Znajdź bazowy setup
-    print("\n3. Znajdowanie bazowego setupu...")
-    base = find_base_setup(track_name, history, track_data)
-    print(f"   Źródło: {base['source']}")
-    print(f"   Setup bazowy: {base['setup']}")
-    print(f"   Temperatura bazowa: {base['temp']}°C")
-    print(f"   Confidence: {base['confidence']}")
-
-    # 4. Skoryguj o temperaturę dla Q1, Q2 i Race
-    # Mini-lekcja: Pobieramy temperatury z API (Weather) lub current_context
-    # P1 temp = baza, korekta dla Q1/Q2/Race względem P1
+    # ============================================================
+    # ODCZYT DANYCH Z API (przed obliczeniami setupu)
+    # ============================================================
+    print("\n[API DATA] Odczyt danych z API...")
     
     # Najpierw załaduj dane aktywnego wyścigu (dla temperatur z API)
     active_data = load_active_race_data(season, race_num)
     completed_setups = []
     if active_data:
         completed_setups = active_data.get("race_data", {}).get("setups", [])
-
-    # ============================================================
-    # ODCZYT DANYCH Z API (przed obliczeniami setupu)
-    # ============================================================
-    print("\n[API DATA] Odczyt danych z API...")
 
     # --- TrackProfile data ---
     race_data = active_data.get("race_data", {}) if active_data else {}
@@ -1441,6 +1461,14 @@ def generate_prediction():
     # KONIEC ODCZYTU DANYCH Z API
     # ============================================================
 
+    # 3. Znajdź bazowy setup (używając track_downforce z API)
+    print("\n3. Znajdowanie bazowego setupu...")
+    base = find_base_setup(track_name, history, track_downforce)
+    print(f"   Źródło: {base['source']}")
+    print(f"   Setup bazowy: {base['setup']}")
+    print(f"   Temperatura bazowa: {base['temp']}°C")
+    print(f"   Confidence: {base['confidence']}")
+
     # Pobierz temperatury z danych wyścigu (jeśli dostępne)
     weather_temps = {}
     if active_data:
@@ -1464,20 +1492,9 @@ def generate_prediction():
     print(f"   Q2: {q2_temp}°C")
     print(f"   Race: {race_temp}°C")
 
-    setup_q1 = adjust_for_temperature(base["setup"], p1_temp, q1_temp)
-    setup_q2 = adjust_for_temperature(base["setup"], p1_temp, q2_temp)
-    setup_race = adjust_for_temperature(base["setup"], p1_temp, race_temp)
-    
-    # Logowanie korekty temperatury (wymagane przez weryfikację)
-    delta_q1 = q1_temp - p1_temp
-    delta_q2 = q2_temp - p1_temp
-    delta_race = race_temp - p1_temp
-    fw_adj_q1 = round(delta_q1 * TEMP_COEFFICIENTS["fw"])
-    fw_adj_q2 = round(delta_q2 * TEMP_COEFFICIENTS["fw"])
-    fw_adj_race = round(delta_race * TEMP_COEFFICIENTS["fw"])
-    print(f"   Temperature delta P1 vs Q1: {delta_q1}°C → FW adj: {fw_adj_q1:+d}")
-    print(f"   Temperature delta P1 vs Q2: {delta_q2}°C → FW adj: {fw_adj_q2:+d}")
-    print(f"   Temperature delta P1 vs Race: {delta_race}°C → FW adj: {fw_adj_race:+d}")
+    setup_q1 = adjust_for_temperature(base["setup"], p1_temp, q1_temp, "Q1")
+    setup_q2 = adjust_for_temperature(base["setup"], p1_temp, q2_temp, "Q2")
+    setup_race = adjust_for_temperature(base["setup"], p1_temp, race_temp, "Race")
 
     # Setup for Practice (base z temperaturą P1)
     practice_temp = p1_temp
