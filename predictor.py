@@ -29,142 +29,184 @@ CURRENT_CONTEXT_FILE = "data/current_context.json"
 # Kierunek: ZWIĘKSZ / ZMNIEJSZ / OK (brak zmiany)
 # Następny krok = aktualny_krok binarny (±aktualny_krok)
 
-# Słowa kluczowe dla kierunku ZWIĘKSZ (increase)
-COMMENT_INCREASE = {
-    # WINGS (FW + RW razem) - zwiększ sumę
-    "wings": ["unstable", "too much understeer", "need more downforce", 
-              "corners are difficult", "car slides", "missing grip", "lack of grip",
-              "not enough grip", "grip issues", "grip problem",
-              # Polski
-              "brak przyczepności", "niestabilny", "podsterowność", "za mało docisku"],
-    
-    # ENGINE - zwiększ
-    "engine": ["not enough engine power", "engine power on the straights is not sufficient",
-               "I feel that I do not have enough engine power", "losing time on straights",
-               "need more top speed", "engine feels weak", "engine power is not sufficient",
-               # Polski
-               "za mało mocy", "brak mocy", "za niska moc", "obroty za niskie"],
-    
-    # BRAKES - zwiększ (więcej hamulca = wyższa wartość)
-    "brakes": ["balance more to the front", "too much rear braking",
-               "I would like to have the balance a bit more to the front",
-               "front brakes need more", "need more braking", "brakes not effective",
-               # Polski
-               "balans do przodu", "za mało z przodu", "więcej hamulców"],
-    
-    # GEAR - zwiększ (wyższe przełożenie = wyższa wartość)
-    "gear": ["very often in the red", "put the gear ratio a bit higher",
-             "need higher gear ratio", "revving too high", "rev limiter",
-             "too high in the revs", "hitting the rev limiter",
-             # Polski
-             "obroty za wysokie", "za wysokie obroty", "redline", "przełożenie za niskie"],
-    
-    # SUSPENSION - zwiększ (sztywniejsze = wyższa wartość)
-    "suspension": ["suspension rigidity is too low", "too soft", "car bouncing",
-                   "need stiffer suspension", "slightly stiffer suspension",
-                   "suspension is too soft", "suspension is not stiff enough",
-                   # Polski
-                   "zawieszenie za miękkie", "zbyt miękkie", "za miękkie", "podskakuje"]
+# ============================================================
+# MAPOWANIE KOMENTARZY KIEROWCY -> KOREKTY SETUPU (LOGIKA INGET)
+# ============================================================
+
+# Mini-lekcja: Komentarze kierowcy z Inget.xlsm (Race sheet, PracticeCalcSimple)
+# Każdy komentarz ma poziom intensywności (+3, +2, +1, -1, -2, -3)
+# który mnoży się przez krok binarny (step * weight)
+
+# WINGS (FW + RW razem) - INCREASE (zwiększ skrzydła = więcej docisku)
+WINGS_INCREASE = {
+    # +3 (step * 1.0)
+    "really missing a lot of speed on the straights": 1.0,
+    # +2 (step * 0.67)
+    "lacking some speed on the straights": 0.67,
+    # +1 (step * 0.33)
+    "could have a bit more speed on the straights": 0.33,
 }
 
-# Słowa kluczowe dla kierunku ZMNIEJSZ (decrease)
-COMMENT_DECREASE = {
-    # WINGS (FW + RW razem) - zmniejsz sumę
-    "wings": ["too much drag", "losing speed on straights", "oversteer",
-              "rear is too stable", "too much downforce", "too much wing",
-              "excessive drag", "rear is unstable",
-              # Polski
-              "za dużo docisku", "nadsterowność", "za dużo skrzydeł", "opór"],
-    
-    # ENGINE - zmniejsz
-    "engine": ["too much engine", "losing acceleration", "engine too high",
-               "engine is too powerful", "engine power is too high",
-               "too much engine power", "engine is too strong",
-               # Polski
-               "za dużo mocy", "za wysoka moc", "traci przyspieszenie"],
-    
-    # BRAKES - zmniejsz
-    "brakes": ["too much front braking", "front locking up", "balance to the rear",
-               "front brakes locking", "too much braking pressure", "brakes locking",
-               # Polski
-               "za dużo z przodu", "blokuje przód", "balans do tyłu"],
-    
-    # GEAR - zmniejsz
-    "gear": ["gear ratio too high", "not reaching top revs", "too low in revs",
-             "gear ratio is too high", "not hitting top revs", "rev too low",
-             # Polski
-             "przełożenie za wysokie", "za wysokie przełożenie", "nie osiąga max obrotów"],
-    
-    # SUSPENSION - zmniejsz
-    "suspension": ["too stiff", "suspension too hard", "harsh over bumps",
-                   "suspension is too stiff", "suspension is too hard",
-                   "suspension rigidity is too high", "suspension is harsh",
-                   # Polski
-                   "zawieszenie za sztywne", "zbyt sztywne", "za sztywne", "sztywność jest zbyt wysoka"]
+# WINGS - DECREASE (zmniejsz skrzydła = mniej docisku)
+WINGS_DECREASE = {
+    # -2 (step * -0.67)
+    "very unstable in many corners": -0.67,
+    # -3 (step * -1.0)
+    "cannot drive the car, there is no grip": -1.0,
+    # -1 (step * -0.33)
+    "missing a bit of grip on the curves": -0.33,
 }
 
-# Słowa kluczowe dla OK (brak zmiany)
-COMMENT_OK = {
-    "wings": ["happy with wings", "wings are fine", "wing balance is good",
-              "wings are good", "happy with the wings", "wing balance is fine",
-              # Polski
-              "skrzydła ok", "skrzydła w porządku", "docisk ok"],
-    "engine": ["engine is fine", "happy with engine power", "engine power is good",
-               "engine is good", "happy with engine", "engine feels right",
-               # Polski
-               "silnik ok", "moc ok", "silnik w porządku"],
-    "brakes": ["brakes are fine", "happy with brakes", "brakes are good",
-               "brakes are working well", "happy with the brakes", "brake balance is good",
-               # Polski
-               "hamulce ok", "hamulce w porządku", "balans ok"],
-    "gear": ["gear ratio is fine", "happy with gears", "gears are good",
-             "gear ratio is good", "happy with gear", "gears are fine",
-             # Polski
-             "przełożenie ok", "biegi ok", "przełożenie w porządku"],
-    "suspension": ["suspension is fine", "happy with suspension", "suspension is good",
-                   "suspension is ok", "happy with the suspension", "suspension works well",
-                   # Polski
-                   "zawieszenie ok", "zawieszenie w porządku", "sztywność ok"]
+# ENGINE - INCREASE (zwiększ silnik = niższe obroty)
+ENGINE_INCREASE = {
+    # +3 (step * 1.0)
+    "no no no": 1.0,
+    "favor a lot more the low revs": 1.0,
+    # +2 (step * 0.67)
+    "engine revs are too high": 0.67,
+    # +1 (step * 0.33)
+    "favor a bit more the low revs": 0.33,
 }
 
+# ENGINE - DECREASE (zmniejsz silnik = wyższe obroty)
+ENGINE_DECREASE = {
+    # -1 (step * -0.33)
+    "not sufficient": -0.33,
+    "not enough engine power": -0.33,
+    # -2 (step * -0.67)
+    "engine power on the straights is not sufficient": -0.67,
+    # -3 (step * -1.0)
+    "favor a lot more the high revs": -1.0,
+}
 
-def get_comment_direction(comment, category):
+# BRAKES - INCREASE (zwiększ hamulce = więcej z tyłu)
+BRAKES_INCREASE = {
+    # +3 (step * 1.0)
+    "balance a lot more to the back": 1.0,
+    # +2 (step * 0.67)
+    "balance to the back": 0.67,
+    "effectiveness higher": 0.67,
+    # +1 (step * 0.33)
+    "balance a bit more to the back": 0.33,
+}
+
+# BRAKES - DECREASE (zmniejsz hamulce = więcej z przodu)
+BRAKES_DECREASE = {
+    # -1 (step * -0.33)
+    "balance a bit more to the front": -0.33,
+    # -2 (step * -0.67) - wymaga "front" w komentarzu
+    ("effectiveness could be higher", "front"): -0.67,
+    # -3 (step * -1.0) - wymaga "front" w komentarzu
+    ("lot more comfortable", "front"): -1.0,
+}
+
+# GEAR - INCREASE (zwiększ bieg = niższe przełożenie)
+GEAR_INCREASE = {
+    # +3 (step * 1.0)
+    "ratio between the gears much lower": 1.0,
+    # +2 (step * 0.67)
+    "gear ratio is too high": 0.67,
+    # +1 (step * 0.33)
+    "put the gear ratio a bit lower": 0.33,
+}
+
+# GEAR - DECREASE (zmniejsz bieg = wyższe przełożenie)
+GEAR_DECREASE = {
+    # -1 (step * -0.33)
+    "very often in the red": -0.33,
+    # -2 (step * -0.67)
+    "gear ratio is too low": -0.67,
+    # -3 (step * -1.0)
+    "engine is going to explode": -1.0,
+}
+
+# SUSPENSION - INCREASE (zwiększ zawieszenie = bardziej miękkie)
+SUSPENSION_INCREASE = {
+    # +3 (step * 1.0)
+    "far too rigid. lower a lot": 1.0,
+    # +2 (step * 0.67)
+    "rigidity is too high": 0.67,
+    # +1 (step * 0.33)
+    "too rigid. lower a bit": 0.33,
+}
+
+# SUSPENSION - DECREASE (zmniejsz zawieszenie = bardziej sztywne)
+SUSPENSION_DECREASE = {
+    # -1 (step * -0.33)
+    "bit more rigid suspension": -0.33,
+    # -2 (step * -0.67)
+    "rigidity is too low": -0.67,
+    # -3 (step * -1.0)
+    "rigidity should be a lot higher": -1.0,
+}
+
+# SATISFIED - brak zmiany
+SATISFIED_KEYWORDS = ["satisfied", "happy with", "fine", "good"]
+
+
+def get_comment_weight(comment, category):
     """
-    Określa kierunek korekty na podstawie komentarza kierowcy.
+    Określa wagę korekty na podstawie komentarza kierowcy (logika Inget).
     
     Args:
         comment: Komentarz kierowcy (np. "Wings: The car is too unstable...")
         category: Kategoria ("wings", "engine", "brakes", "gear", "suspension")
     
     Returns:
-        "increase", "decrease" lub "ok"
+        tuple: (direction, weight) gdzie direction to "increase", "decrease" lub "ok",
+               a weight to mnożnik (1.0, 0.67, 0.33, -0.33, -0.67, -1.0)
     """
     if not comment:
-        return "ok"
+        return "ok", 0.0
     
     # Normalizuj komentarz (małe litery)
     normalized = comment.lower()
     
-    # Sprawdź najpierw OK (najwyższy priorytet)
-    if category in COMMENT_OK:
-        for phrase in COMMENT_OK[category]:
-            if phrase in normalized:
-                return "ok"
+    # Sprawdź SATISFIED najpierw
+    for phrase in SATISFIED_KEYWORDS:
+        if phrase in normalized:
+            return "ok", 0.0
     
-    # Sprawdź ZMNIEJSZ
-    if category in COMMENT_DECREASE:
-        for phrase in COMMENT_DECREASE[category]:
-            if phrase in normalized:
-                return "decrease"
+    # Mapowanie kategorii na słowniki
+    if category == "wings":
+        increase_dict = WINGS_INCREASE
+        decrease_dict = WINGS_DECREASE
+    elif category == "engine":
+        increase_dict = ENGINE_INCREASE
+        decrease_dict = ENGINE_DECREASE
+    elif category == "brakes":
+        increase_dict = BRAKES_INCREASE
+        decrease_dict = BRAKES_DECREASE
+    elif category == "gear":
+        increase_dict = GEAR_INCREASE
+        decrease_dict = GEAR_DECREASE
+    elif category == "suspension":
+        increase_dict = SUSPENSION_INCREASE
+        decrease_dict = SUSPENSION_DECREASE
+    else:
+        return "ok", 0.0
     
-    # Sprawdź ZWIĘKSZ
-    if category in COMMENT_INCREASE:
-        for phrase in COMMENT_INCREASE[category]:
+    # Sprawdź INCREASE (szukaj najwyższego poziomu)
+    for phrase, weight in sorted(increase_dict.items(), key=lambda x: -x[1]):
+        if isinstance(phrase, tuple):
+            # Dla tuple wszystkie frazy muszą być obecne
+            if all(p in normalized for p in phrase):
+                return "increase", weight
+        else:
             if phrase in normalized:
-                return "increase"
+                return "increase", weight
+    
+    # Sprawdź DECREASE (szukaj najniższego poziomu)
+    for phrase, weight in sorted(decrease_dict.items(), key=lambda x: x[1]):
+        if isinstance(phrase, tuple):
+            if all(p in normalized for p in phrase):
+                return "decrease", weight
+        else:
+            if phrase in normalized:
+                return "decrease", weight
     
     # Brak dopasowania = OK
-    return "ok"
+    return "ok", 0.0
 
 
 def interpret_driver_comment_binary(comment):
@@ -188,10 +230,8 @@ def interpret_driver_comment_binary(comment):
     normalized = comment.lower()
     
     # Wyciągnij sekcje komentarza (Wings:, Engine:, itp.)
-    # Komentarz może zawierać wiele sekcji oddzielonych np. "Wings: ... Engine: ..."
     sections = {}
     
-    # Podziel na sekcje
     parts = normalized.split("wings:")
     if len(parts) > 1:
         sections["wings"] = "wings:" + parts[1].split("engine:")[0].split("brakes:")[0].split("gear:")[0].split("suspension:")[0]
@@ -226,37 +266,40 @@ def interpret_driver_comment_binary(comment):
     result = {}
     for category in ["wings", "engine", "brakes", "gear", "suspension"]:
         section_text = sections.get(category, normalized)
-        result[category] = get_comment_direction(section_text, category)
+        direction, _ = get_comment_weight(section_text, category)
+        result[category] = direction
     
     return result
 
 
-def calculate_binary_step(session_number):
+def calculate_binary_step(lap_index):
     """
-    Oblicza krok binarny dla danej sesji.
+    Oblicza krok binarny dla danego indeksu sesji (logika Inget).
     
-    Sesja 1 (P1): krok = 256
-    Sesja 2 (P2): krok = 128
-    Sesja 3 (P3): krok = 64
-    Sesja 4 (P4): krok = 32
-    Sesja 5 (P5): krok = 16
-    Sesja 6 (P6): krok = 8
+    Formula: step = 256 / (2 ** lap_index), zaokrąglone do najbliższej liczby całkowitej
+    
+    lap_index 0 (P1): step = 256
+    lap_index 1 (P2): step = 128
+    lap_index 2 (P3): step = 64
+    lap_index 3 (P4): step = 32
+    lap_index 4 (P5): step = 16
+    lap_index 5 (P6): step = 8
+    lap_index 6 (P7): step = 4
+    lap_index 7 (P8): step = 2
     """
-    if session_number <= 0:
-        return 256
-    
-    step = 256 // (2 ** (session_number - 1))
-    return max(1, step)  # Minimum 1
+    step = 256 / (2 ** lap_index)
+    return round(step)
 
 
-def apply_binary_correction(setup, directions, step):
+def apply_binary_correction(setup, directions, step, comment=""):
     """
-    Stosuje binarną korektę setupu na podstawie kierunków z komentarza.
+    Stosuje binarną korektę setupu na podstawie kierunków z komentarza (logika Inget).
     
     Args:
         setup: Aktualny setup (słownik z fw, rw, eng, bra, gear, susp)
         directions: Słownik z kierunkami (wings, engine, brakes, gear, suspension)
         step: Aktualny krok binarny (np. 256, 128, 64...)
+        comment: Oryginalny komentarz kierowcy (do wyciągnięcia wag)
     
     Returns:
         Skorygowany setup
@@ -265,40 +308,39 @@ def apply_binary_correction(setup, directions, step):
     
     # WINGS: FW + RW razem (komentarz dotyczy sumy)
     wings_dir = directions.get("wings", "ok")
-    if wings_dir == "increase":
-        adjusted["fw"] = min(999, adjusted["fw"] + step)
-        adjusted["rw"] = min(999, adjusted["rw"] + step)
-    elif wings_dir == "decrease":
-        adjusted["fw"] = max(0, adjusted["fw"] - step)
-        adjusted["rw"] = max(0, adjusted["rw"] - step)
+    if wings_dir != "ok" and comment:
+        _, weight = get_comment_weight(comment, "wings")
+        adjustment = round(step * weight)
+        adjusted["fw"] = min(999, max(0, adjusted["fw"] + adjustment))
+        adjusted["rw"] = min(999, max(0, adjusted["rw"] + adjustment))
     
     # ENGINE
     eng_dir = directions.get("engine", "ok")
-    if eng_dir == "increase":
-        adjusted["eng"] = min(999, adjusted["eng"] + step)
-    elif eng_dir == "decrease":
-        adjusted["eng"] = max(0, adjusted["eng"] - step)
+    if eng_dir != "ok" and comment:
+        _, weight = get_comment_weight(comment, "engine")
+        adjustment = round(step * weight)
+        adjusted["eng"] = min(999, max(0, adjusted["eng"] + adjustment))
     
     # BRAKES
     bra_dir = directions.get("brakes", "ok")
-    if bra_dir == "increase":
-        adjusted["bra"] = min(999, adjusted["bra"] + step)
-    elif bra_dir == "decrease":
-        adjusted["bra"] = max(0, adjusted["bra"] - step)
+    if bra_dir != "ok" and comment:
+        _, weight = get_comment_weight(comment, "brakes")
+        adjustment = round(step * weight)
+        adjusted["bra"] = min(999, max(0, adjusted["bra"] + adjustment))
     
     # GEAR
     gear_dir = directions.get("gear", "ok")
-    if gear_dir == "increase":
-        adjusted["gear"] = min(999, adjusted["gear"] + step)
-    elif gear_dir == "decrease":
-        adjusted["gear"] = max(0, adjusted["gear"] - step)
+    if gear_dir != "ok" and comment:
+        _, weight = get_comment_weight(comment, "gear")
+        adjustment = round(step * weight)
+        adjusted["gear"] = min(999, max(0, adjusted["gear"] + adjustment))
     
     # SUSPENSION
     susp_dir = directions.get("suspension", "ok")
-    if susp_dir == "increase":
-        adjusted["susp"] = min(999, adjusted["susp"] + step)
-    elif susp_dir == "decrease":
-        adjusted["susp"] = max(0, adjusted["susp"] - step)
+    if susp_dir != "ok" and comment:
+        _, weight = get_comment_weight(comment, "suspension")
+        adjustment = round(step * weight)
+        adjusted["susp"] = min(999, max(0, adjusted["susp"] + adjustment))
     
     return adjusted
 
@@ -326,7 +368,7 @@ def adjust_for_driver_comment(base_setup, comment, confidence="medium"):
     
     step = calculate_binary_step(session_number)
     
-    return apply_binary_correction(base_setup, directions, step)
+    return apply_binary_correction(base_setup, directions, step, comment)
 
 
 # ============================================================
@@ -499,8 +541,11 @@ def get_downforce_level(track_data):
     if not downforce_raw:
         return None
     
+    # Dekoduj encje HTML (np. &#346;redni -> Średni)
+    downforce_decoded = html.unescape(downforce_raw)
+    
     # Normalizuj do małych liter i szukaj w mapowaniu
-    downforce_lower = downforce_raw.lower().strip()
+    downforce_lower = downforce_decoded.lower().strip()
     return DOWNFORCE_MAP.get(downforce_lower)
 
 
@@ -514,11 +559,13 @@ def get_starting_point(track_data):
     
     if downforce and downforce in DOWNFORCE_START:
         base_value = DOWNFORCE_START[downforce]
-        print(f"   [DOWNFORCE] Poziom: {downforce}, punkt startowy: {base_value}")
+        # Log wymagany przez weryfikację: "Base setup from downforce: [Low/Medium/High] → [256/512/768]"
+        downforce_display = downforce.capitalize() if downforce else "Medium"
+        print(f"   Base setup from downforce: {downforce_display} → {base_value}")
     else:
         # Fallback: medium
         base_value = DOWNFORCE_START["medium"]
-        print(f"   [DOWNFORCE] Brak danych, używam medium: {base_value}")
+        print(f"   Base setup from downforce: Medium → {base_value} (fallback)")
     
     return {
         "fw": base_value,
@@ -1319,35 +1366,122 @@ def generate_prediction():
     print(f"   Confidence: {base['confidence']}")
 
     # 4. Skoryguj o temperaturę dla Q1, Q2 i Race
-    # Mini-lekcja: Predykcja pogody - używamy temperatury z bazowego wyścigu
-    # jako punktu odniesienia. W prawdziwej implementacji można pobrać
-    # prognozę pogody z API lub kalendarza.
+    # Mini-lekcja: Pobieramy temperatury z API (Weather) lub current_context
+    # P1 temp = baza, korekta dla Q1/Q2/Race względem P1
+    
+    # Najpierw załaduj dane aktywnego wyścigu (dla temperatur z API)
+    active_data = load_active_race_data(season, race_num)
+    completed_setups = []
+    if active_data:
+        completed_setups = active_data.get("race_data", {}).get("setups", [])
 
-    # Dla demo: zakładamy temperatury
-    q1_temp = base["temp"] + 2  # +2°C od bazowej
-    q2_temp = base["temp"] + 6  # +6°C od bazowej
-    race_temp = base["temp"] + 7  # +7°C od bazowej
+    # ============================================================
+    # ODCZYT DANYCH Z API (przed obliczeniami setupu)
+    # ============================================================
+    print("\n[API DATA] Odczyt danych z API...")
+
+    # --- TrackProfile data ---
+    race_data = active_data.get("race_data", {}) if active_data else {}
+    track_profile = race_data.get("track_profile", {})
+
+    # Track characteristics
+    track_downforce = track_profile.get("downforce", "Medium")
+    track_grip = track_profile.get("grip", "Medium")
+
+    # Weather data (temperatures and dry flags)
+    weather_data = race_data.get("weather", {})
+    q1_temp = weather_data.get("q1", {}).get("temp", 20.0)
+    q2_temp = weather_data.get("q2", {}).get("temp", 20.0)
+    race_temp = weather_data.get("race", {}).get("temp", 20.0)
+
+    # Dry flags (True if condition is "dry", False otherwise)
+    q1_condition = weather_data.get("q1", {}).get("condition", "dry")
+    q2_condition = weather_data.get("q2", {}).get("condition", "dry")
+    race_condition = weather_data.get("race", {}).get("condition", "dry")
+    q1_dry = q1_condition.lower() == "dry"
+    q2_dry = q2_condition.lower() == "dry"
+    race_dry = race_condition.lower() == "dry"
+
+    print(f"   [TrackProfile] downforce={track_downforce}, grip={track_grip}")
+    print(f"   [TrackProfile] temps: Q1={q1_temp}°C, Q2={q2_temp}°C, Race={race_temp}°C")
+    print(f"   [TrackProfile] dry flags: Q1={q1_dry}, Q2={q2_dry}, Race={race_dry}")
+
+    # --- DriProfile data (driver attributes) ---
+    driver_data = race_data.get("driver", {})
+
+    drv_concentration = int(driver_data.get("concentration", 0))
+    drv_talent = int(driver_data.get("talent", 0))
+    drv_experience = int(driver_data.get("experience", 0))
+    drv_tech_insight = int(driver_data.get("technical_insight", 0))
+    drv_stamina = int(driver_data.get("stamina", 0))
+    drv_motivation = int(driver_data.get("motivation", 0))
+
+    print(f"   [DriProfile] concentration={drv_concentration}, talent={drv_talent}, experience={drv_experience}")
+    print(f"   [DriProfile] tech_insight={drv_tech_insight}, stamina={drv_stamina}, motivation={drv_motivation}")
+
+    # --- UpdateCar / car_parts data ---
+    car_data = race_data.get("car", {})
+    car_parts = car_data.get("parts", {})
+
+    part_chassis = int(car_parts.get("chassis", 0))
+    part_engine = int(car_parts.get("engine", 0))
+    part_front_wing = int(car_parts.get("front_wing", 0))
+    part_rear_wing = int(car_parts.get("rear_wing", 0))
+    part_underbody = int(car_parts.get("underbody", 0))
+    part_gearbox = int(car_parts.get("gearbox", 0))
+    part_brakes = int(car_parts.get("brakes", 0))
+    part_suspension = int(car_parts.get("suspension", 0))
+    part_electronics = int(car_parts.get("electronics", 0))
+
+    print(f"   [CarParts] chassis={part_chassis}, engine={part_engine}, front_wing={part_front_wing}")
+    print(f"   [CarParts] rear_wing={part_rear_wing}, underbody={part_underbody}, gearbox={part_gearbox}")
+    print(f"   [CarParts] brakes={part_brakes}, suspension={part_suspension}, electronics={part_electronics}")
+
+    # ============================================================
+    # KONIEC ODCZYTU DANYCH Z API
+    # ============================================================
+
+    # Pobierz temperatury z danych wyścigu (jeśli dostępne)
+    weather_temps = {}
+    if active_data:
+        weather = active_data.get("race_data", {}).get("weather", {})
+        # Pobierz temperatury z API
+        weather_temps["p1"] = weather.get("practice", {}).get("temp")
+        weather_temps["q1"] = weather.get("q1", {}).get("temp")
+        weather_temps["q2"] = weather.get("q2", {}).get("temp")
+        weather_temps["race"] = weather.get("race", {}).get("temp")
+    
+    # Fallback: użyj temperatur z current_context lub załóż standardowe
+    p1_temp = weather_temps.get("p1") or base["temp"]
+    # Używamy wartości z API (już odczytane wyżej), z fallbackiem do obliczeń
+    q1_temp = weather_temps.get("q1") or q1_temp or (p1_temp + 2)
+    q2_temp = weather_temps.get("q2") or q2_temp or (p1_temp + 6)
+    race_temp = weather_temps.get("race") or race_temp or (p1_temp + 7)
 
     print(f"\n4. Korekta setupu dla temperatur...")
+    print(f"   P1 (base): {p1_temp}°C")
     print(f"   Q1: {q1_temp}°C")
     print(f"   Q2: {q2_temp}°C")
     print(f"   Race: {race_temp}°C")
 
-    setup_q1 = adjust_for_temperature(base["setup"], base["temp"], q1_temp)
-    setup_q2 = adjust_for_temperature(base["setup"], base["temp"], q2_temp)
-    setup_race = adjust_for_temperature(base["setup"], base["temp"], race_temp)
+    setup_q1 = adjust_for_temperature(base["setup"], p1_temp, q1_temp)
+    setup_q2 = adjust_for_temperature(base["setup"], p1_temp, q2_temp)
+    setup_race = adjust_for_temperature(base["setup"], p1_temp, race_temp)
     
-    # Logowanie korekty temperatury (dla weryfikacji)
-    delta_q1 = q1_temp - base["temp"]
-    delta_q2 = q2_temp - base["temp"]
-    delta_race = race_temp - base["temp"]
-    print(f"   [TEMP] Base: {base['temp']}°C → Q1: {q1_temp}°C (Δ={delta_q1}) → FW={setup_q1['fw']}")
-    print(f"   [TEMP] Base: {base['temp']}°C → Q2: {q2_temp}°C (Δ={delta_q2}) → FW={setup_q2['fw']}")
-    print(f"   [TEMP] Base: {base['temp']}°C → Race: {race_temp}°C (Δ={delta_race}) → FW={setup_race['fw']}")
+    # Logowanie korekty temperatury (wymagane przez weryfikację)
+    delta_q1 = q1_temp - p1_temp
+    delta_q2 = q2_temp - p1_temp
+    delta_race = race_temp - p1_temp
+    fw_adj_q1 = round(delta_q1 * TEMP_COEFFICIENTS["fw"])
+    fw_adj_q2 = round(delta_q2 * TEMP_COEFFICIENTS["fw"])
+    fw_adj_race = round(delta_race * TEMP_COEFFICIENTS["fw"])
+    print(f"   Temperature delta P1 vs Q1: {delta_q1}°C → FW adj: {fw_adj_q1:+d}")
+    print(f"   Temperature delta P1 vs Q2: {delta_q2}°C → FW adj: {fw_adj_q2:+d}")
+    print(f"   Temperature delta P1 vs Race: {delta_race}°C → FW adj: {fw_adj_race:+d}")
 
-    # Setup for Practice (same as base, with small temp adjustment)
-    practice_temp = base["temp"] + 1
-    setup_practice = adjust_for_temperature(base["setup"], base["temp"], practice_temp)
+    # Setup for Practice (base z temperaturą P1)
+    practice_temp = p1_temp
+    setup_practice = base["setup"].copy()
     setup_practice["temp"] = practice_temp
 
     # 5. Oblicz wstępną strategię paliwową
@@ -1398,10 +1532,8 @@ def generate_prediction():
 
     # 8. Analiza obecnej progresji wyścigu
     print(f"\n8. Analiza obecnej progresji wyścigu...")
-    active_data = load_active_race_data(season, race_num)
-    completed_setups = []
+    # active_data już załadowane wcześniej (dla temperatur)
     if active_data:
-        completed_setups = active_data.get("race_data", {}).get("setups", [])
         print(f"   Znaleziono {len(completed_setups)} ukończonych sesji setupu.")
 
     # 9. Wybór opon (NOWA LOGIKA: takie same dla wszystkich sesji)
@@ -1460,7 +1592,7 @@ def generate_prediction():
 
     # Znajdź następny krok
     next_step_name = find_next_step(completed_sessions, SESSION_ORDER)
-    print(f"   Następny krok: {next_step_name}")
+    print(f"   Next session: {next_step_name}")
 
     # Inicjalizuj bazowy setup dla progression
     progression_setup = setup_practice.copy()
@@ -1560,6 +1692,17 @@ def generate_prediction():
 
         # Aktualizuj progression_setup na podstawie komentarza z tej sesji (dla następnego kroku)
         if is_completed and step_data["feedback"]:
+            # Log wymagany przez weryfikację: "Practice N feedback: [comment] → FW: +/- Z"
+            lap_index = int(step_key[1]) - 1 if step_key.startswith("P") and len(step_key) == 2 else 0
+            step_size = calculate_binary_step(lap_index)
+            directions = interpret_driver_comment_binary(step_data["feedback"])
+            
+            # Oblicz korektę dla wings
+            _, wings_weight = get_comment_weight(step_data["feedback"], "wings")
+            wings_adjustment = round(step_size * wings_weight) if wings_weight != 0 else 0
+            
+            print(f"   Practice {step_key[1] if step_key.startswith('P') else step_key} feedback: {step_data['feedback'][:50]}... → FW: {wings_adjustment:+d}")
+            
             progression_setup = adjust_for_driver_comment(
                 step_data["setup"] if step_data["setup"] else progression_setup,
                 step_data["feedback"],
