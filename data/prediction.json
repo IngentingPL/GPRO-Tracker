@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-07-10T20:47:12.809088Z",
+  "generated_at": "2026-07-14T20:36:23.653815Z",
   "next_race": {
-    "track": "Montreal GP (Kanada)",
+    "track": "Spa GP (Belgia)",
     "season": 111,
-    "race": 10,
+    "race": 11,
     "total_laps": 72,
-    "track_id": "6"
+    "track_id": "10"
   },
   "confidence": "low",
   "confidence_reason": "Fallback: punkt startowy z danych toru (downforce)",
@@ -15,7 +15,7 @@
     "note": "Setup ±57 od optimum da satisfied (MA=115, TI=48, EXP=49)"
   },
   "base": {
-    "track": "Montreal GP (Kanada)",
+    "track": "Spa GP (Belgia)",
     "setup": {
       "fw": 512,
       "rw": 512,
@@ -183,34 +183,34 @@
       "fuel_strategy": {
         "pits": 2,
         "stints": [
-          101,
-          101,
-          101
+          100,
+          100,
+          100
         ],
-        "total_fuel": 303
+        "total_fuel": 301
       }
     }
   ],
   "fuel_strategy": {
-    "fuel_per_lap": 4.21,
+    "fuel_per_lap": 4.19,
     "recommended": {
       "pits": 2,
       "stints": [
-        101,
-        101,
-        101
+        100,
+        100,
+        100
       ],
-      "total_fuel": 303
+      "total_fuel": 301
     },
     "alternative": {
       "pits": 3,
       "stints": [
-        101,
-        101,
-        101,
-        101
+        100,
+        100,
+        100,
+        100
       ],
-      "total_fuel": 404
+      "total_fuel": 400
     }
   },
   "tyre_strategy": {
@@ -225,7 +225,7 @@
     "est_tyre_life_laps": 25
   },
   "notes": [
-    "Predykcja oparta na 29 wyścigach w historii.",
+    "Predykcja oparta na 30 wyścigach w historii.",
     "Pewność: low - Fallback: punkt startowy z danych toru (downforce)",
     "Kierowca: Noel Lavin (TI=48, EXP=49)",
     "Margines kierowcy: ±57 od optimum.",
