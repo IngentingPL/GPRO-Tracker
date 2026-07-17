@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-07-14T20:36:23.653815Z",
+  "generated_at": "2026-07-17T20:25:21.296760Z",
   "next_race": {
-    "track": "Spa GP (Belgia)",
+    "track": "Kaunas GP (Litwa)",
     "season": 111,
-    "race": 11,
+    "race": 12,
     "total_laps": 72,
-    "track_id": "10"
+    "track_id": "50"
   },
   "confidence": "low",
   "confidence_reason": "Fallback: punkt startowy z danych toru (downforce)",
@@ -15,7 +15,7 @@
     "note": "Setup ±57 od optimum da satisfied (MA=115, TI=48, EXP=49)"
   },
   "base": {
-    "track": "Spa GP (Belgia)",
+    "track": "Kaunas GP (Litwa)",
     "setup": {
       "fw": 512,
       "rw": 512,
@@ -181,54 +181,57 @@
       "note": "Setup na wyścig (korekta temperatury)",
       "session_key": "RACE",
       "fuel_strategy": {
-        "pits": 2,
+        "pits": 3,
         "stints": [
-          100,
-          100,
-          100
+          74,
+          74,
+          74,
+          74
         ],
-        "total_fuel": 301
+        "total_fuel": 298
       }
     }
   ],
   "fuel_strategy": {
-    "fuel_per_lap": 4.19,
+    "fuel_per_lap": 4.14,
     "recommended": {
-      "pits": 2,
-      "stints": [
-        100,
-        100,
-        100
-      ],
-      "total_fuel": 301
-    },
-    "alternative": {
       "pits": 3,
       "stints": [
-        100,
-        100,
-        100,
-        100
+        74,
+        74,
+        74,
+        74
       ],
-      "total_fuel": 400
+      "total_fuel": 298
+    },
+    "alternative": {
+      "pits": 4,
+      "stints": [
+        74,
+        74,
+        74,
+        74,
+        74
+      ],
+      "total_fuel": 370
     }
   },
   "tyre_strategy": {
-    "est_tyre_life_laps": 25,
-    "laps_on_fuel": 42,
+    "est_tyre_life_laps": 20,
+    "laps_on_fuel": 43,
     "bottleneck": "tyres",
-    "bottleneck_explanation": "Opony na ~25 okr, paliwo na ~42 okr → pit stopy wynikają z opon"
+    "bottleneck_explanation": "Opony na ~20 okr, paliwo na ~43 okr → pit stopy wynikają z opon"
   },
   "tyre_info": {
     "supplier": "Pipirelli",
     "bottleneck": "tyres",
-    "est_tyre_life_laps": 25
+    "est_tyre_life_laps": 20
   },
   "notes": [
-    "Predykcja oparta na 30 wyścigach w historii.",
+    "Predykcja oparta na 31 wyścigach w historii.",
     "Pewność: low - Fallback: punkt startowy z danych toru (downforce)",
     "Kierowca: Noel Lavin (TI=48, EXP=49)",
     "Margines kierowcy: ±57 od optimum.",
-    "Opony: ~25 okr, paliwo: ~42 okr"
+    "Opony: ~20 okr, paliwo: ~43 okr"
   ]
 }
