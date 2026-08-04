@@ -1,17 +1,17 @@
 {
   "season": 111,
-  "race": 16,
-  "track": "Yas Marina GP (ZEA)",
-  "track_id": "40",
+  "race": 17,
+  "track": "Baku City GP (Azerbejd&#380;an)",
+  "track_id": "58",
   "total_laps": 72,
   "is_current": false,
   "phase": "upcoming",
   "latest_completed": {
     "season": "111",
-    "race": "15",
-    "track": "New Delhi (Indie)"
+    "race": "16",
+    "track": "Yas Marina (ZEA)"
   },
   "office_season": 111,
   "office_race": 1,
-  "fetched_at": "2026-07-31T20:38:45.641597Z"
+  "fetched_at": "2026-08-04T20:49:11.928432Z"
 }
